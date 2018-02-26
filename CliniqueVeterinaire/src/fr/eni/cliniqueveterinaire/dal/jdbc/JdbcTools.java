@@ -29,7 +29,6 @@ public class JdbcTools {
 	
 	
 	public static Connection getConnection() throws SQLException{
-		//Connection connection = DriverManager.getConnection(urldb);
 		Connection connection = DriverManager.getConnection(urldb, userdb, passworddb);
 		
 		return connection;
