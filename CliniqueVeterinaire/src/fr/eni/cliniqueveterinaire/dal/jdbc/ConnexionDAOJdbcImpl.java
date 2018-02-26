@@ -15,25 +15,6 @@ public class ConnexionDAOJdbcImpl {
 	public ConnexionDAOJdbcImpl(){
 		
 	}
-	public Connection getConnection() throws SQLException {
-		if (connection == null) {
-			String urldb = "jdbc:sqlserver://127.0.0.1:1433;databaseName=Clinique_veto";
-			connection = DriverManager.getConnection(urldb, "sa", "Pa$$w0rd");
-		}
-
-		return connection;
-	}
-	
-	public void closeConnection(){
-		if(connection!=null){
-			try {
-				connection.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			connection=null;
-		}
-	}
 	
 	public boolean checkConnexion(Personnels personnel){
 		Connection cnx = null;
@@ -42,7 +23,7 @@ public class ConnexionDAOJdbcImpl {
 		boolean bRes = false;
 		
 		try{
-			cnx = getConnection();
+			cnx = JdbcTools.getConnection();
 			rqt = cnx.prepareStatement(rqtCheckConnec);
 			rqt.setString(1, personnel.getNom());
 			rqt.setString(2, personnel.getMotPasse());
