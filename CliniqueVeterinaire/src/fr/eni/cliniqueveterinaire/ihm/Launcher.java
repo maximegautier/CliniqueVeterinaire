@@ -12,8 +12,7 @@ public class Launcher {
 			@Override
 			public void run() {
 					EcranLoginController.getInstance().startApp();
-			}
-			
+			}	
 		});
 		
 	}
