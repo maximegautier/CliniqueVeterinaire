@@ -1,6 +1,6 @@
 package fr.eni.cliniqueveterinaire.ihm;
 
-public class test {
+public class Launcher {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
