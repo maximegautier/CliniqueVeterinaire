@@ -1,7 +1,6 @@
 package fr.eni.cliniqueveterinaire.dal.jdbc;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +16,7 @@ public class ConnexionDAOJdbcImpl {
 		
 	}
 	
-	public boolean checkConnexion(Personnels personnel){
+	public boolean checkConnexion(Personnels personnel) throws DALException{
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
@@ -44,7 +43,12 @@ public class ConnexionDAOJdbcImpl {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			closeConnection();
+			try {
+				cnx.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		return bRes;
