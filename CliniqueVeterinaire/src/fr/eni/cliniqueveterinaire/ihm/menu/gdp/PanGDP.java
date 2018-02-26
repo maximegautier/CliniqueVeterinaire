@@ -33,7 +33,7 @@ public class PanGDP {
 			panelGDP.add(getbAjouter());
 			panelGDP.add(getbSupprimer());
 			panelGDP.add(getbReinitialiser());
-			
+			/*   */
 		}
 		return panelGDP;
 	}
