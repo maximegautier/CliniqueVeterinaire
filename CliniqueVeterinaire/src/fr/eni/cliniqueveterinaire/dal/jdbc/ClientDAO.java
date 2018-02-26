@@ -1,18 +1,18 @@
 package fr.eni.cliniqueveterinaire.dal.jdbc;
 
 
-import fr.eni.cliniqueveterinaire.bo.Client;
+import fr.eni.cliniqueveterinaire.bo.Clients;
 import java.util.List;
 
 public interface ClientDAO {
 	
-	public Client selectById(int id);
+	public Clients selectById(int id);
 	
-	public Client selectByName(String nomClient);
+	public Clients selectByName(String nomClient);
 	
-	public list<Client> selectAll();
+	public list<Clients> selectAll();
 	
-	public void addClient(Client leClient);
+	public void addClient(Clients leClient);
 	
-	public void editClient(Client leClient);
+	public void editClient(Clients leClient);
 }
