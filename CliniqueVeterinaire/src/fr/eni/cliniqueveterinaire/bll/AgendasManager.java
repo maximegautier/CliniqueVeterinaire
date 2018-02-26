@@ -27,14 +27,46 @@ public class AgendasManager
     
     //region METHODS
     
-	public List<Agendas> SelectEntreDates(Date Debut, Date Fin)
+	public List<Agendas> SelectEntreDates(Date Debut, Date Fin) throws BLLException
 	{
-		List<Agendas> tmp = new ArrayList<Agendas>();
-		return tmp;
+		if(Debut == null)
+		{
+			throw new BLLException("(AgendasManager)SelectEntreDates : La date de début ne peut pas être null");
+		}
+		else if(Fin == null)
+		{
+			throw new BLLException("(AgendasManager)SelectEntreDates : La date de fin ne peut pas être null");
+		}
+		else if(Fin.before(Debut))
+		{
+			throw new BLLException("(AgendasManager)SelectEntreDates : La date de fin ne peut pas être inférieur à la date de début");
+		}
+		else
+		{
+			//Logique de select en base via DAO
+			List<Agendas> tmp = new ArrayList<Agendas>();
+			return tmp;			
+		}
 	}
 	
-	public int Ajouter(Agendas aAjouter)
+	public int Ajouter(Agendas aAjouter) throws Exception
 	{
+		if(aAjouter == null)
+		{
+			throw new Exception("(AgendasManager)Ajouter : Le rendez vous à ajouter ne peut pas etre null");
+		}
+		else if(isNegativeInt(aAjouter.getCodeAnimal()))
+		{
+			throw new Exception("(AgendasManager)Ajouter : Le code de l'animal à consulter ne peut pas etre null");
+		}
+		else if(isNegativeInt(aAjouter.getCodeVeto()))
+		{
+			throw new Exception("(AgendasManager)Ajouter : Le code du vétérinaire en charge ne peut pas etre null");
+		}
+		else if(aAjouter.getDateRdv() == null)
+		{
+			throw new Exception("(AgendasManager)Ajouter : La date de rendez vous ne peut pas etre null");
+		}
 		return 0;
 	}
 	
@@ -42,6 +74,26 @@ public class AgendasManager
 	{
 		return false;
 	}
+	
+	//************
+	//UTILITAIRES
+	//************	
+	
+    private boolean isEmptyOrNull(String toTest)
+    {
+        if(toTest != null && !toTest.trim().isEmpty())
+            return false;
+        else
+            return true;
+    }
+
+    private boolean isNegativeInt(int toCheck)
+    {
+        if(toCheck >= 0)
+            return false;
+        else
+            return true;
+    }
     
     //endregion METHODS
 

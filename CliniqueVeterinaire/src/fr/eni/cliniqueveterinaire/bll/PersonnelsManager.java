@@ -30,9 +30,30 @@ public class PersonnelsManager
 		return false;
 	}
 	
-	public int Ajouter(Personnels aAjouter)
+	public int Ajouter(Personnels aAjouter) throws BLLException
 	{
-		return 0;
+		if(aAjouter == null)
+		{
+			throw new BLLException("(PersonnelsManager)Ajouter : On ne peut pas ajouter un personnel null.");
+		}
+		else if(aAjouter.getMotPasse() == null)
+		{
+			throw new BLLException("(PersonnelsManager)Ajouter : On ne peut pas ajouter un personnel avec un mot de passe null.");
+		}
+		else if(aAjouter.getRole() == null)
+		{
+			throw new BLLException("(PersonnelsManager)Ajouter : On ne peut pas ajouter un personnel avec un role null.");
+		}
+		else if(aAjouter.getNom() == null)
+		{
+			throw new BLLException("(PersonnelsManager)Ajouter : On ne peut pas ajouter un personnel avec un nom null.");
+		}
+		else
+		{
+			//Logique d'ajout à la base via DAO
+			return 0;			
+		}
+
 	}
 	
 	public List<Personnels> SelectTous()
@@ -41,15 +62,55 @@ public class PersonnelsManager
 		return tmp;
 	}
 	
-	public boolean ModifierMDP(int CodePers, String MotPasse)
+	public boolean ModifierMDP(int CodePers, String MotPasse) throws BLLException
 	{
-		return false;
+		if(isNegativeInt(CodePers))
+		{
+			throw new BLLException("(PersonnelsManager)Modifier : Le code personnel ne peut pas être null.");
+		}
+		else if(isEmptyOrNull(MotPasse))
+		{
+			throw new BLLException("(PersonnelsManager)Modifier : Le nouveau mot de passe ne peut pas être null.");
+		}
+		else
+		{
+			//Logique de modification en base via DAO
+			return false;
+		}
 	}
 	
-	public boolean Supprimer(int CodePers)
+	public boolean Supprimer(int CodePers) throws BLLException
 	{
-		return false;
+		if(isNegativeInt(CodePers))
+		{
+			throw new BLLException("(PersonnelsManager)Supprimer : Le code personnel ne peut pas être null");
+		}
+		else
+		{
+			//Logique de suppression en base (Archive = 1) via DAO
+			return false;			
+		}
 	}
+	
+	//************
+	//UTILITAIRES
+	//************	
+	
+    private boolean isEmptyOrNull(String toTest)
+    {
+        if(toTest != null && !toTest.trim().isEmpty())
+            return false;
+        else
+            return true;
+    }
+
+    private boolean isNegativeInt(int toCheck)
+    {
+        if(toCheck >= 0)
+            return false;
+        else
+            return true;
+    }
     
     //endregion METHODS
 
