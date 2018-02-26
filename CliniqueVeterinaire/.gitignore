@@ -14,6 +14,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+.properties
 
 # External tool builders
 .externalToolBuilders/
@@ -56,6 +57,7 @@ local.properties
 ### Eclipse Patch ###
 # Eclipse Core		
 .project
+.properties
 
 # JDT-specific (Eclipse Java Development Tools)		
 .classpath
