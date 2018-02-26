@@ -1,5 +1,5 @@
 package fr.eni.cliniqueveterinaire.dal.jdbc;
-
+import java.util.List;
 
 import fr.eni.cliniqueveterinaire.bo.Clients;
 import java.util.List;
@@ -10,7 +10,7 @@ public interface ClientDAO {
 	
 	public Clients selectByName(String nomClient);
 	
-	public list<Clients> selectAll();
+	public List<Clients> selectAll();
 	
 	public void addClient(Clients leClient);
 	
