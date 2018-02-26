@@ -44,7 +44,7 @@ public class ConnexionDAOJdbcImpl {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			closeConnection();
+			cnx.close();
 		}
 		
 		return bRes;
