@@ -4,6 +4,7 @@ import fr.eni.cliniqueveterinaire.dal.jdbc.*;
 
 public class DAOFactory {
 	public static ClientDAO getArticleDAO(){
-        return new ClientDAOJdbcImpl();
+		return null;
+       // return new ClientDAOJdbcImpl();
     }
 }
