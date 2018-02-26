@@ -57,6 +57,7 @@ local.properties
 ### Eclipse Patch ###
 # Eclipse Core		
 .project
+.properties
 
 # JDT-specific (Eclipse Java Development Tools)		
 .classpath
