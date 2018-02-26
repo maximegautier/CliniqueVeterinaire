@@ -22,6 +22,13 @@ public class Personnels
 		this.Role = role;
 		this.Archive = archive;
 	}
+	public Personnels(String nom, String motPasse, String role, boolean archive) 
+	{
+		this.Nom = nom;
+		this.MotPasse = motPasse;
+		this.Role = role;
+		this.Archive = archive;
+	}
 
     //endregion CTOR
 	

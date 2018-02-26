@@ -47,6 +47,30 @@ public class Clients
 		this.Archive = archive;
 	}
 	
+	public Clients(String nomClient, String prenomClient, String adresse1, String adresse2,
+			String codePostal, String ville, String numTel, String assurance, String email, String remarque,
+			boolean archive) 
+	{
+		this.NomClient = nomClient;
+		this.PrenomClient = prenomClient;
+		this.Adresse1 = adresse1;
+		this.Adresse2 = adresse2;
+		this.CodePostal = codePostal;
+		this.Ville = ville;
+		this.NumTel = numTel;
+		this.Assurance = assurance;
+		this.Email = email;
+		this.Remarque = remarque;
+		this.Archive = archive;
+	}		
+	
+	public Clients(String nomClient, String prenomClient, boolean archive)
+	{
+		this.NomClient = nomClient;
+		this.PrenomClient = prenomClient;
+		this.Archive = archive;
+	}
+	
 	//endregion CTOR
 	
     //region METHODS
