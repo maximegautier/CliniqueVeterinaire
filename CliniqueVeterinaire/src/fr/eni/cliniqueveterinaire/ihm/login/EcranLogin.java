@@ -15,21 +15,30 @@ import javax.swing.JTextField;
 
 public class EcranLogin extends JFrame{
 	
+	private static EcranLogin instance;
+	
 	public JPanel panelConnexion;
 	public GridBagConstraints gbcConnexion;
 	public JTextField tfLogin; 
 	public JPasswordField tfPassword;
 	public JButton bValider;
 	public JLabel lError;
+	
+	public static EcranLogin getInstance(){
+		if (EcranLogin.instance == null){
+			EcranLogin.instance = new EcranLogin();
+		}
+		return instance;
+	}
 
-	public EcranLogin() {
+	private EcranLogin() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setLocationRelativeTo(null);
 		setSize(300, 180);
 		setResizable(false);
 		setTitle("Connexion");
 		setContentPane(Connexion());
 		setVisible(true);
+		setLocationRelativeTo(null);
 	}
 	
 	private JPanel Connexion(){
@@ -96,12 +105,10 @@ public class EcranLogin extends JFrame{
 		if (bValider == null) {
 			bValider = new JButton("Valider");
 			bValider.addActionListener(new ActionListener(){
-
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					EcranLoginController.getInstance().Connexion();
 				}
-
 			});
 		}
 		return bValider;

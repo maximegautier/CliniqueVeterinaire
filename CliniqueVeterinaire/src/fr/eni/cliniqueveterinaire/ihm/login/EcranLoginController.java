@@ -5,8 +5,8 @@ import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
 public class EcranLoginController {
 	
 	private static EcranLoginController instance;
-	EcranLogin fenLogin;
-	EcranMenu fenMenu;
+	private EcranLogin fenLogin;
+	private EcranMenu fenMenu;
 
 	private EcranLoginController(){
 		
@@ -20,17 +20,21 @@ public class EcranLoginController {
 	}
 	
 	public void startApp(){
-		fenLogin = new EcranLogin();
+		fenLogin = EcranLogin.getInstance();
 		fenLogin.setVisible(true);
 	}
 	
 	public void Connexion(){
 		System.out.println("Login : " + fenLogin.getTxtLogin().getText());
 		System.out.println("Password : " + fenLogin.getTxtPassword().getText());
-		//fenLogin.lError.setVisible(true);
-		fenLogin.dispose();
-		fenMenu = new EcranMenu();
+
+		// Si utilisateur OK, Affichage du menu
+		fenLogin.setVisible(false);
+		fenMenu = EcranMenu.getInstance();
 		fenMenu.setVisible(true);
+		
+		// Sinon
+		//fenLogin.getlError().setVisible(true);
 	}
 	
 }
