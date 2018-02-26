@@ -10,7 +10,7 @@ public interface ClientDAO {
 	
 	public Clients selectByName(String nomClient);
 	
-	public list<Clients> selectAll();
+	public List<Clients> selectAll();
 	
 	public void addClient(Clients leClient);
 	
