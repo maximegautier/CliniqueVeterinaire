@@ -3,6 +3,7 @@ package fr.eni.cliniqueveterinaire.bll;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
 
 public class PersonnelsManager 
@@ -25,9 +26,9 @@ public class PersonnelsManager
     
     //region METHODS
     
-	public boolean Authentification(String Nom, String MotPasse)
+	public Clients Authentification(String Nom, String MotPasse)
 	{
-		return false;
+		return null;
 	}
 	
 	public int Ajouter(Personnels aAjouter) throws BLLException
