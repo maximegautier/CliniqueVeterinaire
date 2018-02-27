@@ -39,7 +39,7 @@ public class ClientsDAOJdbcImpl implements ClientsDAO {
 	}
 
 	@Override
-	public Clients selectById(int id) {
+	public Clients selectById(int id) throws DALException {
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
@@ -68,14 +68,18 @@ public class ClientsDAOJdbcImpl implements ClientsDAO {
 			} catch (SQLException e) {
 				throw new DALException("close failed ", e);
 			}
-			cnx.close();
+			try {
+				cnx.close();
+			} catch (SQLException e) {
+				throw new DALException("Connexion close failed = ", e);
+			}
 		}
 		
 		return leClient;
 	}
 
 	@Override
-	public Clients selectByName(String nomClient) {
+	public Clients selectByName(String nomClient) throws DALException {
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
@@ -91,7 +95,7 @@ public class ClientsDAOJdbcImpl implements ClientsDAO {
 				leClient = new Clients(rs.getString("NomClient"),rs.getString("PrenomClient"),
 						rs.getString("Adresse1"),rs.getString("Adresse2"),rs.getString("CodePostal"),
 						rs.getString("Ville"),rs.getString("NumTel"),rs.getString("Assurance"),
-						rs.getString("Email"),rs.getString("Remarque"),rs.getBinaryStream("Archive"));
+						rs.getString("Email"),rs.getString("Remarque"),rs.getBoolean("Archive"));
 			}
 		}catch(SQLException e){
 			throw new DALException("selectByName failed - Name = " + nomClient, e);
@@ -104,14 +108,18 @@ public class ClientsDAOJdbcImpl implements ClientsDAO {
 			} catch (SQLException e) {
 				throw new DALException("close failed ", e);
 			}
-			cnx.close();
+			try {
+				cnx.close();
+			} catch (SQLException e) {
+				throw new DALException("Connexion close failed = ", e);
+			}
 		}
 			
 		return leClient;
 	}
 
 	@Override
-	public List<Clients> selectAll() {
+	public List<Clients> selectAll() throws DALException {
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
@@ -126,7 +134,7 @@ public class ClientsDAOJdbcImpl implements ClientsDAO {
 				lesClient.add(new Clients(rs.getString("NomClient"),rs.getString("PrenomClient"),
 						rs.getString("Adresse1"),rs.getString("Adresse2"),rs.getString("CodePostal"),
 						rs.getString("Ville"),rs.getString("NumTel"),rs.getString("Assurance"),
-						rs.getString("Email"),rs.getString("Remarque"),rs.getBinaryStream("Archive")))
+						rs.getString("Email"),rs.getString("Remarque"),rs.getBoolean("Archive")));
 			}
 		}catch(SQLException e){
 			throw new DALException("selectAll failed ", e);
@@ -139,7 +147,11 @@ public class ClientsDAOJdbcImpl implements ClientsDAO {
 			} catch (SQLException e) {
 				throw new DALException("close failed ", e);
 			}
-			cnx.close();
+			try {
+				cnx.close();
+			} catch (SQLException e) {
+				throw new DALException("Connexion close failed = ", e);
+			}
 		}
 			
 		return lesClient;
