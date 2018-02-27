@@ -113,9 +113,13 @@ public class AppliTestBLL {
 		
 		// Suppresion Clients
 		
+		
 		// Suppresion Personnels
-		
-		
+		System.out.println("");
+		System.out.println("___________________ Suppresion personnel ___________________");
+		persoManager.Supprimer(perso1);
+		System.out.println("Apres");
+		System.out.println(persoManager.getCatalogue());
 	}
 
 }
