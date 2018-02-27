@@ -34,7 +34,7 @@ public class ClientsDAOJdbcImpl implements ClientsDAO {
 	
 
 	
-	public ClientDAOJdbcImpl(){
+	public ClientsDAOJdbcImpl(){
 		
 	}
 
@@ -55,7 +55,7 @@ public class ClientsDAOJdbcImpl implements ClientsDAO {
 				leClient = new Clients(rs.getString("NomClient"),rs.getString("PrenomClient"),
 						rs.getString("Adresse1"),rs.getString("Adresse2"),rs.getString("CodePostal"),
 						rs.getString("Ville"),rs.getString("NumTel"),rs.getString("Assurance"),
-						rs.getString("Email"),rs.getString("Remarque"),rs.getBinaryStream("Archive"));
+						rs.getString("Email"),rs.getString("Remarque"),rs.getBoolean("Archive"));
 			}
 		}catch(SQLException e){
 			throw new DALException("selectById failed - Id = " + id, e);

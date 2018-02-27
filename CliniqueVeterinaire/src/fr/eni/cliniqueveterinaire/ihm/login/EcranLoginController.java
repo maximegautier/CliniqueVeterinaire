@@ -4,29 +4,35 @@ package fr.eni.cliniqueveterinaire.ihm.login;
 
 import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
 
-public class EcranLoginController {
+public class EcranLoginController
+{
 	
 	private static EcranLoginController instance;
 	private EcranLogin fenLogin;
 	private EcranMenu fenMenu;
 
-	private EcranLoginController(){
+	private EcranLoginController()
+	{
 		
 	}
 	
-	public static EcranLoginController getInstance(){
-		if ( EcranLoginController.instance == null){
+	public static EcranLoginController getInstance()
+	{
+		if ( EcranLoginController.instance == null)
+		{
 			EcranLoginController.instance = new EcranLoginController();
 		}
 		return EcranLoginController.instance;
 	}
 	
-	public void startApp(){
+	public void startApp()
+	{
 		fenLogin = EcranLogin.getInstance();
 		fenLogin.setVisible(true);
 	}
 	
-	public void Connexion(){
+	public void Connexion()
+	{
 		System.out.println("Login : " + fenLogin.getTxtLogin().getText());
 		System.out.println("Password : " + fenLogin.getTxtPassword().getText());
 
@@ -39,6 +45,5 @@ public class EcranLoginController {
 		
 		// Sinon
 		//fenLogin.getlError().setVisible(true);
-	}
-	
+	}	
 }
