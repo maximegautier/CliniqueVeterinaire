@@ -44,7 +44,32 @@ public class Animaux
 		this.Sexe = sexe;
 		this.Espece = espece;
 		this.Archive = archive;
-	}	
+	}
+	
+	public Animaux(int codeClient, String race, String nomAnimal, String sexe, String couleur,
+			String espece, String tatouage, String antecedents, boolean archive) 
+	{
+		this.CodeClient = codeClient;
+		this.Race = race;
+		this.NomAnimal = nomAnimal;
+		this.Sexe = sexe;
+		this.Couleur = couleur;
+		this.Espece = espece;
+		this.Tatouage = tatouage;
+		this.Antecedents = antecedents;
+		this.Archive = archive;
+	}
+	
+	public Animaux(int codeClient, String race, String nomAnimal, String sexe,
+			String espece, boolean archive) 
+	{
+		this.CodeClient = codeClient;
+		this.Race = race;
+		this.NomAnimal = nomAnimal;
+		this.Sexe = sexe;
+		this.Espece = espece;
+		this.Archive = archive;
+	}
 
     //endregion CTOR
 	
