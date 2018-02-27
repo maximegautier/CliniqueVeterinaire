@@ -17,6 +17,7 @@ public class DAOFactory
 		return clientsDAO;
     }
 	
+	/* Crée par Maxime GAUTIER */
 	private static PersonnelsDAO personnelsDAO;
 	public static PersonnelsDAO getPersonnelsDAO()
 	{

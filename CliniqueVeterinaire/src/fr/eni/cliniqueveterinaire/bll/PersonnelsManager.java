@@ -18,7 +18,7 @@ public class PersonnelsManager
     //endregion DECLARATION
 
     //region CTOR
-
+	/* Crée par Maxime GAUTIER */
 	private PersonnelsManager()
 	{
 		personnelsDAO = DAOFactory.getPersonnelsDAO();
@@ -27,7 +27,7 @@ public class PersonnelsManager
     //endregion CTOR
     
     //region METHODS
-    
+	/* Crée par Maxime GAUTIER */
 	public Personnels Authentification(String nom, String motPasse)
 	{
 		Personnels personnel = null;
@@ -39,7 +39,7 @@ public class PersonnelsManager
 		return personnel;
 	}
 
-	
+	/* Crée par Maxime GAUTIER */
 	public int Ajouter(Personnels personnel) throws BLLException
 	{
 		if(personnel == null)
@@ -75,6 +75,7 @@ public class PersonnelsManager
 		}
 	}
 	
+	/* Crée par Maxime GAUTIER */
 	public List<Personnels> getCatalogue() throws DALException
 	{
 		List<Personnels> lPersonnels = null;
@@ -82,6 +83,7 @@ public class PersonnelsManager
 		return lPersonnels;
 	}
 	
+	/* Crée par Maxime GAUTIER */
 	public void ModificationMotPasse(Personnels personnel, String oldMotPasse, String newMotPasse) throws BLLException
 	{
 		if(isEmptyOrNull(newMotPasse))
@@ -114,9 +116,16 @@ public class PersonnelsManager
 		}
 	}
 	
+	/* Crée par Maxime GAUTIER */
 	public boolean Supprimer(Personnels perso) throws BLLException
 	{
 		//Logique de suppression en base (Archive = 1) via DAO
+		try {
+			personnelsDAO.delete(perso);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return false;			
 	}
 	
@@ -124,6 +133,7 @@ public class PersonnelsManager
 	//UTILITAIRES
 	//************	
 	
+	/* Créé par Erwin DUPUIS */
     private boolean isEmptyOrNull(String toTest)
     {
         if(toTest != null && !toTest.trim().isEmpty())
@@ -131,7 +141,8 @@ public class PersonnelsManager
         else
             return true;
     }
-
+    
+    /* Créé par Erwin DUPUIS */
     private boolean isNegativeInt(int toCheck)
     {
         if(toCheck >= 0)
@@ -143,7 +154,8 @@ public class PersonnelsManager
     //endregion METHODS
 
     //region GET/SET
-
+    
+    /* Créé par Erwin DUPUIS */
 	public static PersonnelsManager getInstance()
 	{
 		if(PersonnelsManager.instance == null)
