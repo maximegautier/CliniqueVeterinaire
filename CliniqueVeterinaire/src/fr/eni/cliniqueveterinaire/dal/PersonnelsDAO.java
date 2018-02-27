@@ -19,4 +19,5 @@ public interface PersonnelsDAO {
 	public void update(Personnels Personnels) throws DALException;
 	
 	public void delete(Personnels Personnels) throws DALException;
+	
 }

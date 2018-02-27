@@ -1,9 +1,7 @@
 package fr.eni.cliniqueveterinaire.bll;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.dal.DAOFactory;
@@ -36,45 +34,45 @@ public class PersonnelsManager
 		try {
 			personnel = ((PersonnelsDAOJdbcImpl) personnelsDAO).checkConnexion(nom, motPasse);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return personnel;
 	}
+
 	
-	public Personnels ModificationMotPasse(Personnels personnel, String newMotPasse)
+	public int Ajouter(Personnels personnel) throws BLLException
 	{
-		return personnel;
-	}
-	
-	public int Ajouter(Personnels perso) throws BLLException
-	{
-		if(perso == null)
+		if(personnel == null)
 		{
 			throw new BLLException("(PersonnelsManager)Ajouter : On ne peut pas ajouter un personnel null.");
 		}
-		else if(perso.getMotPasse() == null)
+		else if(personnel.getMotPasse() == null)
 		{
 			throw new BLLException("(PersonnelsManager)Ajouter : On ne peut pas ajouter un personnel avec un mot de passe null.");
 		}
-		else if(perso.getRole() == null)
+		else if(personnel.getRole() == null)
 		{
 			throw new BLLException("(PersonnelsManager)Ajouter : On ne peut pas ajouter un personnel avec un role null.");
 		}
-		else if(perso.getNom() == null)
+		else if(personnel.getNom() == null)
 		{
 			throw new BLLException("(PersonnelsManager)Ajouter : On ne peut pas ajouter un personnel avec un nom null.");
 		}
-		else if(perso.getRole().length() > 3)
+		else if(personnel.getRole().length() > 3)
 		{
 			throw new BLLException("(PersonnelsManager)Ajouter : Le role est définie par : vet, adm... et ne peut pas excéder 3 caractères");
 		}
 		else
 		{
 			//Logique d'ajout à la base via DAO
+			try {
+				personnel.setMotPasse(Cryptage.encrypt(personnel.getMotPasse()));
+				personnelsDAO.insert(personnel);
+			} catch (DALException e) {
+				e.printStackTrace();
+			}
 			return 0;			
 		}
-
 	}
 	
 	public List<Personnels> getCatalogue() throws DALException
@@ -84,7 +82,7 @@ public class PersonnelsManager
 		return lPersonnels;
 	}
 	
-	public boolean ModifierMDP(Personnels perso, String oldMotPasse, String newMotPasse) throws BLLException
+	public void ModificationMotPasse(Personnels personnel, String oldMotPasse, String newMotPasse) throws BLLException
 	{
 		if(isEmptyOrNull(newMotPasse))
 		{
@@ -96,9 +94,23 @@ public class PersonnelsManager
 		}
 		else
 		{
-			//Logique de modification en base via DAO
+			// Logique de modification en base via DAO
 			
-			return false;
+			// Si l'ancien MDP est correct
+			if (oldMotPasse.equals(Cryptage.decrypt(personnel.getMotPasse())))
+			{
+				// Modification du mot de page de l'objet
+				String newMDPcrypt = Cryptage.encrypt(newMotPasse);
+				personnel.setMotPasse(newMDPcrypt);
+				
+				// Modification dans la BDD
+				newMotPasse = Cryptage.encrypt(newMotPasse);
+				try {
+					personnelsDAO.update(personnel);
+				} catch (DALException e) {
+					e.printStackTrace();
+				}			
+			}
 		}
 	}
 	
