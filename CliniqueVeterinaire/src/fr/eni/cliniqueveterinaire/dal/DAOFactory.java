@@ -1,28 +1,51 @@
 package fr.eni.cliniqueveterinaire.dal;
 
-public class DAOFactory {
-	
+import fr.eni.cliniqueveterinaire.dal.jdbc.AnimauxDAOJdbcImpl;
+import fr.eni.cliniqueveterinaire.dal.jdbc.ClientsDAOJdbcImpl;
+import fr.eni.cliniqueveterinaire.dal.jdbc.PersonnelsDAOJdbcImpl;
+import fr.eni.cliniqueveterinaire.dal.jdbc.RacesDAOJdbcImpl;
+
+public class DAOFactory 
+{
+	private static ClientsDAO clientsDAO;
 	public static ClientsDAO getClientsDAO()
 	{
-		return null;
-       // return new ClientDAOJdbcImpl();
+		if(clientsDAO == null)
+		{
+			clientsDAO = new ClientsDAOJdbcImpl();
+		}
+		return clientsDAO;
     }
 	
+	private static PersonnelsDAO personnelsDAO;
 	public static PersonnelsDAO getPersonnelsDAO()
 	{
-		PersonnelsDAO personnelsDAO = null;
-		try {
-			personnelsDAO=(PersonnelsDAO ) Class.forName("fr.eni.cliniqueveterinaire.dal.jdbc.PersonnelsDAOJdbcImpl").newInstance();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		if(personnelsDAO == null)
+		{
+			personnelsDAO = new PersonnelsDAOJdbcImpl();
 		}
 		return personnelsDAO;
     }
+	
+	/* Créé par Erwin DUPUIS */
+	private static AnimauxDAO animauxDAO;
+	public static AnimauxDAO getAnimauxDAO() throws DALException
+	{
+		if(animauxDAO == null)
+		{
+			animauxDAO = new AnimauxDAOJdbcImpl();
+		}
+		return animauxDAO;
+	}
+	
+	/* Créé par Erwin DUPUIS */
+	private static RacesDAO racesDAO;
+	public static RacesDAO getRacesDAO() throws DALException
+	{
+		if(racesDAO == null)
+		{
+			racesDAO = new RacesDAOJdbcImpl();
+		}
+		return racesDAO;
+	}
 }

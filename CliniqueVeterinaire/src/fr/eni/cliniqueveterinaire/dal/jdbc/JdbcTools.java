@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.dal.Settings;
 
 
@@ -28,9 +29,17 @@ public class JdbcTools {
 	
 	
 	
-	public static Connection getConnection() throws SQLException{
+	public static Connection getConnection() throws DALException {
 		
-		Connection connection = DriverManager.getConnection(urldb, userdb, passworddb);
+		Connection connection;
+		try 
+		{
+			connection = DriverManager.getConnection(urldb, userdb, passworddb);
+		} 
+		catch (SQLException e) 
+		{
+			throw new DALException(e.getMessage());
+		}
 		
 		return connection;
 	}
