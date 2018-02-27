@@ -2,6 +2,8 @@
 
 package fr.eni.cliniqueveterinaire.ihm.login;
 
+import fr.eni.cliniqueveterinaire.bll.PersonnelsManager;
+import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
 
 public class EcranLoginController
@@ -33,17 +35,15 @@ public class EcranLoginController
 	
 	public void Connexion()
 	{
-		System.out.println("Login : " + fenLogin.getTxtLogin().getText());
-		System.out.println("Password : " + fenLogin.getTxtPassword().getText());
-
+		Personnels persoConnect = PersonnelsManager.getInstance().Authentification(fenLogin.getTxtLogin().getText(), fenLogin.getTxtPassword().getText());
 		
-		
-		// Si utilisateur OK, Affichage du menu
-		fenLogin.setVisible(false);
-		fenMenu = EcranMenu.getInstance();
-		fenMenu.setVisible(true);
-		
-		// Sinon
-		//fenLogin.getlError().setVisible(true);
+		if (persoConnect == null)
+		{
+			fenLogin.getlError().setVisible(true);
+		} else {
+			fenLogin.setVisible(false);
+			fenMenu = EcranMenu.getInstance();
+			fenMenu.setVisible(true);
+		}
 	}	
 }

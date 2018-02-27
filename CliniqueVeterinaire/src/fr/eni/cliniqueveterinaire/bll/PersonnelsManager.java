@@ -5,12 +5,16 @@ import java.util.List;
 
 import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
+import fr.eni.cliniqueveterinaire.dal.DALException;
+import fr.eni.cliniqueveterinaire.dal.DAOFactory;
+import fr.eni.cliniqueveterinaire.dal.PersonnelsDAO;
+import fr.eni.cliniqueveterinaire.dal.jdbc.PersonnelsDAOJdbcImpl;
 
 public class PersonnelsManager 
 {
     //region DECLARATION
 
-	//private PersonnelsDAO personnelDAO;
+	private PersonnelsDAO personnelsDAO;
 	private static PersonnelsManager instance;
 
     //endregion DECLARATION
@@ -19,16 +23,23 @@ public class PersonnelsManager
 
 	private PersonnelsManager()
 	{
-		//personnelDAO = DAOFactory.getPersonnelsDAO();
+		personnelsDAO = DAOFactory.getPersonnelsDAO();
 	}
 
     //endregion CTOR
     
     //region METHODS
     
-	public Clients Authentification(String Nom, String MotPasse)
+	public Personnels Authentification(String nom, String motPasse)
 	{
-		return null;
+		Personnels personnel = null;
+		try {
+			personnel = ((PersonnelsDAOJdbcImpl) personnelsDAO).checkConnexion(nom, motPasse);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return personnel;
 	}
 	
 	public int Ajouter(Personnels aAjouter) throws BLLException
@@ -121,7 +132,7 @@ public class PersonnelsManager
 
     //region GET/SET
 
-	public PersonnelsManager getInstance()
+	public static PersonnelsManager getInstance()
 	{
 		if(PersonnelsManager.instance == null)
 		{
