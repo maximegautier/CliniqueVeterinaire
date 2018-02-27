@@ -16,7 +16,7 @@ public class ConnexionDAOJdbcImpl {
 		
 	}
 	
-	public boolean checkConnexion(Personnels personnel) throws DALException{
+	public boolean checkConnexion(String nom,String mdp) throws DALException{
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
@@ -25,8 +25,8 @@ public class ConnexionDAOJdbcImpl {
 		try{
 			cnx = JdbcTools.getConnection();
 			rqt = cnx.prepareStatement(rqtCheckConnec);
-			rqt.setString(1, personnel.getNom());
-			rqt.setString(2, personnel.getMotPasse());
+			rqt.setString(1, nom);
+			rqt.setString(2, mdp);
 			
 			rs = rqt.executeQuery();
 			if (rs.next()) {
@@ -41,13 +41,12 @@ public class ConnexionDAOJdbcImpl {
 					rqt.close();
 				}
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new DALException("Close requête failed",e);
 			}
 			try {
 				cnx.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new DALException("Close connexion failed",e);
 			}
 		}
 		
