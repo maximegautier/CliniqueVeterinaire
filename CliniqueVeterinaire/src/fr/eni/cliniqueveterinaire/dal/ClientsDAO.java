@@ -1,10 +1,10 @@
-package fr.eni.cliniqueveterinaire.dal.jdbc;
+package fr.eni.cliniqueveterinaire.dal;
 import java.util.List;
 
 import fr.eni.cliniqueveterinaire.bo.Clients;
 import java.util.List;
 
-public interface ClientDAO {
+public interface ClientsDAO {
 	
 	public Clients selectById(int id);
 	
