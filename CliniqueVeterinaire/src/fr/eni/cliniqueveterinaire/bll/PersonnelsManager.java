@@ -42,6 +42,11 @@ public class PersonnelsManager
 		return personnel;
 	}
 	
+	public Personnels ModificationMotPasse(Personnels personnel, String newMotPasse)
+	{
+		return personnel;
+	}
+	
 	public int Ajouter(Personnels perso) throws BLLException
 	{
 		if(perso == null)
@@ -72,10 +77,11 @@ public class PersonnelsManager
 
 	}
 	
-	public List<Personnels> getCatalogue()
+	public List<Personnels> getCatalogue() throws DALException
 	{
-		List<Personnels> tmp = new ArrayList<Personnels>();
-		return tmp;
+		List<Personnels> lPersonnels = null;
+		lPersonnels = personnelsDAO.selectAll();
+		return lPersonnels;
 	}
 	
 	public boolean ModifierMDP(Personnels perso, String oldMotPasse, String newMotPasse) throws BLLException
@@ -84,9 +90,14 @@ public class PersonnelsManager
 		{
 			throw new BLLException("(PersonnelsManager)Modifier : Le nouveau mot de passe ne peut pas être null.");
 		}
+		else if (isEmptyOrNull(oldMotPasse))
+		{
+			throw new BLLException("(PersonnelsManager)Modifier : L'ancien mot de passe ne peut pas être null.");
+		}
 		else
 		{
 			//Logique de modification en base via DAO
+			
 			return false;
 		}
 	}

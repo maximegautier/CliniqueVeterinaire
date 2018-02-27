@@ -14,7 +14,7 @@ public interface PersonnelsDAO {
 	
 	public List<Personnels> selectAll() throws DALException;
 	
-	public void insert(Personnels Personnels) throws DALException;
+	public int insert(Personnels Personnels) throws DALException;
 	
 	public void update(Personnels Personnels) throws DALException;
 	

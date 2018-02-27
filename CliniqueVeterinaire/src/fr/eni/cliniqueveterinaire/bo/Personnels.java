@@ -9,25 +9,28 @@ public class Personnels
 	private String MotPasse;
 	private String Role;
 	private boolean Archive;
+	private String cle;
 	
     //endregion DECLARATION
 
     //region CTOR
 
-	public Personnels(int codePers, String nom, String motPasse, String role, boolean archive) 
+	public Personnels(int codePers, String nom, String motPasse, String role,String cle,boolean archive) 
 	{
 		this.CodePers = codePers;
 		this.Nom = nom;
 		this.MotPasse = motPasse;
 		this.Role = role;
 		this.Archive = archive;
+		this.cle = cle;
 	}
-	public Personnels(String nom, String motPasse, String role, boolean archive) 
+	public Personnels(String nom, String motPasse, String role, String cle, boolean archive) 
 	{
 		this.Nom = nom;
 		this.MotPasse = motPasse;
 		this.Role = role;
 		this.Archive = archive;
+		this.cle = cle;
 	}
 
     //endregion CTOR
@@ -70,12 +73,20 @@ public class Personnels
 	public void setRole(String role) {
 		Role = role;
 	}
-	public boolean isArchive() {
+	public boolean getArchive() {
 		return Archive;
 	}
 	public void setArchive(boolean archive) {
 		Archive = archive;
 	}
+	public String getCle() {
+		return cle;
+	}
+	public void setCle(String cle) {
+		cle = cle;
+	}
+	
+	
 
     //endregion GET/SET
 }
