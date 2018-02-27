@@ -4,6 +4,7 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -29,7 +30,7 @@ public class PanGDP {
 		if (panelGDP == null){
 			panelGDP = new JPanel();
 
-			panelGDP.setLayout(new FlowLayout());
+			panelGDP.setLayout(new FlowLayout(FlowLayout.LEFT));
 			panelGDP.add(getbAjouter());
 			panelGDP.add(getbSupprimer());
 			panelGDP.add(getbReinitialiser());
@@ -40,7 +41,7 @@ public class PanGDP {
 	
 	public JButton getbAjouter(){
 		if (bAjouter == null) {
-			bAjouter = new JButton("Ajouter");
+			bAjouter = new JButton("Ajouter",new ImageIcon("ressources/icons8-add-user-male-32.png"));
 			bAjouter.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -53,7 +54,7 @@ public class PanGDP {
 	
 	public JButton getbSupprimer(){
 		if (bSupprimer == null) {
-			bSupprimer = new JButton("Supprimer");
+			bSupprimer = new JButton("Supprimer",new ImageIcon("ressources/icons8-denied-32.png"));
 			bSupprimer.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -66,7 +67,7 @@ public class PanGDP {
 	
 	public JButton getbReinitialiser(){
 		if (bReinitialiser == null) {
-			bReinitialiser = new JButton("Reinitialiser");
+			bReinitialiser = new JButton("Reinitialiser",new ImageIcon("ressources/icons8-reset-32.png"));
 			bReinitialiser.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {

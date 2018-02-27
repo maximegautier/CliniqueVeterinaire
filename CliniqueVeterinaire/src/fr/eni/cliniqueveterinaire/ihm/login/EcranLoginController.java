@@ -30,6 +30,8 @@ public class EcranLoginController {
 		System.out.println("Login : " + fenLogin.getTxtLogin().getText());
 		System.out.println("Password : " + fenLogin.getTxtPassword().getText());
 
+		
+		
 		// Si utilisateur OK, Affichage du menu
 		fenLogin.setVisible(false);
 		fenMenu = EcranMenu.getInstance();

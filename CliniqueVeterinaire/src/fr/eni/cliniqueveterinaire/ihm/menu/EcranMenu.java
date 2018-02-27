@@ -28,8 +28,7 @@ public class EcranMenu extends JFrame{
 	}
 	
 	public EcranMenu() {
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
+		setDefaultCloseOperation(EXIT_ON_CLOSE);		
 		setSize(700, 500);
 		setResizable(false);
 		setTitle("Clinique Veterinaire");
