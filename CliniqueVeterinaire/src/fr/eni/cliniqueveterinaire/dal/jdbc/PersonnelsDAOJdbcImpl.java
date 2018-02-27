@@ -8,11 +8,11 @@ import java.sql.SQLException;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 
-public class ConnexionDAOJdbcImpl {
+public class PersonnelsDAOJdbcImpl {
 	private Connection connection;
 	private String rqtCheckConnec = "SELECT Role,Archive FROM Personnels WHERE Nom = ? AND MotPasse = ?";
 	
-	public ConnexionDAOJdbcImpl(){
+	public PersonnelsDAOJdbcImpl(){
 		
 	}
 	
