@@ -2,7 +2,6 @@ package fr.eni.cliniqueveterinaire.dal;
 import java.util.List;
 
 import fr.eni.cliniqueveterinaire.bo.Clients;
-import java.util.List;
 
 public interface ClientsDAO {
 	

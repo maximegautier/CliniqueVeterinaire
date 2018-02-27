@@ -4,8 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
-import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.dal.PersonnelsDAO;
@@ -61,5 +61,41 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 				}
 			}
 		return personnel;
+	}
+
+	@Override
+	public Personnels selectById(int id) throws DALException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Personnels selectByName(String nomClient) throws DALException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Personnels> selectAll() throws DALException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void insert(Personnels Personnels) throws DALException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(Personnels Personnels) throws DALException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void delete(Personnels Personnels) throws DALException {
+		// TODO Auto-generated method stub
+		
 	}
 }

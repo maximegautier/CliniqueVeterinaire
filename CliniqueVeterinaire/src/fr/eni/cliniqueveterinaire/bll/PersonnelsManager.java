@@ -42,25 +42,25 @@ public class PersonnelsManager
 		return personnel;
 	}
 	
-	public int Ajouter(Personnels aAjouter) throws BLLException
+	public int Ajouter(Personnels perso) throws BLLException
 	{
-		if(aAjouter == null)
+		if(perso == null)
 		{
 			throw new BLLException("(PersonnelsManager)Ajouter : On ne peut pas ajouter un personnel null.");
 		}
-		else if(aAjouter.getMotPasse() == null)
+		else if(perso.getMotPasse() == null)
 		{
 			throw new BLLException("(PersonnelsManager)Ajouter : On ne peut pas ajouter un personnel avec un mot de passe null.");
 		}
-		else if(aAjouter.getRole() == null)
+		else if(perso.getRole() == null)
 		{
 			throw new BLLException("(PersonnelsManager)Ajouter : On ne peut pas ajouter un personnel avec un role null.");
 		}
-		else if(aAjouter.getNom() == null)
+		else if(perso.getNom() == null)
 		{
 			throw new BLLException("(PersonnelsManager)Ajouter : On ne peut pas ajouter un personnel avec un nom null.");
 		}
-		else if(aAjouter.getRole().length() > 3)
+		else if(perso.getRole().length() > 3)
 		{
 			throw new BLLException("(PersonnelsManager)Ajouter : Le role est définie par : vet, adm... et ne peut pas excéder 3 caractères");
 		}
@@ -72,19 +72,15 @@ public class PersonnelsManager
 
 	}
 	
-	public List<Personnels> SelectTous()
+	public List<Personnels> getCatalogue()
 	{
 		List<Personnels> tmp = new ArrayList<Personnels>();
 		return tmp;
 	}
 	
-	public boolean ModifierMDP(int CodePers, String MotPasse) throws BLLException
+	public boolean ModifierMDP(Personnels perso, String oldMotPasse, String newMotPasse) throws BLLException
 	{
-		if(isNegativeInt(CodePers))
-		{
-			throw new BLLException("(PersonnelsManager)Modifier : Le code personnel ne peut pas être null.");
-		}
-		else if(isEmptyOrNull(MotPasse))
+		if(isEmptyOrNull(newMotPasse))
 		{
 			throw new BLLException("(PersonnelsManager)Modifier : Le nouveau mot de passe ne peut pas être null.");
 		}
@@ -95,17 +91,10 @@ public class PersonnelsManager
 		}
 	}
 	
-	public boolean Supprimer(int CodePers) throws BLLException
+	public boolean Supprimer(Personnels perso) throws BLLException
 	{
-		if(isNegativeInt(CodePers))
-		{
-			throw new BLLException("(PersonnelsManager)Supprimer : Le code personnel ne peut pas être null");
-		}
-		else
-		{
-			//Logique de suppression en base (Archive = 1) via DAO
-			return false;			
-		}
+		//Logique de suppression en base (Archive = 1) via DAO
+		return false;			
 	}
 	
 	//************
