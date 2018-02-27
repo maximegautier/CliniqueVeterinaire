@@ -21,12 +21,12 @@ public class AppliTestBLL {
 		// Instanciation du jeu d'essai Personnels
 		System.out.println("___________________ Personnels ___________________");
 		List<Personnels> lPersonnels = new ArrayList<>();
-		Personnels perso1 = new Personnels(1,"BOSAPIN_E","1234","adm","abcdef",false);
+		Personnels perso1 = new Personnels(1,"BOSAPIN_E","1234","adm",false);
 		lPersonnels.add(perso1);
-		lPersonnels.add(new Personnels(2,"DECAJOU_B","5678","vet","abcdef",false));
-		lPersonnels.add(new Personnels(3,"MONFILS_T","5678","ass","abcdef",false));
-		lPersonnels.add(new Personnels(4,"DEJEU_O","9101","sec","abcdef",false));
-		lPersonnels.add(new Personnels(5,"HISSON_MP","1121","sec","abcdef",true));
+		lPersonnels.add(new Personnels(2,"DECAJOU_B","5678","vet",false));
+		lPersonnels.add(new Personnels(3,"MONFILS_T","5678","ass",false));
+		lPersonnels.add(new Personnels(4,"DEJEU_O","9101","sec",false));
+		lPersonnels.add(new Personnels(5,"HISSON_MP","1121","sec",true));
 		
 		// Ajout du personnel				
 		for (Personnels personnel : lPersonnels) {

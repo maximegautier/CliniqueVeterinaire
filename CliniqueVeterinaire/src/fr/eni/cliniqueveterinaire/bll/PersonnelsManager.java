@@ -1,9 +1,17 @@
 package fr.eni.cliniqueveterinaire.bll;
 
-import java.util.ArrayList;
+import java.io.UnsupportedEncodingException;
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-import fr.eni.cliniqueveterinaire.bo.Clients;
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
+
 import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.dal.DAOFactory;
@@ -74,7 +82,6 @@ public class PersonnelsManager
 			//Logique d'ajout à la base via DAO
 			return 0;			
 		}
-
 	}
 	
 	public List<Personnels> getCatalogue() throws DALException
@@ -96,8 +103,23 @@ public class PersonnelsManager
 		}
 		else
 		{
-			//Logique de modification en base via DAO
+			// Logique de modification en base via DAO
 			
+			// Si l'ancien MDP correspond
+			String mdp = decrypt(perso.getMotPasse());
+			if (oldMotPasse.equals(mdp))
+			{
+				// Nouveau Mot de passe
+				newMotPasse = encrypt(newMotPasse);
+				try {
+					personnelsDAO.update(perso);
+				} catch (DALException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				perso.setMotPasse(newMotPasse);
+			}
+	
 			return false;
 		}
 	}
@@ -126,6 +148,28 @@ public class PersonnelsManager
             return false;
         else
             return true;
+    }
+    
+    private String encrypt(String password)
+    {
+        String crypte = "";
+        for (int i=0; i<password.length();i++)
+        {
+            int c=password.charAt(i)^48;  
+            crypte=crypte+(char)c; 
+        }
+        return crypte;
+    }
+
+    private String decrypt(String password)
+    {
+        String aCrypter = "";
+        for (int i=0; i<password.length();i++)
+        {
+            int c=password.charAt(i)^48;  
+            aCrypter=aCrypter+(char)c; 
+        }
+        return aCrypter;
     }
     
     //endregion METHODS
