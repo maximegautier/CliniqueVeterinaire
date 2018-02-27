@@ -11,6 +11,7 @@ import fr.eni.cliniqueveterinaire.bo.Races;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.dal.RacesDAO;
 
+/* Créé par Erwin DUPUIS */
 public class RacesDAOJdbcImpl implements RacesDAO
 {
     //region DECLARATION

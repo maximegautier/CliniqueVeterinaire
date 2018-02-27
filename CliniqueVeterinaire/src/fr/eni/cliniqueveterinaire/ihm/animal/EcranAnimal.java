@@ -322,7 +322,7 @@ public class EcranAnimal extends JFrame
 						catch (BLLException e1) 
 						{
 							e1.printStackTrace();
-						}						
+						}
 					}
 					else
 					{
