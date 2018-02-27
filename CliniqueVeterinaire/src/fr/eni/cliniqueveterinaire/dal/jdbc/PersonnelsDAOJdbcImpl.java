@@ -14,10 +14,10 @@ import fr.eni.cliniqueveterinaire.dal.PersonnelsDAO;
 
 public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 {
-	private String rqtCheckConnec = "SELECT Nom,MotPasse,Role,Cle,Archive FROM Personnels WHERE Nom = ? AND MotPasse = ? AND Archive = 0";
-	private String rqtSelectById = "SELECT Nom,MotPasse,Role,Cle,Archive FROM Personnels WHERE CodePers = ? AND Archive = 0";
-	private String rqtSelectByName = "SELECT Nom,MotPasse,Role,Cle,Archive FROM Personnels WHERE Nom = ? AND Archive = 0";
-	private String rqtSelectAll = "SELECT Nom,MotPasse,Role,Cle,Archive FROM Personnels";
+	private String rqtCheckConnec = "SELECT Nom,MotPasse,Role,Archive FROM Personnels WHERE Nom = ? AND MotPasse = ? AND Archive = 0";
+	private String rqtSelectById = "SELECT Nom,MotPasse,Role,Archive FROM Personnels WHERE CodePers = ? AND Archive = 0";
+	private String rqtSelectByName = "SELECT Nom,MotPasse,Role,,Archive FROM Personnels WHERE Nom = ? AND Archive = 0";
+	private String rqtSelectAll = "SELECT Nom,MotPasse,Role,Archive FROM Personnels";
 	private String rqtInsert = "INSERT INTO Personnels VALUES (?,?,?,?)";
 	private String rqtDelete = "UPDATE Personnels SET Archive = 1 WHERE CodePers = ?";
 	private String rqtUpdate = "UPDATE Personnels SET Nom=?, MotPasse=?, Role=?, Archive = ? WHERE CodePers = ?";
@@ -203,7 +203,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 			rqt.setString(1, personnel.getNom());
 			rqt.setString(2, personnel.getMotPasse());
 			rqt.setString(3, personnel.getRole());
-			rqt.setBoolean(3, personnel.getArchive());
+			rqt.setBoolean(4, personnel.getArchive());
 			int nbRows = rqt.executeUpdate();
 			if(nbRows == 1){
 				ResultSet rs = rqt.getGeneratedKeys();
@@ -239,7 +239,8 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 			rqt.setString(1, personnel.getNom());
 			rqt.setString(2, personnel.getMotPasse());
 			rqt.setString(3, personnel.getRole());
-			rqt.setString(4, personnel.getRole());
+			rqt.setBoolean(4, personnel.getArchive());
+			rqt.setInt(5, personnel.getCodePers());
 			rqt.executeUpdate();
 			
 		} catch (SQLException e) {

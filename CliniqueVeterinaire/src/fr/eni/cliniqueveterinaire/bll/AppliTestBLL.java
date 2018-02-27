@@ -99,9 +99,9 @@ public class AppliTestBLL {
 		// Modification Personnels
 		System.out.println("");
 		System.out.println("___________________ Modification MDP ___________________");
-		System.out.println("Ancien mot de passe : " + perso1.getMotPasse());
-		persoManager.ModifierMDP(perso1, perso1.getMotPasse(), "ABCDEF");
-		System.out.println("Nouveau mot de passe : " + perso1.getMotPasse());
+		System.out.println("Ancien mot de passe : " + Cryptage.decrypt(perso1.getMotPasse()));
+		persoManager.ModificationMotPasse(perso1, "1234", "ABCDEF");
+		System.out.println("Nouveau mot de passe : " + Cryptage.encrypt(perso1.getMotPasse()));
 		
 		// Modification Agenda
 		
