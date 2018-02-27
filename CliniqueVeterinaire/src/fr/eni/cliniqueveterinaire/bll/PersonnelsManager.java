@@ -49,6 +49,10 @@ public class PersonnelsManager
 		{
 			throw new BLLException("(PersonnelsManager)Ajouter : On ne peut pas ajouter un personnel avec un nom null.");
 		}
+		else if(aAjouter.getRole().length() > 3)
+		{
+			throw new BLLException("(PersonnelsManager)Ajouter : Le role est définie par : vet, adm... et ne peut pas excéder 3 caractères");
+		}
 		else
 		{
 			//Logique d'ajout à la base via DAO
