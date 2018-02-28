@@ -100,7 +100,12 @@ public class PanGDP {
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
-					PanGDPController.getInstance().Ajouter();
+					try {
+						PanGDPController.getInstance().Ajouter();
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 		}
@@ -134,7 +139,12 @@ public class PanGDP {
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
-					PanGDPController.getInstance().Reinitialiser();
+					try {
+						PanGDPController.getInstance().Reinitialiser();
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 		}
