@@ -1,5 +1,8 @@
 package fr.eni.cliniqueveterinaire.bll;
 
+import java.util.List;
+
+import fr.eni.cliniqueveterinaire.bo.Races;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.dal.DAOFactory;
 import fr.eni.cliniqueveterinaire.dal.RacesDAO;
@@ -32,6 +35,29 @@ public class RacesManager
     
     //region METHODS
     
+	public List<Races> SelectRacesChat() throws BLLException
+	{
+		try 
+		{
+			return racesDAO.SelectRacesChat();
+		} 
+		catch (DALException e) 
+		{
+			throw new BLLException(e.getMessage());
+		}
+	}
+	
+	public List<Races> SelectRacesChien() throws BLLException 
+	{
+		try 
+		{
+			return racesDAO.SelectRacesChien();
+		} 
+		catch (DALException e) 
+		{
+			throw new BLLException(e.getMessage());
+		}
+	}
     
     //endregion METHODS
 
