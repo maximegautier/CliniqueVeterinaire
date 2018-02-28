@@ -97,6 +97,12 @@ public class AppliTestBLL {
 		lAgenda.add(new Agendas(2,2,new Date(2018,2,20,9,0)));
 		lAgenda.add(new Agendas(2,3,new Date(2018,5,25,15,0)));
 	
+		for(Agendas tmpItem : lAgenda)
+		{
+			AgendasManager.getInstance().Ajouter(tmpItem);
+			System.out.println("Ajouté : "+tmpItem.toString());
+		}
+		
 		for (int i = 0; i<lAgenda.size();i++)
 		{
 			  System.out.println(lAgenda.get(i).toString());

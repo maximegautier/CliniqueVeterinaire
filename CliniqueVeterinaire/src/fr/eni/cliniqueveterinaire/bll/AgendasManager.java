@@ -54,7 +54,7 @@ public class AgendasManager
 		}
 	}
 	
-	public boolean Ajouter(Agendas aAjouter) throws Exception
+	public boolean Ajouter(Agendas aAjouter) throws BLLException
 	{
 		if(aAjouter == null)
 		{
@@ -140,7 +140,7 @@ public class AgendasManager
 
     //region GET/SET
 
-	public AgendasManager getInstance() 
+	public static AgendasManager getInstance() 
 	{
 		if(AgendasManager.instance == null)
 		{
