@@ -6,6 +6,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -41,6 +42,7 @@ public class EcranLogin extends JFrame{
 		setContentPane(Connexion());
 		setVisible(true);
 		setLocationRelativeTo(null);
+		this.setIconImage(new ImageIcon("ressources/ico_veto.png").getImage());
 	}
 	
 	private JPanel Connexion(){

@@ -53,11 +53,16 @@ public class PanGDPController {
 		Personnels personnel = new Personnels(nom,mdp,role,false);
 		try {
 			PersonnelsManager.getInstance().Ajouter(personnel);
+			panelGDP.getInstance().getTablePersonnel().removeRowSelectionInterval(0,panelGDP.getInstance().getTablePersonnel().getRowCount()-1);
+			//panelGDP.getInstance().getTablePersonnel().
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.INFORMATION_MESSAGE);
 			e.printStackTrace();
 			
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

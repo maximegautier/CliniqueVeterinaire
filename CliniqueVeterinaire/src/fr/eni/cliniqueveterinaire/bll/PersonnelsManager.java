@@ -60,7 +60,7 @@ public class PersonnelsManager
 		}
 		else if(personnel.getMotPasse().length()>10)
 		{
-			throw new BLLException("La taille du mot de passe depasse 30 caracteres.");
+			throw new BLLException("La taille du mot de passe depasse 10 caracteres.");
 		}
 		else if(isEmptyOrNull(personnel.getRole()))
 		{

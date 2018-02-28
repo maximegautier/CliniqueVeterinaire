@@ -3,6 +3,7 @@ package fr.eni.cliniqueveterinaire.ihm.menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -36,6 +37,7 @@ public class EcranMenu extends JFrame{
 		setSize(width, height);
 		setResizable(false);
 		setTitle("Clinique Veterinaire");
+		setIconImage(new ImageIcon("ressources/ico_veto.png").getImage());
 		
 		menuBar.add(getMFichier());
 		menuBar.add(getMRDV());
