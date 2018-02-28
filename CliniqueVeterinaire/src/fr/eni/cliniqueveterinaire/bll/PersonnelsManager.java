@@ -44,23 +44,31 @@ public class PersonnelsManager
 	{
 		if(personnel == null)
 		{
-			throw new BLLException("(PersonnelsManager)Ajouter : On ne peut pas ajouter un personnel null.");
+			throw new BLLException("On ne peut pas ajouter un personnel null.");
 		}
-		else if(personnel.getMotPasse() == null)
+		else if(isEmptyOrNull(personnel.getNom()))
 		{
-			throw new BLLException("(PersonnelsManager)Ajouter : On ne peut pas ajouter un personnel avec un mot de passe null.");
+			throw new BLLException("On ne peut pas ajouter un personnel avec un nom null.");
 		}
-		else if(personnel.getRole() == null)
+		else if(personnel.getNom().length()> 30)
 		{
-			throw new BLLException("(PersonnelsManager)Ajouter : On ne peut pas ajouter un personnel avec un role null.");
+			throw new BLLException("La taille du nom depasse 30 caracteres.");
 		}
-		else if(personnel.getNom() == null)
+		else if(isEmptyOrNull(personnel.getMotPasse()))
 		{
-			throw new BLLException("(PersonnelsManager)Ajouter : On ne peut pas ajouter un personnel avec un nom null.");
+			throw new BLLException("On ne peut pas ajouter un personnel avec un mot de passe null.");
+		}
+		else if(personnel.getMotPasse().length()>10)
+		{
+			throw new BLLException("La taille du mot de passe depasse 30 caracteres.");
+		}
+		else if(isEmptyOrNull(personnel.getRole()))
+		{
+			throw new BLLException("On ne peut pas ajouter un personnel avec un role null.");
 		}
 		else if(personnel.getRole().length() > 3)
 		{
-			throw new BLLException("(PersonnelsManager)Ajouter : Le role est définie par : vet, adm... et ne peut pas excéder 3 caractères");
+			throw new BLLException("Le role est définie par : vet, adm... et ne peut pas excéder 3 caractères");
 		}
 		else
 		{
@@ -69,7 +77,7 @@ public class PersonnelsManager
 				personnel.setMotPasse(Cryptage.encrypt(personnel.getMotPasse()));
 				personnelsDAO.insert(personnel);
 			} catch (DALException e) {
-				e.printStackTrace();
+				throw new BLLException(e.getMessage());
 			}
 			return 0;			
 		}
@@ -81,6 +89,14 @@ public class PersonnelsManager
 		List<Personnels> lPersonnels = null;
 		lPersonnels = personnelsDAO.selectAll();
 		return lPersonnels;
+	}
+	
+	/* Créé par Maxime GAUTIER */
+	public List<String> selectTousRoles() throws DALException
+	{
+		List<String> lRole = null;
+		lRole = personnelsDAO.selectRole();
+		return lRole;
 	}
 	
 	/* Créé par Maxime GAUTIER */
@@ -127,12 +143,6 @@ public class PersonnelsManager
 			e.printStackTrace();
 		}
 		return false;			
-	}
-	
-	public List<String> SelectRole()
-	{
-		return null;
-		
 	}
 	
 	//************

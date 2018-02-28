@@ -20,4 +20,6 @@ public interface PersonnelsDAO {
 	
 	public void delete(Personnels Personnels) throws DALException;
 	
+	public List<String> selectRole() throws DALException;
+	
 }

@@ -8,6 +8,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -41,7 +42,7 @@ public class DialogAdd{
 		
 	}
 
-	private JPanel getPanAdd(){
+	private JPanel getPanAdd() throws DALException{
 		panelAdd = new JPanel();
 		panelAdd.setOpaque(true);
 		
@@ -120,10 +121,11 @@ public class DialogAdd{
 		return tfMDP;
 	}
 	
-	public JComboBox<String> getCRole(){
+	public JComboBox<String> getCRole() throws DALException{
 		if (cRole == null)
 		{
 			cRole = new JComboBox<String>();
+			cRole.setModel(new DefaultComboBoxModel(PanGDPController.getInstance().remplirComboAjouter().toArray()));
 		}
 		return cRole;
 	}
@@ -144,10 +146,8 @@ public class DialogAdd{
 								(String) getCRole().getSelectedItem(),
 								getTfMDP().getText()
 								);
+						dialogAjouter.dispose();
 					} catch (DALException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}

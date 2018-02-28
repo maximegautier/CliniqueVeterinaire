@@ -1,7 +1,11 @@
 package fr.eni.cliniqueveterinaire.ihm.menu.gdp;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
+
+import javax.swing.JOptionPane;
 
 import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bll.PersonnelsManager;
@@ -44,9 +48,17 @@ public class PanGDPController {
 		
 	}
 	
-	public void Valider(String nom, String prenom, String role, String mdp) throws DALException, BLLException{
+	public void Valider(String nom, String prenom, String role, String mdp)
+	{
 		Personnels personnel = new Personnels(nom,mdp,role,false);
-		PersonnelsManager.getInstance().Ajouter(personnel);
+		try {
+			PersonnelsManager.getInstance().Ajouter(personnel);
+		} catch (BLLException e) {
+			// TODO Auto-generated catch block
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.INFORMATION_MESSAGE);
+			e.printStackTrace();
+			
+		}
 	}
 
 	
@@ -68,10 +80,10 @@ public class PanGDPController {
 		return vecRow;
 	}
 	
-	public String[] remplirComboAjouter()
+	public List<String> remplirComboAjouter() throws DALException
 	{
-		return null;
-		
+		List<String> lRoles = PersonnelsManager.getInstance().selectTousRoles();
+		return lRoles;
 	}
 	
 }

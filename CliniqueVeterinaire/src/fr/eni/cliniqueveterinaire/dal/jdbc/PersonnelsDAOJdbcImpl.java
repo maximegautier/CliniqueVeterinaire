@@ -16,11 +16,12 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 {
 	private String rqtCheckConnec = "SELECT Nom,MotPasse,Role,Archive FROM Personnels WHERE Nom = ? AND MotPasse = ? AND Archive = 0";
 	private String rqtSelectById = "SELECT Nom,MotPasse,Role,Archive FROM Personnels WHERE CodePers = ? AND Archive = 0";
-	private String rqtSelectByName = "SELECT Nom,MotPasse,Role,,Archive FROM Personnels WHERE Nom = ? AND Archive = 0";
+	private String rqtSelectByName = "SELECT Nom,MotPasse,Role,Archive FROM Personnels WHERE Nom = ? AND Archive = 0";
 	private String rqtSelectAll = "SELECT Nom,MotPasse,Role,Archive FROM Personnels WHERE Archive = 0";
 	private String rqtInsert = "INSERT INTO Personnels VALUES (?,?,?,?)";
 	private String rqtDelete = "UPDATE Personnels SET Archive = 1 WHERE CodePers = ?";
 	private String rqtUpdate = "UPDATE Personnels SET Nom=?, MotPasse=?, Role=?, Archive = ? WHERE CodePers = ?";
+	private String rqtSelectRole = "SELECT DISTINCT Role From Personnels";
 	
 	public PersonnelsDAOJdbcImpl()
 	{
@@ -284,6 +285,41 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 				throw new DALException("close failed - ", e);
 			}
 		}	
+	}
+	
+	public List<String> selectRole() throws DALException
+	{
+		Connection cnx = null;
+		Statement rqt = null;
+		ResultSet rs = null;
+		List<String> list = new ArrayList<String>();
+
+		try {
+			cnx = JdbcTools.getConnection();
+			rqt = cnx.createStatement();
+			rs = rqt.executeQuery(rqtSelectRole);;
+			
+			while (rs.next()){
+				list.add(rs.getString("Role"));
+			}
+		} catch (SQLException e) {
+			throw new DALException("selectRole failed - " , e);
+		} finally {
+			try {
+				if (rs != null){
+					rs.close();
+				}
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
 	}
 	
 }
