@@ -100,6 +100,4 @@ public class RacesDAOJdbcImpl implements RacesDAO
 	}
 
     //endregion GET/SET
-
-
 }

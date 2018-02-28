@@ -2,6 +2,7 @@ package fr.eni.cliniqueveterinaire.bo;
 
 import java.util.Date;
 
+/* Créé par Erwin DUPUIS */
 public class Agendas 
 {
     //region DECLARATION

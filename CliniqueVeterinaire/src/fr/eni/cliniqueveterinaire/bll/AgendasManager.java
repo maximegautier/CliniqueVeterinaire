@@ -8,6 +8,7 @@ import fr.eni.cliniqueveterinaire.bo.Agendas;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.dal.DAOFactory;
 
+/* Créé par Erwin DUPUIS */
 public class AgendasManager 
 {
     //region DECLARATION

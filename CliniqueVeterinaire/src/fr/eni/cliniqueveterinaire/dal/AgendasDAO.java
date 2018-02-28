@@ -5,6 +5,7 @@ import java.util.List;
 
 import fr.eni.cliniqueveterinaire.bo.Agendas;
 
+/* Créé par Erwin DUPUIS */
 public interface AgendasDAO 
 {
 	public List<Agendas> SelectParDate(Date dateDebut, Date dateFin) throws DALException;

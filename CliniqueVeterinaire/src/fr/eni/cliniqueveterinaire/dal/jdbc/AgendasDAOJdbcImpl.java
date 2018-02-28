@@ -12,6 +12,7 @@ import fr.eni.cliniqueveterinaire.bo.Agendas;
 import fr.eni.cliniqueveterinaire.dal.AgendasDAO;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 
+/* Créé par Erwin DUPUIS */
 public class AgendasDAOJdbcImpl implements AgendasDAO
 {
     //region DECLARATION
@@ -137,7 +138,6 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 		}
 		return cnx;
 	}
-
 
     //endregion GET/SET
 }
