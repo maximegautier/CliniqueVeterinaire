@@ -3,12 +3,14 @@ package fr.eni.cliniqueveterinaire.ihm.menu.gdp;
 import java.util.List;
 import java.util.Vector;
 
+import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bll.PersonnelsManager;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.login.EcranLogin;
 import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
 import fr.eni.cliniqueveterinaire.ihm.personnels.DialogAdd;
+import fr.eni.cliniqueveterinaire.ihm.personnels.DialogReinit;
 
 public class PanGDPController {
 
@@ -29,7 +31,6 @@ public class PanGDPController {
 	}
 	
 	public void Ajouter() throws DALException{
-		System.out.println("Ajouter");
 		DialogAdd jdAjouter = new DialogAdd();
 	}
 	
@@ -39,8 +40,15 @@ public class PanGDPController {
 	
 	public void Reinitialiser() throws DALException{
 		System.out.println("Reinitialiser");
+		DialogReinit dialogReinit = new DialogReinit();
 		
 	}
+	
+	public void Valider(String nom, String prenom, String role, String mdp) throws DALException, BLLException{
+		Personnels personnel = new Personnels(nom,mdp,role,false);
+		PersonnelsManager.getInstance().Ajouter(personnel);
+	}
+
 	
 	public Vector<Vector> completerTableau() throws DALException
 	{
@@ -58,6 +66,12 @@ public class PanGDPController {
 			vecRow.addElement(tmpVct);
 		}	
 		return vecRow;
+	}
+	
+	public String[] remplirComboAjouter()
+	{
+		return null;
+		
 	}
 	
 }

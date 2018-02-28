@@ -129,6 +129,12 @@ public class PersonnelsManager
 		return false;			
 	}
 	
+	public List<String> SelectRole()
+	{
+		return null;
+		
+	}
+	
 	//************
 	//UTILITAIRES
 	//************	
