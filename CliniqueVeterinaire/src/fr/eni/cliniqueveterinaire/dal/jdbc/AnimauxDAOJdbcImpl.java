@@ -39,7 +39,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 		try 
 		{
 			String rqtSelectAnimaux = "SELECT * FROM Animaux WHERE CodeClient = ? AND Archive = 0";
-			PreparedStatement psSelectAnimaux = cnx.prepareStatement(rqtSelectAnimaux);	
+			PreparedStatement psSelectAnimaux = getCnx().prepareStatement(rqtSelectAnimaux);	
 			psSelectAnimaux.setInt(1, CodeClient);
 			ResultSet rsSelectAnimaux = psSelectAnimaux.executeQuery();
 			
@@ -77,7 +77,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 		try 
 		{	
 			String rqtSelectAnimal = "SELECT * FROM Animaux WHERE CodeAnimal = ? AND Archive = 0";
-			PreparedStatement psSelectAnimal = cnx.prepareStatement(rqtSelectAnimal);
+			PreparedStatement psSelectAnimal = getCnx().prepareStatement(rqtSelectAnimal);
 			psSelectAnimal.setInt(1, CodeAnimal);
 			ResultSet rsSelectAnimal = psSelectAnimal.executeQuery();
 			
@@ -155,7 +155,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 		try 
 		{
 			String rqtSupprimerAnimal = "UPDATE Animaux SET Archive = 1 WHERE CodeAnimal = ?";
-			PreparedStatement psSupprimerAnimal = cnx.prepareStatement(rqtSupprimerAnimal);
+			PreparedStatement psSupprimerAnimal = getCnx().prepareStatement(rqtSupprimerAnimal);
 			psSupprimerAnimal.setInt(1,  CodeAnimal);
 			int nbRows = psSupprimerAnimal.executeUpdate();
 			
@@ -182,7 +182,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 		try 
 		{
 			String rqtModifierAnimal = "UPDATE Animaux SET NomAnimal = ?, Sexe = ?, Couleur = ?, Race = ?, Espece = ?, CodeClient = ?, Tatouage = ?, Antecedents = ?, Archive = ? WHERE CodeAnimal = ?";
-			PreparedStatement psModifierAnimal = cnx.prepareStatement(rqtModifierAnimal);
+			PreparedStatement psModifierAnimal = getCnx().prepareStatement(rqtModifierAnimal);
 			psModifierAnimal.setString(1, aModifier.getNomAnimal());
 			psModifierAnimal.setString(2, aModifier.getSexe());
 			psModifierAnimal.setString(3, aModifier.getCouleur());

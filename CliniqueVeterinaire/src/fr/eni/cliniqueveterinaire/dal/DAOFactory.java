@@ -1,5 +1,10 @@
 package fr.eni.cliniqueveterinaire.dal;
 
+import java.util.Date;
+import java.util.List;
+
+import fr.eni.cliniqueveterinaire.bo.Agendas;
+import fr.eni.cliniqueveterinaire.dal.jdbc.AgendasDAOJdbcImpl;
 import fr.eni.cliniqueveterinaire.dal.jdbc.AnimauxDAOJdbcImpl;
 import fr.eni.cliniqueveterinaire.dal.jdbc.ClientsDAOJdbcImpl;
 import fr.eni.cliniqueveterinaire.dal.jdbc.PersonnelsDAOJdbcImpl;
@@ -48,5 +53,16 @@ public class DAOFactory
 			racesDAO = new RacesDAOJdbcImpl();
 		}
 		return racesDAO;
+	}
+	
+	/* Créé par Erwin DUPUIS */
+	private static AgendasDAO agendasDAO;
+	public static AgendasDAO getAgendasDAO() 
+	{
+		if(agendasDAO == null)
+		{
+			agendasDAO = new AgendasDAOJdbcImpl();
+		}
+		return agendasDAO;
 	}
 }

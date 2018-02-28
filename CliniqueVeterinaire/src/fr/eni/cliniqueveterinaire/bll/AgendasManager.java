@@ -5,12 +5,13 @@ import java.util.Date;
 import java.util.List;
 
 import fr.eni.cliniqueveterinaire.bo.Agendas;
+import fr.eni.cliniqueveterinaire.dal.DALException;
+import fr.eni.cliniqueveterinaire.dal.DAOFactory;
 
 public class AgendasManager 
 {
     //region DECLARATION
 
-	//private AgendasDAO agendaDAO;
 	private static AgendasManager instance;
 
     //endregion DECLARATION
@@ -19,8 +20,6 @@ public class AgendasManager
 
 	private AgendasManager()
 	{
-		//instanciation du DAO via DAOFactory;
-		//agendaDAO = DAOFactory.getAgendaDAO();
 	}
 
     //endregion CTOR
@@ -43,36 +42,77 @@ public class AgendasManager
 		}
 		else
 		{
-			//Logique de select en base via DAO
-			List<Agendas> tmp = new ArrayList<Agendas>();
-			return tmp;			
+			try 
+			{
+				return DAOFactory.getAgendasDAO().SelectParDate(Debut, Fin);
+			} 
+			catch (DALException e) 
+			{
+				throw new BLLException(e.getMessage());
+			}			
 		}
 	}
 	
-	public int Ajouter(Agendas aAjouter) throws Exception
+	public boolean Ajouter(Agendas aAjouter) throws Exception
 	{
 		if(aAjouter == null)
 		{
-			throw new Exception("(AgendasManager)Ajouter : Le rendez vous à ajouter ne peut pas etre null");
+			throw new BLLException("(AgendasManager)Ajouter : Le rendez vous à ajouter ne peut pas etre null");
 		}
 		else if(isNegativeInt(aAjouter.getCodeAnimal()))
 		{
-			throw new Exception("(AgendasManager)Ajouter : Le code de l'animal à consulter ne peut pas etre null");
+			throw new BLLException("(AgendasManager)Ajouter : Le code de l'animal à consulter ne peut pas etre null");
 		}
 		else if(isNegativeInt(aAjouter.getCodeVeto()))
 		{
-			throw new Exception("(AgendasManager)Ajouter : Le code du vétérinaire en charge ne peut pas etre null");
+			throw new BLLException("(AgendasManager)Ajouter : Le code du vétérinaire en charge ne peut pas etre null");
 		}
 		else if(aAjouter.getDateRdv() == null)
 		{
-			throw new Exception("(AgendasManager)Ajouter : La date de rendez vous ne peut pas etre null");
+			throw new BLLException("(AgendasManager)Ajouter : La date de rendez vous ne peut pas etre null");
 		}
-		return 0;
+		else
+		{
+			try 
+			{
+				return DAOFactory.getAgendasDAO().Ajouter(aAjouter);
+			} 
+			catch (DALException e) 
+			{
+				throw new BLLException(e.getMessage());
+			}
+		}
 	}
 	
-	public boolean Supprimer(Agendas aSupprimer)
+	public boolean Supprimer(Agendas aSupprimer) throws BLLException
 	{
-		return false;
+		if(aSupprimer == null)
+		{
+			throw new BLLException("(AgendasManager)Supprimer : Le rendez vous à ajouter ne peut pas etre null");
+		}
+		else if(isNegativeInt(aSupprimer.getCodeAnimal()))
+		{
+			throw new BLLException("(AgendasManager)Supprimer : Le code de l'animal à consulter ne peut pas etre null");
+		}
+		else if(isNegativeInt(aSupprimer.getCodeVeto()))
+		{
+			throw new BLLException("(AgendasManager)Supprimer : Le code du vétérinaire en charge ne peut pas etre null");
+		}
+		else if(aSupprimer.getDateRdv() == null)
+		{
+			throw new BLLException("(AgendasManager)Supprimer : La date de rendez vous ne peut pas etre null");
+		}
+		else
+		{
+			try 
+			{
+				return DAOFactory.getAgendasDAO().Supprimer(aSupprimer);
+			} 
+			catch (DALException e) 
+			{
+				throw new BLLException(e.getMessage());
+			}
+		}
 	}
 	
 	//************
