@@ -84,7 +84,7 @@ public class AnimauxManager
 	
 	public int Ajouter(Animaux aAjouter) throws BLLException
 	{
-		int aRetourner;
+		int aRetourner = -1;
 		
 		if(aAjouter == null)
 		{
@@ -113,6 +113,14 @@ public class AnimauxManager
 		else if(isNegativeInt(aAjouter.getCodeClient()))
 		{
 			throw new BLLException("(AnimauxManager)Ajouter : le code client du propriètaire de l'animal ne peut pas être null");
+		}
+		else if(!isEmptyOrNull(aAjouter.getTatouage()) && aAjouter.getTatouage().length() > 10)
+		{
+			throw new BLLException("(AnimauxManager)Ajouter : la longueur du tatouage de l'animal ne peut excéder 10 caracteres");
+		}
+		else if(!isEmptyOrNull(aAjouter.getCouleur()) && aAjouter.getCouleur().length() > 20)
+		{
+			
 		}
 		else
 		{

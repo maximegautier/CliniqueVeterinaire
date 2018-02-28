@@ -38,7 +38,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 		
 		try 
 		{
-			String rqtSelectAnimaux = "SELECT * FROM Animaux WHERE CodeClient = ?";
+			String rqtSelectAnimaux = "SELECT * FROM Animaux WHERE CodeClient = ? AND Archive = 0";
 			PreparedStatement psSelectAnimaux = cnx.prepareStatement(rqtSelectAnimaux);	
 			psSelectAnimaux.setInt(1, CodeClient);
 			ResultSet rsSelectAnimaux = psSelectAnimaux.executeQuery();
@@ -76,7 +76,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 				
 		try 
 		{	
-			String rqtSelectAnimal = "SELECT * FROM Animaux WHERE CodeAnimal = ?";
+			String rqtSelectAnimal = "SELECT * FROM Animaux WHERE CodeAnimal = ? AND Archive = 0";
 			PreparedStatement psSelectAnimal = cnx.prepareStatement(rqtSelectAnimal);
 			psSelectAnimal.setInt(1, CodeAnimal);
 			ResultSet rsSelectAnimal = psSelectAnimal.executeQuery();
@@ -245,6 +245,4 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 	}
 
     //endregion GET/SET
-
-
 }
