@@ -4,7 +4,9 @@ import java.util.List;
 
 import fr.eni.cliniqueveterinaire.bll.AnimauxManager;
 import fr.eni.cliniqueveterinaire.bll.BLLException;
+import fr.eni.cliniqueveterinaire.bll.RacesManager;
 import fr.eni.cliniqueveterinaire.bo.Animaux;
+import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.bo.Races;
 import fr.eni.cliniqueveterinaire.ihm.login.EcranLogin;
 
@@ -36,13 +38,6 @@ public class EcranAnimalController
 		fenAnimal.setVisible(true);
 	}
 	
-	public Animaux SelectAnimal(int codeAnimal) throws BLLException
-	{
-		tmpAnimal = AnimauxManager.getInstance().SelectAnimal(codeAnimal);
-		
-		return tmpAnimal;
-	}
-	
 	public void RemplirChamps()
 	{
 		fenAnimal.getTFdCode().setText(String.valueOf(tmpAnimal.getCodeAnimal()));
@@ -59,13 +54,25 @@ public class EcranAnimalController
 			fenAnimal.getTfdTatouage().setText(tmpAnimal.getTatouage());
 		}	
 	}
-    
-	public List<Races> SelectRacesChien()
+	
+	public Animaux SelectAnimal(int codeAnimal) throws BLLException
 	{
-		return null;
+		tmpAnimal = AnimauxManager.getInstance().SelectAnimal(codeAnimal);
+		
+		return tmpAnimal;
+	}
+    
+	public List<Races> SelectRacesChien() throws BLLException
+	{
+		return RacesManager.getInstance().SelectRacesChien();
 	}
 	
-	public List<Races> SelectRacesChat()
+	public List<Races> SelectRacesChat() throws BLLException
+	{
+		return RacesManager.getInstance().SelectRacesChat();
+	}
+	
+	public Clients SelectClientParCode(int codeClient)
 	{
 		return null;
 	}

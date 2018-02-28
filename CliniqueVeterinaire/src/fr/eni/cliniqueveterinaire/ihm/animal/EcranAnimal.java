@@ -103,13 +103,13 @@ public class EcranAnimal extends JFrame
 	    this.setVisible(true);    	
     }
     
-    // A N'UTILISER QUE DANS LE CONTROLLER
+    // CTOR A N'UTILISER QUE DANS LE CONTROLLER
     public EcranAnimal()
     {
     	this.raceChat = new ArrayList<Races>();
     	this.raceChien = new ArrayList<Races>();
     	
-	    this.setSize(640, 480);
+	    this.setSize(580, 340);
 	    this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	    this.setTitle("Animaux");
 	    this.setLocationRelativeTo(null);
@@ -305,39 +305,42 @@ public class EcranAnimal extends JFrame
 				{
 					if(typeOperation)
 					{
-						Animaux aAjouter = new Animaux(
-								getCodeClient(),
-								getCbRace().getSelectedItem().toString(), 
-								getTfdNom().getText(), 
-								getCbSexe().getSelectedItem().toString(),
-								getTfdCouleur().getText(),
-								getCbEspece().getSelectedItem().toString(),
-								getTfdTatouage().getText(),
-								null/* Antécedents */, 
-								true);
+						Animaux aAjouter;
 						try 
 						{
+							aAjouter = new Animaux(
+									getCodeClient(),
+									getCbRace().getSelectedItem().toString(), 
+									getTfdNom().getText(), 
+									getCbSexe().getSelectedItem().toString(),
+									getTfdCouleur().getText(),
+									getCbEspece().getSelectedItem().toString(),
+									getTfdTatouage().getText(),
+									null/* Antécedents */, 
+									true);
+							
 							EcranAnimalController.getInstance().Ajouter(aAjouter);
 						} 
-						catch (BLLException e1) 
+						catch (BLLException e2) 
 						{
-							e1.printStackTrace();
+							e2.printStackTrace();
 						}
 					}
 					else
 					{
-						Animaux aModifier = new Animaux(
-								getCodeClient(),
-								getCbRace().getSelectedItem().toString(), 
-								getTfdNom().getText(), 
-								getCbSexe().getSelectedItem().toString(),
-								getTfdCouleur().getText(),
-								getCbEspece().getSelectedItem().toString(),
-								getTfdTatouage().getText(),
-								null/* Antécedents */, 
-								true);
 						try 
 						{
+							Animaux aModifier = new Animaux(
+									getCodeClient(),
+									getCbRace().getSelectedItem().toString(), 
+									getTfdNom().getText(), 
+									getCbSexe().getSelectedItem().toString(),
+									getTfdCouleur().getText(),
+									getCbEspece().getSelectedItem().toString(),
+									getTfdTatouage().getText(),
+									null/* Antécedents */, 
+									true);
+							
 							EcranAnimalController.getInstance().Modifier(aModifier);
 						} 
 						catch (BLLException e1) 
@@ -483,6 +486,15 @@ public class EcranAnimal extends JFrame
 		        {
 		            List<String> race = new ArrayList<String>();
 		            
+		            try 
+		            {
+						raceChat = EcranAnimalController.getInstance().SelectRacesChat();
+					} 
+		            catch (BLLException e) 
+		            {
+						e.printStackTrace();
+					}
+		            
 		            for(Races tmpItem : raceChat)
 		            {
 		            	race.add(tmpItem.getRace());
@@ -497,6 +509,15 @@ public class EcranAnimal extends JFrame
 				if(CbRace == null)
 		        {
 		            List<String> race = new ArrayList<String>();
+		            
+		            try 
+		            {
+						raceChien = EcranAnimalController.getInstance().SelectRacesChien();
+					} 
+		            catch (BLLException e) 
+		            {
+						e.printStackTrace();
+					}
 		            
 		            for(Races tmpItem : raceChien)
 		            {
@@ -528,18 +549,40 @@ public class EcranAnimal extends JFrame
 		}
 		return TFdTatouage;
 	}
-
 	
 	public int getCodeClient() 
 	{
 		return CodeClient;
 	}
 
-
 	public int getCodeAnimal() 
 	{
 		return CodeAnimal;
 	}
 
+	
+	public List<Races> getRaceChat() 
+	{
+		return raceChat;
+	}
+
+
+	public void setRaceChat(List<Races> raceChat) 
+	{
+		this.raceChat = raceChat;
+	}
+
+	
+	public List<Races> getRaceChien() 
+	{
+		return raceChien;
+	}
+
+
+	public void setRaceChien(List<Races> raceChien) 
+	{
+		this.raceChien = raceChien;
+	}
+	
     //endregion GET/SET
 }

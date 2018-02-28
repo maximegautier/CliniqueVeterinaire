@@ -38,7 +38,7 @@ public class RacesDAOJdbcImpl implements RacesDAO
 		try 
 		{
 			String rqtSelectRacesChat = "SELECT * FROM Races WHERE Espece = 'Chat'";
-			PreparedStatement psSelectRacesChat = cnx.prepareStatement(rqtSelectRacesChat);
+			PreparedStatement psSelectRacesChat = getCnx().prepareStatement(rqtSelectRacesChat);
 			ResultSet rsSelectRacesChat = psSelectRacesChat.executeQuery();
 			
 			if(rsSelectRacesChat.next())
