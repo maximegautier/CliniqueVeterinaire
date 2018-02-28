@@ -38,10 +38,7 @@ public class DialogReinit
 	public DialogReinit() throws DALException
 	{
 		jdReinit = getJdReinit();
-		InitialiserJdReinit();
-		
-		mainPanel = getMainPanel();
-		InitialiserMainPanel();
+		InitialiserJdReinit();		
 	}
 
     //endregion CTOR
@@ -50,11 +47,15 @@ public class DialogReinit
     
 	public void InitialiserJdReinit()
 	{
-		jdReinit.setSize(300, 180);
+		jdReinit.setSize(350, 180);
 		jdReinit.setResizable(false);
 		jdReinit.setTitle("Réinitialiser le mot de passe");
 		jdReinit.setModal(true);
 		jdReinit.setLocationRelativeTo(null);
+		
+		mainPanel = getMainPanel();
+		InitialiserMainPanel();
+		
 		jdReinit.setVisible(true);
 	}
 	
@@ -62,7 +63,6 @@ public class DialogReinit
 	{
 		mainPanel.setSize(jdReinit.getWidth(), jdReinit.getHeight());
         mainPanel.setOpaque(true);
-        mainPanel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         mainPanel.setLayout(new GridBagLayout());
         GridBagConstraints MainGBC = new GridBagConstraints();
         MainGBC.insets = new Insets(5, 5, 5, 5);
@@ -78,7 +78,7 @@ public class DialogReinit
         	//COLONNE1
 	    	MainGBC.gridx =1;
 	    	MainGBC.gridy =0;
-	    	MainGBC.anchor = GridBagConstraints.WEST;
+	    	MainGBC.anchor = GridBagConstraints.WEST;	    	
 	    	mainPanel.add(getTfdPersonnel(), MainGBC);
         
         //LIGNE 1
@@ -117,7 +117,7 @@ public class DialogReinit
     		//COLONNE1
 	    	MainGBC.gridx =1;
 	    	MainGBC.gridy =3;
-	    	MainGBC.anchor = GridBagConstraints.WEST;
+	    	MainGBC.anchor = GridBagConstraints.EAST;
 	    	mainPanel.add(getBtnValider(), MainGBC);
 	}
 
@@ -161,7 +161,7 @@ public class DialogReinit
 	{
 		if(tfdPersonnel == null)
 		{
-			tfdPersonnel = new JTextField(20);
+			tfdPersonnel = new JTextField(15);
 			tfdPersonnel.setEditable(false);
 		}
 		return tfdPersonnel;
@@ -182,7 +182,7 @@ public class DialogReinit
 	{
 		if(tfdAncienMDP == null)
 		{
-			tfdAncienMDP = new JTextField(20);
+			tfdAncienMDP = new JTextField(15);
 		}
 		return tfdAncienMDP;
 	}
@@ -202,7 +202,7 @@ public class DialogReinit
 	{
 		if(tfdNouveauMDP == null)
 		{
-			tfdNouveauMDP = new JTextField(20);
+			tfdNouveauMDP = new JTextField(15);
 		}
 		return tfdNouveauMDP;
 	}
