@@ -16,6 +16,6 @@ import fr.eni.cliniqueveterinaire.ihm.login.EcranLoginController;
 public class testEcranClients {
 	public static void main(String[] args) {
 			//EcranClients.getInstance();
-			EcranAjoutClients.getInstance();
+			//EcranAjoutClients.getInstance();
 	}
 }

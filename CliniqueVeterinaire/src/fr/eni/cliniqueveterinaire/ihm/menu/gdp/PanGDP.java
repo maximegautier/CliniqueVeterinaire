@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -14,8 +15,10 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
 
 public class PanGDP {
@@ -37,7 +40,7 @@ public class PanGDP {
 		
 	}
 	
-	public JPanel getPanGDP(){
+	public JPanel getPanGDP() throws DALException{
 		if (panelGDP == null){
 			panelGDP = new JPanel();
 			panelGDP.setPreferredSize(new Dimension(EcranMenu.getInstance().getWidth(),EcranMenu.getInstance().getHeight()));
@@ -54,7 +57,7 @@ public class PanGDP {
 		return panelGDP;
 	}
 	
-	private JPanel getPanelHead()
+	private JPanel getPanelHead() throws DALException
 	{
 		if (panelHead == null)
 		{
@@ -70,7 +73,7 @@ public class PanGDP {
 		return panelHead;
 	}
 	
-	private JPanel getPanelTable()
+	private JPanel getPanelTable() throws DALException
 	{
 		if (panelTable == null)
 		{
@@ -79,7 +82,10 @@ public class PanGDP {
 			panelTable.setOpaque(true);
 			
 			panelTable.add(getTablePersonnel(), BorderLayout.CENTER);
-
+		
+			JScrollPane js=new JScrollPane(getTablePersonnel());
+	        js.setVisible(true);
+	        panelTable.add(js);
 		}
 		return panelTable;
 	}
@@ -135,20 +141,30 @@ public class PanGDP {
 		return bReinitialiser;
 	}
 	
-	public JTable getTablePersonnel()
+	public JTable getTablePersonnel() throws DALException
 	{
 		if (tPersonnel == null)
 		{
 			Vector<String> entetes = new Vector<String>();
-			entetes.addElement("test");
-			entetes.addElement("test");
-			entetes.addElement("test");
-			tPersonnel = new JTable(PanGDPController.getInstance().completerTableau(),entetes);
-			
-			
+			entetes.addElement("Nom");
+			entetes.addElement("Role");
+			entetes.addElement("Mot de Passe");
+			tPersonnel = new JTable(PanGDPController.getInstance().completerTableau(),entetes){ 
+					public boolean isCellEditable(int row, int column) 
+					{ 
+							return false; 
+					}
+			};
+	        tPersonnel.setRowHeight(50);  
+	        tPersonnel.setBackground(new Color(238,238,238));
+			tPersonnel.setShowGrid(false);
+			tPersonnel.setFont(new Font("Arial", Font.BOLD, 15));
+			tPersonnel.isCellEditable(5, 2);
+			int h = getPanGDP().getPreferredSize().height - 80 -getPanelHead().getPreferredSize().height;
+			tPersonnel.setPreferredScrollableViewportSize(new Dimension(getPanGDP().getPreferredSize().width-45,h-22));
+			tPersonnel.setFillsViewportHeight(true);
 		}
 		return tPersonnel;
 	}
-	
-	
+
 }

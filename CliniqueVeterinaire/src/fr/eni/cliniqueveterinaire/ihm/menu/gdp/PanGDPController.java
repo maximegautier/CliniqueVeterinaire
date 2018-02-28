@@ -1,7 +1,11 @@
 package fr.eni.cliniqueveterinaire.ihm.menu.gdp;
 
+import java.util.List;
 import java.util.Vector;
 
+import fr.eni.cliniqueveterinaire.bll.PersonnelsManager;
+import fr.eni.cliniqueveterinaire.bo.Personnels;
+import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.login.EcranLogin;
 import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
 
@@ -35,24 +39,21 @@ public class PanGDPController {
 		System.out.println("Reinitialiser");
 	}
 	
-	public Vector<Vector> completerTableau()
+	public Vector<Vector> completerTableau() throws DALException
 	{
-		Vector<String> rows = new Vector<String>();
-		rows.addElement("test");
-		rows.addElement("test");
-		rows.addElement("test");
-		
-		Vector<String> entetes = new Vector<String>();
-		entetes.addElement("tes");
-		entetes.addElement("tes");
-		entetes.addElement("tes");
+		List<Personnels> lPersonnels = PersonnelsManager.getInstance().selectTousPersonnels();
 		
 		Vector<Vector> vecRow = new Vector<Vector>();
-		vecRow.addElement(rows);
-		vecRow.addElement(entetes);
 		
-		
-		
+		for (Personnels tmp : lPersonnels)
+		{
+			Vector<String> tmpVct = new Vector<String>();
+			tmpVct.addElement(tmp.getNom());
+			tmpVct.addElement(tmp.getRole());
+			tmpVct.addElement(tmp.getMotPasse());
+			
+			vecRow.addElement(tmpVct);
+		}	
 		return vecRow;
 	}
 	

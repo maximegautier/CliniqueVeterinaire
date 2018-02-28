@@ -8,6 +8,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.menu.gdp.PanGDP;
 
 public class EcranMenu extends JFrame{
@@ -23,14 +24,14 @@ public class EcranMenu extends JFrame{
 	private JMenuItem miDeconnexion, miFermer;
 	private JMenuItem miRDV, miClient;
 	
-	public static EcranMenu getInstance(){
+	public static EcranMenu getInstance() throws DALException{
 		if (EcranMenu.instance == null){
 			EcranMenu.instance = new EcranMenu();
 		}
 		return instance;
 	}
 	
-	public EcranMenu() {
+	public EcranMenu() throws DALException {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);		
 		setSize(width, height);
 		setResizable(false);
@@ -87,7 +88,12 @@ public class EcranMenu extends JFrame{
 			miDeconnexion.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					EcranMenuController.getInstance().Deconnexion();
+					try {
+						EcranMenuController.getInstance().Deconnexion();
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 		}
@@ -100,7 +106,12 @@ public class EcranMenu extends JFrame{
 			miFermer.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					EcranMenuController.getInstance().Fermer();
+					try {
+						EcranMenuController.getInstance().Fermer();
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 		}

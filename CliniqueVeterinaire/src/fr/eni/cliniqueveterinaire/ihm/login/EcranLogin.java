@@ -13,6 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import fr.eni.cliniqueveterinaire.dal.DALException;
+
 public class EcranLogin extends JFrame{
 	
 	private static EcranLogin instance;
@@ -107,7 +109,12 @@ public class EcranLogin extends JFrame{
 			bValider.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					EcranLoginController.getInstance().Connexion();
+					try {
+						EcranLoginController.getInstance().Connexion();
+					} catch (DALException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 		}

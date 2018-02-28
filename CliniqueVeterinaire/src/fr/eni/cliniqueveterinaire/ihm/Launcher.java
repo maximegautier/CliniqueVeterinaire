@@ -2,6 +2,7 @@ package fr.eni.cliniqueveterinaire.ihm;
 
 import javax.swing.SwingUtilities;
 
+import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.login.EcranLoginController;
 
 public class Launcher {
@@ -11,7 +12,12 @@ public class Launcher {
 
 			@Override
 			public void run() {
-					EcranLoginController.getInstance().startApp();
+					try {
+						EcranLoginController.getInstance().startApp();
+					} catch (DALException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 			}	
 		});
 		

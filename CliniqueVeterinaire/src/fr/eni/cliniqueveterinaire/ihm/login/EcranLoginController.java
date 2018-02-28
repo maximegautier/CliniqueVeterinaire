@@ -4,6 +4,7 @@ package fr.eni.cliniqueveterinaire.ihm.login;
 
 import fr.eni.cliniqueveterinaire.bll.PersonnelsManager;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
+import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
 
 public class EcranLoginController
@@ -27,14 +28,14 @@ public class EcranLoginController
 		return EcranLoginController.instance;
 	}
 	
-	public void startApp()
+	public void startApp() throws DALException
 	{
 		/* Modifié pour commencer sur fenMenu */
 		fenMenu = fenMenu.getInstance();
 		fenMenu.setVisible(true);
 	}
 	
-	public void Connexion()
+	public void Connexion() throws DALException
 	{
 		Personnels persoConnect = PersonnelsManager.getInstance().Authentification(fenLogin.getTxtLogin().getText(), fenLogin.getTxtPassword().getText());
 		
