@@ -98,6 +98,10 @@ public class AnimauxManager
 		{
 			throw new BLLException("(AnimauxManager)Ajouter : le sexe de l'animal ne peut pas être null");
 		}
+		else if(aAjouter.getSexe().length() > 1)
+		{
+			throw new BLLException("(AnimauxManager)Ajouter : le sexe de l'animal ne peut pas excéder 1 caractère (M,F)");
+		}
 		else if(isEmptyOrNull(aAjouter.getRace()))
 		{
 			throw new BLLException("(AnimauxManager)Ajouter : la race de l'animal ne peut pas être null");

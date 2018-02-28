@@ -159,7 +159,7 @@ public class Animaux
 		Antecedents = antecedents;
 	}
 
-	public boolean isArchive() {
+	public boolean getArchive() {
 		return Archive;
 	}
 

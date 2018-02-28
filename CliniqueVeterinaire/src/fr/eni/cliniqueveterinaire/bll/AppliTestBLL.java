@@ -71,12 +71,18 @@ public class AppliTestBLL {
 		System.out.println();
 		System.out.println("___________________ Animaux ___________________");
 		List<Animaux> lAnimaux = new ArrayList<>();
-		Animaux ani1 = new Animaux(1, 1, "Labrador", "Doggo", "M", "Sable", "*codetatoo*", "RAS (antecedents)", "Chien", false);
+		Animaux ani1 = new Animaux(1, 1, "Labrador", "Doggo", "M", "Sable", "Chien", "AZERT", "RAS (antecedents)",  false);
 		lAnimaux.add(ani1);
 		lAnimaux.add(new Animaux(2,2,"Chihuahua","Tchoupi", "F", "roux", "Chien" ,"ABCDEF","RAS", false));
 		lAnimaux.add(new Animaux(3,1,"T-rex","Hector", "M", "vert", "Dinosaure" ,"GHIJKL","Fracture du genou", false));
 		lAnimaux.add(new Animaux(4,1,"Commun","Flipper", "M", "gris", "Dauphin" ,"MNOPQR","Absente de nageoire", true));
 	
+		for(Animaux tmpItem : lAnimaux)
+		{
+			AnimauxManager.getInstance().Ajouter(tmpItem);
+			System.out.println("Ajouté : "+tmpItem.toString());
+		}
+		
 		for (int i = 0; i<lAnimaux.size();i++)
 		{
 			  System.out.println(lAnimaux.get(i).toString());

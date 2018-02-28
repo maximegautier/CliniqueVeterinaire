@@ -115,7 +115,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 		try 
 		{
 			String rqtAjouterAnimal = "	INSERT INTO Animaux(NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive) VALUES (?,?,?,?,?,?,?,?,?)";
-			PreparedStatement psAjouterAnimal = cnx.prepareStatement(rqtAjouterAnimal, Statement.RETURN_GENERATED_KEYS);
+			PreparedStatement psAjouterAnimal = getCnx().prepareStatement(rqtAjouterAnimal, Statement.RETURN_GENERATED_KEYS);
 			psAjouterAnimal.setString(1, aAjouter.getNomAnimal());
 			psAjouterAnimal.setString(2, aAjouter.getSexe());
 			psAjouterAnimal.setString(3, aAjouter.getCouleur());
@@ -124,7 +124,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 			psAjouterAnimal.setInt(6, aAjouter.getCodeClient());
 			psAjouterAnimal.setString(7, aAjouter.getTatouage());
 			psAjouterAnimal.setString(8, aAjouter.getAntecedents());
-			psAjouterAnimal.setBoolean(9, aAjouter.isArchive());
+			psAjouterAnimal.setBoolean(9, aAjouter.getArchive());
 			
 			int nbRows = psAjouterAnimal.executeUpdate();
 			if(nbRows == 1)
@@ -191,7 +191,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 			psModifierAnimal.setInt(6, aModifier.getCodeClient());
 			psModifierAnimal.setString(7, aModifier.getTatouage());
 			psModifierAnimal.setString(8, aModifier.getAntecedents());
-			psModifierAnimal.setBoolean(9, aModifier.isArchive());
+			psModifierAnimal.setBoolean(9, aModifier.getArchive());
 			psModifierAnimal.setInt(10, aModifier.getCodeAnimal());
 			
 			int nbRows = psModifierAnimal.executeUpdate();
