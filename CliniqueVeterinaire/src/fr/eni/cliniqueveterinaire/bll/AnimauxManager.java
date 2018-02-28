@@ -59,6 +59,18 @@ public class AnimauxManager
 		return aRetourner;
 	}
 	
+	public List<String> SelectEspece() throws BLLException
+	{
+		try 
+		{
+			return animauxDAO.SelectEspeces();
+		} 
+		catch (DALException e) 
+		{
+			throw new BLLException(e.getMessage());
+		}
+	}
+	
 	public Animaux SelectAnimal(int CodeAnimal) throws BLLException
 	{
 		Animaux aRetourner = null;

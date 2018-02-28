@@ -460,10 +460,18 @@ public class EcranAnimal extends JFrame
 	{
 		if(CbEspece == null)
         {
-            List<String> espece = Arrays.asList("Chat", "Chien");
-
-            CbEspece = new JComboBox();
-            CbEspece.setModel(new DefaultComboBoxModel(espece.toArray()));
+            List<String> espece;
+			try 
+			{
+				espece = EcranAnimalController.getInstance().SelectEspeces();
+	            CbEspece = new JComboBox();
+	            CbEspece.setModel(new DefaultComboBoxModel(espece.toArray()));
+			} 
+			catch (BLLException e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         }
 		return CbEspece;
 	}

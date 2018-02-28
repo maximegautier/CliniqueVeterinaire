@@ -9,6 +9,8 @@ public interface AnimauxDAO
 {
 	public List<Animaux> SelectAnimaux(int CodeClient) throws DALException;
 	
+	public List<String> SelectEspeces() throws DALException;
+	
 	public Animaux SelectAnimal(int CodeAnimal) throws DALException;
 	
 	public int Ajouter(Animaux aAjouter) throws DALException;

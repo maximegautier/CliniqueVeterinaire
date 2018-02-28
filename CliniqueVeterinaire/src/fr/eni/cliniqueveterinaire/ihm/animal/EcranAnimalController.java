@@ -61,6 +61,11 @@ public class EcranAnimalController
 		
 		return tmpAnimal;
 	}
+	
+	public List<String> SelectEspeces() throws BLLException
+	{
+		return AnimauxManager.getInstance().SelectEspece();
+	}
     
 	public List<Races> SelectRacesChien() throws BLLException
 	{

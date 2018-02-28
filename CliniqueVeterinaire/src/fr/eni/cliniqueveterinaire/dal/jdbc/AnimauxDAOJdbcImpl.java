@@ -70,6 +70,34 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 	}
 
 	@Override
+	public List<String> SelectEspeces() throws DALException 
+	{
+		List<String> aRetourner = new ArrayList<String>();
+		
+		
+		try 
+		{
+			String rqtSelectEspeces = "SELECT DISTINCT Espece FROM Animaux";
+			PreparedStatement psSelectEspeces = getCnx().prepareStatement(rqtSelectEspeces);
+			ResultSet rsSelectEspeces = psSelectEspeces.executeQuery();
+			
+			if(rsSelectEspeces.next())
+			{
+				aRetourner.add(rsSelectEspeces.getString("Espece"));
+			}
+			
+			rsSelectEspeces.close();
+			
+		} 
+		catch (SQLException e) 
+		{
+			throw new DALException(e.getMessage());
+		}	
+				
+		return aRetourner;
+	}
+	
+	@Override
 	public Animaux SelectAnimal(int CodeAnimal) throws DALException 
 	{
 		Animaux aRetourner = null;
