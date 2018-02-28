@@ -15,6 +15,9 @@ public class EcranMenu extends JFrame{
 	private static EcranMenu instance;
 	PanGDP GDP = PanGDP.getInstance();
 	
+	private int width = 700;
+	private int height = 500;
+	
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu mFichier, mRDV, mAgenda, mGDP;
 	private JMenuItem miDeconnexion, miFermer;
@@ -29,7 +32,7 @@ public class EcranMenu extends JFrame{
 	
 	public EcranMenu() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);		
-		setSize(700, 500);
+		setSize(width, height);
 		setResizable(false);
 		setTitle("Clinique Veterinaire");
 		
@@ -117,5 +120,15 @@ public class EcranMenu extends JFrame{
 		}
 		return miClient;
 	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+	
+	
 	
 }

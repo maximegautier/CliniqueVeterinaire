@@ -76,7 +76,7 @@ public class PersonnelsManager
 	}
 	
 	/* Créé par Maxime GAUTIER */
-	public List<Personnels> getCatalogue() throws DALException
+	public List<Personnels> selectTousPersonnels() throws DALException
 	{
 		List<Personnels> lPersonnels = null;
 		lPersonnels = personnelsDAO.selectAll();

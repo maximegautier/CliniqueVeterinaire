@@ -29,8 +29,9 @@ public class EcranLoginController
 	
 	public void startApp()
 	{
-		fenLogin = EcranLogin.getInstance();
-		fenLogin.setVisible(true);
+		/* Modifié pour commencer sur fenMenu */
+		fenMenu = fenMenu.getInstance();
+		fenMenu.setVisible(true);
 	}
 	
 	public void Connexion()

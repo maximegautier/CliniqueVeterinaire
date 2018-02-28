@@ -34,7 +34,7 @@ public class AppliTestBLL {
 		}
 		
 		// Affichage du personnels
-		System.out.println(persoManager.getCatalogue());
+		System.out.println(persoManager.selectTousPersonnels());
 		
 		// Instanciation du jeu d'essai Clients
 		System.out.println();
@@ -125,7 +125,7 @@ public class AppliTestBLL {
 		System.out.println("___________________ Suppresion personnel ___________________");
 		persoManager.Supprimer(perso1);
 		System.out.println("Apres");
-		System.out.println(persoManager.getCatalogue());
+		System.out.println(persoManager.selectTousPersonnels());
 	}
 
 }
