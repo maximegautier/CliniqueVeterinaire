@@ -58,7 +58,7 @@ public class PanGDPController {
 			{
 				panelGDP.getInstance().getDefTableModel().removeRow(0);
 			}
-			panelGDP.getInstance().getDefTableModel().addRow(PanGDPController.getInstance().completerTableau());
+			//panelGDP.getInstance().getDefTableModel().add
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.INFORMATION_MESSAGE);
