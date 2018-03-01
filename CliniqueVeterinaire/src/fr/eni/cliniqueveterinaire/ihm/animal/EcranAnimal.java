@@ -323,7 +323,7 @@ public class EcranAnimal extends JFrame
 						} 
 						catch (BLLException e2) 
 						{
-							e2.printStackTrace();
+							JOptionPane.showMessageDialog(null, e2.getMessage(), "Erreur", JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
 					else
@@ -345,7 +345,7 @@ public class EcranAnimal extends JFrame
 						} 
 						catch (BLLException e1) 
 						{
-							e1.printStackTrace();
+							JOptionPane.showMessageDialog(null, e1.getMessage(), "Erreur", JOptionPane.INFORMATION_MESSAGE);
 						}
 					}
 				}
@@ -567,25 +567,21 @@ public class EcranAnimal extends JFrame
 	{
 		return CodeAnimal;
 	}
-
 	
 	public List<Races> getRaceChat() 
 	{
 		return raceChat;
 	}
 
-
 	public void setRaceChat(List<Races> raceChat) 
 	{
 		this.raceChat = raceChat;
 	}
-
 	
 	public List<Races> getRaceChien() 
 	{
 		return raceChien;
 	}
-
 
 	public void setRaceChien(List<Races> raceChien) 
 	{

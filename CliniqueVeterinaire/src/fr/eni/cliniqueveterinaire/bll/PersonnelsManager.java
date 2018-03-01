@@ -46,14 +46,14 @@ public class PersonnelsManager
 			if(personnel == null)
 			{
 				throw new BLLException("On ne peut pas ajouter un personnel null.");
-			}
-			else if(personnelsDAO.selectByName(personnel.getNom()) != null && personnelsDAO.selectByName(personnel.getNom()).getNom().equals(personnel.getNom()))
-			{
-				throw new BLLException("Il existe un personnel du meme nom.");
-			}
+			}			
 			else if(isEmptyOrNull(personnel.getNom()))
 			{
 				throw new BLLException("On ne peut pas ajouter un personnel avec un nom null.");
+			}
+			else if(VerifieSiExiste(personnel.getNom()))
+			{
+				throw new BLLException("Il existe un personnel du meme nom.");
 			}
 			else if(personnel.getNom().length()> 30)
 			{
@@ -148,6 +148,29 @@ public class PersonnelsManager
 			e.printStackTrace();
 		}
 		return false;			
+	}
+	
+	public boolean VerifieSiExiste(String nomPersonnel) throws BLLException
+	{
+		boolean aRetourner = false; 
+		
+		if(isEmptyOrNull(nomPersonnel))
+		{
+			throw new BLLException("Le nom du personnel ne peut pas etre null.");
+		}
+		else
+		{
+			try 
+			{
+				aRetourner = personnelsDAO.VerifieSiExiste(nomPersonnel);
+			} 
+			catch (DALException e) 
+			{
+				throw new BLLException(e.getMessage());
+			}
+		}
+		
+		return aRetourner;
 	}
 	
 	//************

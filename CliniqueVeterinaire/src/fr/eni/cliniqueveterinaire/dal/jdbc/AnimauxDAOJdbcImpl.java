@@ -239,6 +239,32 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 		return aRetourner;
 	}
 	
+	public boolean VerifieSiExiste(int codeClient, String nomAnimal) throws DALException
+	{
+		boolean aRetourner = false;
+		
+		try 
+		{
+			String rqtVerifieSiExiste = "SELECT * FROM Animaux WHERE NomAnimal = '?' AND CodeClient = '?'";
+			PreparedStatement psVerifieSiExiste = getCnx().prepareStatement(rqtVerifieSiExiste);
+			psVerifieSiExiste.setString(1, nomAnimal);
+			psVerifieSiExiste.setInt(2, codeClient);		
+			ResultSet rsVerifieSiExiste = psVerifieSiExiste.executeQuery();
+			
+			if(rsVerifieSiExiste.next())
+			{
+				aRetourner = false;
+			}
+			
+		} 
+		catch (SQLException e) 
+		{
+			throw new DALException(e.getMessage());
+		} 
+		
+		return aRetourner;
+	}
+	
 	//************
 	//UTILITAIRES
 	//************	

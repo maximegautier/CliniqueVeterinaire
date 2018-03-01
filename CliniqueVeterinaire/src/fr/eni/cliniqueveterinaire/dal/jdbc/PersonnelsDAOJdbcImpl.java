@@ -322,4 +322,31 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 		return list;
 	}
 	
+	public boolean VerifieSiExiste(String nomPersonnel) throws DALException
+	{
+		Connection cnx = null;
+		boolean aRetourner = false;
+		
+		try 
+		{
+			cnx = JdbcTools.getConnection();
+			String rqtVerifieSiExiste = "SELECT * FROM Personnels WHERE Nom = ?";
+			PreparedStatement psVerifieSiExiste = cnx.prepareStatement(rqtVerifieSiExiste);
+			psVerifieSiExiste.setString(1, nomPersonnel);		
+			ResultSet rsVerifieSiExiste = psVerifieSiExiste.executeQuery();
+			
+			if(rsVerifieSiExiste.next())
+			{
+				aRetourner = true;
+			}
+			
+		} 
+		catch (SQLException e) 
+		{
+			throw new DALException(e.getMessage());
+		} 
+		
+		return aRetourner;
+	}
+	
 }
