@@ -14,13 +14,13 @@ import fr.eni.cliniqueveterinaire.dal.PersonnelsDAO;
 
 public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 {
-	private String rqtCheckConnec = "SELECT Nom,MotPasse,Role,Archive FROM Personnels WHERE Nom = ? AND MotPasse = ? AND Archive = 0";
-	private String rqtSelectById = "SELECT Nom,MotPasse,Role,Archive FROM Personnels WHERE CodePers = ? AND Archive = 0";
-	private String rqtSelectByName = "SELECT Nom,MotPasse,Role,Archive FROM Personnels WHERE Nom = ? AND Archive = 0";
-	private String rqtSelectAll = "SELECT CodePers,Nom,MotPasse,Role,Archive FROM Personnels WHERE Archive = 0 ORDER BY Nom";
-	private String rqtInsert = "INSERT INTO Personnels VALUES (?,?,?,?)";
+	private String rqtCheckConnec = "SELECT Nom,Prenom,MotPasse,Role,Archive FROM Personnels WHERE Nom = ? AND MotPasse = ? AND Archive = 0";
+	private String rqtSelectById = "SELECT Nom,,Prenom,MotPasse,Role,Archive FROM Personnels WHERE CodePers = ? AND Archive = 0";
+	private String rqtSelectByName = "SELECT Nom,,Prenom,MotPasse,Role,Archive FROM Personnels WHERE Nom = ? AND Archive = 0";
+	private String rqtSelectAll = "SELECT CodePers,Nom,Prenom,MotPasse,Role,Archive FROM Personnels WHERE Archive = 0 ORDER BY Nom";
+	private String rqtInsert = "INSERT INTO Personnels VALUES (?,?,?,?,?)";
 	private String rqtDelete = "UPDATE Personnels SET Archive = 1 WHERE CodePers = ?";
-	private String rqtUpdate = "UPDATE Personnels SET Nom=?, MotPasse=?, Role=?, Archive = ? WHERE CodePers = ?";
+	private String rqtUpdate = "UPDATE Personnels SET Nom=?, Prenom=?, MotPasse=?, Role=?, Archive = ? WHERE CodePers = ?";
 	private String rqtSelectRole = "SELECT DISTINCT Role From Personnels";
 	
 	public PersonnelsDAOJdbcImpl()
@@ -28,7 +28,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 		
 	}
 	
-	public Personnels checkConnexion(String nom,String mdp) throws DALException
+	public Personnels checkConnexion(String login,String mdp) throws DALException
 	{
 		Connection cnx = null;
 		PreparedStatement rqt = null;
@@ -39,13 +39,15 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 				cnx = JdbcTools.getConnection();
 			
 				rqt = cnx.prepareStatement(rqtCheckConnec);
-				rqt.setString(1, nom);
+				rqt.setString(1, login);
 				rqt.setString(2, mdp);
 				
 				rs = rqt.executeQuery();
 				if (rs.next()) {
 					personnel = new Personnels(
+							rs.getInt("CodePers"),
 							rs.getString("Nom"),
+							rs.getString("Prenom"),
 							rs.getString("MotPasse"),
 							rs.getString("Role"),
 							rs.getBoolean("Archive")
@@ -85,7 +87,9 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 			rs = rqt.executeQuery();
 			if (rs.next()){
 				personnel = new Personnels(
+						rs.getInt("CodePers"),
 						rs.getString("Nom"),
+						rs.getString("Prenom"),
 						rs.getString("MotPasse"),
 						rs.getString("Role"),
 						rs.getBoolean("Archive")		
@@ -125,7 +129,9 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 			rs = rqt.executeQuery();
 			if (rs.next()){
 				personnel = new Personnels(
+						rs.getInt("CodePers"),
 						rs.getString("Nom"),
+						rs.getString("Prenom"),
 						rs.getString("MotPasse"),
 						rs.getString("Role"),
 						rs.getBoolean("Archive")		
@@ -168,6 +174,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 				personnel = new Personnels(
 						rs.getInt("CodePers"),
 						rs.getString("Nom"),
+						rs.getString("Prenom"),
 						rs.getString("MotPasse"),
 						rs.getString("Role"),
 						rs.getBoolean("Archive")		
@@ -203,9 +210,10 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 			cnx = JdbcTools.getConnection();
 			rqt = cnx.prepareStatement(rqtInsert, Statement.RETURN_GENERATED_KEYS);
 			rqt.setString(1, personnel.getNom());
-			rqt.setString(2, personnel.getMotPasse());
-			rqt.setString(3, personnel.getRole());
-			rqt.setBoolean(4, personnel.getArchive());
+			rqt.setString(2, personnel.getPrenom());
+			rqt.setString(3, personnel.getMotPasse());
+			rqt.setString(4, personnel.getRole());
+			rqt.setBoolean(5, personnel.getArchive());
 			int nbRows = rqt.executeUpdate();
 			if(nbRows == 1){
 				ResultSet rs = rqt.getGeneratedKeys();
@@ -239,9 +247,10 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 			cnx = JdbcTools.getConnection();
 			rqt = cnx.prepareStatement(rqtUpdate);
 			rqt.setString(1, personnel.getNom());
-			rqt.setString(2, personnel.getMotPasse());
-			rqt.setString(3, personnel.getRole());
-			rqt.setBoolean(4, personnel.getArchive());
+			rqt.setString(2, personnel.getPrenom());
+			rqt.setString(3, personnel.getMotPasse());
+			rqt.setString(4, personnel.getRole());
+			rqt.setBoolean(5, personnel.getArchive());
 			rqt.setInt(5, personnel.getCodePers());
 			rqt.executeUpdate();
 			
