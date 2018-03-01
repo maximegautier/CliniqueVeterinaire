@@ -41,16 +41,16 @@ public class EcranAnimalController
 	{
 		fenAnimal.getTFdCode().setText(String.valueOf(tmpAnimal.getCodeAnimal()));
 		fenAnimal.getTfdNom().setText(tmpAnimal.getNomAnimal());
-		fenAnimal.getCbSexe().setSelectedItem(tmpAnimal.getSexe());
+		fenAnimal.getCbSexe().setSelectedItem(tmpAnimal.getsexe());
 		if(tmpAnimal.getCouleur() != null)
 		{
 			fenAnimal.getTfdCouleur().setText(tmpAnimal.getCouleur());
 		}
 		fenAnimal.getCbEspece().setSelectedItem(tmpAnimal.getEspece());
 		fenAnimal.getCbRace().setSelectedItem(tmpAnimal.getRace());
-		if(tmpAnimal.getTatouage() != null)
+		if(tmpAnimal.gettatouage() != null)
 		{
-			fenAnimal.getTfdTatouage().setText(tmpAnimal.getTatouage());
+			fenAnimal.getTfdTatouage().setText(tmpAnimal.gettatouage());
 		}	
 	}
 	

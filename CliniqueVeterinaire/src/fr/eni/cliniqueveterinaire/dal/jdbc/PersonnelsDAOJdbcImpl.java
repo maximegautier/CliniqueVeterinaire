@@ -350,7 +350,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 	}
 	
 	/* Créé par Erwin DUPUIS */
-	public boolean VerifieSiExiste(String nomPersonnel) throws DALException
+	public boolean verifieSiExiste(String nomPersonnel) throws DALException
 	{
 		Connection cnx = null;
 		boolean aRetourner = false;

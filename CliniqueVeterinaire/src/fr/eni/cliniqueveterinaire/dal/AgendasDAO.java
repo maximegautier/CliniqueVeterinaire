@@ -8,9 +8,9 @@ import fr.eni.cliniqueveterinaire.bo.Agendas;
 /* Créé par Erwin DUPUIS */
 public interface AgendasDAO 
 {
-	public List<Agendas> SelectParDate(Date dateDebut, Date dateFin) throws DALException;
+	public List<Agendas> selectParDate(Date dateDebut, Date dateFin) throws DALException;
 	
-	public boolean Ajouter(Agendas aAjouter) throws DALException;
+	public boolean ajouter(Agendas aAjouter) throws DALException;
 	
-	public boolean Supprimer(Agendas aSupprimer) throws DALException;
+	public boolean supprimer(Agendas aSupprimer) throws DALException;
 }

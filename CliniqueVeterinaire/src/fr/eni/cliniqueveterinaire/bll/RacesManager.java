@@ -39,7 +39,7 @@ public class RacesManager
 	{
 		try 
 		{
-			return racesDAO.SelectRacesChat();
+			return racesDAO.selectRacesChat();
 		} 
 		catch (DALException e) 
 		{
@@ -51,7 +51,7 @@ public class RacesManager
 	{
 		try 
 		{
-			return racesDAO.SelectRacesChien();
+			return racesDAO.selectRacesChien();
 		} 
 		catch (DALException e) 
 		{

@@ -22,7 +22,7 @@ public interface PersonnelsDAO {
 	
 	public List<String> selectRole() throws DALException;
 	
-	public boolean VerifieSiExiste(String nomPersonnel) throws DALException;
+	public boolean verifieSiExiste(String nomPersonnel) throws DALException;
 	
 	public List<Personnels> selectVeterinaire() throws DALException;
 	

@@ -17,7 +17,6 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 {
     //region DECLARATION
 	
-	private Connection cnx;
 
     //endregion DECLARATION
 
@@ -32,16 +31,17 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
     //region METHODS
     
 	@Override
-	public List<Animaux> SelectAnimaux(int CodeClient) throws DALException
+	public List<Animaux> selectAnimaux(int CodeClient) throws DALException
 	{
+		Connection cnx = JdbcTools.getConnection();
 		List<Animaux> aRetourner = new ArrayList<Animaux>();
-		String rqtSelectAnimaux = "SELECT * FROM Animaux WHERE CodeClient = ? AND Archive = 0";
+		String rqtSelectAnimaux = "SELECT * FROM Animaux WHERE CodeClient = ? AND archive = 0";
 		PreparedStatement psSelectAnimaux = null;
 		ResultSet rsSelectAnimaux = null;
 		
 		try 
 		{
-			psSelectAnimaux = getCnx().prepareStatement(rqtSelectAnimaux);	
+			psSelectAnimaux = cnx.prepareStatement(rqtSelectAnimaux);	
 			psSelectAnimaux.setInt(1, CodeClient);
 			rsSelectAnimaux = psSelectAnimaux.executeQuery();
 			
@@ -52,12 +52,12 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 						rsSelectAnimaux.getInt("CodeClient"), 
 						rsSelectAnimaux.getString("Race"), 
 						rsSelectAnimaux.getString("NomAnimal"), 
-						rsSelectAnimaux.getString("Sexe"), 
+						rsSelectAnimaux.getString("sexe"), 
 						rsSelectAnimaux.getString("Couleur"), 
 						rsSelectAnimaux.getString("Espece"), 
-						rsSelectAnimaux.getString("Tatouage"), 
+						rsSelectAnimaux.getString("tatouage"), 
 						rsSelectAnimaux.getString("Antecedents"), 
-						rsSelectAnimaux.getBoolean("Archive"));
+						rsSelectAnimaux.getBoolean("archive"));
 				aRetourner.add(tmp);
 			}
 		} 
@@ -71,6 +71,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 			{
 				psSelectAnimaux.close();
 				rsSelectAnimaux.close();
+				cnx.close();
 			}
 			catch(SQLException e)
 			{
@@ -82,8 +83,9 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 	}
 
 	@Override
-	public List<String> SelectEspeces() throws DALException 
+	public List<String> selectEspeces() throws DALException 
 	{
+		Connection cnx = JdbcTools.getConnection();
 		List<String> aRetourner = new ArrayList<String>();
 		String rqtSelectEspeces = "SELECT DISTINCT Espece FROM Animaux";
 		PreparedStatement psSelectEspeces = null;
@@ -91,7 +93,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 		
 		try 
 		{			
-			psSelectEspeces = getCnx().prepareStatement(rqtSelectEspeces);
+			psSelectEspeces = cnx.prepareStatement(rqtSelectEspeces);
 			rsSelectEspeces = psSelectEspeces.executeQuery();
 			
 			if(rsSelectEspeces.next())
@@ -109,6 +111,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 			{
 				psSelectEspeces.close();
 				rsSelectEspeces.close();
+				cnx.close();
 			}
 			catch(SQLException e)
 			{
@@ -120,16 +123,17 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 	}
 	
 	@Override
-	public Animaux SelectAnimal(int CodeAnimal) throws DALException 
+	public Animaux selectAnimal(int CodeAnimal) throws DALException 
 	{
+		Connection cnx = JdbcTools.getConnection();
 		Animaux aRetourner = null;
-		String rqtSelectAnimal = "SELECT * FROM Animaux WHERE CodeAnimal = ? AND Archive = 0";	
+		String rqtSelectAnimal = "SELECT * FROM Animaux WHERE CodeAnimal = ? AND archive = 0";	
 		PreparedStatement psSelectAnimal = null;
 		ResultSet rsSelectAnimal = null;
 		
 		try 
 		{	
-			psSelectAnimal = getCnx().prepareStatement(rqtSelectAnimal);
+			psSelectAnimal = cnx.prepareStatement(rqtSelectAnimal);
 			psSelectAnimal.setInt(1, CodeAnimal);
 			rsSelectAnimal = psSelectAnimal.executeQuery();
 			
@@ -140,12 +144,12 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 						rsSelectAnimal.getInt("CodeClient"), 
 						rsSelectAnimal.getString("Race"), 
 						rsSelectAnimal.getString("NomAnimal"), 
-						rsSelectAnimal.getString("Sexe"), 
+						rsSelectAnimal.getString("sexe"), 
 						rsSelectAnimal.getString("Couleur"), 
 						rsSelectAnimal.getString("Espece"), 
-						rsSelectAnimal.getString("Tatouage"), 
+						rsSelectAnimal.getString("tatouage"), 
 						rsSelectAnimal.getString("Antecedents"), 
-						rsSelectAnimal.getBoolean("Archive"));
+						rsSelectAnimal.getBoolean("archive"));
 				aRetourner = tmp;
 			}			
 		} 
@@ -159,6 +163,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 			{
 				psSelectAnimal.close();
 				rsSelectAnimal.close();
+				cnx.close();
 			}
 			catch(SQLException e)
 			{
@@ -170,25 +175,26 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 	}
 
 	@Override
-	public int Ajouter(Animaux aAjouter) throws DALException 
+	public int ajouter(Animaux aAjouter) throws DALException 
 	{
 		int aRetourner;
-		String rqtAjouterAnimal = "	INSERT INTO Animaux(NomAnimal, Sexe, Couleur, Race, Espece, CodeClient, Tatouage, Antecedents, Archive) VALUES (?,?,?,?,?,?,?,?,?)";
+		Connection cnx = JdbcTools.getConnection();
+		String rqtAjouterAnimal = "	INSERT INTO Animaux(NomAnimal, sexe, Couleur, Race, Espece, CodeClient, tatouage, Antecedents, archive) VALUES (?,?,?,?,?,?,?,?,?)";
 		PreparedStatement psAjouterAnimal = null;
 		ResultSet rs = null;
 		
 		try 
 		{
-			psAjouterAnimal = getCnx().prepareStatement(rqtAjouterAnimal, Statement.RETURN_GENERATED_KEYS);
+			psAjouterAnimal = cnx.prepareStatement(rqtAjouterAnimal, Statement.RETURN_GENERATED_KEYS);
 			psAjouterAnimal.setString(1, aAjouter.getNomAnimal());
-			psAjouterAnimal.setString(2, aAjouter.getSexe());
+			psAjouterAnimal.setString(2, aAjouter.getsexe());
 			psAjouterAnimal.setString(3, aAjouter.getCouleur());
 			psAjouterAnimal.setString(4, aAjouter.getRace());
 			psAjouterAnimal.setString(5, aAjouter.getEspece());
 			psAjouterAnimal.setInt(6, aAjouter.getCodeClient());
-			psAjouterAnimal.setString(7, aAjouter.getTatouage());
+			psAjouterAnimal.setString(7, aAjouter.gettatouage());
 			psAjouterAnimal.setString(8, aAjouter.getAntecedents());
-			psAjouterAnimal.setBoolean(9, aAjouter.getArchive());
+			psAjouterAnimal.setBoolean(9, aAjouter.getarchive());
 			
 			int nbRows = psAjouterAnimal.executeUpdate();
 			if(nbRows == 1)
@@ -211,6 +217,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 			{
 				psAjouterAnimal.close();
 				rs.close();
+				cnx.close();
 			}
 			catch(SQLException e)
 			{
@@ -222,15 +229,16 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 	}
 
 	@Override
-	public boolean Supprimer(int CodeAnimal) throws DALException 
+	public boolean supprimer(int CodeAnimal) throws DALException 
 	{
 		boolean aRetourner = false;
-		String rqtSupprimerAnimal = "UPDATE Animaux SET Archive = 1 WHERE CodeAnimal = ?";
+		Connection cnx = JdbcTools.getConnection();
+		String rqtSupprimerAnimal = "UPDATE Animaux SET archive = 1 WHERE CodeAnimal = ?";
 		PreparedStatement psSupprimerAnimal = null;
 		
 		try 
 		{
-			psSupprimerAnimal = getCnx().prepareStatement(rqtSupprimerAnimal);
+			psSupprimerAnimal = cnx.prepareStatement(rqtSupprimerAnimal);
 			psSupprimerAnimal.setInt(1,  CodeAnimal);
 			int nbRows = psSupprimerAnimal.executeUpdate();
 			
@@ -248,6 +256,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 			try
 			{
 				psSupprimerAnimal.close();
+				cnx.close();
 			}
 			catch(SQLException e)
 			{
@@ -259,24 +268,25 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 	}
 
 	@Override
-	public boolean Modifier(Animaux aModifier) throws DALException 
+	public boolean modifier(Animaux aModifier) throws DALException 
 	{
 		boolean aRetourner = false;
-		String rqtModifierAnimal = "UPDATE Animaux SET NomAnimal = ?, Sexe = ?, Couleur = ?, Race = ?, Espece = ?, CodeClient = ?, Tatouage = ?, Antecedents = ?, Archive = ? WHERE CodeAnimal = ?";
+		Connection cnx = JdbcTools.getConnection();
+		String rqtModifierAnimal = "UPDATE Animaux SET NomAnimal = ?, sexe = ?, Couleur = ?, Race = ?, Espece = ?, CodeClient = ?, tatouage = ?, Antecedents = ?, archive = ? WHERE CodeAnimal = ?";
 		PreparedStatement psModifierAnimal = null;
 		
 		try 
 		{
-			psModifierAnimal = getCnx().prepareStatement(rqtModifierAnimal);
+			psModifierAnimal = cnx.prepareStatement(rqtModifierAnimal);
 			psModifierAnimal.setString(1, aModifier.getNomAnimal());
-			psModifierAnimal.setString(2, aModifier.getSexe());
+			psModifierAnimal.setString(2, aModifier.getsexe());
 			psModifierAnimal.setString(3, aModifier.getCouleur());
 			psModifierAnimal.setString(4, aModifier.getRace());
 			psModifierAnimal.setString(5, aModifier.getEspece());
 			psModifierAnimal.setInt(6, aModifier.getCodeClient());
-			psModifierAnimal.setString(7, aModifier.getTatouage());
+			psModifierAnimal.setString(7, aModifier.gettatouage());
 			psModifierAnimal.setString(8, aModifier.getAntecedents());
-			psModifierAnimal.setBoolean(9, aModifier.getArchive());
+			psModifierAnimal.setBoolean(9, aModifier.getarchive());
 			psModifierAnimal.setInt(10, aModifier.getCodeAnimal());
 			
 			int nbRows = psModifierAnimal.executeUpdate();
@@ -295,6 +305,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 			try
 			{
 				psModifierAnimal.close();
+				cnx.close();
 			}
 			catch(SQLException e)
 			{
@@ -305,16 +316,17 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 		return aRetourner;
 	}
 	
-	public boolean VerifieSiExiste(int codeClient, String nomAnimal) throws DALException
+	public boolean verifieSiExiste(int codeClient, String nomAnimal) throws DALException
 	{
 		boolean aRetourner = false;
+		Connection cnx = JdbcTools.getConnection();
 		String rqtVerifieSiExiste = "SELECT * FROM Animaux WHERE NomAnimal = '?' AND CodeClient = '?'";
 		PreparedStatement psVerifieSiExiste = null;
 		ResultSet rsVerifieSiExiste = null;
 		
 		try 
 		{
-			psVerifieSiExiste = getCnx().prepareStatement(rqtVerifieSiExiste);
+			psVerifieSiExiste = cnx.prepareStatement(rqtVerifieSiExiste);
 			psVerifieSiExiste.setString(1, nomAnimal);
 			psVerifieSiExiste.setInt(2, codeClient);		
 			rsVerifieSiExiste = psVerifieSiExiste.executeQuery();
@@ -334,6 +346,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 			{
 				psVerifieSiExiste.close();
 				rsVerifieSiExiste.close();
+				cnx.close();
 			}
 			catch(SQLException e)
 			{
@@ -368,14 +381,6 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 
     //region GET/SET
 
-	public Connection getCnx() throws DALException
-	{
-		if(cnx == null)
-		{
-			cnx = JdbcTools.getConnection();
-		}
-		return cnx;
-	}
 
     //endregion GET/SET
 }

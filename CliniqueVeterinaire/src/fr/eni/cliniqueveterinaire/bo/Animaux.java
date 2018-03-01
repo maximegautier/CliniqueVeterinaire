@@ -4,16 +4,16 @@ public class Animaux
 {
     //region DECLARATION
 
-	private int CodeAnimal;
-	private int CodeClient;
-	private String Race;
-	private String NomAnimal;
-	private String Sexe; // 1 caractère
-	private String Couleur; 
-	private String Espece;
-	private String Tatouage;
-	private String Antecedents;
-	private boolean Archive;
+	private int codeAnimal;
+	private int codeClient;
+	private String race;
+	private String nomAnimal;
+	private String sexe; // 1 caractère
+	private String couleur; 
+	private String espece;
+	private String tatouage;
+	private String antecedents;
+	private boolean archive;
 
     //endregion DECLARATION
 
@@ -22,53 +22,53 @@ public class Animaux
 	public Animaux(int codeAnimal, int codeClient, String race, String nomAnimal, String sexe, String couleur,
 			String espece, String tatouage, String antecedents, boolean archive) 
 	{
-		this.CodeAnimal = codeAnimal;
-		this.CodeClient = codeClient;
-		this.Race = race;
-		this.NomAnimal = nomAnimal;
-		this.Sexe = sexe;
-		this.Couleur = couleur;
-		this.Espece = espece;
-		this.Tatouage = tatouage;
-		this.Antecedents = antecedents;
-		this.Archive = archive;
+		this.codeAnimal = codeAnimal;
+		this.codeClient = codeClient;
+		this.race = race;
+		this.nomAnimal = nomAnimal;
+		this.sexe = sexe;
+		this.couleur = couleur;
+		this.espece = espece;
+		this.tatouage = tatouage;
+		this.antecedents = antecedents;
+		this.archive = archive;
 	}
 	
 	public Animaux(int codeAnimal, int codeClient, String race, String nomAnimal, String sexe,
 			String espece, boolean archive) 
 	{
-		this.CodeAnimal = codeAnimal;
-		this.CodeClient = codeClient;
-		this.Race = race;
-		this.NomAnimal = nomAnimal;
-		this.Sexe = sexe;
-		this.Espece = espece;
-		this.Archive = archive;
+		this.codeAnimal = codeAnimal;
+		this.codeClient = codeClient;
+		this.race = race;
+		this.nomAnimal = nomAnimal;
+		this.sexe = sexe;
+		this.espece = espece;
+		this.archive = archive;
 	}
 	
 	public Animaux(int codeClient, String race, String nomAnimal, String sexe, String couleur,
 			String espece, String tatouage, String antecedents, boolean archive) 
 	{
-		this.CodeClient = codeClient;
-		this.Race = race;
-		this.NomAnimal = nomAnimal;
-		this.Sexe = sexe;
-		this.Couleur = couleur;
-		this.Espece = espece;
-		this.Tatouage = tatouage;
-		this.Antecedents = antecedents;
-		this.Archive = archive;
+		this.codeClient = codeClient;
+		this.race = race;
+		this.nomAnimal = nomAnimal;
+		this.sexe = sexe;
+		this.couleur = couleur;
+		this.espece = espece;
+		this.tatouage = tatouage;
+		this.antecedents = antecedents;
+		this.archive = archive;
 	}
 	
 	public Animaux(int codeClient, String race, String nomAnimal, String sexe,
 			String espece, boolean archive) 
 	{
-		this.CodeClient = codeClient;
-		this.Race = race;
-		this.NomAnimal = nomAnimal;
-		this.Sexe = sexe;
-		this.Espece = espece;
-		this.Archive = archive;
+		this.codeClient = codeClient;
+		this.race = race;
+		this.nomAnimal = nomAnimal;
+		this.sexe = sexe;
+		this.espece = espece;
+		this.archive = archive;
 	}
 
     //endregion CTOR
@@ -78,9 +78,9 @@ public class Animaux
 	@Override
 	public String toString()
 	{
-		return "Animaux [CodeAnimal=" + CodeAnimal + ", CodeClient=" + CodeClient + ", Race=" + Race + ", NomAnimal="
-				+ NomAnimal + ", Sexe=" + Sexe + ", Couleur=" + Couleur + ", Espece=" + Espece + ", Tatouage="
-				+ Tatouage + ", Antecedents=" + Antecedents + ", Archive=" + Archive + "]";
+		return "Animaux [CodeAnimal=" + codeAnimal + ", CodeClient=" + codeClient + ", Race=" + race + ", NomAnimal="
+				+ nomAnimal + ", sexe=" + sexe + ", Couleur=" + couleur + ", Espece=" + espece + ", tatouage="
+				+ tatouage + ", Antecedents=" + antecedents + ", archive=" + archive + "]";
 	}
     
     //endregion METHODS
@@ -88,83 +88,83 @@ public class Animaux
     //region GET/SET
 
 	public int getCodeAnimal() {
-		return CodeAnimal;
+		return codeAnimal;
 	}
 
 	public void setCodeAnimal(int codeAnimal) {
-		CodeAnimal = codeAnimal;
+		codeAnimal = codeAnimal;
 	}
 
 	public int getCodeClient() {
-		return CodeClient;
+		return codeClient;
 	}
 
 	public void setCodeClient(int codeClient) {
-		CodeClient = codeClient;
+		codeClient = codeClient;
 	}
 
 	public String getRace() {
-		return Race;
+		return race;
 	}
 
 	public void setRace(String race) {
-		Race = race;
+		race = race;
 	}
 
 	public String getNomAnimal() {
-		return NomAnimal;
+		return nomAnimal;
 	}
 
 	public void setNomAnimal(String nomAnimal) {
-		NomAnimal = nomAnimal;
+		nomAnimal = nomAnimal;
 	}
 
-	public String getSexe() {
-		return Sexe;
+	public String getsexe() {
+		return sexe;
 	}
 
-	public void setSexe(String sexe) {
-		Sexe = sexe;
+	public void setsexe(String sexe) {
+		sexe = sexe;
 	}
 
 	public String getCouleur() {
-		return Couleur;
+		return couleur;
 	}
 
 	public void setCouleur(String couleur) {
-		Couleur = couleur;
+		couleur = couleur;
 	}
 
 	public String getEspece() {
-		return Espece;
+		return espece;
 	}
 
 	public void setEspece(String espece) {
-		Espece = espece;
+		espece = espece;
 	}
 
-	public String getTatouage() {
-		return Tatouage;
+	public String gettatouage() {
+		return tatouage;
 	}
 
-	public void setTatouage(String tatouage) {
-		Tatouage = tatouage;
+	public void settatouage(String tatouage) {
+		tatouage = tatouage;
 	}
 
 	public String getAntecedents() {
-		return Antecedents;
+		return antecedents;
 	}
 
 	public void setAntecedents(String antecedents) {
-		Antecedents = antecedents;
+		antecedents = antecedents;
 	}
 
-	public boolean getArchive() {
-		return Archive;
+	public boolean getarchive() {
+		return archive;
 	}
 
-	public void setArchive(boolean archive) {
-		Archive = archive;
+	public void setarchive(boolean archive) {
+		archive = archive;
 	}
 
     //endregion GET/SET

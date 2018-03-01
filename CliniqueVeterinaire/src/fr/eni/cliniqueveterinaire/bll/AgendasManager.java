@@ -45,7 +45,7 @@ public class AgendasManager
 		{
 			try 
 			{
-				return DAOFactory.getAgendasDAO().SelectParDate(Debut, Fin);
+				return DAOFactory.getAgendasDAO().selectParDate(Debut, Fin);
 			} 
 			catch (DALException e) 
 			{
@@ -76,7 +76,7 @@ public class AgendasManager
 		{
 			try 
 			{
-				return DAOFactory.getAgendasDAO().Ajouter(aAjouter);
+				return DAOFactory.getAgendasDAO().ajouter(aAjouter);
 			} 
 			catch (DALException e) 
 			{
@@ -107,7 +107,7 @@ public class AgendasManager
 		{
 			try 
 			{
-				return DAOFactory.getAgendasDAO().Supprimer(aSupprimer);
+				return DAOFactory.getAgendasDAO().supprimer(aSupprimer);
 			} 
 			catch (DALException e) 
 			{

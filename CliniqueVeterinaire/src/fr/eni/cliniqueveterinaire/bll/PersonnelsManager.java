@@ -185,7 +185,7 @@ public class PersonnelsManager
 		{
 			try 
 			{
-				aRetourner = personnelsDAO.VerifieSiExiste(nomPersonnel);
+				aRetourner = personnelsDAO.verifieSiExiste(nomPersonnel);
 			} 
 			catch (DALException e) 
 			{

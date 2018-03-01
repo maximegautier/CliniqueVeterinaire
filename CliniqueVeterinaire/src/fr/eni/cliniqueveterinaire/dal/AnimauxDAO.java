@@ -7,17 +7,17 @@ import fr.eni.cliniqueveterinaire.bo.Animaux;
 /* Créé par Erwin DUPUIS */
 public interface AnimauxDAO 
 {
-	public List<Animaux> SelectAnimaux(int CodeClient) throws DALException;
+	public List<Animaux> selectAnimaux(int CodeClient) throws DALException;
 	
-	public List<String> SelectEspeces() throws DALException;
+	public List<String> selectEspeces() throws DALException;
 	
-	public Animaux SelectAnimal(int CodeAnimal) throws DALException;
+	public Animaux selectAnimal(int CodeAnimal) throws DALException;
 	
-	public int Ajouter(Animaux aAjouter) throws DALException;
+	public int ajouter(Animaux aAjouter) throws DALException;
 	
-	public boolean Supprimer(int CodeAnimal) throws DALException;
+	public boolean supprimer(int CodeAnimal) throws DALException;
 
-	public boolean Modifier(Animaux aModifier) throws DALException;
+	public boolean modifier(Animaux aModifier) throws DALException;
 	
-	public boolean VerifieSiExiste(int codeClient, String nomAnimal) throws DALException;
+	public boolean verifieSiExiste(int codeClient, String nomAnimal) throws DALException;
 }

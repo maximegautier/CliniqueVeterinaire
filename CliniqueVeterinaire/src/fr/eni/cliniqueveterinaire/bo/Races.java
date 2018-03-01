@@ -4,8 +4,8 @@ public class Races
 {
     //region DECLARATION
 
-	private String Race;
-	private String Espece;
+	private String race;
+	private String espece;
 
     //endregion DECLARATION
 
@@ -13,8 +13,8 @@ public class Races
 
 	public Races(String race, String espece) 
 	{
-		Race = race;
-		Espece = espece;
+		race = race;
+		espece = espece;
 	}
 
     //endregion CTOR
@@ -24,7 +24,7 @@ public class Races
 	@Override
 	public String toString() 
 	{
-		return "Races [Race=" + Race + ", Espece=" + Espece + "]";
+		return "Races [Race=" + race + ", Espece=" + espece + "]";
 	}	
     
     //endregion METHODS
@@ -32,19 +32,19 @@ public class Races
     //region GET/SET
 
 	public String getRace() {
-		return Race;
+		return race;
 	}
 
 	public void setRace(String race) {
-		Race = race;
+		race = race;
 	}
 
 	public String getEspece() {
-		return Espece;
+		return espece;
 	}
 
 	public void setEspece(String espece) {
-		Espece = espece;
+		espece = espece;
 	}
 
     //endregion GET/SET

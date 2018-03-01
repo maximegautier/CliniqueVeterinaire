@@ -48,7 +48,7 @@ public class AnimauxManager
 		{
 			try 
 			{
-				aRetourner = animauxDAO.SelectAnimaux(CodeClient);
+				aRetourner = animauxDAO.selectAnimaux(CodeClient);
 			} 
 			catch (DALException e) 
 			{
@@ -63,7 +63,7 @@ public class AnimauxManager
 	{
 		try 
 		{
-			return animauxDAO.SelectEspeces();
+			return animauxDAO.selectEspeces();
 		} 
 		catch (DALException e) 
 		{
@@ -83,7 +83,7 @@ public class AnimauxManager
 		{
 			try 
 			{
-				aRetourner = animauxDAO.SelectAnimal(CodeAnimal);
+				aRetourner = animauxDAO.selectAnimal(CodeAnimal);
 			} 
 			catch (DALException e) 
 			{
@@ -106,11 +106,11 @@ public class AnimauxManager
 		{
 			throw new BLLException("(AnimauxManager)Ajouter : le nom de l'animal ne peut pas être null");
 		}
-		else if(isEmptyOrNull(aAjouter.getSexe()))
+		else if(isEmptyOrNull(aAjouter.getsexe()))
 		{
 			throw new BLLException("(AnimauxManager)Ajouter : le sexe de l'animal ne peut pas être null");
 		}
-		else if(aAjouter.getSexe().length() > 1)
+		else if(aAjouter.getsexe().length() > 1)
 		{
 			throw new BLLException("(AnimauxManager)Ajouter : le sexe de l'animal ne peut pas excéder 1 caractère (M,F)");
 		}
@@ -130,7 +130,7 @@ public class AnimauxManager
 		{
 			throw new BLLException("Un animal de ce nom est déjà associé à ce client");
 		}
-		else if(!isEmptyOrNull(aAjouter.getTatouage()) && aAjouter.getTatouage().length() > 10)
+		else if(!isEmptyOrNull(aAjouter.gettatouage()) && aAjouter.gettatouage().length() > 10)
 		{
 			throw new BLLException("(AnimauxManager)Ajouter : la longueur du tatouage de l'animal ne peut excéder 10 caracteres");
 		}
@@ -142,7 +142,7 @@ public class AnimauxManager
 		{
 			try 
 			{
-				aRetourner = animauxDAO.Ajouter(aAjouter);
+				aRetourner = animauxDAO.ajouter(aAjouter);
 			} 
 			catch (DALException e) 
 			{
@@ -165,7 +165,7 @@ public class AnimauxManager
 		{
 			try 
 			{
-				aRetourner = animauxDAO.Supprimer(CodeAnimal);
+				aRetourner = animauxDAO.supprimer(CodeAnimal);
 			} 
 			catch (DALException e) 
 			{
@@ -192,7 +192,7 @@ public class AnimauxManager
 		{
 			throw new BLLException("(AnimauxManager)Ajouter : le nom de l'animal ne peut pas être null");
 		}
-		else if(isEmptyOrNull(aModifier.getSexe()))
+		else if(isEmptyOrNull(aModifier.getsexe()))
 		{
 			throw new BLLException("(AnimauxManager)Ajouter : le sexe de l'animal ne peut pas être null");
 		}
@@ -212,7 +212,7 @@ public class AnimauxManager
 		{
 			try 
 			{
-				aRetourner = animauxDAO.Modifier(aModifier);
+				aRetourner = animauxDAO.modifier(aModifier);
 			} 
 			catch (DALException e) 
 			{
@@ -239,7 +239,7 @@ public class AnimauxManager
 		{
 			try 
 			{
-				aRetourner = animauxDAO.VerifieSiExiste(codeClient, nomAnimal);
+				aRetourner = animauxDAO.verifieSiExiste(codeClient, nomAnimal);
 			}
 			catch (DALException e) 
 			{

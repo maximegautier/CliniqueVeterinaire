@@ -7,9 +7,9 @@ public class Agendas
 {
     //region DECLARATION
 
-	private int CodeVeto;
-	private int CodeAnimal;
-	private Date DateRdv;
+	private int codeVeto;
+	private int codeAnimal;
+	private Date dateRdv;
 
     //endregion DECLARATION
 
@@ -17,9 +17,9 @@ public class Agendas
 
 	public Agendas(int codeVeto, int codeAnimal, Date dateRdv)
 	{
-		this.CodeVeto = codeVeto;
-		this.CodeAnimal = codeAnimal;
-		this.DateRdv = dateRdv;
+		this.codeVeto = codeVeto;
+		this.codeAnimal = codeAnimal;
+		this.dateRdv = dateRdv;
 	}
 
     //endregion CTOR
@@ -29,7 +29,7 @@ public class Agendas
 	@Override
 	public String toString() 
 	{
-		return "Agendas [CodeVeto=" + CodeVeto + ", CodeAnimal=" + CodeAnimal + ", DateRdv=" + DateRdv + "]";
+		return "Agendas [CodeVeto=" + codeVeto + ", CodeAnimal=" + codeAnimal + ", DateRdv=" + dateRdv + "]";
 	}
     
     //endregion METHODS
@@ -37,27 +37,27 @@ public class Agendas
     //region GET/SET
 
 	public int getCodeVeto() {
-		return CodeVeto;
+		return codeVeto;
 	}
 
 	public void setCodeVeto(int codeVeto) {
-		CodeVeto = codeVeto;
+		codeVeto = codeVeto;
 	}
 
 	public int getCodeAnimal() {
-		return CodeAnimal;
+		return codeAnimal;
 	}
 
 	public void setCodeAnimal(int codeAnimal) {
-		CodeAnimal = codeAnimal;
+		codeAnimal = codeAnimal;
 	}
 
 	public Date getDateRdv() {
-		return DateRdv;
+		return dateRdv;
 	}
 
 	public void setDateRdv(Date dateRdv) {
-		DateRdv = dateRdv;
+		dateRdv = dateRdv;
 	}
 
     //endregion GET/SET

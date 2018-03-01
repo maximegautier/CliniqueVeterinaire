@@ -7,7 +7,7 @@ import fr.eni.cliniqueveterinaire.bo.Races;
 /* Crée par Erwin DUPUIS */
 public interface RacesDAO 
 {
-    public List<Races> SelectRacesChat() throws DALException;
+    public List<Races> selectRacesChat() throws DALException;
     
-    public List<Races> SelectRacesChien() throws DALException;
+    public List<Races> selectRacesChien() throws DALException;
 }

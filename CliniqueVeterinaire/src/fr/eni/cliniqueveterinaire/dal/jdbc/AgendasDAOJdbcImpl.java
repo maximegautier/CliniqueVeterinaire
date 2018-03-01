@@ -32,7 +32,7 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
     //region METHODS
     
 	@Override
-	public List<Agendas> SelectParDate(Date dateDebut, Date dateFin) throws DALException 
+	public List<Agendas> selectParDate(Date dateDebut, Date dateFin) throws DALException 
 	{		
 		List<Agendas> aRetourner = new ArrayList<Agendas>();
 		String rqtSelectParDate = "SELECT * FROM Agendas WHERE DateRdv BETWEEN ? AND ?";
@@ -78,7 +78,7 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 	}
 
 	@Override
-	public boolean Ajouter(Agendas aAjouter) throws DALException 
+	public boolean ajouter(Agendas aAjouter) throws DALException 
 	{	
 		boolean aRetourner = false;
 		String rqtAjouter = "INSERT INTO Agendas(CodeVeto, DateRdv, CodeAnimal) VALUES (?,?,?)";
@@ -123,7 +123,7 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 	}
 
 	@Override
-	public boolean Supprimer(Agendas aSupprimer) throws DALException 
+	public boolean supprimer(Agendas aSupprimer) throws DALException 
 	{
 		boolean aRetourner = false;
 		String rqtSupprimer = "DELETE FROM Agendas WHERE CodeVeto = ? AND DateRdv = ? AND CodeAnimal = ?";

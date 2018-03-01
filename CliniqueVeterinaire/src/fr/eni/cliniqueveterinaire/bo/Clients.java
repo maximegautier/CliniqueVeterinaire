@@ -4,18 +4,18 @@ public class Clients
 {
 	//region DECLARATION
 	
-	private int CodeClient;
-	private String NomClient;
-	private String PrenomClient;
-	private String Adresse1;
-	private String Adresse2;
-	private String CodePostal; //6 caractères
-	private String Ville;
-	private String NumTel;
-	private String Assurance;
-	private String Email;
-	private String Remarque;
-	private boolean Archive;	
+	private int codeClient;
+	private String nomClient;
+	private String prenomClient;
+	private String adresse1;
+	private String adresse2;
+	private String codePostal; //6 caractères
+	private String ville;
+	private String numTel;
+	private String assurance;
+	private String email;
+	private String remarque;
+	private boolean archive;	
 	
 	//endregion DECLARATION
 	
@@ -25,50 +25,50 @@ public class Clients
 			String codePostal, String ville, String numTel, String assurance, String email, String remarque,
 			boolean archive) 
 	{
-		this.CodeClient = codeClient;
-		this.NomClient = nomClient;
-		this.PrenomClient = prenomClient;
-		this.Adresse1 = adresse1;
-		this.Adresse2 = adresse2;
-		this.CodePostal = codePostal;
-		this.Ville = ville;
-		this.NumTel = numTel;
-		this.Assurance = assurance;
-		this.Email = email;
-		this.Remarque = remarque;
-		this.Archive = archive;
+		this.codeClient = codeClient;
+		this.nomClient = nomClient;
+		this.prenomClient = prenomClient;
+		this.adresse1 = adresse1;
+		this.adresse2 = adresse2;
+		this.codePostal = codePostal;
+		this.ville = ville;
+		this.numTel = numTel;
+		this.assurance = assurance;
+		this.email = email;
+		this.remarque = remarque;
+		this.archive = archive;
 	}		
 	
 	public Clients(int codeClient, String nomClient, String prenomClient, boolean archive)
 	{
-		this.CodeClient = codeClient;
-		this.NomClient = nomClient;
-		this.PrenomClient = prenomClient;
-		this.Archive = archive;
+		this.codeClient = codeClient;
+		this.nomClient = nomClient;
+		this.prenomClient = prenomClient;
+		this.archive = archive;
 	}
 	
 	public Clients(String nomClient, String prenomClient, String adresse1, String adresse2,
 			String codePostal, String ville, String numTel, String assurance, String email, String remarque,
 			boolean archive) 
 	{
-		this.NomClient = nomClient;
-		this.PrenomClient = prenomClient;
-		this.Adresse1 = adresse1;
-		this.Adresse2 = adresse2;
-		this.CodePostal = codePostal;
-		this.Ville = ville;
-		this.NumTel = numTel;
-		this.Assurance = assurance;
-		this.Email = email;
-		this.Remarque = remarque;
-		this.Archive = archive;
+		this.nomClient = nomClient;
+		this.prenomClient = prenomClient;
+		this.adresse1 = adresse1;
+		this.adresse2 = adresse2;
+		this.codePostal = codePostal;
+		this.ville = ville;
+		this.numTel = numTel;
+		this.assurance = assurance;
+		this.email = email;
+		this.remarque = remarque;
+		this.archive = archive;
 	}		
 	
 	public Clients(String nomClient, String prenomClient, boolean archive)
 	{
-		this.NomClient = nomClient;
-		this.PrenomClient = prenomClient;
-		this.Archive = archive;
+		this.nomClient = nomClient;
+		this.prenomClient = prenomClient;
+		this.archive = archive;
 	}
 	
 	//endregion CTOR
@@ -78,10 +78,10 @@ public class Clients
 	@Override
 	public String toString() 
 	{
-		return "Clients [CodeClient=" + CodeClient + ", NomClient=" + NomClient + ", PrenomClient=" + PrenomClient
-				+ ", Adresse1=" + Adresse1 + ", Adresse2=" + Adresse2 + ", CodePostal=" + CodePostal + ", Ville="
-				+ Ville + ", NumTel=" + NumTel + ", Assurance=" + Assurance + ", Email=" + Email + ", Remarque="
-				+ Remarque + ", Archive=" + Archive + "]";
+		return "Clients [CodeClient=" + codeClient + ", NomClient=" + nomClient + ", PrenomClient=" + prenomClient
+				+ ", Adresse1=" + adresse1 + ", Adresse2=" + adresse2 + ", CodePostal=" + codePostal + ", Ville="
+				+ ville + ", NumTel=" + numTel + ", Assurance=" + assurance + ", Email=" + email + ", Remarque="
+				+ remarque + ", Archive=" + archive + "]";
 	}
     
     //endregion METHODS
@@ -89,77 +89,77 @@ public class Clients
 	//region GET/SET
 	
 	public int getCodeClient() {
-		return CodeClient;
+		return codeClient;
 	}
 
 	public void setCodeClient(int codeClient) {
-		CodeClient = codeClient;
+		codeClient = codeClient;
 	}
 	public String getNomClient() {
-		return NomClient;
+		return nomClient;
 	}
 	public void setNomClient(String nomClient) {
-		NomClient = nomClient;
+		nomClient = nomClient;
 	}
 	public String getPrenomClient() {
-		return PrenomClient;
+		return prenomClient;
 	}
 	public void setPrenomClient(String prenomClient) {
-		PrenomClient = prenomClient;
+		prenomClient = prenomClient;
 	}
 	public String getAdresse1() {
-		return Adresse1;
+		return adresse1;
 	}
 	public void setAdresse1(String adresse1) {
-		Adresse1 = adresse1;
+		adresse1 = adresse1;
 	}
 	public String getAdresse2() {
-		return Adresse2;
+		return adresse2;
 	}
 	public void setAdresse2(String adresse2) {
-		Adresse2 = adresse2;
+		adresse2 = adresse2;
 	}
 	public String getCodePostal() {
-		return CodePostal;
+		return codePostal;
 	}
 	public void setCodePostal(String codePostal) {
-		CodePostal = codePostal;
+		codePostal = codePostal;
 	}
 	public String getVille() {
-		return Ville;
+		return ville;
 	}
 	public void setVille(String ville) {
-		Ville = ville;
+		ville = ville;
 	}
 	public String getNumTel() {
-		return NumTel;
+		return numTel;
 	}
 	public void setNumTel(String numTel) {
-		NumTel = numTel;
+		numTel = numTel;
 	}
 	public String getAssurance() {
-		return Assurance;
+		return assurance;
 	}
 	public void setAssurance(String assurance) {
-		Assurance = assurance;
+		assurance = assurance;
 	}
 	public String getEmail() {
-		return Email;
+		return email;
 	}
 	public void setEmail(String email) {
-		Email = email;
+		email = email;
 	}
 	public String getRemarque() {
-		return Remarque;
+		return remarque;
 	}
 	public void setRemarque(String remarque) {
-		Remarque = remarque;
+		remarque = remarque;
 	}
 	public boolean isArchive() {
-		return Archive;
+		return archive;
 	}
 	public void setArchive(boolean archive) {
-		Archive = archive;
+		archive = archive;
 	}
 	
 	//endregion GET/SET

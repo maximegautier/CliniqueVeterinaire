@@ -31,7 +31,7 @@ public class RacesDAOJdbcImpl implements RacesDAO
     //region METHODS
     
 	@Override
-	public List<Races> SelectRacesChat() throws DALException 
+	public List<Races> selectRacesChat() throws DALException 
 	{
 		List<Races> aRetourner = new ArrayList<Races>();
 		String rqtSelectRacesChat = "SELECT * FROM Races WHERE Espece = 'Chat'";
@@ -73,7 +73,7 @@ public class RacesDAOJdbcImpl implements RacesDAO
 	}
 
 	@Override
-	public List<Races> SelectRacesChien() throws DALException 
+	public List<Races> selectRacesChien() throws DALException 
 	{
 		List<Races> aRetourner = new ArrayList<Races>();
 		String rqtSelectRacesChien = "SELECT * FROM Races WHERE Espece = 'Chien'";
