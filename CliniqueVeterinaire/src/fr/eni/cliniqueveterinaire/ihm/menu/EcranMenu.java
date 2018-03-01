@@ -10,7 +10,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import fr.eni.cliniqueveterinaire.dal.DALException;
-import fr.eni.cliniqueveterinaire.ihm.menu.gdp.PanGDP;
+import fr.eni.cliniqueveterinaire.ihm.personnels.PanGDP;
 
 public class EcranMenu extends JFrame{
 	

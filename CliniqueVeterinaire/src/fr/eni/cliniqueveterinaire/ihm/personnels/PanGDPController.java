@@ -1,4 +1,4 @@
-package fr.eni.cliniqueveterinaire.ihm.menu.gdp;
+package fr.eni.cliniqueveterinaire.ihm.personnels;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
@@ -13,8 +13,6 @@ import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.login.EcranLogin;
 import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
-import fr.eni.cliniqueveterinaire.ihm.personnels.DialogAdd;
-import fr.eni.cliniqueveterinaire.ihm.personnels.DialogReinit;
 
 public class PanGDPController {
 

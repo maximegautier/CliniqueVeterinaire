@@ -315,7 +315,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 		try {
 			cnx = JdbcTools.getConnection();
 			rqt = cnx.createStatement();
-			rs = rqt.executeQuery(rqtSelectRole);;
+			rs = rqt.executeQuery(rqtSelectRole);
 			
 			while (rs.next()){
 				list.add(rs.getString("Role"));

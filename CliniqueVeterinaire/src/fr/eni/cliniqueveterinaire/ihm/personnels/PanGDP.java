@@ -1,4 +1,4 @@
-package fr.eni.cliniqueveterinaire.ihm.menu.gdp;
+package fr.eni.cliniqueveterinaire.ihm.personnels;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

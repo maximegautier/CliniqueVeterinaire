@@ -7,8 +7,8 @@ public class Personnels
 	private int CodePers;
 	private String Nom;
 	private String Prenom;
-	private String MotPasse;
 	private String Login;
+	private String MotPasse;
 	private String Role;
 	private boolean Archive;
 	

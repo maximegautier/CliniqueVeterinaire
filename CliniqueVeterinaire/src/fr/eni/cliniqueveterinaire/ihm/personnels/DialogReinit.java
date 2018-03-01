@@ -18,7 +18,6 @@ import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
-import fr.eni.cliniqueveterinaire.ihm.menu.gdp.PanGDPController;
 
 /* Créé par Erwin DUPUIS */
 public class DialogReinit

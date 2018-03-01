@@ -1,7 +1,5 @@
 package fr.eni.cliniqueveterinaire.ihm.personnels;
 
-
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -16,16 +14,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
-import fr.eni.cliniqueveterinaire.ihm.menu.gdp.PanGDPController;
 
 public class DialogAdd{
 
 	private JDialog dialogAjouter;
 	private JPanel panelAdd;
-	private JTextField tfNom, tfPrenom, tfMDP;
+	private JTextField tfNom, tfPrenom, tfMDP, tfLogin;
 	private JComboBox<String> cRole;
 	private JButton bValider, bAnnuler;
 
@@ -65,16 +61,23 @@ public class DialogAdd{
 		gbc.gridx = 1;
 		panelAdd.add(getTfPrenom(),gbc);
 		
-		// Role
+		// Login
 		gbc.gridx=0;
 		gbc.gridy=2;
+		panelAdd.add(new JLabel("Login :"),gbc);
+		gbc.gridx = 1;
+		panelAdd.add(getTfLogin(),gbc);
+		
+		// Role
+		gbc.gridx=0;
+		gbc.gridy=3;
 		panelAdd.add(new JLabel("Role :"),gbc);
 		gbc.gridx = 1;
 		panelAdd.add(getCRole(),gbc);
 		
 		// Mot de passe
 		gbc.gridx=0;
-		gbc.gridy=3;
+		gbc.gridy=4;
 		panelAdd.add(new JLabel("Mot de passe :"),gbc);
 		gbc.gridx = 1;
 		panelAdd.add(getTfMDP(),gbc);
@@ -83,7 +86,7 @@ public class DialogAdd{
 		gbc.insets = new Insets(5, 5, 15, 5);
 		gbc.anchor = GridBagConstraints.CENTER;
 		gbc.gridx=0;
-		gbc.gridy=4;
+		gbc.gridy=5;
 		gbc.gridwidth = 2;
 		panelAdd.add(panelBtn(),gbc);
 		
@@ -119,6 +122,14 @@ public class DialogAdd{
 			tfMDP = new JTextField(15);
 		}
 		return tfMDP;
+	}
+	
+	public JTextField getTfLogin(){
+		if (tfLogin == null)
+		{
+			tfLogin = new JTextField(15);
+		}
+		return tfLogin;
 	}
 	
 	public JComboBox<String> getCRole() throws DALException{
