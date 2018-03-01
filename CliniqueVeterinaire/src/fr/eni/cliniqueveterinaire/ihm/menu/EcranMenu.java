@@ -16,8 +16,6 @@ import fr.eni.cliniqueveterinaire.ihm.personnels.PanGDP;
 public class EcranMenu extends JFrame{
 	
 	private static EcranMenu instance;
-	PanGDP GDP = PanGDP.getInstance();
-	PanAgenda panAgenda = PanAgenda.getInstance();
 	
 	private int width = 700;
 	private int height = 500;
@@ -27,14 +25,14 @@ public class EcranMenu extends JFrame{
 	private JMenuItem miDeconnexion, miFermer;
 	private JMenuItem miRDV, miClient;
 	
-	public static EcranMenu getInstance() throws DALException{
+	public static EcranMenu getInstance() {
 		if (EcranMenu.instance == null){
 			EcranMenu.instance = new EcranMenu();
 		}
-		return instance;
+		return EcranMenu.instance;
 	}
 	
-	public EcranMenu() throws DALException {
+	private EcranMenu() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);		
 		setSize(width, height);
 		setResizable(false);
@@ -48,7 +46,7 @@ public class EcranMenu extends JFrame{
 		
 		setJMenuBar(menuBar);
 		
-		setContentPane(GDP.getPanGDP());
+		setContentPane(PanGDP.getInstance());
 
 		setVisible(true);
 		setLocationRelativeTo(null);

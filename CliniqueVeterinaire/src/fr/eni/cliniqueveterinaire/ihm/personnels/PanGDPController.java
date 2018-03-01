@@ -45,12 +45,12 @@ public class PanGDPController extends JPanel{
 			} 
 			else
 			{
-				Personnels personnel = PersonnelsManager.getInstance().selectTousPersonnels().get(NumLigne);
+				Personnels personnel = PersonnelsManager.selectTousPersonnels().get(NumLigne);
 				JOptionPane jop = new JOptionPane();			
 				int option = jop.showConfirmDialog(null, "Etes-vous sur de vouloir supprimer " + personnel.getNom() + " ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 							
 				if(option == JOptionPane.OK_OPTION){				
-					PersonnelsManager.getInstance().Supprimer(personnel);
+					PersonnelsManager.Supprimer(personnel);
 					rafraichirTable();
 				}
 			}
@@ -68,7 +68,7 @@ public class PanGDPController extends JPanel{
 		} 
 		else
 		{
-			Personnels personnel = PersonnelsManager.getInstance().selectTousPersonnels().get(NumLigne);
+			Personnels personnel = PersonnelsManager.selectTousPersonnels().get(NumLigne);
 			DialogReinit dialogReinit = new DialogReinit(fenMenu,personnel);
 		}
 	}
@@ -78,7 +78,7 @@ public class PanGDPController extends JPanel{
 		Personnels personnel = new Personnels(nom,prenom,"Login",mdp,role,false);
 		try {
 			// Ajouter le nouveau personnel
-			PersonnelsManager.getInstance().Ajouter(personnel);
+			PersonnelsManager.Ajouter(personnel);
 			
 			rafraichirTable();
 			
@@ -91,7 +91,7 @@ public class PanGDPController extends JPanel{
 	
 	public void validerReinit(Personnels personnel, String ancienMDP, String nouveauMDP) throws BLLException
 	{
-		PersonnelsManager.getInstance().ModificationMotPasse(personnel, ancienMDP, nouveauMDP);
+		PersonnelsManager.modificationMotPasse(personnel, ancienMDP, nouveauMDP);
 		rafraichirTable();
 	}
 
@@ -100,7 +100,7 @@ public class PanGDPController extends JPanel{
 	{
 		List<Personnels> lPersonnels = null;
 		try {
-			lPersonnels = PersonnelsManager.getInstance().selectTousPersonnels();
+			lPersonnels = PersonnelsManager.selectTousPersonnels();
 		} catch (DALException e) {
 			// TODO Auto-generated catch block
 			throw new BLLException(e.getMessage());
@@ -143,7 +143,7 @@ public class PanGDPController extends JPanel{
 	{
 		List<String> lRoles = null;;
 		try {
-			lRoles = PersonnelsManager.getInstance().selectTousRoles();
+			lRoles = PersonnelsManager.selectTousRoles();
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
