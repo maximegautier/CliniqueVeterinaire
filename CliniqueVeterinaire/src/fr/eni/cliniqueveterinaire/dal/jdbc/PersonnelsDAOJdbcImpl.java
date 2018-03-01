@@ -322,6 +322,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 		return list;
 	}
 	
+	/* Créé par Erwin DUPUIS */
 	public boolean VerifieSiExiste(String nomPersonnel) throws DALException
 	{
 		Connection cnx = null;
