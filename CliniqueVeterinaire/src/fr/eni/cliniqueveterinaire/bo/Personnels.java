@@ -21,6 +21,7 @@ public class Personnels
 		this.CodePers = codePers;
 		this.Nom = nom;
 		this.Prenom = Prenom;
+		this.Login = Login;
 		this.MotPasse = motPasse;
 		this.Role = role;
 		this.Archive = archive;
@@ -29,6 +30,7 @@ public class Personnels
 	{
 		this.Nom = nom;
 		this.Prenom = Prenom;
+		this.Login = Login;
 		this.MotPasse = motPasse;
 		this.Role = role;
 		this.Archive = archive;
