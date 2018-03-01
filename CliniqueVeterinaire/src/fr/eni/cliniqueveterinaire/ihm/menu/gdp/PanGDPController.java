@@ -44,8 +44,7 @@ public class PanGDPController {
 	
 	public void Reinitialiser() throws DALException{
 		System.out.println("Reinitialiser");
-		DialogReinit dialogReinit = new DialogReinit();
-		
+		DialogReinit dialogReinit = new DialogReinit();	
 	}
 	
 	public void Valider(String nom, String prenom, String role, String mdp)
@@ -53,8 +52,13 @@ public class PanGDPController {
 		Personnels personnel = new Personnels(nom,mdp,role,false);
 		try {
 			PersonnelsManager.getInstance().Ajouter(personnel);
-			panelGDP.getInstance().getTablePersonnel().removeRowSelectionInterval(0,panelGDP.getInstance().getTablePersonnel().getRowCount()-1);
-			//panelGDP.getInstance().getTablePersonnel().
+			
+			// Vider la table
+			while (panelGDP.getInstance().getDefTableModel().getRowCount() > 0)
+			{
+				panelGDP.getInstance().getDefTableModel().removeRow(0);
+			}
+			panelGDP.getInstance().getDefTableModel().addRow(PanGDPController.getInstance().completerTableau());
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.INFORMATION_MESSAGE);

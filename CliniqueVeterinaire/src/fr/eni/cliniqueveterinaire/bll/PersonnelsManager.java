@@ -42,45 +42,50 @@ public class PersonnelsManager
 	/* Créé par Maxime GAUTIER */
 	public int Ajouter(Personnels personnel) throws BLLException
 	{
-		if(personnel == null)
-		{
-			throw new BLLException("On ne peut pas ajouter un personnel null.");
-		}
-		else if(isEmptyOrNull(personnel.getNom()))
-		{
-			throw new BLLException("On ne peut pas ajouter un personnel avec un nom null.");
-		}
-		else if(personnel.getNom().length()> 30)
-		{
-			throw new BLLException("La taille du nom depasse 30 caracteres.");
-		}
-		else if(isEmptyOrNull(personnel.getMotPasse()))
-		{
-			throw new BLLException("On ne peut pas ajouter un personnel avec un mot de passe null.");
-		}
-		else if(personnel.getMotPasse().length()>10)
-		{
-			throw new BLLException("La taille du mot de passe depasse 10 caracteres.");
-		}
-		else if(isEmptyOrNull(personnel.getRole()))
-		{
-			throw new BLLException("On ne peut pas ajouter un personnel avec un role null.");
-		}
-		else if(personnel.getRole().length() > 3)
-		{
-			throw new BLLException("Le role est définie par : vet, adm... et ne peut pas excéder 3 caractères");
-		}
-		else
-		{
-			//Logique d'ajout à la base via DAO
-			try {
-				personnel.setMotPasse(Cryptage.encrypt(personnel.getMotPasse()));
-				personnelsDAO.insert(personnel);
-			} catch (DALException e) {
-				throw new BLLException(e.getMessage());
+		try {
+			if(personnel == null)
+			{
+				throw new BLLException("On ne peut pas ajouter un personnel null.");
 			}
-			return 0;			
-		}
+			else if(personnelsDAO.selectByName(personnel.getNom()) != null && personnelsDAO.selectByName(personnel.getNom()).getNom().equals(personnel.getNom()))
+			{
+				throw new BLLException("Il existe un personnel du meme nom.");
+			}
+			else if(isEmptyOrNull(personnel.getNom()))
+			{
+				throw new BLLException("On ne peut pas ajouter un personnel avec un nom null.");
+			}
+			else if(personnel.getNom().length()> 30)
+			{
+				throw new BLLException("La taille du nom depasse 30 caracteres.");
+			}
+			else if(isEmptyOrNull(personnel.getMotPasse()))
+			{
+				throw new BLLException("On ne peut pas ajouter un personnel avec un mot de passe null.");
+			}
+			else if(personnel.getMotPasse().length()>10)
+			{
+				throw new BLLException("La taille du mot de passe depasse 10 caracteres.");
+			}
+			else if(isEmptyOrNull(personnel.getRole()))
+			{
+				throw new BLLException("On ne peut pas ajouter un personnel avec un role null.");
+			}
+			else if(personnel.getRole().length() > 3)
+			{
+				throw new BLLException("Le role est définie par : vet, adm... et ne peut pas excéder 3 caractères");
+			} 
+			else
+			{
+				//Logique d'ajout à la base via DAO
+				personnel.setMotPasse(Cryptage.encrypt(personnel.getMotPasse()));
+				personnel.setCodePers(personnelsDAO.insert(personnel));
+			}
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			throw new BLLException(e.getMessage());
+		}				
+		return personnel.getCodePers();
 	}
 	
 	/* Créé par Maxime GAUTIER */

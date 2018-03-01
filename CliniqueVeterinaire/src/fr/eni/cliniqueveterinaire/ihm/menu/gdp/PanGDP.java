@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
@@ -27,6 +28,7 @@ public class PanGDP {
 	private JPanel panelGDP, panelHead, panelTable;
 	private JButton bAjouter, bSupprimer, bReinitialiser;
 	private JTable tPersonnel;
+	private DefaultTableModel defTableModel;
 	
 	public static PanGDP getInstance(){
 		if (PanGDP.instance == null){
@@ -155,11 +157,7 @@ public class PanGDP {
 	{
 		if (tPersonnel == null)
 		{
-			Vector<String> entetes = new Vector<String>();
-			entetes.addElement("Nom");
-			entetes.addElement("Role");
-			entetes.addElement("Mot de Passe");
-			tPersonnel = new JTable(PanGDPController.getInstance().completerTableau(),entetes){ 
+			tPersonnel = new JTable(getDefTableModel()){ 
 					public boolean isCellEditable(int row, int column) 
 					{ 
 							return false; 
@@ -176,5 +174,17 @@ public class PanGDP {
 		}
 		return tPersonnel;
 	}
-
+	
+	public DefaultTableModel getDefTableModel() throws DALException
+	{
+		if (defTableModel == null)
+		{
+			Vector<String> entetes = new Vector<String>();
+			entetes.addElement("Nom");
+			entetes.addElement("Role");
+			entetes.addElement("Mot de Passe");
+			defTableModel = new DefaultTableModel(PanGDPController.getInstance().completerTableau(),entetes);
+		}
+		return defTableModel;
+	}
 }
