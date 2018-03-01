@@ -17,5 +17,6 @@ public class testEcranClients {
 	public static void main(String[] args) {
 			//EcranClients.getInstance();
 			//EcranAjoutClients.getInstance();
+		EcranRechercheClients.getInstance();
 	}
 }
