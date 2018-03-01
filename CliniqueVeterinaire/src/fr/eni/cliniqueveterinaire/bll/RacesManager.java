@@ -12,8 +12,7 @@ public class RacesManager
 {
     //region DECLARATION
 
-	private RacesDAO racesDAO;
-	private static RacesManager instance;
+	private static RacesDAO racesDAO;
 
     //endregion DECLARATION
 
@@ -35,7 +34,7 @@ public class RacesManager
     
     //region METHODS
     
-	public List<Races> SelectRacesChat() throws BLLException
+	public static List<Races> SelectRacesChat() throws BLLException
 	{
 		try 
 		{
@@ -47,7 +46,7 @@ public class RacesManager
 		}
 	}
 	
-	public List<Races> SelectRacesChien() throws BLLException 
+	public static List<Races> SelectRacesChien() throws BLLException 
 	{
 		try 
 		{
@@ -63,14 +62,6 @@ public class RacesManager
 
     //region GET/SET
 
-	public static RacesManager getInstance() throws BLLException
-	{
-		if(RacesManager.instance == null)
-		{
-			RacesManager.instance = new RacesManager();
-		}
-		return RacesManager.instance;
-	}
 
     //endregion GET/SET
 }

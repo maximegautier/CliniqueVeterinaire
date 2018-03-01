@@ -13,7 +13,6 @@ public class AgendasManager
 {
     //region DECLARATION
 
-	private static AgendasManager instance;
 
     //endregion DECLARATION
 
@@ -27,7 +26,7 @@ public class AgendasManager
     
     //region METHODS
     
-	public List<Agendas> SelectEntreDates(Date Debut, Date Fin) throws BLLException
+	public static List<Agendas> SelectEntreDates(Date Debut, Date Fin) throws BLLException
 	{
 		if(Debut == null)
 		{
@@ -54,7 +53,7 @@ public class AgendasManager
 		}
 	}
 	
-	public boolean Ajouter(Agendas aAjouter) throws BLLException
+	public static boolean Ajouter(Agendas aAjouter) throws BLLException
 	{
 		if(aAjouter == null)
 		{
@@ -85,7 +84,7 @@ public class AgendasManager
 		}
 	}
 	
-	public boolean Supprimer(Agendas aSupprimer) throws BLLException
+	public static boolean Supprimer(Agendas aSupprimer) throws BLLException
 	{
 		if(aSupprimer == null)
 		{
@@ -120,7 +119,7 @@ public class AgendasManager
 	//UTILITAIRES
 	//************	
 	
-    private boolean isEmptyOrNull(String toTest)
+    private static boolean isEmptyOrNull(String toTest)
     {
         if(toTest != null && !toTest.trim().isEmpty())
             return false;
@@ -128,7 +127,7 @@ public class AgendasManager
             return true;
     }
 
-    private boolean isNegativeInt(int toCheck)
+    private static boolean isNegativeInt(int toCheck)
     {
         if(toCheck >= 0)
             return false;
@@ -140,14 +139,6 @@ public class AgendasManager
 
     //region GET/SET
 
-	public static AgendasManager getInstance() 
-	{
-		if(AgendasManager.instance == null)
-		{
-			AgendasManager.instance = new AgendasManager();
-		}
-		return AgendasManager.instance;
-	}
 
     //endregion GET/SET
 }

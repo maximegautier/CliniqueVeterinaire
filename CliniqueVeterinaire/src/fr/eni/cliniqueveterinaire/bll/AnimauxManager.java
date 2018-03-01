@@ -13,8 +13,7 @@ public class AnimauxManager
 {
     //region DECLARATION
 
-	private AnimauxDAO animauxDAO;
-	private static AnimauxManager instance;
+	private static AnimauxDAO animauxDAO;
 
     //endregion DECLARATION
 
@@ -36,7 +35,7 @@ public class AnimauxManager
     
     //region METHODS
     
-	public List<Animaux> SelectAnimaux(int CodeClient) throws BLLException
+	public static List<Animaux> SelectAnimaux(int CodeClient) throws BLLException
 	{
 		List<Animaux> aRetourner = new ArrayList<Animaux>();
 		
@@ -59,7 +58,7 @@ public class AnimauxManager
 		return aRetourner;
 	}
 	
-	public List<String> SelectEspece() throws BLLException
+	public static List<String> SelectEspece() throws BLLException
 	{
 		try 
 		{
@@ -71,7 +70,7 @@ public class AnimauxManager
 		}
 	}
 	
-	public Animaux SelectAnimal(int CodeAnimal) throws BLLException
+	public static Animaux SelectAnimal(int CodeAnimal) throws BLLException
 	{
 		Animaux aRetourner = null;
 		
@@ -94,7 +93,7 @@ public class AnimauxManager
 		return aRetourner;
 	}
 	
-	public int Ajouter(Animaux aAjouter) throws BLLException
+	public static int Ajouter(Animaux aAjouter) throws BLLException
 	{
 		int aRetourner = -1;
 		
@@ -153,7 +152,7 @@ public class AnimauxManager
 		return aRetourner;
 	}
 	
-	public boolean Supprimer(int CodeAnimal) throws BLLException
+	public static boolean Supprimer(int CodeAnimal) throws BLLException
 	{
 		boolean aRetourner = false;
 		
@@ -176,7 +175,7 @@ public class AnimauxManager
 		return aRetourner;
 	}
 
-	public boolean Modifier(Animaux aModifier) throws BLLException
+	public static boolean Modifier(Animaux aModifier) throws BLLException
 	{
 		boolean aRetourner = false;
 		
@@ -223,7 +222,7 @@ public class AnimauxManager
 		return aRetourner;
 	}
 	
-	public boolean VerifieSiExiste(int codeClient, String nomAnimal) throws BLLException
+	public static boolean VerifieSiExiste(int codeClient, String nomAnimal) throws BLLException
 	{
 		boolean aRetourner = false;
 		
@@ -254,7 +253,7 @@ public class AnimauxManager
 	//UTILITAIRES
 	//************	
 	
-    private boolean isEmptyOrNull(String toTest)
+    private static boolean isEmptyOrNull(String toTest)
     {
         if(toTest != null && !toTest.trim().isEmpty())
             return false;
@@ -262,7 +261,7 @@ public class AnimauxManager
             return true;
     }
 
-    private boolean isNegativeInt(int toCheck)
+    private static boolean isNegativeInt(int toCheck)
     {
         if(toCheck >= 0)
             return false;
@@ -274,14 +273,6 @@ public class AnimauxManager
 
     //region GET/SET
 
-	public static AnimauxManager getInstance() throws BLLException
-	{
-		if(AnimauxManager.instance == null)
-		{
-			AnimauxManager.instance = new AnimauxManager();
-		}
-		return AnimauxManager.instance;
-	}
 
     //endregion GET/SET
 }

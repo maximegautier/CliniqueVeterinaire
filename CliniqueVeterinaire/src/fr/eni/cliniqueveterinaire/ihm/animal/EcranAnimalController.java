@@ -56,24 +56,24 @@ public class EcranAnimalController
 	
 	public Animaux SelectAnimal(int codeAnimal) throws BLLException
 	{
-		tmpAnimal = AnimauxManager.getInstance().SelectAnimal(codeAnimal);
+		tmpAnimal = AnimauxManager.SelectAnimal(codeAnimal);
 		
 		return tmpAnimal;
 	}
 	
 	public List<String> SelectEspeces() throws BLLException
 	{
-		return AnimauxManager.getInstance().SelectEspece();
+		return AnimauxManager.SelectEspece();
 	}
     
 	public List<Races> SelectRacesChien() throws BLLException
 	{
-		return RacesManager.getInstance().SelectRacesChien();
+		return RacesManager.SelectRacesChien();
 	}
 	
 	public List<Races> SelectRacesChat() throws BLLException
 	{
-		return RacesManager.getInstance().SelectRacesChat();
+		return RacesManager.SelectRacesChat();
 	}
 	
 	public Clients SelectClientParCode(int codeClient)
@@ -83,12 +83,12 @@ public class EcranAnimalController
 	
 	public boolean Modifier(Animaux aModifier) throws BLLException
 	{
-		return AnimauxManager.getInstance().Modifier(aModifier);
+		return AnimauxManager.Modifier(aModifier);
 	}
 	
 	public int Ajouter(Animaux aAjouter) throws BLLException
 	{
-		return AnimauxManager.getInstance().Ajouter(aAjouter);
+		return AnimauxManager.Ajouter(aAjouter);
 	}
 	
     //endregion METHODS

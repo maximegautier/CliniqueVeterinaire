@@ -79,7 +79,7 @@ public class AppliTestBLL {
 	
 		for(Animaux tmpItem : lAnimaux)
 		{
-			AnimauxManager.getInstance().Ajouter(tmpItem);
+			AnimauxManager.Ajouter(tmpItem);
 			System.out.println("Ajouté : "+tmpItem.toString());
 		}
 		
@@ -99,7 +99,7 @@ public class AppliTestBLL {
 	
 		for(Agendas tmpItem : lAgenda)
 		{
-			AgendasManager.getInstance().Ajouter(tmpItem);
+			AgendasManager.Ajouter(tmpItem);
 			System.out.println("Ajouté : "+tmpItem.toString());
 		}
 		
