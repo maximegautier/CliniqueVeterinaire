@@ -126,6 +126,10 @@ public class AnimauxManager
 		{
 			throw new BLLException("(AnimauxManager)Ajouter : le code client du propriètaire de l'animal ne peut pas être null");
 		}
+		else if(VerifieSiExiste(aAjouter.getCodeClient(), aAjouter.getNomAnimal()))
+		{
+			throw new BLLException("Un animal de ce nom est déjà associé à ce client");
+		}
 		else if(!isEmptyOrNull(aAjouter.getTatouage()) && aAjouter.getTatouage().length() > 10)
 		{
 			throw new BLLException("(AnimauxManager)Ajouter : la longueur du tatouage de l'animal ne peut excéder 10 caracteres");
@@ -210,6 +214,33 @@ public class AnimauxManager
 			{
 				aRetourner = animauxDAO.Modifier(aModifier);
 			} 
+			catch (DALException e) 
+			{
+				throw new BLLException(e.getMessage());
+			}
+		}
+		
+		return aRetourner;
+	}
+	
+	public boolean VerifieSiExiste(int codeClient, String nomAnimal) throws BLLException
+	{
+		boolean aRetourner = false;
+		
+		if(isNegativeInt(codeClient))
+		{
+			throw new BLLException("Le code client ne peut pas être négatif");
+		}
+		else if(isEmptyOrNull(nomAnimal))
+		{
+			throw new BLLException("Le nom de l'animal ne peut pas être null ni vide");
+		}
+		else
+		{
+			try 
+			{
+				aRetourner = animauxDAO.VerifieSiExiste(codeClient, nomAnimal);
+			}
 			catch (DALException e) 
 			{
 				throw new BLLException(e.getMessage());

@@ -253,7 +253,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 			
 			if(rsVerifieSiExiste.next())
 			{
-				aRetourner = false;
+				aRetourner = true;
 			}
 			
 		} 

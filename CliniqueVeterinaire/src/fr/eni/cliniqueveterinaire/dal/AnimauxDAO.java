@@ -18,4 +18,6 @@ public interface AnimauxDAO
 	public boolean Supprimer(int CodeAnimal) throws DALException;
 
 	public boolean Modifier(Animaux aModifier) throws DALException;
+	
+	public boolean VerifieSiExiste(int codeClient, String nomAnimal) throws DALException;
 }
