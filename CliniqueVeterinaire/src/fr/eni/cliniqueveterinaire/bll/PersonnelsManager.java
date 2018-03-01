@@ -97,10 +97,15 @@ public class PersonnelsManager
 	}
 	
 	/* Créé par Maxime GAUTIER */
-	public List<String> selectTousRoles() throws DALException
+	public List<String> selectTousRoles() throws BLLException
 	{
 		List<String> lRole = null;
-		lRole = personnelsDAO.selectRole();
+		try {
+			lRole = personnelsDAO.selectRole();
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			throw new BLLException(e.getMessage());
+		}
 		return lRole;
 	}
 	
@@ -131,8 +136,12 @@ public class PersonnelsManager
 				try {
 					personnelsDAO.update(personnel);
 				} catch (DALException e) {
-					e.printStackTrace();
+					throw new BLLException(e.getMessage());
 				}			
+			}
+			else if (!oldMotPasse.equals(Cryptage.decrypt(personnel.getMotPasse())))
+			{
+				throw new BLLException("L'ancien mot de passe est incorrect !");
 			}
 		}
 	}

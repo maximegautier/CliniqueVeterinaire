@@ -42,7 +42,6 @@ public class PanGDPController {
 		int NumLigne = 0;
 	    try {
 			NumLigne = panelGDP.getInstance().getTablePersonnel().getSelectedRow();
-			
 			if (NumLigne == -1)
 			{
 				JOptionPane.showMessageDialog(null, "Veuillez selectionner une ligne", "Erreur", JOptionPane.INFORMATION_MESSAGE);
@@ -60,10 +59,19 @@ public class PanGDPController {
 	}
 	
 	public void Reinitialiser() throws DALException{
-		DialogReinit dialogReinit = new DialogReinit();	
+		int NumLigne = panelGDP.getInstance().getTablePersonnel().getSelectedRow();
+		if (NumLigne == -1)
+		{
+			JOptionPane.showMessageDialog(null, "Veuillez selectionner une ligne", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+		} 
+		else
+		{
+			Personnels personnel = PersonnelsManager.getInstance().selectTousPersonnels().get(NumLigne);
+			DialogReinit dialogReinit = new DialogReinit(personnel);
+		}
 	}
 	
-	public void Valider(String nom, String prenom, String role, String mdp)
+	public void ValiderAjout(String nom, String prenom, String role, String mdp)
 	{
 		Personnels personnel = new Personnels(nom,mdp,role,false);
 		try {
@@ -78,11 +86,23 @@ public class PanGDPController {
 			e.printStackTrace();	
 		}
 	}
+	
+	public void ValiderReinit(Personnels personnel, String ancienMDP, String nouveauMDP) throws BLLException
+	{
+		PersonnelsManager.getInstance().ModificationMotPasse(personnel, ancienMDP, nouveauMDP);
+		rafraichirTable();
+	}
 
 	
-	public Vector<Vector> completerTableau() throws DALException
+	public Vector<Vector> completerTableau() throws BLLException
 	{
-		List<Personnels> lPersonnels = PersonnelsManager.getInstance().selectTousPersonnels();
+		List<Personnels> lPersonnels = null;
+		try {
+			lPersonnels = PersonnelsManager.getInstance().selectTousPersonnels();
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			throw new BLLException(e.getMessage());
+		}
 		
 		Vector<Vector> vecRow = new Vector<Vector>();
 		
@@ -107,25 +127,25 @@ public class PanGDPController {
 		return entetes;
 	}
 	
-	public void rafraichirTable(){
-		// Vider la table
-		try {
-			while (panelGDP.getInstance().getDefTableModel().getRowCount() > 0)
-			{
-				panelGDP.getInstance().getDefTableModel().removeRow(0);
-			}
-			
-			// Rafraichir la table
-			panelGDP.getInstance().getDefTableModel().setDataVector(completerTableau(), getEntete());
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}	
+	public void rafraichirTable() throws BLLException{
+		while (panelGDP.getInstance().getDefTableModel().getRowCount() > 0)
+		{
+			panelGDP.getInstance().getDefTableModel().removeRow(0);
+		}
+		
+		// Rafraichir la table
+		panelGDP.getInstance().getDefTableModel().setDataVector(completerTableau(), getEntete());	
 	}
 	
-	public List<String> remplirComboAjouter() throws DALException
+	public List<String> remplirComboAjouter()
 	{
-		List<String> lRoles = PersonnelsManager.getInstance().selectTousRoles();
+		List<String> lRoles = null;;
+		try {
+			lRoles = PersonnelsManager.getInstance().selectTousRoles();
+		} catch (BLLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return lRoles;
 	}
 	

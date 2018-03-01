@@ -4,15 +4,21 @@ import java.awt.ComponentOrientation;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import fr.eni.cliniqueveterinaire.bll.BLLException;
+import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
+import fr.eni.cliniqueveterinaire.ihm.menu.gdp.PanGDPController;
 
 /* Créé par Erwin DUPUIS */
 public class DialogReinit
@@ -29,16 +35,18 @@ public class DialogReinit
 	private JLabel lblNouveauMDP;
 	private JTextField tfdNouveauMDP;
 	private JButton btnAnnuler;
-	private JButton btnValider;	
+	private JButton btnValider;
+	private Personnels currentPersonnel;
 
     //endregion DECLARATION
 
     //region CTOR
 
-	public DialogReinit() throws DALException
+	public DialogReinit(Personnels personnel) throws DALException
 	{
+		this.currentPersonnel = personnel;
 		jdReinit = getJdReinit();
-		InitialiserJdReinit();		
+		InitialiserJdReinit();
 	}
 
     //endregion CTOR
@@ -161,7 +169,7 @@ public class DialogReinit
 	{
 		if(tfdPersonnel == null)
 		{
-			tfdPersonnel = new JTextField(15);
+			tfdPersonnel = new JTextField(currentPersonnel.getNom());
 			tfdPersonnel.setEditable(false);
 		}
 		return tfdPersonnel;
@@ -213,6 +221,14 @@ public class DialogReinit
 		if(btnAnnuler == null)
 		{
 			btnAnnuler = new JButton("Annuler");
+			btnAnnuler.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
+					jdReinit.dispose();
+				}
+			});
 		}
 		return btnAnnuler;
 	}
@@ -223,6 +239,21 @@ public class DialogReinit
 		if(btnValider == null)
 		{
 			btnValider = new JButton("Valider");
+			btnValider.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
+					try {
+						PanGDPController.getInstance().ValiderReinit(currentPersonnel, getTfdAncienMDP().getText(), getTfdNouveauMDP().getText());
+						JOptionPane.showMessageDialog(null, "Mot de passe changé", "Succes", JOptionPane.INFORMATION_MESSAGE);
+						jdReinit.dispose();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "Erreur", JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
+			});
 		}
 		return btnValider;
 	}

@@ -175,17 +175,22 @@ public class PanGDP {
 			tPersonnel.setFont(new Font("Arial", Font.BOLD, 15));
 			tPersonnel.isCellEditable(5, 2);
 			int h = getPanGDP().getPreferredSize().height - 80 -getPanelHead().getPreferredSize().height;
-			tPersonnel.setPreferredScrollableViewportSize(new Dimension(getPanGDP().getPreferredSize().width-45,h-22));
+			tPersonnel.setPreferredScrollableViewportSize(new Dimension(getPanGDP().getPreferredSize().width-30,h-22));
 			tPersonnel.setFillsViewportHeight(true);
 		}
 		return tPersonnel;
 	}
 	
-	public DefaultTableModel getDefTableModel() throws DALException
+	public DefaultTableModel getDefTableModel()
 	{
 		if (defTableModel == null)
 		{
-			defTableModel = new DefaultTableModel(PanGDPController.getInstance().completerTableau(),PanGDPController.getInstance().getEntete());
+			try {
+				defTableModel = new DefaultTableModel(PanGDPController.getInstance().completerTableau(),PanGDPController.getInstance().getEntete());
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return defTableModel;
 	}
