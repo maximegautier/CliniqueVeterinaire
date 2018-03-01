@@ -45,7 +45,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 			psSelectAnimaux.setInt(1, CodeClient);
 			rsSelectAnimaux = psSelectAnimaux.executeQuery();
 			
-			if(rsSelectAnimaux.next())
+			while(rsSelectAnimaux.next())
 			{
 				Animaux tmp = new Animaux(
 						rsSelectAnimaux.getInt("CodeAnimal"), 
