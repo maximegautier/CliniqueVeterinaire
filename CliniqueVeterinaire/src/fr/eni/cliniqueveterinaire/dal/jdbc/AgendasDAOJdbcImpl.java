@@ -17,7 +17,6 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 {
     //region DECLARATION
 
-	private Connection cnx;
 
     //endregion DECLARATION
 
@@ -35,13 +34,14 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 	public List<Agendas> selectParDate(Date dateDebut, Date dateFin) throws DALException 
 	{		
 		List<Agendas> aRetourner = new ArrayList<Agendas>();
+		Connection cnx = JdbcTools.getConnection();
 		String rqtSelectParDate = "SELECT * FROM Agendas WHERE DateRdv BETWEEN ? AND ?";
 		PreparedStatement psSelectParDate = null;
 		ResultSet rsSelectParDate = null;
 		
 		try 
 		{
-			psSelectParDate = getCnx().prepareStatement(rqtSelectParDate);
+			psSelectParDate = cnx.prepareStatement(rqtSelectParDate);
 			psSelectParDate.setDate(1, (java.sql.Date) dateDebut);
 			psSelectParDate.setDate(2, (java.sql.Date) dateFin);
 			
@@ -67,6 +67,7 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 			{
 				psSelectParDate.close();
 				rsSelectParDate.close();
+				cnx.close();
 			}
 			catch(SQLException e)
 			{
@@ -81,13 +82,14 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 	public boolean ajouter(Agendas aAjouter) throws DALException 
 	{	
 		boolean aRetourner = false;
+		Connection cnx = JdbcTools.getConnection();
 		String rqtAjouter = "INSERT INTO Agendas(CodeVeto, DateRdv, CodeAnimal) VALUES (?,?,?)";
 		PreparedStatement psAjouter = null;
 		ResultSet rs = null;
 		
 		try 
 		{
-			psAjouter = getCnx().prepareStatement(rqtAjouter);
+			psAjouter = cnx.prepareStatement(rqtAjouter);
 			psAjouter.setInt(1, aAjouter.getCodeVeto());
 			psAjouter.setDate(2, (java.sql.Date) aAjouter.getDateRdv());
 			psAjouter.setInt(3, aAjouter.getCodeAnimal());
@@ -112,6 +114,7 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 			{
 				psAjouter.close();
 				rs.close();
+				cnx.close();
 			}
 			catch(SQLException e)
 			{
@@ -126,13 +129,14 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 	public boolean supprimer(Agendas aSupprimer) throws DALException 
 	{
 		boolean aRetourner = false;
+		Connection cnx = JdbcTools.getConnection();
 		String rqtSupprimer = "DELETE FROM Agendas WHERE CodeVeto = ? AND DateRdv = ? AND CodeAnimal = ?";
 		PreparedStatement psSupprimer = null;
 		ResultSet rs = null;
 		
 		try
 		{
-			psSupprimer = getCnx().prepareStatement(rqtSupprimer);
+			psSupprimer = cnx.prepareStatement(rqtSupprimer);
 			psSupprimer.setInt(1, aSupprimer.getCodeVeto());
 			psSupprimer.setDate(2, (java.sql.Date) aSupprimer.getDateRdv());
 			psSupprimer.setInt(3, aSupprimer.getCodeAnimal());
@@ -156,7 +160,8 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 			try
 			{
 				psSupprimer.close();
-				rs.close();				
+				rs.close();		
+				cnx.close();
 			}
 			catch(SQLException e)
 			{
@@ -171,14 +176,6 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 
     //region GET/SET
 
-	public Connection getCnx() throws DALException
-	{
-		if(cnx == null)
-		{
-			cnx = JdbcTools.getConnection();
-		}
-		return cnx;
-	}
 
     //endregion GET/SET
 }

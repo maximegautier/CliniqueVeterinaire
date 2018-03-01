@@ -16,7 +16,6 @@ public class RacesDAOJdbcImpl implements RacesDAO
 {
     //region DECLARATION
 
-	private Connection cnx;
 
     //endregion DECLARATION
 
@@ -34,13 +33,14 @@ public class RacesDAOJdbcImpl implements RacesDAO
 	public List<Races> selectRacesChat() throws DALException 
 	{
 		List<Races> aRetourner = new ArrayList<Races>();
+		Connection cnx = JdbcTools.getConnection();
 		String rqtSelectRacesChat = "SELECT * FROM Races WHERE Espece = 'Chat'";
 		PreparedStatement psSelectRacesChat = null;
 		ResultSet rsSelectRacesChat = null;
 		
 		try 
 		{
-			psSelectRacesChat = getCnx().prepareStatement(rqtSelectRacesChat);
+			psSelectRacesChat = cnx.prepareStatement(rqtSelectRacesChat);
 			rsSelectRacesChat = psSelectRacesChat.executeQuery();
 			
 			if(rsSelectRacesChat.next())
@@ -76,6 +76,7 @@ public class RacesDAOJdbcImpl implements RacesDAO
 	public List<Races> selectRacesChien() throws DALException 
 	{
 		List<Races> aRetourner = new ArrayList<Races>();
+		Connection cnx = JdbcTools.getConnection();
 		String rqtSelectRacesChien = "SELECT * FROM Races WHERE Espece = 'Chien'";
 		PreparedStatement psSelectRacesChien = null;
 		ResultSet rsSelectRacesChien = null;
@@ -118,14 +119,6 @@ public class RacesDAOJdbcImpl implements RacesDAO
 
     //region GET/SET
 
-	public Connection getCnx() throws DALException
-	{
-		if(cnx == null)
-		{
-			cnx = JdbcTools.getConnection();
-		}
-		return cnx;
-	}
 
     //endregion GET/SET
 }
