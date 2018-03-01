@@ -14,13 +14,13 @@ import fr.eni.cliniqueveterinaire.dal.PersonnelsDAO;
 
 public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 {
-	private String rqtCheckConnec = "SELECT Nom,Prenom,MotPasse,Role,Archive FROM Personnels WHERE Nom = ? AND MotPasse = ? AND Archive = 0";
-	private String rqtSelectById = "SELECT Nom,,Prenom,MotPasse,Role,Archive FROM Personnels WHERE CodePers = ? AND Archive = 0";
-	private String rqtSelectByName = "SELECT Nom,,Prenom,MotPasse,Role,Archive FROM Personnels WHERE Nom = ? AND Archive = 0";
-	private String rqtSelectAll = "SELECT CodePers,Nom,Prenom,MotPasse,Role,Archive FROM Personnels WHERE Archive = 0 ORDER BY Nom";
-	private String rqtInsert = "INSERT INTO Personnels VALUES (?,?,?,?,?)";
+	private String rqtCheckConnec = "SELECT Nom,Prenom,Login,MotPasse,Role,Archive FROM Personnels WHERE Nom = ? AND MotPasse = ? AND Archive = 0";
+	private String rqtSelectById = "SELECT Nom,Prenom,Login,MotPasse,Role,Archive FROM Personnels WHERE CodePers = ? AND Archive = 0";
+	private String rqtSelectByName = "SELECT Nom,Prenom,Login,MotPasse,Role,Archive FROM Personnels WHERE Nom = ? AND Archive = 0";
+	private String rqtSelectAll = "SELECT CodePers,Nom,Prenom,Login,MotPasse,Role,Archive FROM Personnels WHERE Archive = 0 ORDER BY Nom";
+	private String rqtInsert = "INSERT INTO Personnels VALUES (?,?,?,?,?,?)";
 	private String rqtDelete = "UPDATE Personnels SET Archive = 1 WHERE CodePers = ?";
-	private String rqtUpdate = "UPDATE Personnels SET Nom=?, Prenom=?, MotPasse=?, Role=?, Archive = ? WHERE CodePers = ?";
+	private String rqtUpdate = "UPDATE Personnels SET Nom=?, Prenom=?, Login=?, MotPasse=?, Role=?, Archive = ? WHERE CodePers = ?";
 	private String rqtSelectRole = "SELECT DISTINCT Role From Personnels";
 	
 	public PersonnelsDAOJdbcImpl()
@@ -48,6 +48,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 							rs.getInt("CodePers"),
 							rs.getString("Nom"),
 							rs.getString("Prenom"),
+							rs.getString("Login"),
 							rs.getString("MotPasse"),
 							rs.getString("Role"),
 							rs.getBoolean("Archive")
@@ -90,6 +91,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 						rs.getInt("CodePers"),
 						rs.getString("Nom"),
 						rs.getString("Prenom"),
+						rs.getString("Login"),
 						rs.getString("MotPasse"),
 						rs.getString("Role"),
 						rs.getBoolean("Archive")		
@@ -132,6 +134,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 						rs.getInt("CodePers"),
 						rs.getString("Nom"),
 						rs.getString("Prenom"),
+						rs.getString("Login"),
 						rs.getString("MotPasse"),
 						rs.getString("Role"),
 						rs.getBoolean("Archive")		
@@ -175,6 +178,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 						rs.getInt("CodePers"),
 						rs.getString("Nom"),
 						rs.getString("Prenom"),
+						rs.getString("Login"),
 						rs.getString("MotPasse"),
 						rs.getString("Role"),
 						rs.getBoolean("Archive")		
@@ -211,9 +215,10 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 			rqt = cnx.prepareStatement(rqtInsert, Statement.RETURN_GENERATED_KEYS);
 			rqt.setString(1, personnel.getNom());
 			rqt.setString(2, personnel.getPrenom());
-			rqt.setString(3, personnel.getMotPasse());
-			rqt.setString(4, personnel.getRole());
-			rqt.setBoolean(5, personnel.getArchive());
+			rqt.setString(3, personnel.getLogin());
+			rqt.setString(4, personnel.getMotPasse());
+			rqt.setString(5, personnel.getRole());
+			rqt.setBoolean(6, personnel.getArchive());
 			int nbRows = rqt.executeUpdate();
 			if(nbRows == 1){
 				ResultSet rs = rqt.getGeneratedKeys();
@@ -248,10 +253,11 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 			rqt = cnx.prepareStatement(rqtUpdate);
 			rqt.setString(1, personnel.getNom());
 			rqt.setString(2, personnel.getPrenom());
-			rqt.setString(3, personnel.getMotPasse());
-			rqt.setString(4, personnel.getRole());
-			rqt.setBoolean(5, personnel.getArchive());
-			rqt.setInt(5, personnel.getCodePers());
+			rqt.setString(3, personnel.getLogin());
+			rqt.setString(4, personnel.getMotPasse());
+			rqt.setString(5, personnel.getRole());
+			rqt.setBoolean(6, personnel.getArchive());
+			rqt.setInt(7, personnel.getCodePers());
 			rqt.executeUpdate();
 			
 		} catch (SQLException e) {

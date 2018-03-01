@@ -8,6 +8,7 @@ public class Personnels
 	private String Nom;
 	private String Prenom;
 	private String MotPasse;
+	private String Login;
 	private String Role;
 	private boolean Archive;
 	
@@ -15,7 +16,7 @@ public class Personnels
 
     //region CTOR
 
-	public Personnels(int codePers, String nom, String Prenom, String motPasse, String role,boolean archive) 
+	public Personnels(int codePers, String nom, String Prenom, String Login, String motPasse, String role,boolean archive) 
 	{
 		this.CodePers = codePers;
 		this.Nom = nom;
@@ -24,7 +25,7 @@ public class Personnels
 		this.Role = role;
 		this.Archive = archive;
 	}
-	public Personnels(String nom, String Prenom, String motPasse, String role,boolean archive) 
+	public Personnels(String nom, String Prenom, String Login, String motPasse, String role,boolean archive) 
 	{
 		this.Nom = nom;
 		this.Prenom = Prenom;
@@ -84,6 +85,12 @@ public class Personnels
 	}
 	public void setPrenom(String prenom) {
 		Prenom = prenom;
+	}
+	public String getLogin() {
+		return Login;
+	}
+	public void setLogin(String login) {
+		Login = login;
 	}
 	
 	

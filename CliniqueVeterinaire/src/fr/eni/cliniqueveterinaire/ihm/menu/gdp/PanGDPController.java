@@ -78,7 +78,7 @@ public class PanGDPController {
 	
 	public void ValiderAjout(String nom, String prenom, String role, String mdp)
 	{
-		Personnels personnel = new Personnels(nom,prenom,mdp,role,false);
+		Personnels personnel = new Personnels(nom,prenom,"Login",mdp,role,false);
 		try {
 			// Ajouter le nouveau personnel
 			PersonnelsManager.getInstance().Ajouter(personnel);

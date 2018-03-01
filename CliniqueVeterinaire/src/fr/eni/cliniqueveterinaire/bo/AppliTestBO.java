@@ -27,7 +27,7 @@ public class AppliTestBO
 		System.out.println("---------------------------------------------------------------");
 		
 		//PERSONNELS
-		Personnels unPerso = new Personnels(54, "Noris", "Chuck", "Norris60", "vet",false);
+		Personnels unPerso = new Personnels(54, "Norris", "Chuck","NORRIS_C", "Norris60", "vet",false);
 		System.out.println("********** Création d'une fiche personnel **********");
 		System.out.println(unPerso.toString());
 		System.out.println("---------------------------------------------------------------");
