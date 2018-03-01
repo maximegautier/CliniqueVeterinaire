@@ -35,7 +35,7 @@ public class AnimauxManager
     
     //region METHODS
     
-	public static List<Animaux> SelectAnimaux(int CodeClient) throws BLLException
+	public static List<Animaux> selectAnimaux(int CodeClient) throws BLLException
 	{
 		List<Animaux> aRetourner = new ArrayList<Animaux>();
 		
@@ -58,7 +58,7 @@ public class AnimauxManager
 		return aRetourner;
 	}
 	
-	public static List<String> SelectEspece() throws BLLException
+	public static List<String> selectEspece() throws BLLException
 	{
 		try 
 		{
@@ -70,7 +70,7 @@ public class AnimauxManager
 		}
 	}
 	
-	public static Animaux SelectAnimal(int CodeAnimal) throws BLLException
+	public static Animaux selectAnimal(int CodeAnimal) throws BLLException
 	{
 		Animaux aRetourner = null;
 		
@@ -93,7 +93,7 @@ public class AnimauxManager
 		return aRetourner;
 	}
 	
-	public static int Ajouter(Animaux aAjouter) throws BLLException
+	public static int ajouter(Animaux aAjouter) throws BLLException
 	{
 		int aRetourner = -1;
 		
@@ -125,7 +125,7 @@ public class AnimauxManager
 		{
 			throw new BLLException("(AnimauxManager)Ajouter : le code client du propriètaire de l'animal ne peut pas être null");
 		}
-		else if(VerifieSiExiste(aAjouter.getCodeClient(), aAjouter.getNomAnimal()))
+		else if(verifieSiExiste(aAjouter.getCodeClient(), aAjouter.getNomAnimal()))
 		{
 			throw new BLLException("Un animal de ce nom est déjà associé à ce client");
 		}
@@ -152,7 +152,7 @@ public class AnimauxManager
 		return aRetourner;
 	}
 	
-	public static boolean Supprimer(int CodeAnimal) throws BLLException
+	public static boolean supprimer(int CodeAnimal) throws BLLException
 	{
 		boolean aRetourner = false;
 		
@@ -175,7 +175,7 @@ public class AnimauxManager
 		return aRetourner;
 	}
 
-	public static boolean Modifier(Animaux aModifier) throws BLLException
+	public static boolean modifier(Animaux aModifier) throws BLLException
 	{
 		boolean aRetourner = false;
 		
@@ -222,7 +222,7 @@ public class AnimauxManager
 		return aRetourner;
 	}
 	
-	public static boolean VerifieSiExiste(int codeClient, String nomAnimal) throws BLLException
+	public static boolean verifieSiExiste(int codeClient, String nomAnimal) throws BLLException
 	{
 		boolean aRetourner = false;
 		

@@ -37,7 +37,7 @@ public class EcranAnimalController
 		fenAnimal.setVisible(true);
 	}
 	
-	public void RemplirChamps()
+	public void remplirChamps()
 	{
 		fenAnimal.getTFdCode().setText(String.valueOf(tmpAnimal.getCodeAnimal()));
 		fenAnimal.getTfdNom().setText(tmpAnimal.getNomAnimal());
@@ -54,41 +54,41 @@ public class EcranAnimalController
 		}	
 	}
 	
-	public Animaux SelectAnimal(int codeAnimal) throws BLLException
+	public Animaux selectAnimal(int codeAnimal) throws BLLException
 	{
-		tmpAnimal = AnimauxManager.SelectAnimal(codeAnimal);
+		tmpAnimal = AnimauxManager.selectAnimal(codeAnimal);
 		
 		return tmpAnimal;
 	}
 	
-	public List<String> SelectEspeces() throws BLLException
+	public List<String> selectEspeces() throws BLLException
 	{
-		return AnimauxManager.SelectEspece();
+		return AnimauxManager.selectEspece();
 	}
     
-	public List<Races> SelectRacesChien() throws BLLException
+	public List<Races> selectRacesChien() throws BLLException
 	{
-		return RacesManager.SelectRacesChien();
+		return RacesManager.selectRacesChien();
 	}
 	
-	public List<Races> SelectRacesChat() throws BLLException
+	public List<Races> selectRacesChat() throws BLLException
 	{
-		return RacesManager.SelectRacesChat();
+		return RacesManager.selectRacesChat();
 	}
 	
-	public Clients SelectClientParCode(int codeClient)
+	public Clients selectClientParCode(int codeClient)
 	{
 		return null;
 	}
 	
-	public boolean Modifier(Animaux aModifier) throws BLLException
+	public boolean modifier(Animaux aModifier) throws BLLException
 	{
-		return AnimauxManager.Modifier(aModifier);
+		return AnimauxManager.modifier(aModifier);
 	}
 	
-	public int Ajouter(Animaux aAjouter) throws BLLException
+	public int ajouter(Animaux aAjouter) throws BLLException
 	{
-		return AnimauxManager.Ajouter(aAjouter);
+		return AnimauxManager.ajouter(aAjouter);
 	}
 	
     //endregion METHODS

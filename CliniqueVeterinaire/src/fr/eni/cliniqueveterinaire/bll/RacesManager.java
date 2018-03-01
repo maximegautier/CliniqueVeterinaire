@@ -34,7 +34,7 @@ public class RacesManager
     
     //region METHODS
     
-	public static List<Races> SelectRacesChat() throws BLLException
+	public static List<Races> selectRacesChat() throws BLLException
 	{
 		try 
 		{
@@ -46,7 +46,7 @@ public class RacesManager
 		}
 	}
 	
-	public static List<Races> SelectRacesChien() throws BLLException 
+	public static List<Races> selectRacesChien() throws BLLException 
 	{
 		try 
 		{

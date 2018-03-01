@@ -26,7 +26,7 @@ public class AgendasManager
     
     //region METHODS
     
-	public static List<Agendas> SelectEntreDates(Date Debut, Date Fin) throws BLLException
+	public static List<Agendas> selectEntreDates(Date Debut, Date Fin) throws BLLException
 	{
 		if(Debut == null)
 		{
@@ -53,7 +53,7 @@ public class AgendasManager
 		}
 	}
 	
-	public static boolean Ajouter(Agendas aAjouter) throws BLLException
+	public static boolean ajouter(Agendas aAjouter) throws BLLException
 	{
 		if(aAjouter == null)
 		{
@@ -84,7 +84,7 @@ public class AgendasManager
 		}
 	}
 	
-	public static boolean Supprimer(Agendas aSupprimer) throws BLLException
+	public static boolean supprimer(Agendas aSupprimer) throws BLLException
 	{
 		if(aSupprimer == null)
 		{

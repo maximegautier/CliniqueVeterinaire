@@ -88,7 +88,7 @@ public class EcranAnimal extends JFrame
 	
 	    this.setVisible(true);    	
 	    
-	    EcranAnimalController.getInstance().RemplirChamps();
+	    EcranAnimalController.getInstance().remplirChamps();
     }
 
     public EcranAnimal(int codeClient)
@@ -181,7 +181,6 @@ public class EcranAnimal extends JFrame
     	PanelFormulaire.setLayout(new GridBagLayout());
     	GridBagConstraints FormGBC = new GridBagConstraints();
     	FormGBC.insets = new Insets(5,5,5,5);
-    	//this.setContentPane(PanelFormulaire);
     	
     	//LIGNE 0
     	
@@ -341,7 +340,7 @@ public class EcranAnimal extends JFrame
 									null/* Antécedents */, 
 									true);
 							
-							EcranAnimalController.getInstance().Ajouter(aAjouter);
+							EcranAnimalController.getInstance().ajouter(aAjouter);
 							currentFrame.dispose();
 						} 
 						catch (BLLException e2) 
@@ -364,7 +363,7 @@ public class EcranAnimal extends JFrame
 									null/* Antécedents */, 
 									true);
 							
-							EcranAnimalController.getInstance().Modifier(aModifier);
+							EcranAnimalController.getInstance().modifier(aModifier);
 							currentFrame.dispose();
 						} 
 						catch (BLLException e1) 
@@ -495,7 +494,7 @@ public class EcranAnimal extends JFrame
             List<String> espece;
 			try 
 			{
-				espece = EcranAnimalController.getInstance().SelectEspeces();
+				espece = EcranAnimalController.getInstance().selectEspeces();
 	            CbEspece = new JComboBox();
 	            CbEspece.setModel(new DefaultComboBoxModel(espece.toArray()));
 			} 
@@ -528,7 +527,7 @@ public class EcranAnimal extends JFrame
 		            
 		            try 
 		            {
-						raceChat = EcranAnimalController.getInstance().SelectRacesChat();
+						raceChat = EcranAnimalController.getInstance().selectRacesChat();
 					} 
 		            catch (BLLException e) 
 		            {
@@ -552,7 +551,7 @@ public class EcranAnimal extends JFrame
 		            
 		            try 
 		            {
-						raceChien = EcranAnimalController.getInstance().SelectRacesChien();
+						raceChien = EcranAnimalController.getInstance().selectRacesChien();
 					} 
 		            catch (BLLException e) 
 		            {
