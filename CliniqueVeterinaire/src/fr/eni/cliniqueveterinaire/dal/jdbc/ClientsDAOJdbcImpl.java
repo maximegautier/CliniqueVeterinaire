@@ -31,6 +31,8 @@ public class ClientsDAOJdbcImpl implements ClientsDAO {
 						+ "Adresse1 = ?,Adresse2 = ?,CodePostal = ?,Ville = ?,NumTel = ?,Assurance = ?,"
 						+ "Email = ?,Remarque = ?,Archive = ? WHERE CodeClient = ?";
 	private String rqtDeleteClient = "DELETE FROM Clients WHERE CodeClient = ?";
+	private String rqtSelectFirst = "SELECT TOP(1) CodeClient,NomClient,PrenomClient,Adresse1,Adresse2,"
+						+ "CodePostal,Ville,NumTel,Assurance,Email,Remarque,Archive FROM Clients ";
 	
 
 	
@@ -59,6 +61,44 @@ public class ClientsDAOJdbcImpl implements ClientsDAO {
 			}
 		}catch(SQLException e){
 			throw new DALException("selectById failed - Id = " + id, e);
+		}finally{
+			try {
+				
+				if (rqt != null) {
+					rqt.close();
+				}
+			} catch (SQLException e) {
+				throw new DALException("close failed ", e);
+			}
+			try {
+				cnx.close();
+			} catch (SQLException e) {
+				throw new DALException("Connexion close failed = ", e);
+			}
+		}
+		
+		return leClient;
+	}
+	
+	public Clients selectFirst() throws DALException{
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		Clients leClient = null;
+		
+		try{
+			cnx = JdbcTools.getConnection();
+			rqt = cnx.prepareStatement(rqtSelectFirst);
+			
+			rs = rqt.executeQuery();
+			if (rs.next()) {
+				leClient = new Clients(rs.getInt("CodeClient"),rs.getString("NomClient"),rs.getString("PrenomClient"),
+						rs.getString("Adresse1"),rs.getString("Adresse2"),rs.getString("CodePostal"),
+						rs.getString("Ville"),rs.getString("NumTel"),rs.getString("Assurance"),
+						rs.getString("Email"),rs.getString("Remarque"),rs.getBoolean("Archive"));
+			}
+		}catch(SQLException e){
+			throw new DALException("selectFirst failed ", e);
 		}finally{
 			try {
 				

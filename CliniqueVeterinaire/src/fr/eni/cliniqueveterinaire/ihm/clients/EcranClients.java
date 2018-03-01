@@ -35,7 +35,11 @@ public class EcranClients extends JFrame{
 	public JPanel panelPrincipal;
 	public JPanel panelRecherche;
 	public JPanel panelFormulaire;
+	public JPanel panelButtonAnimal;
 	public GridBagConstraints gbcPrincipal; 
+	public GridBagConstraints gbcRecherche;
+	public GridBagConstraints gbcFormulaire;
+	public GridBagConstraints gbcButtonAnimaux;
 	public JButton bRechercher;
 	public JButton bAjouterClient;
 	public JButton bSupprimerClient;
@@ -45,6 +49,7 @@ public class EcranClients extends JFrame{
 	public JTextField txtPrenom;
 	public JTextField txtCodeClient;
 	public JTextField txtAdresse;
+	public JTextField txtComplementAdresse;
 	public JTextField txtCodePostal;
 	public JTextField txtVille;
 	public JTable tabAnimaux;
@@ -53,7 +58,7 @@ public class EcranClients extends JFrame{
 	public JButton bAjouterAnimal;
 	public JButton bSupprimerAnimal;
 	public JButton bEditerAnimal;
-	public JPanel panelButtonAnimal;
+	
 
 	//Méthode static de récupération d'une instance unique de la fenêtre 
 	public static EcranClients getInstance(){
@@ -69,136 +74,187 @@ public class EcranClients extends JFrame{
 		setSize(1000, 500);
 		setResizable(true);
 		setTitle("Clients");
-		setContentPane(listeClients());
+		setContentPane(initEcranClients());
 		setVisible(true);
 		setLocationRelativeTo(null);
 	}
+		
+	private JPanel initBarreRecherche(){			
+		getGbcRecherche().gridx=0;
+		getGbcRecherche().gridy=0;
+		getPanelRecherche().add(getbRechercher());
+		getGbcRecherche().gridx=0;
+		getGbcRecherche().gridy=1;
+		getPanelRecherche().add(new JLabel("             "));
+		getGbcRecherche().gridx=0;
+		getGbcRecherche().gridy=2;
+		getPanelRecherche().add(new JLabel("             "));
+		getGbcRecherche().gridx=0;
+		getGbcRecherche().gridy=3;
+		getPanelRecherche().add(getbAjouterClient());
+		getGbcRecherche().gridx=0;
+		getGbcRecherche().gridy=4;
+		getPanelRecherche().add(getbSupprimerClient());
+		getGbcRecherche().gridx=0;
+		getGbcRecherche().gridy=5;
+		getPanelRecherche().add(new JLabel("                         "));
+		getGbcRecherche().gridx=0;
+		getGbcRecherche().gridy=6;
+		getPanelRecherche().add(getbValider());
+		getGbcRecherche().gridx=0;
+		getGbcRecherche().gridy=7;
+		getPanelRecherche().add(getbAnnuler());
+		
+		return getPanelRecherche();
+	}
+	
+	private JPanel initFormulaireClients(){
+		getGbcFormulaire().gridx=0;
+		getGbcFormulaire().gridy=0;
+		getPanelFormulaire().add(new JLabel("Code"),getGbcFormulaire());
+		getGbcFormulaire().gridx=1;
+		getGbcFormulaire().gridy=0;
+		getPanelFormulaire().add(getTxtCodeClient(),getGbcFormulaire());
+		getGbcFormulaire().gridx=0;
+		getGbcFormulaire().gridy=1;
+		getPanelFormulaire().add(new JLabel("Nom"),getGbcFormulaire());
+		getGbcFormulaire().gridx=1;
+		getGbcFormulaire().gridy=1;
+		getPanelFormulaire().add(getTxtNom(),getGbcFormulaire());
+		getGbcFormulaire().gridx=0;
+		getGbcFormulaire().gridy=2;
+		getPanelFormulaire().add(new JLabel("Prénom"),getGbcFormulaire());
+		getGbcFormulaire().gridx=1;
+		getGbcFormulaire().gridy=2;
+		getPanelFormulaire().add(getTxtPrenom(),getGbcFormulaire());			
+		getGbcFormulaire().gridx=0;
+		getGbcFormulaire().gridy=3;
+		getPanelFormulaire().add(new JLabel("Adresse"),getGbcFormulaire());
+		getGbcFormulaire().gridx=1;
+		getGbcFormulaire().gridy=3;
+		getPanelFormulaire().add(getTxtAdresse(),getGbcFormulaire());
+		getGbcFormulaire().gridx=0;
+		getGbcFormulaire().gridy=4;
+		getPanelFormulaire().add(new JLabel("Complement Ad."),getGbcFormulaire());
+		getGbcFormulaire().gridx=1;
+		getGbcFormulaire().gridy=4;
+		getPanelFormulaire().add(getTxtComplementAdresse(),getGbcFormulaire());
+		getGbcFormulaire().gridx=0;
+		getGbcFormulaire().gridy=5;
+		getPanelFormulaire().add(new JLabel("Code Postal"),getGbcFormulaire());
+		getGbcFormulaire().gridx=1;
+		getGbcFormulaire().gridy=5;
+		getPanelFormulaire().add(getTxtCodePostal(),getGbcFormulaire());
+		getGbcFormulaire().gridx=0;
+		getGbcFormulaire().gridy=6;
+		getPanelFormulaire().add(new JLabel("Ville"),getGbcFormulaire());
+		getGbcFormulaire().gridx=1;
+		getGbcFormulaire().gridy=6;
+		getPanelFormulaire().add(getTxtVille(),getGbcFormulaire());
+		
+		return getPanelFormulaire();
+	}
+	
+	private JPanel initSectionAnimaux(){
+		getGbcButtonAnimaux().gridx=0;
+		getGbcButtonAnimaux().gridy=0;
+		getPanelButtonAnimaux().add(getbAjouterAnimal(),getGbcButtonAnimaux());
+		getGbcButtonAnimaux().gridx=1;
+		getGbcButtonAnimaux().gridy=0;
+		getPanelButtonAnimaux().add(getbSupprimerAnimal(),getGbcButtonAnimaux());
+		getGbcButtonAnimaux().gridx=2;
+		getGbcButtonAnimaux().gridy=0;
+		getPanelButtonAnimaux().add(getbEditerAnimal(),getGbcButtonAnimaux());
+		
+		return getPanelButtonAnimaux();
+	}
 	
 	//Méthode de construction de l'ihm
-	private JPanel listeClients(){
-		if (panelPrincipal == null){
-			panelPrincipal = new JPanel();
-			panelPrincipal.setLayout(new GridBagLayout());
-			gbcPrincipal = new GridBagConstraints();	
-			gbcPrincipal.insets = new Insets(5, 5, 15, 5);
-			GridBagConstraints gbcRecherche = new GridBagConstraints();	
-			gbcRecherche.insets = new Insets(5, 5, 15, 5);
-			panelRecherche = new JPanel();
-			panelRecherche.setLayout(new GridBagLayout());
-			panelRecherche.setBorder(BorderFactory.createLineBorder(Color.black));
-			//gbcRecherche.fill = GridBagConstraints.HORIZONTAL;
-			panelFormulaire = new JPanel();
+	private JPanel initEcranClients(){
+		//Section Barre de recherche
+		getGbcPrincipal().gridx=0;
+		getGbcPrincipal().gridy=0;
+		getGbcPrincipal().gridwidth = 2;
+		getPanelPrincipal().add(initBarreRecherche(),getGbcPrincipal());
 			
-			GridBagConstraints gbcFormulaire = new GridBagConstraints();	
-			gbcFormulaire.insets = new Insets(5, 5, 10, 5);
-			panelFormulaire.setLayout(new GridBagLayout());
+		//Section Formulaire client
+				
+		getGbcPrincipal().gridx=0;
+		getGbcPrincipal().gridy=1;
+		getGbcPrincipal().gridwidth = 1;
+		getPanelPrincipal().add(initFormulaireClients(),getGbcPrincipal());
 			
+		//Section tableau animaux
 			
-			// Section barre de contrôle
-			
-			gbcRecherche.gridx=0;
-			gbcRecherche.gridy=0;
-			panelRecherche.add(getbRechercher());
-			gbcRecherche.gridx=0;
-			gbcRecherche.gridy=1;
-			panelRecherche.add(new JLabel("             "));
-			gbcRecherche.gridx=0;
-			gbcRecherche.gridy=2;
-			panelRecherche.add(new JLabel("             "));
-			gbcRecherche.gridx=0;
-			gbcRecherche.gridy=3;
-			panelRecherche.add(getbAjouterClient());
-			gbcRecherche.gridx=0;
-			gbcRecherche.gridy=4;
-			panelRecherche.add(getbSupprimerClient());
-			gbcRecherche.gridx=0;
-			gbcRecherche.gridy=5;
-			panelRecherche.add(new JLabel("                         "));
-			gbcRecherche.gridx=0;
-			gbcRecherche.gridy=6;
-			panelRecherche.add(getbValider());
-			gbcRecherche.gridx=0;
-			gbcRecherche.gridy=7;
-			panelRecherche.add(getbAnnuler());
-			gbcPrincipal.gridx=0;
-			gbcPrincipal.gridy=0;
-			gbcPrincipal.gridwidth = 2;
-			panelPrincipal.add(getPanelRecherche(),gbcPrincipal);
-			
-			//Section formulaire Clients
-			
-			gbcFormulaire.gridx=0;
-			gbcFormulaire.gridy=0;
-			panelFormulaire.add(new JLabel("Code"),gbcFormulaire);
-			gbcFormulaire.gridx=1;
-			gbcFormulaire.gridy=0;
-			panelFormulaire.add(txtCodeClient = new JTextField(15),gbcFormulaire);
-			gbcFormulaire.gridx=0;
-			gbcFormulaire.gridy=1;
-			panelFormulaire.add(new JLabel("Nom"),gbcFormulaire);
-			gbcFormulaire.gridx=1;
-			gbcFormulaire.gridy=1;
-			panelFormulaire.add(txtNom = new JTextField(15),gbcFormulaire);
-			gbcFormulaire.gridx=0;
-			gbcFormulaire.gridy=2;
-			panelFormulaire.add(new JLabel("Prénom"),gbcFormulaire);
-			gbcFormulaire.gridx=1;
-			gbcFormulaire.gridy=2;
-			panelFormulaire.add(txtPrenom = new JTextField(15),gbcFormulaire);			
-			gbcFormulaire.gridx=0;
-			gbcFormulaire.gridy=3;
-			panelFormulaire.add(new JLabel("Adresse"),gbcFormulaire);
-			gbcFormulaire.gridx=1;
-			gbcFormulaire.gridy=3;
-			panelFormulaire.add(txtAdresse = new JTextField(15),gbcFormulaire);
-			gbcFormulaire.gridx=0;
-			gbcFormulaire.gridy=4;
-			panelFormulaire.add(new JLabel("Code Postal"),gbcFormulaire);
-			gbcFormulaire.gridx=1;
-			gbcFormulaire.gridy=4;
-			panelFormulaire.add(txtCodePostal = new JTextField(15),gbcFormulaire);
-			gbcFormulaire.gridx=0;
-			gbcFormulaire.gridy=5;
-			panelFormulaire.add(new JLabel("Ville"),gbcFormulaire);
-			gbcFormulaire.gridx=1;
-			gbcFormulaire.gridy=5;
-			panelFormulaire.add(txtVille = new JTextField(15),gbcFormulaire);
-					
-			gbcPrincipal.gridx=0;
-			gbcPrincipal.gridy=1;
-			gbcPrincipal.gridwidth = 1;
-			panelPrincipal.add(getPanelFormulaire(),gbcPrincipal);
-			
-			
-			//Section tableau animaux
-			
-			gbcPrincipal.gridx=1;
-			gbcPrincipal.gridy=1;
-			panelPrincipal.add(getPanelTabAnimaux(),gbcPrincipal);	
-			getPanelTabAnimaux().add(getScrollPanel());
-			gbcPrincipal.gridx=1;
-			gbcPrincipal.gridy=2;
-			panelPrincipal.add(getPanelButtonAnimal(),gbcPrincipal);
-			getPanelButtonAnimal().setLayout(new GridBagLayout());
-			GridBagConstraints constraints = new GridBagConstraints();
-			constraints.insets = new Insets(0, 5, 15, 5);
-			constraints.gridx=0;
-			constraints.gridy=0;
-			getPanelButtonAnimal().add(getbAjouterAnimal(),constraints);
-			constraints.gridx=1;
-			constraints.gridy=0;
-			getPanelButtonAnimal().add(getbSupprimerAnimal(),constraints);
-			constraints.gridx=2;
-			constraints.gridy=0;
-			getPanelButtonAnimal().add(getbEditerAnimal(),constraints);			
-			
-		}
+		getGbcPrincipal().gridx=1;
+		getGbcPrincipal().gridy=1;
+		getPanelPrincipal().add(getPanelTabAnimaux(),getGbcPrincipal());	
+		getGbcPrincipal().gridx=1;
+		getGbcPrincipal().gridy=2;
+		getPanelPrincipal().add(initSectionAnimaux(),getGbcPrincipal());		
+		
 		return panelPrincipal;
 	}
 	
 	
 	//-----------------------------------getters / setters----------------------------------------
 	
+	public JPanel getPanelPrincipal() {
+		if (panelPrincipal == null) {
+			panelPrincipal = new JPanel();
+			panelPrincipal.setLayout(new GridBagLayout());
+		}
+		return panelPrincipal;
+	}
+	
+	public JPanel getPanelRecherche() {
+		if(panelRecherche == null){
+			panelRecherche = new JPanel();
+			panelRecherche.setLayout(new GridBagLayout());
+			panelRecherche.setBorder(BorderFactory.createLineBorder(Color.black));
+		}
+		return panelRecherche;
+	}
+	
+	public JPanel getPanelFormulaire() {
+		if(panelFormulaire == null){
+			panelFormulaire = new JPanel();
+			panelFormulaire.setLayout(new GridBagLayout());
+		}
+		return panelFormulaire;
+	}
+	
+	public GridBagConstraints getGbcRecherche(){
+		if(gbcRecherche == null){
+			gbcRecherche = new GridBagConstraints();	
+			gbcRecherche.insets = new Insets(5, 5, 15, 5);
+		}
+		return gbcRecherche;
+	}
+	
+	public GridBagConstraints getGbcPrincipal() {
+		if(gbcPrincipal == null){
+			gbcPrincipal = new GridBagConstraints();	
+			gbcPrincipal.insets = new Insets(5, 5, 15, 5);			
+		}
+		return gbcPrincipal;
+	}
+	
+	public GridBagConstraints getGbcFormulaire(){
+		if(gbcFormulaire == null){
+			gbcFormulaire = new GridBagConstraints();	
+			gbcFormulaire.insets = new Insets(5, 5, 10, 5);	
+		}		
+		return gbcFormulaire;
+	}
+	
+	public GridBagConstraints getGbcButtonAnimaux(){
+		if(gbcButtonAnimaux == null){
+			gbcButtonAnimaux= new GridBagConstraints();
+			gbcButtonAnimaux.insets = new Insets(0, 5, 15, 5);	
+		}
+		return gbcButtonAnimaux;
+	}
 
 	public JScrollPane getScrollPanel() {
 		if (scrollPanel == null) {
@@ -297,16 +353,6 @@ public class EcranClients extends JFrame{
 		return bRechercher;
 	}
 	
-	public JPanel getPanelPrincipal() {
-		if (panelPrincipal == null) {
-			panelPrincipal = new JPanel();
-		}
-		return panelPrincipal;
-	}
-
-	public GridBagConstraints getGbcPrincipal() {
-		return gbcPrincipal;
-	}
 
 	public JTextField getTxtNom() {
 		if (txtNom == null) {
@@ -348,15 +394,6 @@ public class EcranClients extends JFrame{
 			txtVille = new JTextField(15);			
 		}
 		return txtVille;
-	}
-
-
-	public JPanel getPanelRecherche() {
-		return panelRecherche;
-	}
-	
-	public JPanel getPanelFormulaire() {
-		return panelFormulaire;
 	}
 	
 	public JButton getbAjouterAnimal() {
@@ -401,14 +438,23 @@ public class EcranClients extends JFrame{
 	public JPanel getPanelTabAnimaux() {
 		if(panelTabAnimaux == null){
 			panelTabAnimaux = new JPanel();
+			panelTabAnimaux.add(getScrollPanel());
 		}
 		return panelTabAnimaux;
 	}
 	
-	public JPanel getPanelButtonAnimal() {
+	public JPanel getPanelButtonAnimaux() {
 		if(panelButtonAnimal == null){
 			panelButtonAnimal = new JPanel();
+			panelButtonAnimal.setLayout(new GridBagLayout());
 		}
 		return panelButtonAnimal;
+	}
+	
+	public JTextField getTxtComplementAdresse() {
+		if(txtComplementAdresse == null){
+			txtComplementAdresse = new JTextField(15);
+		}
+		return txtComplementAdresse;
 	}
 }
