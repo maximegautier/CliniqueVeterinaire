@@ -15,9 +15,6 @@ public class AppliTestBLL {
 
 	public static void main(String[] args) throws BLLException, DALException 
 	{	
-		
-		PersonnelsManager persoManager = PersonnelsManager.getInstance();
-		
 		// Instanciation du jeu d'essai Personnels
 		System.out.println("___________________ Personnels ___________________");
 		List<Personnels> lPersonnels = new ArrayList<>();
@@ -30,11 +27,11 @@ public class AppliTestBLL {
 		
 		// Ajout du personnel				
 		for (Personnels personnel : lPersonnels) {
-			persoManager.Ajouter(personnel);
+			PersonnelsManager.Ajouter(personnel);
 		}
 		
 		// Affichage du personnels
-		System.out.println(persoManager.selectTousPersonnels());
+		System.out.println(PersonnelsManager.selectTousPersonnels());
 		
 		// Instanciation du jeu d'essai Clients
 		System.out.println();
@@ -112,7 +109,7 @@ public class AppliTestBLL {
 		System.out.println("");
 		System.out.println("___________________ Modification MDP ___________________");
 		System.out.println("Ancien mot de passe : " + Cryptage.decrypt(perso1.getMotPasse()));
-		persoManager.ModificationMotPasse(perso1, "1234", "ABCDEF");
+		PersonnelsManager.modificationMotPasse(perso1, "1234", "ABCDEF");
 		System.out.println("Nouveau mot de passe : " + Cryptage.encrypt(perso1.getMotPasse()));
 		
 		// Modification Agenda
@@ -129,9 +126,9 @@ public class AppliTestBLL {
 		// Suppresion Personnels
 		System.out.println("");
 		System.out.println("___________________ Suppresion personnel ___________________");
-		persoManager.Supprimer(perso1);
+		PersonnelsManager.Supprimer(perso1);
 		System.out.println("Apres");
-		System.out.println(persoManager.selectTousPersonnels());
+		System.out.println(PersonnelsManager.selectTousPersonnels());
 	}
 
 }

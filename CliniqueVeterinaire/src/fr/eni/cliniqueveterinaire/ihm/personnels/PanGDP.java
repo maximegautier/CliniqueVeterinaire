@@ -22,10 +22,10 @@ import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
 
-public class PanGDP {
+public class PanGDP extends JPanel{
 
 	private static PanGDP instance;
-	private JPanel panelGDP, panelHead, panelTable;
+	private JPanel panelHead, panelTable;
 	private JButton bAjouter, bSupprimer, bReinitialiser;
 	private JTable tPersonnel;
 	private DefaultTableModel defTableModel;
@@ -34,31 +34,28 @@ public class PanGDP {
 	{
 		if (PanGDP.instance == null)
 		{
-			instance = new PanGDP();
+			PanGDP.instance = new PanGDP();
 		}
-		return instance;
+		return PanGDP.instance;
 	}
 	
-	private PanGDP() 
+	private PanGDP()
 	{
+		setPreferredSize(new Dimension(700,500));
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(5, 5, 5, 5);
+		gbc.gridx =0;
+		gbc.gridy =0;
+		add(getPanelHead(),gbc);
 		
-	}
-	
-	public JPanel getPanGDP() throws DALException{
-		if (panelGDP == null){
-			panelGDP = new JPanel();
-			panelGDP.setPreferredSize(new Dimension(EcranMenu.getInstance().getWidth(),EcranMenu.getInstance().getHeight()));
-			GridBagConstraints gbc = new GridBagConstraints();
-			gbc.insets = new Insets(5, 5, 5, 5);
-			gbc.gridx =0;
-			gbc.gridy =0;
-			panelGDP.add(getPanelHead(),gbc);
-			
-			gbc.gridx =0;
-			gbc.gridy =1;
-			panelGDP.add(getPanelTable(),gbc);
+		gbc.gridx =0;
+		gbc.gridy =1;
+		try {
+			add(getPanelTable(),gbc);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return panelGDP;
 	}
 	
 	private JPanel getPanelHead()
@@ -69,12 +66,7 @@ public class PanGDP {
 			panelHead.setBorder(BorderFactory.createLineBorder(Color.black));
 			panelHead.setLayout(new FlowLayout(FlowLayout.LEFT));
 			panelHead.setOpaque(true);
-			try {
-				panelHead.setPreferredSize(new Dimension(getPanGDP().getPreferredSize().width -15,getbAjouter().getPreferredSize().height+12));
-			} catch (DALException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			panelHead.setPreferredSize(new Dimension(this.getPreferredSize().width -15,getbAjouter().getPreferredSize().height+12));
 			panelHead.add(getbAjouter());
 			panelHead.add(getbSupprimer());
 			panelHead.add(getbReinitialiser());
@@ -180,8 +172,8 @@ public class PanGDP {
 			tPersonnel.setShowGrid(false);
 			tPersonnel.setFont(new Font("Arial", Font.BOLD, 15));
 			tPersonnel.isCellEditable(5, 2);
-			int h = getPanGDP().getPreferredSize().height - 80 -getPanelHead().getPreferredSize().height;
-			tPersonnel.setPreferredScrollableViewportSize(new Dimension(getPanGDP().getPreferredSize().width-30,h-22));
+			int h = this.getPreferredSize().height - 80 -getPanelHead().getPreferredSize().height;
+			tPersonnel.setPreferredScrollableViewportSize(new Dimension(this.getPreferredSize().width-30,h-22));
 			tPersonnel.setFillsViewportHeight(true);
 		}
 		return tPersonnel;

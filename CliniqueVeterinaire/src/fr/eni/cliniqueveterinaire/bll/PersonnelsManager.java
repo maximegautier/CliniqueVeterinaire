@@ -12,8 +12,7 @@ public class PersonnelsManager
 {
     //region DECLARATION
 
-	private PersonnelsDAO personnelsDAO;
-	private static PersonnelsManager instance;
+	private static PersonnelsDAO personnelsDAO;
 
     //endregion DECLARATION
 
@@ -29,7 +28,7 @@ public class PersonnelsManager
     
     //region METHODS
 	/* Créé par Maxime GAUTIER */
-	public Personnels Authentification(String nom, String motPasse)
+	public static Personnels Authentification(String nom, String motPasse)
 	{
 		Personnels personnel = null;
 		try {
@@ -41,7 +40,7 @@ public class PersonnelsManager
 	}
 
 	/* Créé par Maxime GAUTIER */
-	public int Ajouter(Personnels personnel) throws BLLException
+	public static int Ajouter(Personnels personnel) throws BLLException
 	{
 		try {
 			if(personnel == null)
@@ -52,7 +51,7 @@ public class PersonnelsManager
 			{
 				throw new BLLException("On ne peut pas ajouter un personnel avec un nom null.");
 			}
-			else if(VerifieSiExiste(personnel.getNom()))
+			else if(verifieSiExiste(personnel.getNom()))
 			{
 				throw new BLLException("Il existe un personnel du meme nom.");
 			}
@@ -89,7 +88,7 @@ public class PersonnelsManager
 	}
 	
 	/* Créé par Maxime GAUTIER */
-	public List<Personnels> selectTousPersonnels() throws DALException
+	public static List<Personnels> selectTousPersonnels() throws DALException
 	{
 		List<Personnels> lPersonnels = null;
 		lPersonnels = personnelsDAO.selectAll();
@@ -97,7 +96,7 @@ public class PersonnelsManager
 	}
 	
 	/* Créé par Maxime GAUTIER */
-	public List<String> selectTousRoles() throws BLLException
+	public static List<String> selectTousRoles() throws BLLException
 	{
 		List<String> lRole = null;
 		try {
@@ -110,7 +109,7 @@ public class PersonnelsManager
 	}
 	
 	/* Créé par Maxime GAUTIER */
-	public List<Personnels> selectTousVeterinaires() throws BLLException
+	public static List<Personnels> selectTousVeterinaires() throws BLLException
 	{
 		List<Personnels> lVeterinaires = null;
 		try {
@@ -123,7 +122,7 @@ public class PersonnelsManager
 	}
 	
 	/* Créé par Maxime GAUTIER */
-	public void ModificationMotPasse(Personnels personnel, String oldMotPasse, String newMotPasse) throws BLLException
+	public static void modificationMotPasse(Personnels personnel, String oldMotPasse, String newMotPasse) throws BLLException
 	{
 		if(isEmptyOrNull(newMotPasse))
 		{
@@ -158,7 +157,7 @@ public class PersonnelsManager
 	}
 	
 	/* Créé par Maxime GAUTIER */
-	public boolean Supprimer(Personnels perso) throws BLLException
+	public static boolean Supprimer(Personnels perso) throws BLLException
 	{
 		//Logique de suppression en base (Archive = 1) via DAO
 		try {
@@ -170,7 +169,7 @@ public class PersonnelsManager
 		return false;			
 	}
 	
-	public boolean VerifieSiExiste(String nomPersonnel) throws BLLException
+	public static boolean verifieSiExiste(String nomPersonnel) throws BLLException
 	{
 		boolean aRetourner = false; 
 		
@@ -212,7 +211,7 @@ public class PersonnelsManager
 	//************	
 	
 	/* Créé par Erwin DUPUIS */
-    private boolean isEmptyOrNull(String toTest)
+    private static boolean isEmptyOrNull(String toTest)
     {
         if(toTest != null && !toTest.trim().isEmpty())
             return false;
@@ -221,7 +220,7 @@ public class PersonnelsManager
     }
     
     /* Créé par Erwin DUPUIS */
-    private boolean isNegativeInt(int toCheck)
+    private static boolean isNegativeInt(int toCheck)
     {
         if(toCheck >= 0)
             return false;
@@ -231,17 +230,4 @@ public class PersonnelsManager
     
     //endregion METHODS
 
-    //region GET/SET
-    
-    /* Créé par Erwin DUPUIS */
-	public static PersonnelsManager getInstance()
-	{
-		if(PersonnelsManager.instance == null)
-		{
-			PersonnelsManager.instance = new PersonnelsManager();
-		}
-		return PersonnelsManager.instance;
-	}
-
-    //endregion GET/SET
 }

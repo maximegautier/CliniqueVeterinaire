@@ -47,7 +47,7 @@ public class PanAgenda {
 		return panelAgenda;
 	}
 	
-	public JPanel getPanelHead(){
+	private JPanel getPanelHead(){
 		if (panelHead == null)
 		{
 			panelHead = new JPanel();
