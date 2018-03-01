@@ -1,11 +1,10 @@
 package fr.eni.cliniqueveterinaire.ihm.personnels;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Vector;
 
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bll.PersonnelsManager;
@@ -14,7 +13,7 @@ import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.login.EcranLogin;
 import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
 
-public class PanGDPController {
+public class PanGDPController extends JPanel{
 
 	private static PanGDPController instance;
 	private EcranLogin fenLogin;
@@ -36,7 +35,7 @@ public class PanGDPController {
 		DialogAdd jdAjouter = new DialogAdd();
 	}
 	
-	public void Supprimer() throws BLLException{
+	public void supprimer() throws BLLException{
 		int NumLigne = 0;
 	    try {
 			NumLigne = panelGDP.getInstance().getTablePersonnel().getSelectedRow();
@@ -61,7 +60,7 @@ public class PanGDPController {
 		}
 	}
 	
-	public void Reinitialiser() throws DALException{
+	public void reinitialiser() throws DALException{
 		int NumLigne = panelGDP.getInstance().getTablePersonnel().getSelectedRow();
 		if (NumLigne == -1)
 		{
@@ -70,11 +69,11 @@ public class PanGDPController {
 		else
 		{
 			Personnels personnel = PersonnelsManager.getInstance().selectTousPersonnels().get(NumLigne);
-			DialogReinit dialogReinit = new DialogReinit(personnel);
+			DialogReinit dialogReinit = new DialogReinit(fenMenu,personnel);
 		}
 	}
 	
-	public void ValiderAjout(String nom, String prenom, String role, String mdp)
+	public void validerAjout(String nom, String prenom, String role, String mdp)
 	{
 		Personnels personnel = new Personnels(nom,prenom,"Login",mdp,role,false);
 		try {
@@ -90,7 +89,7 @@ public class PanGDPController {
 		}
 	}
 	
-	public void ValiderReinit(Personnels personnel, String ancienMDP, String nouveauMDP) throws BLLException
+	public void validerReinit(Personnels personnel, String ancienMDP, String nouveauMDP) throws BLLException
 	{
 		PersonnelsManager.getInstance().ModificationMotPasse(personnel, ancienMDP, nouveauMDP);
 		rafraichirTable();

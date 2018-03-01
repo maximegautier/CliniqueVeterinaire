@@ -48,7 +48,7 @@ public class EcranMenu extends JFrame{
 		
 		setJMenuBar(menuBar);
 		
-		setContentPane(panAgenda.getPanAgenda());
+		setContentPane(GDP.getPanGDP());
 
 		setVisible(true);
 		setLocationRelativeTo(null);

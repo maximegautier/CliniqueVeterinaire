@@ -4,36 +4,36 @@ public class Personnels
 {
     //region DECLARATION
 	
-	private int CodePers;
-	private String Nom;
-	private String Prenom;
-	private String Login;
-	private String MotPasse;
-	private String Role;
-	private boolean Archive;
+	private int codePers;
+	private String nom;
+	private String prenom;
+	private String login;
+	private String motPasse;
+	private String role;
+	private boolean archive;
 	
     //endregion DECLARATION
 
     //region CTOR
 
-	public Personnels(int codePers, String nom, String Prenom, String Login, String motPasse, String role,boolean archive) 
+	public Personnels(int codePers, String nom, String prenom, String login, String motPasse, String role, boolean archive) 
 	{
-		this.CodePers = codePers;
-		this.Nom = nom;
-		this.Prenom = Prenom;
-		this.Login = Login;
-		this.MotPasse = motPasse;
-		this.Role = role;
-		this.Archive = archive;
+		this.codePers = codePers;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.login = login;
+		this.motPasse = motPasse;
+		this.role = role;
+		this.archive = archive;
 	}
-	public Personnels(String nom, String Prenom, String Login, String motPasse, String role,boolean archive) 
+	public Personnels(String nom, String prenom, String login, String motPasse, String role,boolean archive) 
 	{
-		this.Nom = nom;
-		this.Prenom = Prenom;
-		this.Login = Login;
-		this.MotPasse = motPasse;
-		this.Role = role;
-		this.Archive = archive;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.login = login;
+		this.motPasse = motPasse;
+		this.role = role;
+		this.archive = archive;
 	}
 
     //endregion CTOR
@@ -43,8 +43,8 @@ public class Personnels
 	@Override
 	public String toString() 
 	{
-		return "Personnels [CodePers=" + CodePers + ", Nom=" + Nom + ", MotPasse=" + MotPasse + ", Role=" + Role
-				+ ", Archive=" + Archive + "]";
+		return "Personnels [CodePers=" + codePers + ", Nom=" + nom + ", MotPasse=" + motPasse + ", Role=" + role
+				+ ", Archive=" + archive + "]";
 	}	
     
     //endregion METHODS
@@ -52,47 +52,47 @@ public class Personnels
     //region GET/SET
 
 	public int getCodePers() {
-		return CodePers;
+		return codePers;
 	}
 
 	public void setCodePers(int codePers) {
-		CodePers = codePers;
+		codePers = codePers;
 	}
 	public String getNom() {
-		return Nom;
+		return nom;
 	}
 	public void setNom(String nom) {
-		Nom = nom;
+		nom = nom;
 	}
 	public String getMotPasse() {
-		return MotPasse;
+		return motPasse;
 	}
 	public void setMotPasse(String motPasse) {
-		MotPasse = motPasse;
+		motPasse = motPasse;
 	}
 	public String getRole() {
-		return Role;
+		return role;
 	}
 	public void setRole(String role) {
-		Role = role;
+		role = role;
 	}
 	public boolean getArchive() {
-		return Archive;
+		return archive;
 	}
 	public void setArchive(boolean archive) {
-		Archive = archive;
+		archive = archive;
 	}
 	public String getPrenom() {
-		return Prenom;
+		return prenom;
 	}
 	public void setPrenom(String prenom) {
-		Prenom = prenom;
+		prenom = prenom;
 	}
 	public String getLogin() {
-		return Login;
+		return login;
 	}
 	public void setLogin(String login) {
-		Login = login;
+		login = login;
 	}
 	
 	

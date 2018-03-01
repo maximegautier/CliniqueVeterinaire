@@ -35,7 +35,7 @@ public class EcranLoginController
 		fenMenu.setVisible(true);
 	}
 	
-	public void Connexion() throws DALException
+	public void connexion() throws DALException
 	{
 		Personnels persoConnect = PersonnelsManager.getInstance().Authentification(fenLogin.getTxtLogin().getText(), fenLogin.getTxtPassword().getText());
 		

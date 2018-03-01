@@ -151,7 +151,7 @@ public class DialogAdd{
 				public void actionPerformed(ActionEvent e)
 				{
 					try {
-						PanGDPController.getInstance().ValiderAjout(
+						PanGDPController.getInstance().validerAjout(
 								getTfNom().getText(),
 								getTfPrenom().getText(),
 								(String) getCRole().getSelectedItem(),

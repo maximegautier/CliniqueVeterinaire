@@ -14,20 +14,22 @@ import fr.eni.cliniqueveterinaire.dal.PersonnelsDAO;
 
 public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 {
-	private String rqtCheckConnec = "SELECT Nom,Prenom,Login,MotPasse,Role,Archive FROM Personnels WHERE Nom = ? AND MotPasse = ? AND Archive = 0";
-	private String rqtSelectById = "SELECT Nom,Prenom,Login,MotPasse,Role,Archive FROM Personnels WHERE CodePers = ? AND Archive = 0";
-	private String rqtSelectByName = "SELECT Nom,Prenom,Login,MotPasse,Role,Archive FROM Personnels WHERE Nom = ? AND Archive = 0";
+	private String rqtCheckConnec = "SELECT CodePers,Nom,Prenom,Login,MotPasse,Role,Archive FROM Personnels WHERE Nom = ? AND MotPasse = ? AND Archive = 0";
+	private String rqtSelectById = "SELECT CodePers,Nom,Prenom,Login,MotPasse,Role,Archive FROM Personnels WHERE CodePers = ? AND Archive = 0";
+	private String rqtSelectByName = "SELECT CodePers,Nom,Prenom,Login,MotPasse,Role,Archive FROM Personnels WHERE Nom = ? AND Archive = 0";
 	private String rqtSelectAll = "SELECT CodePers,Nom,Prenom,Login,MotPasse,Role,Archive FROM Personnels WHERE Archive = 0 ORDER BY Nom";
 	private String rqtInsert = "INSERT INTO Personnels VALUES (?,?,?,?,?,?)";
 	private String rqtDelete = "UPDATE Personnels SET Archive = 1 WHERE CodePers = ?";
 	private String rqtUpdate = "UPDATE Personnels SET Nom=?, Prenom=?, Login=?, MotPasse=?, Role=?, Archive = ? WHERE CodePers = ?";
 	private String rqtSelectRole = "SELECT DISTINCT Role From Personnels";
+	private String rqtVerifieSiExiste = "SELECT * FROM Personnels WHERE Nom = ?";
+	private String rqtSelectVeterinaire = "SELECT CodePers,Nom,Prenom,Login,MotPasse,Role,Archive WHERE Role='vet' AND Archive = 0";
 	
 	public PersonnelsDAOJdbcImpl()
 	{
 		
 	}
-	
+	/* Créee par Yael LEBARON */
 	public Personnels checkConnexion(String login,String mdp) throws DALException
 	{
 		Connection cnx = null;
@@ -74,6 +76,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 		return personnel;
 	}
 
+	/* Créee par Maxime GAUTIER */
 	@Override
 	public Personnels selectById(int id) throws DALException {
 		Connection cnx = null;
@@ -117,6 +120,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 		return personnel;
 	}
 
+	/* Créee par Maxime GAUTIER */
 	@Override
 	public Personnels selectByName(String nomPersonnel) throws DALException {
 		Connection cnx = null;
@@ -160,6 +164,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 		return personnel;
 	}
 
+	/* Créee par Maxime GAUTIER */
 	@Override
 	public List<Personnels> selectAll() throws DALException {
 		Connection cnx = null;
@@ -205,6 +210,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 		return list;
 	}
 
+	/* Créee par Maxime GAUTIER */
 	@Override
 	public int insert(Personnels personnel) throws DALException {
 		Connection cnx = null;
@@ -243,6 +249,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 		}
 	}	
 
+	/* Créee par Maxime GAUTIER */
 	@Override
 	public void update(Personnels personnel) throws DALException {
 		Connection cnx = null;
@@ -276,6 +283,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 		}
 	}
 
+	/* Créee par Maxime GAUTIER */
 	@Override
 	public void delete(Personnels personnel) throws DALException {
 		Connection cnx = null;
@@ -305,6 +313,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 		}	
 	}
 	
+	/* Créee par Maxime GAUTIER */
 	public List<String> selectRole() throws DALException
 	{
 		Connection cnx = null;
@@ -345,7 +354,6 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 	{
 		Connection cnx = null;
 		boolean aRetourner = false;
-		String rqtVerifieSiExiste = "SELECT * FROM Personnels WHERE Nom = ?";
 		PreparedStatement psVerifieSiExiste = null;
 		ResultSet rsVerifieSiExiste = null;
 		
@@ -379,6 +387,52 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 		}
 		
 		return aRetourner;
+	}
+	
+	/* Créee par Maxime GAUTIER */
+	public List<Personnels> selectVeterinaire() throws DALException
+	{
+		Connection cnx = null;
+		Statement rqt = null;
+		ResultSet rs = null;
+		List<Personnels> personnels = new ArrayList<Personnels>();
+
+		try {
+			cnx = JdbcTools.getConnection();
+			rqt = cnx.createStatement();
+			rs = rqt.executeQuery(rqtSelectVeterinaire);
+			Personnels personnel = null;
+			
+			while (rs.next()){
+				personnel = new Personnels(
+						rs.getInt("CodePers"),
+						rs.getString("Nom"),
+						rs.getString("Prenom"),
+						rs.getString("Login"),
+						rs.getString("MotPasse"),
+						rs.getString("Role"),
+						rs.getBoolean("Archive")		
+				);
+				personnels.add(personnel);
+			}
+		} catch (SQLException e) {
+			throw new DALException("selectVeterinaire failed - " , e);
+		} finally {
+			try {
+				if (rs != null){
+					rs.close();
+				}
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return personnels;
 	}
 	
 }

@@ -18,6 +18,7 @@ public class PersonnelsManager
     //endregion DECLARATION
 
     //region CTOR
+	
 	/* Créé par Maxime GAUTIER */
 	private PersonnelsManager()
 	{
@@ -110,6 +111,19 @@ public class PersonnelsManager
 	}
 	
 	/* Créé par Maxime GAUTIER */
+	public List<Personnels> selectTousVeterinaires() throws BLLException
+	{
+		List<Personnels> lVeterinaires = null;
+		try {
+			lVeterinaires = personnelsDAO.selectVeterinaire();
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			throw new BLLException(e.getMessage());
+		}
+		return lVeterinaires;
+	}
+	
+	/* Créé par Maxime GAUTIER */
 	public void ModificationMotPasse(Personnels personnel, String oldMotPasse, String newMotPasse) throws BLLException
 	{
 		if(isEmptyOrNull(newMotPasse))
@@ -193,6 +207,8 @@ public class PersonnelsManager
 		}
 		return tmp;
 	}
+	
+	
 	
 	//************
 	//UTILITAIRES

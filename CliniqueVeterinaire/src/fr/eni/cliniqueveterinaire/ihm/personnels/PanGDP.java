@@ -132,7 +132,7 @@ public class PanGDP {
 				public void actionPerformed(ActionEvent e)
 				{
 					try {
-						PanGDPController.getInstance().Supprimer();
+						PanGDPController.getInstance().supprimer();
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -154,7 +154,7 @@ public class PanGDP {
 				public void actionPerformed(ActionEvent e)
 				{
 					try {
-						PanGDPController.getInstance().Reinitialiser();
+						PanGDPController.getInstance().reinitialiser();
 					} catch (DALException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

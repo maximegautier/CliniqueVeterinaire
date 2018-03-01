@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -20,13 +21,11 @@ import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
 
 /* Créé par Erwin DUPUIS */
-public class DialogReinit
+public class DialogReinit extends JDialog
 {
     //region DECLARATION
 
-	private JDialog jdReinit;
 	private JPanel mainPanel;
-	
 	private JLabel lblPersonnel;
 	private JTextField tfdPersonnel;
 	private JLabel lblAncienMDP;
@@ -41,10 +40,10 @@ public class DialogReinit
 
     //region CTOR
 
-	public DialogReinit(Personnels personnel) throws DALException
+	public DialogReinit(JFrame parent, Personnels personnel) throws DALException
 	{
+		super(parent,"Réinitialiser le mot de passe",true);
 		this.currentPersonnel = personnel;
-		jdReinit = getJdReinit();
 		InitialiserJdReinit();
 	}
 
@@ -54,26 +53,24 @@ public class DialogReinit
     
 	public void InitialiserJdReinit()
 	{
-		jdReinit.setSize(350, 180);
-		jdReinit.setResizable(false);
-		jdReinit.setTitle("Réinitialiser le mot de passe");
-		jdReinit.setModal(true);
-		jdReinit.setLocationRelativeTo(null);
+		setSize(350, 180);
+		setResizable(false);
+		setLocationRelativeTo(null);
 		
 		mainPanel = getMainPanel();
 		InitialiserMainPanel();
 		
-		jdReinit.setVisible(true);
+		setVisible(true);
 	}
 	
 	public void InitialiserMainPanel()
 	{
-		mainPanel.setSize(jdReinit.getWidth(), jdReinit.getHeight());
+		mainPanel.setSize(getWidth(), getHeight());
         mainPanel.setOpaque(true);
         mainPanel.setLayout(new GridBagLayout());
         GridBagConstraints MainGBC = new GridBagConstraints();
         MainGBC.insets = new Insets(5, 5, 5, 5);
-        jdReinit.setContentPane(mainPanel);
+        setContentPane(mainPanel);
         
         //LIGNE 0
         
@@ -132,16 +129,6 @@ public class DialogReinit
     //endregion METHODS
 
     //region GET/SET
-
-	public JDialog getJdReinit() throws DALException
-	{
-		if(jdReinit == null)
-		{
-			jdReinit = new JDialog(EcranMenu.getInstance());
-		}
-		
-		return jdReinit;
-	}
 	
 	public JPanel getMainPanel()
 	{
@@ -225,7 +212,7 @@ public class DialogReinit
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
-					jdReinit.dispose();
+					dispose();
 				}
 			});
 		}
@@ -244,9 +231,9 @@ public class DialogReinit
 				public void actionPerformed(ActionEvent e)
 				{
 					try {
-						PanGDPController.getInstance().ValiderReinit(currentPersonnel, getTfdAncienMDP().getText(), getTfdNouveauMDP().getText());
+						PanGDPController.getInstance().validerReinit(currentPersonnel, getTfdAncienMDP().getText(), getTfdNouveauMDP().getText());
 						JOptionPane.showMessageDialog(null, "Mot de passe changé", "Succes", JOptionPane.INFORMATION_MESSAGE);
-						jdReinit.dispose();
+						dispose();
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						JOptionPane.showMessageDialog(null, e1.getMessage(), "Erreur", JOptionPane.INFORMATION_MESSAGE);

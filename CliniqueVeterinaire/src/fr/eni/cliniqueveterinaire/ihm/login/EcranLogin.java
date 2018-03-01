@@ -112,7 +112,7 @@ public class EcranLogin extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						EcranLoginController.getInstance().Connexion();
+						EcranLoginController.getInstance().connexion();
 					} catch (DALException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
