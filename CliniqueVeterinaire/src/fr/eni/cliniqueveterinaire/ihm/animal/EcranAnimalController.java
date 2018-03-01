@@ -24,8 +24,7 @@ public class EcranAnimalController
     //region CTOR
 
 	private EcranAnimalController()
-	{
-		
+	{	
 	}
 
     //endregion CTOR

@@ -35,6 +35,8 @@ public class EcranAnimal extends JFrame
 	//Permet de déterminer si nous devons modifier ou ajouter l'animal (1 = Ajouter / 0 = Modifier)
 	private boolean typeOperation;
 	
+	private JFrame currentFrame;
+	
 	private int CodeClient;
 	private int CodeAnimal;
 	
@@ -70,6 +72,8 @@ public class EcranAnimal extends JFrame
 
     public EcranAnimal(int codeClient, int codeAnimal)
     {
+    	getCurrentFrame();
+    	
     	this.typeOperation = false;    	
     	this.CodeClient = codeClient;
     	this.CodeAnimal = codeAnimal;
@@ -89,6 +93,8 @@ public class EcranAnimal extends JFrame
 
     public EcranAnimal(int codeClient)
     {
+    	getCurrentFrame();
+    	
     	this.typeOperation = true;
     	this.CodeClient = codeClient;
     	this.raceChat = new ArrayList<Races>();
@@ -106,6 +112,8 @@ public class EcranAnimal extends JFrame
     // CTOR A N'UTILISER QUE DANS LE CONTROLLER
     public EcranAnimal()
     {
+    	getCurrentFrame();
+    	
     	this.raceChat = new ArrayList<Races>();
     	this.raceChien = new ArrayList<Races>();
     	
@@ -180,10 +188,12 @@ public class EcranAnimal extends JFrame
     		//COLONNE 0
 	    	FormGBC.gridx =0;
 	    	FormGBC.gridy =0;
+	    	FormGBC.anchor = GridBagConstraints.WEST;
 	    	PanelFormulaire.add(this.getLblCode(), FormGBC);
     		//COLONNE 1
 	    	FormGBC.gridx =1;
 	    	FormGBC.gridy =0;
+	    	FormGBC.anchor = GridBagConstraints.WEST;
 	    	PanelFormulaire.add(this.getTFdCode(), FormGBC);
     		//COLONNE 2
 	    	FormGBC.gridx =2;
@@ -197,18 +207,22 @@ public class EcranAnimal extends JFrame
 			//COLONNE 0
 	    	FormGBC.gridx =0;
 	    	FormGBC.gridy =1;
+	    	FormGBC.anchor = GridBagConstraints.WEST;
 	    	PanelFormulaire.add(this.getLblNom(), FormGBC);
 			//COLONNE 1
 	    	FormGBC.gridx =1;
 	    	FormGBC.gridy =1;
+	    	FormGBC.anchor = GridBagConstraints.WEST;
 	    	PanelFormulaire.add(this.getTfdNom(), FormGBC);
 			//COLONNE 2
 	    	FormGBC.gridx =2;
 	    	FormGBC.gridy =1;
+	    	FormGBC.anchor = GridBagConstraints.WEST;
 	    	PanelFormulaire.add(this.getLblSexe(), FormGBC);
 			//COLONNE 3
 	    	FormGBC.gridx =3;
 	    	FormGBC.gridy =1;
+	    	FormGBC.anchor = GridBagConstraints.WEST;
 	    	PanelFormulaire.add(this.getCbSexe(), FormGBC);
     	
     	//LIGNE 2
@@ -216,10 +230,12 @@ public class EcranAnimal extends JFrame
 			//COLONNE 0
 	    	FormGBC.gridx =0;
 	    	FormGBC.gridy =2;
+	    	FormGBC.anchor = GridBagConstraints.WEST;
 	    	PanelFormulaire.add(this.getLblCouleur(), FormGBC);
 			//COLONNE 1
 	    	FormGBC.gridx =1;
 	    	FormGBC.gridy =2;
+	    	FormGBC.anchor = GridBagConstraints.WEST;
 	    	PanelFormulaire.add(this.getTfdCouleur(), FormGBC);
 			//COLONNE 2
 	    	FormGBC.gridx =2;
@@ -233,18 +249,22 @@ public class EcranAnimal extends JFrame
 			//COLONNE 0
 	    	FormGBC.gridx =0;
 	    	FormGBC.gridy =3;
+	    	FormGBC.anchor = GridBagConstraints.WEST;
 	    	PanelFormulaire.add(this.getLblEspece(), FormGBC);
 			//COLONNE 1
 	    	FormGBC.gridx =1;
 	    	FormGBC.gridy =3;
+	    	FormGBC.anchor = GridBagConstraints.WEST;
 	    	PanelFormulaire.add(this.getCbEspece(), FormGBC);
 			//COLONNE 2
 	    	FormGBC.gridx =2;
 	    	FormGBC.gridy =3;
+	    	FormGBC.anchor = GridBagConstraints.WEST;
 	    	PanelFormulaire.add(this.getLblRace(), FormGBC);
 			//COLONNE 3
 	    	FormGBC.gridx =3;
 	    	FormGBC.gridy =3;
+	    	FormGBC.anchor = GridBagConstraints.WEST;
 	    	PanelFormulaire.add(this.getCbRace(), FormGBC);
     	
     	//LIGNE 4
@@ -252,10 +272,12 @@ public class EcranAnimal extends JFrame
 			//COLONNE 0
 	    	FormGBC.gridx =0;
 	    	FormGBC.gridy =4;
+	    	FormGBC.anchor = GridBagConstraints.WEST;
 	    	PanelFormulaire.add(this.getLblTatouage(), FormGBC);
 			//COLONNE 1
 	    	FormGBC.gridx =1;
 	    	FormGBC.gridy =4;
+	    	FormGBC.anchor = GridBagConstraints.WEST;
 	    	PanelFormulaire.add(this.getTfdTatouage(), FormGBC);
 			//COLONNE 2
 	    	FormGBC.gridx =2;
@@ -320,6 +342,7 @@ public class EcranAnimal extends JFrame
 									true);
 							
 							EcranAnimalController.getInstance().Ajouter(aAjouter);
+							currentFrame.dispose();
 						} 
 						catch (BLLException e2) 
 						{
@@ -342,6 +365,7 @@ public class EcranAnimal extends JFrame
 									true);
 							
 							EcranAnimalController.getInstance().Modifier(aModifier);
+							currentFrame.dispose();
 						} 
 						catch (BLLException e1) 
 						{
@@ -359,6 +383,14 @@ public class EcranAnimal extends JFrame
 		if(BtnAnnuler == null)
 		{
 			BtnAnnuler = new JButton("Annuler");
+			BtnAnnuler.addActionListener(new ActionListener() 
+			{				
+				@Override
+				public void actionPerformed(ActionEvent e) 
+				{
+					currentFrame.dispose();
+				}
+			});
 		}
 		return BtnAnnuler;
 	}
@@ -586,6 +618,16 @@ public class EcranAnimal extends JFrame
 	public void setRaceChien(List<Races> raceChien) 
 	{
 		this.raceChien = raceChien;
+	}
+	
+	public JFrame getCurrentFrame()
+	{
+		if(currentFrame == null)
+		{
+			currentFrame = this;
+		}
+		
+		return currentFrame;
 	}
 	
     //endregion GET/SET
