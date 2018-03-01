@@ -12,7 +12,7 @@ public class PersonnelsManager
 {
     //region DECLARATION
 
-	private static PersonnelsDAO personnelsDAO;
+	private static PersonnelsDAO personnelsDAO = DAOFactory.getPersonnelsDAO();
 
     //endregion DECLARATION
 
@@ -21,7 +21,7 @@ public class PersonnelsManager
 	/* Créé par Maxime GAUTIER */
 	private PersonnelsManager()
 	{
-		personnelsDAO = DAOFactory.getPersonnelsDAO();
+		
 	}
 
     //endregion CTOR

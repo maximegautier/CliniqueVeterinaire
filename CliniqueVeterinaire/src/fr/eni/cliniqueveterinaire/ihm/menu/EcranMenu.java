@@ -17,9 +17,6 @@ public class EcranMenu extends JFrame{
 	
 	private static EcranMenu instance;
 	
-	private int width = 700;
-	private int height = 500;
-	
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu mFichier, mRDV, mAgenda, mGDP;
 	private JMenuItem miDeconnexion, miFermer;
@@ -34,7 +31,7 @@ public class EcranMenu extends JFrame{
 	
 	private EcranMenu() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);		
-		setSize(width, height);
+		setSize(700, 500);
 		setResizable(false);
 		setTitle("Clinique Veterinaire");
 		setIconImage(new ImageIcon("ressources/ico_veto.png").getImage());
@@ -46,7 +43,7 @@ public class EcranMenu extends JFrame{
 		
 		setJMenuBar(menuBar);
 		
-		setContentPane(PanGDP.getInstance());
+		setContentPane(PanAgenda.getInstance());
 
 		setVisible(true);
 		setLocationRelativeTo(null);
@@ -133,15 +130,5 @@ public class EcranMenu extends JFrame{
 		}
 		return miClient;
 	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public int getHeight() {
-		return height;
-	}
-	
-	
 	
 }
