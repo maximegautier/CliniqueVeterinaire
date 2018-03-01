@@ -9,7 +9,6 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Vector;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -31,8 +30,10 @@ public class PanGDP {
 	private JTable tPersonnel;
 	private DefaultTableModel defTableModel;
 	
-	public static PanGDP getInstance(){
-		if (PanGDP.instance == null){
+	public static PanGDP getInstance()
+	{
+		if (PanGDP.instance == null)
+		{
 			instance = new PanGDP();
 		}
 		return instance;
@@ -60,7 +61,7 @@ public class PanGDP {
 		return panelGDP;
 	}
 	
-	private JPanel getPanelHead() throws DALException
+	private JPanel getPanelHead()
 	{
 		if (panelHead == null)
 		{
@@ -68,7 +69,12 @@ public class PanGDP {
 			panelHead.setBorder(BorderFactory.createLineBorder(Color.black));
 			panelHead.setLayout(new FlowLayout(FlowLayout.LEFT));
 			panelHead.setOpaque(true);
-			panelHead.setPreferredSize(new Dimension(getPanGDP().getPreferredSize().width -15,getbAjouter().getPreferredSize().height+12));
+			try {
+				panelHead.setPreferredSize(new Dimension(getPanGDP().getPreferredSize().width -15,getbAjouter().getPreferredSize().height+12));
+			} catch (DALException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			panelHead.add(getbAjouter());
 			panelHead.add(getbSupprimer());
 			panelHead.add(getbReinitialiser());

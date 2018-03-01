@@ -10,12 +10,14 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
 import fr.eni.cliniqueveterinaire.dal.DALException;
+import fr.eni.cliniqueveterinaire.ihm.agenda.PanAgenda;
 import fr.eni.cliniqueveterinaire.ihm.personnels.PanGDP;
 
 public class EcranMenu extends JFrame{
 	
 	private static EcranMenu instance;
 	PanGDP GDP = PanGDP.getInstance();
+	PanAgenda panAgenda = PanAgenda.getInstance();
 	
 	private int width = 700;
 	private int height = 500;
@@ -46,7 +48,7 @@ public class EcranMenu extends JFrame{
 		
 		setJMenuBar(menuBar);
 		
-		setContentPane(GDP.getPanGDP());
+		setContentPane(panAgenda.getPanAgenda());
 
 		setVisible(true);
 		setLocationRelativeTo(null);
