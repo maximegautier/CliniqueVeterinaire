@@ -17,7 +17,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 	private String rqtCheckConnec = "SELECT Nom,MotPasse,Role,Archive FROM Personnels WHERE Nom = ? AND MotPasse = ? AND Archive = 0";
 	private String rqtSelectById = "SELECT Nom,MotPasse,Role,Archive FROM Personnels WHERE CodePers = ? AND Archive = 0";
 	private String rqtSelectByName = "SELECT Nom,MotPasse,Role,Archive FROM Personnels WHERE Nom = ? AND Archive = 0";
-	private String rqtSelectAll = "SELECT CodePers,Nom,MotPasse,Role,Archive FROM Personnels WHERE Archive = 0";
+	private String rqtSelectAll = "SELECT CodePers,Nom,MotPasse,Role,Archive FROM Personnels WHERE Archive = 0 ORDER BY Nom";
 	private String rqtInsert = "INSERT INTO Personnels VALUES (?,?,?,?)";
 	private String rqtDelete = "UPDATE Personnels SET Archive = 1 WHERE CodePers = ?";
 	private String rqtUpdate = "UPDATE Personnels SET Nom=?, MotPasse=?, Role=?, Archive = ? WHERE CodePers = ?";
