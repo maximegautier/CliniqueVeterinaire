@@ -35,15 +35,17 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 	public List<Agendas> SelectParDate(Date dateDebut, Date dateFin) throws DALException 
 	{		
 		List<Agendas> aRetourner = new ArrayList<Agendas>();
+		String rqtSelectParDate = "SELECT * FROM Agendas WHERE DateRdv BETWEEN ? AND ?";
+		PreparedStatement psSelectParDate = null;
+		ResultSet rsSelectParDate = null;
 		
 		try 
 		{
-			String rqtSelectParDate = "SELECT * FROM Agendas WHERE DateRdv BETWEEN ? AND ?";
-			PreparedStatement psSelectParDate = getCnx().prepareStatement(rqtSelectParDate);
+			psSelectParDate = getCnx().prepareStatement(rqtSelectParDate);
 			psSelectParDate.setDate(1, (java.sql.Date) dateDebut);
 			psSelectParDate.setDate(2, (java.sql.Date) dateFin);
 			
-			ResultSet rsSelectParDate = psSelectParDate.executeQuery();
+			rsSelectParDate = psSelectParDate.executeQuery();
 			
 			if(rsSelectParDate.next())
 			{
@@ -54,12 +56,22 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 				
 				aRetourner.add(tmpRdv);
 			}
-			
-			psSelectParDate.close();
 		} 
 		catch (SQLException e) 
 		{
 			throw new DALException(e.getMessage());
+		}
+		finally
+		{
+			try
+			{
+				psSelectParDate.close();
+				rsSelectParDate.close();
+			}
+			catch(SQLException e)
+			{
+				throw new DALException(e.getMessage());
+			}
 		}
 		
 		return aRetourner;
@@ -69,11 +81,13 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 	public boolean Ajouter(Agendas aAjouter) throws DALException 
 	{	
 		boolean aRetourner = false;
+		String rqtAjouter = "INSERT INTO Agendas(CodeVeto, DateRdv, CodeAnimal) VALUES (?,?,?)";
+		PreparedStatement psAjouter = null;
+		ResultSet rs = null;
 		
 		try 
 		{
-			String rqtAjouter = "INSERT INTO Agendas(CodeVeto, DateRdv, CodeAnimal) VALUES (?,?,?)";
-			PreparedStatement psAjouter = getCnx().prepareStatement(rqtAjouter);
+			psAjouter = getCnx().prepareStatement(rqtAjouter);
 			psAjouter.setInt(1, aAjouter.getCodeVeto());
 			psAjouter.setDate(2, (java.sql.Date) aAjouter.getDateRdv());
 			psAjouter.setInt(3, aAjouter.getCodeAnimal());
@@ -81,7 +95,7 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 			int nbRows = psAjouter.executeUpdate();
 			if(nbRows == 1)
             {
-                ResultSet rs = psAjouter.getGeneratedKeys();
+                rs = psAjouter.getGeneratedKeys();
 
                 aRetourner = true;
             }
@@ -92,6 +106,18 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 		{
 			throw new DALException(e.getMessage());
 		}
+		finally
+		{
+			try
+			{
+				psAjouter.close();
+				rs.close();
+			}
+			catch(SQLException e)
+			{
+				throw new DALException(e.getMessage());
+			}
+		}
 		
 		return aRetourner;
 	}
@@ -100,10 +126,13 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 	public boolean Supprimer(Agendas aSupprimer) throws DALException 
 	{
 		boolean aRetourner = false;
+		String rqtSupprimer = "DELETE FROM Agendas WHERE CodeVeto = ? AND DateRdv = ? AND CodeAnimal = ?";
+		PreparedStatement psSupprimer = null;
+		ResultSet rs = null;
+		
 		try
 		{
-			String rqtSupprimer = "DELETE FROM Agendas WHERE CodeVeto = ? AND DateRdv = ? AND CodeAnimal = ?";
-			PreparedStatement psSupprimer = getCnx().prepareStatement(rqtSupprimer);
+			psSupprimer = getCnx().prepareStatement(rqtSupprimer);
 			psSupprimer.setInt(1, aSupprimer.getCodeVeto());
 			psSupprimer.setDate(2, (java.sql.Date) aSupprimer.getDateRdv());
 			psSupprimer.setInt(3, aSupprimer.getCodeAnimal());
@@ -111,7 +140,7 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 			int nbRows = psSupprimer.executeUpdate();
 			if(nbRows == 1)
 	        {
-	            ResultSet rs = psSupprimer.getGeneratedKeys();
+	            rs = psSupprimer.getGeneratedKeys();
 	
 	            aRetourner = true;
 	        }
@@ -121,6 +150,18 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 		catch (SQLException e) 
 		{
 			throw new DALException(e.getMessage());
+		}
+		finally
+		{
+			try
+			{
+				psSupprimer.close();
+				rs.close();				
+			}
+			catch(SQLException e)
+			{
+				throw new DALException(e.getMessage());
+			}
 		}
 	
 		return aRetourner;

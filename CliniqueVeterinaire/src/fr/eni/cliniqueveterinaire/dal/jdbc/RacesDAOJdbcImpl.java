@@ -34,12 +34,14 @@ public class RacesDAOJdbcImpl implements RacesDAO
 	public List<Races> SelectRacesChat() throws DALException 
 	{
 		List<Races> aRetourner = new ArrayList<Races>();
-				
+		String rqtSelectRacesChat = "SELECT * FROM Races WHERE Espece = 'Chat'";
+		PreparedStatement psSelectRacesChat = null;
+		ResultSet rsSelectRacesChat = null;
+		
 		try 
 		{
-			String rqtSelectRacesChat = "SELECT * FROM Races WHERE Espece = 'Chat'";
-			PreparedStatement psSelectRacesChat = getCnx().prepareStatement(rqtSelectRacesChat);
-			ResultSet rsSelectRacesChat = psSelectRacesChat.executeQuery();
+			psSelectRacesChat = getCnx().prepareStatement(rqtSelectRacesChat);
+			rsSelectRacesChat = psSelectRacesChat.executeQuery();
 			
 			if(rsSelectRacesChat.next())
 			{
@@ -48,11 +50,23 @@ public class RacesDAOJdbcImpl implements RacesDAO
 						rsSelectRacesChat.getString("Espece"));
 				
 				aRetourner.add(tmp);
-			}
+			}						
 		} 
 		catch (SQLException e) 
 		{
 			throw new DALException(e.getMessage());
+		}
+		finally
+		{
+			try 
+			{
+				psSelectRacesChat.close();
+				rsSelectRacesChat.close();
+			} 
+			catch (SQLException e) 
+			{
+				throw new DALException(e.getMessage());
+			}
 		}
 		
 		return aRetourner;
@@ -62,12 +76,14 @@ public class RacesDAOJdbcImpl implements RacesDAO
 	public List<Races> SelectRacesChien() throws DALException 
 	{
 		List<Races> aRetourner = new ArrayList<Races>();
+		String rqtSelectRacesChien = "SELECT * FROM Races WHERE Espece = 'Chien'";
+		PreparedStatement psSelectRacesChien = null;
+		ResultSet rsSelectRacesChien = null;
 		
 		try 
-		{
-			String rqtSelectRacesChien = "SELECT * FROM Races WHERE Espece = 'Chien'";
-			PreparedStatement psSelectRacesChien = cnx.prepareStatement(rqtSelectRacesChien);
-			ResultSet rsSelectRacesChien = psSelectRacesChien.executeQuery();
+		{			
+			psSelectRacesChien = cnx.prepareStatement(rqtSelectRacesChien);
+			rsSelectRacesChien = psSelectRacesChien.executeQuery();
 			
 			if(rsSelectRacesChien.next())
 			{
@@ -81,6 +97,18 @@ public class RacesDAOJdbcImpl implements RacesDAO
 		catch (SQLException e) 
 		{
 			throw new DALException(e.getMessage());
+		}
+		finally
+		{
+			try 
+			{
+				psSelectRacesChien.close();
+				rsSelectRacesChien.close();
+			}
+			catch (SQLException e) 
+			{
+				throw new DALException(e.getMessage());
+			}			
 		}
 		
 		return aRetourner;
