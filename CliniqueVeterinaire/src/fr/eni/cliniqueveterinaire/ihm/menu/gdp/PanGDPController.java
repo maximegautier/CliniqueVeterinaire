@@ -49,8 +49,13 @@ public class PanGDPController {
 			else
 			{
 				Personnels personnel = PersonnelsManager.getInstance().selectTousPersonnels().get(NumLigne);
-				PersonnelsManager.getInstance().Supprimer(personnel);
-				rafraichirTable();
+				JOptionPane jop = new JOptionPane();			
+				int option = jop.showConfirmDialog(null, "Etes-vous sur de vouloir supprimer " + personnel.getNom() + " ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+							
+				if(option == JOptionPane.OK_OPTION){				
+					PersonnelsManager.getInstance().Supprimer(personnel);
+					rafraichirTable();
+				}
 			}
 		} catch (DALException e) {
 			// TODO Auto-generated catch block
