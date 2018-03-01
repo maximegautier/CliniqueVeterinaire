@@ -173,6 +173,18 @@ public class PersonnelsManager
 		return aRetourner;
 	}
 	
+	public Personnels selectPersonnel(String nom)
+	{
+		Personnels tmp = null;
+		try {
+			tmp = personnelsDAO.selectByName(nom);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return tmp;
+	}
+	
 	//************
 	//UTILITAIRES
 	//************	

@@ -19,6 +19,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
 
@@ -124,7 +125,12 @@ public class PanGDP {
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
-					PanGDPController.getInstance().Supprimer();
+					try {
+						PanGDPController.getInstance().Supprimer();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 		}
@@ -179,11 +185,7 @@ public class PanGDP {
 	{
 		if (defTableModel == null)
 		{
-			Vector<String> entetes = new Vector<String>();
-			entetes.addElement("Nom");
-			entetes.addElement("Role");
-			entetes.addElement("Mot de Passe");
-			defTableModel = new DefaultTableModel(PanGDPController.getInstance().completerTableau(),entetes);
+			defTableModel = new DefaultTableModel(PanGDPController.getInstance().completerTableau(),PanGDPController.getInstance().getEntete());
 		}
 		return defTableModel;
 	}

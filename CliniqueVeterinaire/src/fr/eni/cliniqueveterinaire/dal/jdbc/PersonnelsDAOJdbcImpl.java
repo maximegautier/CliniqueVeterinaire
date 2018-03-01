@@ -17,7 +17,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 	private String rqtCheckConnec = "SELECT Nom,MotPasse,Role,Archive FROM Personnels WHERE Nom = ? AND MotPasse = ? AND Archive = 0";
 	private String rqtSelectById = "SELECT Nom,MotPasse,Role,Archive FROM Personnels WHERE CodePers = ? AND Archive = 0";
 	private String rqtSelectByName = "SELECT Nom,MotPasse,Role,Archive FROM Personnels WHERE Nom = ? AND Archive = 0";
-	private String rqtSelectAll = "SELECT Nom,MotPasse,Role,Archive FROM Personnels WHERE Archive = 0";
+	private String rqtSelectAll = "SELECT CodePers,Nom,MotPasse,Role,Archive FROM Personnels WHERE Archive = 0";
 	private String rqtInsert = "INSERT INTO Personnels VALUES (?,?,?,?)";
 	private String rqtDelete = "UPDATE Personnels SET Archive = 1 WHERE CodePers = ?";
 	private String rqtUpdate = "UPDATE Personnels SET Nom=?, MotPasse=?, Role=?, Archive = ? WHERE CodePers = ?";
@@ -112,7 +112,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 	}
 
 	@Override
-	public Personnels selectByName(String nomClient) throws DALException {
+	public Personnels selectByName(String nomPersonnel) throws DALException {
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
@@ -121,7 +121,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 		try {
 			cnx = JdbcTools.getConnection();
 			rqt = cnx.prepareStatement(rqtSelectByName);
-			rqt.setString(1, nomClient);
+			rqt.setString(1, nomPersonnel);
 			rs = rqt.executeQuery();
 			if (rs.next()){
 				personnel = new Personnels(
@@ -132,7 +132,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 				);
 			}
 		} catch (SQLException e) {
-			throw new DALException("selectByName failed - id = " + nomClient , e);
+			throw new DALException("selectByName failed - id = " + nomPersonnel , e);
 		} finally {
 			try {
 				if (rs != null){
@@ -166,6 +166,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 			
 			while (rs.next()){
 				personnel = new Personnels(
+						rs.getInt("CodePers"),
 						rs.getString("Nom"),
 						rs.getString("MotPasse"),
 						rs.getString("Role"),
@@ -270,6 +271,8 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 			rqt = cnx.prepareStatement(rqtDelete);
 			rqt.setInt(1, personnel.getCodePers());
 			rqt.executeUpdate();
+			
+			System.out.println("ok");
 			
 		} catch (SQLException e) {
 			throw new DALException("Delete article failed - " + personnel, e);
