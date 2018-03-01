@@ -33,7 +33,7 @@ public class PersonnelsManager
 	{
 		Personnels personnel = null;
 		try {
-			personnel = ((PersonnelsDAOJdbcImpl) personnelsDAO).checkConnexion(nom, Cryptage.encrypt(motPasse));
+			personnel = ((PersonnelsDAOJdbcImpl) personnelsDAO).checkConnexion(nom, motPasse);
 		} catch (DALException e) {
 			e.printStackTrace();
 		}
@@ -79,7 +79,6 @@ public class PersonnelsManager
 			else
 			{
 				//Logique d'ajout à la base via DAO
-				personnel.setMotPasse(Cryptage.encrypt(personnel.getMotPasse()));
 				personnel.setCodePers(personnelsDAO.insert(personnel));
 			}
 		} catch (DALException e) {
@@ -139,21 +138,19 @@ public class PersonnelsManager
 			// Logique de modification en base via DAO
 			
 			// Si l'ancien MDP est correct
-			if (oldMotPasse.equals(Cryptage.decrypt(personnel.getMotPasse())))
+			if (oldMotPasse.equals(personnel.getMotPasse()))
 			{
 				// Modification du mot de page de l'objet
-				String newMDPcrypt = Cryptage.encrypt(newMotPasse);
-				personnel.setMotPasse(newMDPcrypt);
+				personnel.setMotPasse(newMotPasse);
 				
 				// Modification dans la BDD
-				newMotPasse = Cryptage.encrypt(newMotPasse);
 				try {
 					personnelsDAO.update(personnel);
 				} catch (DALException e) {
 					throw new BLLException(e.getMessage());
 				}			
 			}
-			else if (!oldMotPasse.equals(Cryptage.decrypt(personnel.getMotPasse())))
+			else if (!oldMotPasse.equals(personnel.getMotPasse()))
 			{
 				throw new BLLException("L'ancien mot de passe est incorrect !");
 			}

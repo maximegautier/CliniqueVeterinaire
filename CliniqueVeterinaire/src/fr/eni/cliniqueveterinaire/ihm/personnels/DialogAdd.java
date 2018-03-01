@@ -5,6 +5,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -135,8 +137,10 @@ public class DialogAdd{
 	public JComboBox<String> getCRole() throws DALException{
 		if (cRole == null)
 		{
+			List<String> list = Arrays.asList("vet","adm","sec","ass");
 			cRole = new JComboBox<String>();
-			cRole.setModel(new DefaultComboBoxModel(PanGDPController.getInstance().remplirComboAjouter().toArray()));
+			//cRole.setModel(new DefaultComboBoxModel(PanGDPController.getInstance().remplirComboAjouter().toArray()));
+			cRole.setModel(new DefaultComboBoxModel(list.toArray()));
 		}
 		return cRole;
 	}

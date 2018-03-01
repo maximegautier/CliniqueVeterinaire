@@ -31,13 +31,13 @@ public class EcranLoginController
 	public void startApp() throws DALException
 	{
 		/* Modifié pour commencer sur fenMenu */
-		fenMenu = fenMenu.getInstance();
-		fenMenu.setVisible(true);
+		fenLogin = fenLogin.getInstance();
+		fenLogin.setVisible(true);
 	}
 	
-	public void connexion() throws DALException
+	public void connexion(String login, String password) throws DALException
 	{
-		Personnels persoConnect = PersonnelsManager.getInstance().Authentification(fenLogin.getTxtLogin().getText(), fenLogin.getTxtPassword().getText());
+		Personnels persoConnect = PersonnelsManager.getInstance().Authentification(login,password);
 		
 		if (persoConnect == null)
 		{
