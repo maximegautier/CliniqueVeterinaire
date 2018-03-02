@@ -102,7 +102,7 @@ public class PanGDP extends JPanel{
 				public void actionPerformed(ActionEvent e)
 				{
 					try {
-						PanGDPController.getInstance().Ajouter();
+						PanGDPController.getInstance().ajouter();
 					} catch (DALException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

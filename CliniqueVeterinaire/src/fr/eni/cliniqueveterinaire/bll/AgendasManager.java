@@ -26,25 +26,17 @@ public class AgendasManager
     
     //region METHODS
     
-	public static List<Agendas> selectEntreDates(Date Debut, Date Fin) throws BLLException
+	public static List<Agendas> selectEntreDates(Date jour) throws BLLException
 	{
-		if(Debut == null)
+		if(jour == null)
 		{
-			throw new BLLException("(AgendasManager)SelectEntreDates : La date de début ne peut pas être null");
-		}
-		else if(Fin == null)
-		{
-			throw new BLLException("(AgendasManager)SelectEntreDates : La date de fin ne peut pas être null");
-		}
-		else if(Fin.before(Debut))
-		{
-			throw new BLLException("(AgendasManager)SelectEntreDates : La date de fin ne peut pas être inférieur à la date de début");
+			throw new BLLException("(AgendasManager)SelectEntreDates : La date ne peut pas être null");
 		}
 		else
 		{
 			try 
 			{
-				return DAOFactory.getAgendasDAO().selectParDate(Debut, Fin);
+				return DAOFactory.getAgendasDAO().selectParDate(jour);
 			} 
 			catch (DALException e) 
 			{

@@ -31,7 +31,7 @@ public class PanGDPController extends JPanel{
 		return PanGDPController.instance;
 	}
 	
-	public void Ajouter() throws DALException{
+	public void ajouter() throws DALException{
 		DialogAdd jdAjouter = new DialogAdd();
 	}
 	

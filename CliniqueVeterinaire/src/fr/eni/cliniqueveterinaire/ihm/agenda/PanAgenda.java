@@ -18,6 +18,7 @@ public class PanAgenda extends JPanel{
 
 	private static PanAgenda instance;
 	private JPanel panelHead;
+	private JPanel panelTable;
 	
 	
 	public static PanAgenda getInstance()
@@ -39,7 +40,8 @@ public class PanAgenda extends JPanel{
 	}
 
 	
-	private JPanel getPanelHead(){
+	private JPanel getPanelHead()
+	{
 		if (panelHead == null)
 		{
 			panelHead = new JPanel();
@@ -53,4 +55,13 @@ public class PanAgenda extends JPanel{
 		return panelHead;
 	}
 	
+	private JPanel getPanelTable()
+	{
+		if (panelTable == null)
+		{
+			panelTable = new JPanel();
+			PanAgendaController.remplirTableau();
+		}
+		return panelTable;
+	}
 }

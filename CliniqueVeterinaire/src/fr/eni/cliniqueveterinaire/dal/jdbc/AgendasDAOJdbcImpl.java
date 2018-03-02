@@ -31,20 +31,18 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
     //region METHODS
     
 	@Override
-	public List<Agendas> selectParDate(Date dateDebut, Date dateFin) throws DALException 
+	public List<Agendas> selectParDate(Date jour) throws DALException 
 	{		
 		List<Agendas> aRetourner = new ArrayList<Agendas>();
 		Connection cnx = JdbcTools.getConnection();
-		String rqtSelectParDate = "SELECT * FROM Agendas WHERE DateRdv BETWEEN ? AND ?";
+		String rqtSelectParDate = "SELECT * FROM Agendas WHERE DateRdv = ?";
 		PreparedStatement psSelectParDate = null;
 		ResultSet rsSelectParDate = null;
 		
 		try 
 		{
 			psSelectParDate = cnx.prepareStatement(rqtSelectParDate);
-			psSelectParDate.setDate(1, (java.sql.Date) dateDebut);
-			psSelectParDate.setDate(2, (java.sql.Date) dateFin);
-			
+			psSelectParDate.setDate(1, (java.sql.Date) jour);
 			rsSelectParDate = psSelectParDate.executeQuery();
 			
 			if(rsSelectParDate.next())
