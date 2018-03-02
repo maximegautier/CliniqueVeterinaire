@@ -87,7 +87,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 	{
 		Connection cnx = JdbcTools.getConnection();
 		List<String> aRetourner = new ArrayList<String>();
-		String rqtSelectEspeces = "SELECT DISTINCT Espece FROM Animaux";
+		String rqtSelectEspeces = "SELECT * FROM Especes";
 		PreparedStatement psSelectEspeces = null;
 		ResultSet rsSelectEspeces = null;
 		
@@ -98,7 +98,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 			
 			while(rsSelectEspeces.next())
 			{
-				aRetourner.add(rsSelectEspeces.getString("Espece"));
+				aRetourner.add(rsSelectEspeces.getString("Libelle"));
 			}
 		} 
 		catch (SQLException e) 

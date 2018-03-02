@@ -20,14 +20,6 @@ public class RacesManager
 
 	private RacesManager() throws BLLException
 	{
-		try 
-		{
-			racesDAO = DAOFactory.getRacesDAO();
-		} 
-		catch (DALException e) 
-		{
-			throw new BLLException(e.getMessage());
-		}
 	}
 
     //endregion CTOR
@@ -38,7 +30,7 @@ public class RacesManager
 	{
 		try 
 		{
-			return racesDAO.selectRacesChat();
+			return getRacesDao().selectRacesChat();
 		} 
 		catch (DALException e) 
 		{
@@ -50,7 +42,7 @@ public class RacesManager
 	{
 		try 
 		{
-			return racesDAO.selectRacesChien();
+			return getRacesDao().selectRacesChien();
 		} 
 		catch (DALException e) 
 		{
@@ -62,6 +54,22 @@ public class RacesManager
 
     //region GET/SET
 
+	public static RacesDAO getRacesDao() throws BLLException
+	{
+		if(RacesManager.racesDAO == null)
+		{
+			try 
+			{
+				RacesManager.racesDAO = DAOFactory.getRacesDAO();
+			} 
+			catch (DALException e) 
+			{
+				throw new BLLException(e.getMessage());
+			}
+		}
+		
+		return RacesManager.racesDAO;
+	}
 
     //endregion GET/SET
 }

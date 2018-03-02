@@ -21,14 +21,6 @@ public class AnimauxManager
 
 	private AnimauxManager() throws BLLException
 	{
-		try 
-		{
-			animauxDAO = DAOFactory.getAnimauxDAO();
-		} 
-		catch (DALException e) 
-		{
-			throw new BLLException(e.getMessage());
-		}
 	}
 
     //endregion CTOR
@@ -62,7 +54,7 @@ public class AnimauxManager
 	{
 		try 
 		{
-			return animauxDAO.selectEspeces();
+			return getAnimauxDAO().selectEspeces();
 		} 
 		catch (DALException e) 
 		{
@@ -82,7 +74,7 @@ public class AnimauxManager
 		{
 			try 
 			{
-				aRetourner = animauxDAO.selectAnimal(CodeAnimal);
+				aRetourner = getAnimauxDAO().selectAnimal(CodeAnimal);
 			} 
 			catch (DALException e) 
 			{
@@ -141,7 +133,7 @@ public class AnimauxManager
 		{
 			try 
 			{
-				aRetourner = animauxDAO.ajouter(aAjouter);
+				aRetourner = getAnimauxDAO().ajouter(aAjouter);
 			} 
 			catch (DALException e) 
 			{
@@ -164,7 +156,7 @@ public class AnimauxManager
 		{
 			try 
 			{
-				aRetourner = animauxDAO.supprimer(CodeAnimal);
+				aRetourner = getAnimauxDAO().supprimer(CodeAnimal);
 			} 
 			catch (DALException e) 
 			{
@@ -211,7 +203,7 @@ public class AnimauxManager
 		{
 			try 
 			{
-				aRetourner = animauxDAO.modifier(aModifier);
+				aRetourner = getAnimauxDAO().modifier(aModifier);
 			} 
 			catch (DALException e) 
 			{
@@ -238,7 +230,7 @@ public class AnimauxManager
 		{
 			try 
 			{
-				aRetourner = animauxDAO.verifieSiExiste(codeClient, nomAnimal);
+				aRetourner = getAnimauxDAO().verifieSiExiste(codeClient, nomAnimal);
 			}
 			catch (DALException e) 
 			{
@@ -273,6 +265,22 @@ public class AnimauxManager
 
     //region GET/SET
 
+    public static AnimauxDAO getAnimauxDAO() throws BLLException
+    {
+    	if(AnimauxManager.animauxDAO == null)
+    	{
+    		try 
+    		{
+				AnimauxManager.animauxDAO = DAOFactory.getAnimauxDAO();
+			} 
+    		catch (DALException e) 
+    		{
+				throw new BLLException(e.getMessage());
+			}
+    	}
+    	
+    	return AnimauxManager.animauxDAO;
+    }
 
     //endregion GET/SET
 }
