@@ -26,6 +26,7 @@ import org.jdatepicker.impl.UtilDateModel;
 
 import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bo.Clients;
+import fr.eni.cliniqueveterinaire.bo.Personnels;
 
 public class PanPriseRdv extends JPanel
 {
@@ -61,6 +62,7 @@ public class PanPriseRdv extends JPanel
 	private JComboBox cbMinute;
 	
 	private List<Clients> clients;
+	private List<Personnels> veterinaires;
 
     //endregion DECLARATION
 
@@ -71,6 +73,7 @@ public class PanPriseRdv extends JPanel
 		try 
 		{
 			clients = PanAgendaController.selectClients();
+			veterinaires = PanAgendaController.remplirComboVeterinaire();
 		} 
 		catch (BLLException e) 
 		{
@@ -371,16 +374,9 @@ public class PanPriseRdv extends JPanel
 	public JComboBox getCbClient() 
 	{
 		if(cbClient == null)
-		{
-			List<String> nomsClients = new ArrayList();
-			
-			for(Clients tmp : clients)
-			{
-				nomsClients.add(tmp.getNomClient());
-			}
-			
+		{	
 			cbClient = new JComboBox();
-			cbClient.setModel(new DefaultComboBoxModel(nomsClients.toArray()));
+			cbClient.setModel(new DefaultComboBoxModel(clients.toArray()));
 		}
 		return cbClient;
 	}
@@ -402,7 +398,6 @@ public class PanPriseRdv extends JPanel
 		return btnAjoutClient;
 	}
 
-	
 	public JLabel getLblAnimal() 
 	{
 		if(lblAnimal == null)
@@ -412,7 +407,6 @@ public class PanPriseRdv extends JPanel
 		return lblAnimal;
 	}
 
-	
 	public JComboBox getCbAnimal() 
 	{
 		if(cbAnimal == null)
@@ -422,12 +416,21 @@ public class PanPriseRdv extends JPanel
 		return cbAnimal;
 	}
 
-	
 	public JButton getBtnAjoutAnimal() 
 	{
 		if(btnAjoutAnimal == null)
 		{
 			btnAjoutAnimal = new JButton("+");
+			btnAjoutAnimal.addActionListener(new ActionListener() 
+			{
+				@Override
+				public void actionPerformed(ActionEvent arg0) 
+				{
+					Clients selectClient = (Clients)getCbClient().getSelectedItem();
+					PanAgendaController.ouvrirAjoutAnimal(selectClient.getCodeClient());
+					
+				}
+			});
 		}
 		return btnAjoutAnimal;
 	}
@@ -446,6 +449,7 @@ public class PanPriseRdv extends JPanel
 		if(cbVeterinaire == null)
 		{
 			cbVeterinaire = new JComboBox();
+			cbVeterinaire.setModel(new DefaultComboBoxModel(veterinaires.toArray()));
 		}
 		return cbVeterinaire;
 	}

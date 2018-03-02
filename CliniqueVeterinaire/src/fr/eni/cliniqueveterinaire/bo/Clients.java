@@ -78,16 +78,9 @@ public class Clients
 	@Override
 	public String toString() 
 	{
-		return "Clients [CodeClient=" + codeClient + ", NomClient=" + nomClient + ", PrenomClient=" + prenomClient
-				+ ", Adresse1=" + adresse1 + ", Adresse2=" + adresse2 + ", CodePostal=" + codePostal + ", Ville="
-				+ ville + ", NumTel=" + numTel + ", Assurance=" + assurance + ", Email=" + email + ", Remarque="
-				+ remarque + ", Archive=" + archive + "]";
-	}
-	
-	public String afficherNom()
-	{
 		return nomClient;
 	}
+	
     
     //endregion METHODS
 	

@@ -14,6 +14,7 @@ import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.dal.ClientsDAO;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.dal.DAOFactory;
+import fr.eni.cliniqueveterinaire.ihm.animal.EcranAnimal;
 
 public class PanAgendaController 
 {
@@ -34,22 +35,21 @@ public class PanAgendaController
 		return AgendasManager.selectParDate(jour);
 	}
 	
-	public static List<String> remplirComboVeterinaire() throws BLLException{
+	public static List<Personnels> remplirComboVeterinaire() throws BLLException
+	{
 		List<Personnels> lPersonnel = PersonnelsManager.selectTousVeterinaires();
 		
-		List<String> lNomPersonnel = new ArrayList<String>();
-		
-		for (Personnels tmp : lPersonnel)
-		{
-			lNomPersonnel.add(tmp.getDisplayName());
-		}
-		
-		return lNomPersonnel;
+		return lPersonnel;
 	}
 	
 	public static List<Clients> selectClients() throws BLLException
 	{
 		return ClientsManager.getInstance().selectAll();
+	}
+	
+	public static void ouvrirAjoutAnimal(int codeClient)
+	{
+		EcranAnimal ecranAnimal = new EcranAnimal(codeClient);
 	}
 	
     //endregion METHODS

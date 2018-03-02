@@ -43,8 +43,7 @@ public class Personnels
 	@Override
 	public String toString() 
 	{
-		return "Personnels [CodePers=" + codePers + ", Nom=" + nom + ", MotPasse=" + motPasse + ", Role=" + role
-				+ ", Archive=" + archive + "]";
+		return nom + " " + prenom;
 	}	
     
     //endregion METHODS
