@@ -291,16 +291,16 @@ public class ClientsDAOJdbcImpl implements ClientsDAO {
 	}
 
 	@Override
-	public void deleteClient(Clients leClient) throws DALException {
+	public void deleteClient(int codeClient) throws DALException {
 		PreparedStatement rqt = null;
 		Connection cnx = null;
 		try {
 			cnx = JdbcTools.getConnection();
 			rqt = cnx.prepareStatement(rqtDeleteClient);
-			rqt.setInt(1, leClient.getCodeClient());
+			rqt.setInt(1, codeClient);
 			rqt.executeUpdate();
 		} catch (SQLException e) {
-			throw new DALException("Delete client failed - codeClient =" + leClient.getCodeClient(), e);
+			throw new DALException("Delete client failed - codeClient =" + codeClient, e);
 		} finally {
 			try {
 				if (rqt != null) {

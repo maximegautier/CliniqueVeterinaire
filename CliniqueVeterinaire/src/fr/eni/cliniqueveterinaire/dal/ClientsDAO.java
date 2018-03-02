@@ -15,7 +15,7 @@ public interface ClientsDAO {
 	
 	public void editClient(Clients leClient) throws DALException;
 
-	void deleteClient(Clients leClient) throws DALException;
+	void deleteClient(int codeClient) throws DALException;
 	
 	public Clients selectFirst() throws DALException;
 }
