@@ -132,7 +132,7 @@ public class ClientsDAOJdbcImpl implements ClientsDAO {
 			
 			rs = rqt.executeQuery();
 			if(rs.next()){
-				leClient = new Clients(rs.getString("NomClient"),rs.getString("PrenomClient"),
+				leClient = new Clients(rs.getInt("CodeClient"),rs.getString("NomClient"),rs.getString("PrenomClient"),
 						rs.getString("Adresse1"),rs.getString("Adresse2"),rs.getString("CodePostal"),
 						rs.getString("Ville"),rs.getString("NumTel"),rs.getString("Assurance"),
 						rs.getString("Email"),rs.getString("Remarque"),rs.getBoolean("Archive"));
@@ -256,7 +256,7 @@ public class ClientsDAOJdbcImpl implements ClientsDAO {
 		PreparedStatement rqt = null;
 		try {
 			cnx = JdbcTools.getConnection();
-			rqt = cnx .prepareStatement(rqtAddClient , Statement.RETURN_GENERATED_KEYS);
+			rqt = cnx .prepareStatement(rqtEditClient , Statement.RETURN_GENERATED_KEYS);
 			rqt.setString(1, leClient.getNomClient());
 			rqt.setString(2, leClient.getPrenomClient());
 			rqt.setString(3, leClient.getAdresse1());
