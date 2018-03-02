@@ -1,10 +1,13 @@
 package fr.eni.cliniqueveterinaire.ihm.agenda;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.Properties;
 
@@ -78,44 +81,45 @@ public class PanPriseRdv extends JPanel
 	    	gbcPrincipal.gridy =0;
 	    	this.add(getPanelPour(), gbcPrincipal);
 			//COLONNE1
-	    	gbcPrincipal.gridx =0;
-	    	gbcPrincipal.gridy =1;
+	    	gbcPrincipal.gridx =1;
+	    	gbcPrincipal.gridy =0;
 	    	this.add(getPanelPar(), gbcPrincipal);
 			//COLONNE2
-	    	gbcPrincipal.gridx =0;
-	    	gbcPrincipal.gridy =2;
+	    	gbcPrincipal.gridx =2;
+	    	gbcPrincipal.gridy =0;
 	    	this.add(getPanelQuand(), gbcPrincipal);
 	    	
 		//LIGNE 1
 			
 			//COLONNE0
-	    	gbcPrincipal.gridx =1;
-	    	gbcPrincipal.gridy =0;
+	    	gbcPrincipal.gridx =0;
+	    	gbcPrincipal.gridy =1;
 	    	gbcPrincipal.gridwidth = 3;
 	    	this.add(getPanelListe(), gbcPrincipal);
 			//COLONNE1
 	    	gbcPrincipal.gridx =1;
 	    	gbcPrincipal.gridy =1;
 			//COLONNE2
-	    	gbcPrincipal.gridx =1;
-	    	gbcPrincipal.gridy =2;
+	    	gbcPrincipal.gridx =2;
+	    	gbcPrincipal.gridy =1;
 	    
 		//LIGNE 2
 			
 			//COLONNE0
-	    	gbcPrincipal.gridx =2;
-	    	gbcPrincipal.gridy =0;
+	    	gbcPrincipal.gridx =0;
+	    	gbcPrincipal.gridy =2;
 			//COLONNE1
-	    	gbcPrincipal.gridx =2;
-	    	gbcPrincipal.gridy =1;
-	    	gbcPrincipal.gridwidth = 1;
-	    	gbcPrincipal.anchor = GridBagConstraints.EAST;
-	    	this.add(getBtnSupprimer(), gbcPrincipal);
+	    	gbcPrincipal.gridx =1;
+	    	gbcPrincipal.gridy =2;
+	    	gbcPrincipal.gridwidth = 1;	    	
 			//COLONNE2
 	    	gbcPrincipal.gridx =2;
 	    	gbcPrincipal.gridy =2;
+	    	gbcPrincipal.anchor = GridBagConstraints.WEST;
+	    	this.add(getBtnSupprimer(), gbcPrincipal);
 	    	gbcPrincipal.anchor = GridBagConstraints.EAST;
 	    	this.add(getBtnValider(), gbcPrincipal);
+	    	
 	    	
 	    	
     }
@@ -123,6 +127,7 @@ public class PanPriseRdv extends JPanel
     public void initialisePanelPour()
     {
     	panelPour = new JPanel();
+    	panelPour.setPreferredSize(new Dimension(150, 175));
     	panelPour.setBorder(BorderFactory.createTitledBorder("Pour"));
     	panelPour.setLayout(new GridBagLayout());
     	GridBagConstraints gbcPanelPour = new GridBagConstraints();
@@ -136,14 +141,14 @@ public class PanPriseRdv extends JPanel
 	    	gbcPanelPour.anchor = GridBagConstraints.WEST;
 	    	panelPour.add(getLblClient(), gbcPanelPour);
 			//COLONNE1
-	    	gbcPanelPour.gridx =0;
-	    	gbcPanelPour.gridy =1;
+	    	gbcPanelPour.gridx =1;
+	    	gbcPanelPour.gridy =0;
 	    	
 		//LIGNE 1
 			
 			//COLONNE0
-	    	gbcPanelPour.gridx =1;
-	    	gbcPanelPour.gridy =0;
+	    	gbcPanelPour.gridx =0;
+	    	gbcPanelPour.gridy =1;
 	    	gbcPanelPour.anchor = GridBagConstraints.WEST;
 	    	panelPour.add(getCbClient(), gbcPanelPour);
 			//COLONNE1
@@ -155,24 +160,24 @@ public class PanPriseRdv extends JPanel
 		//LIGNE 2
 			
 			//COLONNE0
-	    	gbcPanelPour.gridx =2;
-	    	gbcPanelPour.gridy =0;
+	    	gbcPanelPour.gridx =0;
+	    	gbcPanelPour.gridy =2;
 	    	gbcPanelPour.anchor = GridBagConstraints.WEST;
 	    	panelPour.add(getLblAnimal(), gbcPanelPour);
 			//COLONNE1
-	    	gbcPanelPour.gridx =2;
-	    	gbcPanelPour.gridy =1;
+	    	gbcPanelPour.gridx =1;
+	    	gbcPanelPour.gridy =2;
 	    	
 		//LIGNE 3
 			
 			//COLONNE0
-	    	gbcPanelPour.gridx =3;
-	    	gbcPanelPour.gridy =0;
+	    	gbcPanelPour.gridx =0;
+	    	gbcPanelPour.gridy =3;
 	    	gbcPanelPour.anchor = GridBagConstraints.WEST;
 	    	panelPour.add(getCbAnimal(), gbcPanelPour);
 			//COLONNE1
-	    	gbcPanelPour.gridx =3;
-	    	gbcPanelPour.gridy =1;
+	    	gbcPanelPour.gridx =1;
+	    	gbcPanelPour.gridy =3;
 	    	gbcPanelPour.anchor = GridBagConstraints.WEST;
 	    	panelPour.add(getBtnAjoutAnimal(), gbcPanelPour);
     	
@@ -181,6 +186,7 @@ public class PanPriseRdv extends JPanel
     public void initialisePanelPar()
     {
     	panelPar = new JPanel();
+    	panelPar.setPreferredSize(new Dimension(150, 175));
     	panelPar.setBorder(BorderFactory.createTitledBorder("Par"));
     	panelPar.setLayout(new GridBagLayout());
     	GridBagConstraints gbcPanelPar = new GridBagConstraints();
@@ -197,8 +203,8 @@ public class PanPriseRdv extends JPanel
 		//LIGNE 1
 			
 			//COLONNE0
-	    	gbcPanelPar.gridx =1;
-	    	gbcPanelPar.gridy =0;
+	    	gbcPanelPar.gridx =0;
+	    	gbcPanelPar.gridy =1;
 	    	gbcPanelPar.anchor = GridBagConstraints.WEST;
 	    	panelPar.add(getCbVeterinaire(), gbcPanelPar);
     	
@@ -207,6 +213,7 @@ public class PanPriseRdv extends JPanel
     public void initialisePanelQuand()
     {
     	panelQuand = new JPanel();
+    	panelQuand.setPreferredSize(new Dimension(250, 175));
     	panelQuand.setBorder(BorderFactory.createTitledBorder("Quand"));
     	panelQuand.setLayout(new GridBagLayout());
     	GridBagConstraints gbcPanelQuand = new GridBagConstraints();
@@ -223,24 +230,24 @@ public class PanPriseRdv extends JPanel
 		//LIGNE 1
 			
 			//COLONNE0
-	    	gbcPanelQuand.gridx =1;
-	    	gbcPanelQuand.gridy =0;
+	    	gbcPanelQuand.gridx =0;
+	    	gbcPanelQuand.gridy =1;
 	    	gbcPanelQuand.anchor = GridBagConstraints.WEST;
     		panelQuand.add((Component) getDpDate(), gbcPanelQuand);
 	    
 		//LIGNE 2
 			
 			//COLONNE0
-	    	gbcPanelQuand.gridx =2;
-	    	gbcPanelQuand.gridy =0;
+	    	gbcPanelQuand.gridx =0;
+	    	gbcPanelQuand.gridy =2;
 	    	gbcPanelQuand.anchor = GridBagConstraints.WEST;
     		panelQuand.add(getLblHeure(), gbcPanelQuand);
 	    	
 		//LIGNE 3
 			
 			//COLONNE0
-	    	gbcPanelQuand.gridx =2;
-	    	gbcPanelQuand.gridy =0;
+	    	gbcPanelQuand.gridx =0;
+	    	gbcPanelQuand.gridy =3;
 	    	gbcPanelQuand.anchor = GridBagConstraints.WEST;
     		panelQuand.add(getPanelHeures(), gbcPanelQuand);
     	
@@ -272,7 +279,6 @@ public class PanPriseRdv extends JPanel
 		}
 		return PanPriseRdv.instance;
 	}
-
 	
 	public JPanel getPanelPrincipal() 
 	{
@@ -282,7 +288,6 @@ public class PanPriseRdv extends JPanel
 		}
 		return panelPrincipal;
 	}
-
 	
 	public JPanel getPanelPour() 
 	{
@@ -292,7 +297,6 @@ public class PanPriseRdv extends JPanel
 		}
 		return panelPour;
 	}
-
 	
 	public JPanel getPanelPar() 
 	{
@@ -302,7 +306,6 @@ public class PanPriseRdv extends JPanel
 		}
 		return panelPar;
 	}
-
 	
 	public JPanel getPanelQuand() 
 	{
@@ -312,7 +315,6 @@ public class PanPriseRdv extends JPanel
 		}
 		return panelQuand;
 	}
-
 	
 	public JPanel getPanelListe() 
 	{
@@ -323,7 +325,6 @@ public class PanPriseRdv extends JPanel
 		return panelListe;
 	}
 
-	
 	public JButton getBtnSupprimer() 
 	{
 		if(btnSupprimer == null)
@@ -332,7 +333,6 @@ public class PanPriseRdv extends JPanel
 		}
 		return btnSupprimer;
 	}
-
 	
 	public JButton getBtnValider() 
 	{
@@ -342,7 +342,6 @@ public class PanPriseRdv extends JPanel
 		}
 		return btnValider;
 	}
-
 	
 	public JLabel getLblClient() 
 	{
@@ -352,7 +351,6 @@ public class PanPriseRdv extends JPanel
 		}
 		return lblClient;
 	}
-
 	
 	public JComboBox getCbClient() 
 	{
@@ -362,13 +360,20 @@ public class PanPriseRdv extends JPanel
 		}
 		return cbClient;
 	}
-
 	
 	public JButton getBtnAjoutClient() 
 	{
 		if(btnAjoutClient == null)
 		{
 			btnAjoutClient = new JButton("+");
+			btnAjoutClient.addActionListener(new ActionListener() 
+			{				
+				@Override
+				public void actionPerformed(ActionEvent e) 
+				{
+					// TODO Auto-generated method stub					
+				}
+			});
 		}
 		return btnAjoutClient;
 	}
@@ -448,24 +453,13 @@ public class PanPriseRdv extends JPanel
 		if(dpDate == null)
 		{
 			UtilDateModel model = new UtilDateModel();
-			//model.setDate(20,04,2014);
-			// Need this...
 			Properties p = new Properties();
 			p.put("text.today", "Today");
 			p.put("text.month", "Month");
 			p.put("text.year", "Year");
 			JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-			// Don't know about the formatter, but there it is...
 			JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-			
-			/*UtilDateModel model = new UtilDateModel();
-			int annee = Calendar.getInstance().get(Calendar.YEAR);
-			int mois = Calendar.getInstance().get(Calendar.MONTH);
-			int jour = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
-			model.setDate(annee, mois, jour);
-			model.setSelected(true);
-			JDatePanelImpl datePanel = new JDatePanelImpl(model, null);
-			dpDate = new JDatePickerImpl(datePanel, null);*/
+			dpDate = new JDatePickerImpl(datePanel, null);
 		}
 		return dpDate;
 	}
