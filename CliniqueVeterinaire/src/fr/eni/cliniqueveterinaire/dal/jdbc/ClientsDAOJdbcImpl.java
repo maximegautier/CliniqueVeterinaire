@@ -167,14 +167,17 @@ public class ClientsDAOJdbcImpl implements ClientsDAO {
 		
 		try{
 			cnx = JdbcTools.getConnection();
-			rqt = cnx.prepareStatement(rqtSelectByName);
+			rqt = cnx.prepareStatement(rqtSelectAll);
 			
 			rs = rqt.executeQuery();
+			int i =0;
 			while(rs.next()){
-				lesClient.add(new Clients(rs.getString("NomClient"),rs.getString("PrenomClient"),
+				lesClient.add(new Clients(rs.getInt("CodeClient"),rs.getString("NomClient"),rs.getString("PrenomClient"),
 						rs.getString("Adresse1"),rs.getString("Adresse2"),rs.getString("CodePostal"),
 						rs.getString("Ville"),rs.getString("NumTel"),rs.getString("Assurance"),
 						rs.getString("Email"),rs.getString("Remarque"),rs.getBoolean("Archive")));
+				System.out.println(lesClient.get(i).toString());
+				i++;
 			}
 		}catch(SQLException e){
 			throw new DALException("selectAll failed ", e);
