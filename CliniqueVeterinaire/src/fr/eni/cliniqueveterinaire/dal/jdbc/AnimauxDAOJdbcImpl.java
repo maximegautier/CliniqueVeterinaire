@@ -96,7 +96,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 			psSelectEspeces = cnx.prepareStatement(rqtSelectEspeces);
 			rsSelectEspeces = psSelectEspeces.executeQuery();
 			
-			if(rsSelectEspeces.next())
+			while(rsSelectEspeces.next())
 			{
 				aRetourner.add(rsSelectEspeces.getString("Espece"));
 			}
@@ -137,7 +137,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 			psSelectAnimal.setInt(1, CodeAnimal);
 			rsSelectAnimal = psSelectAnimal.executeQuery();
 			
-			if(rsSelectAnimal.next())
+			while(rsSelectAnimal.next())
 			{
 				Animaux tmp = new Animaux(
 						rsSelectAnimal.getInt("CodeAnimal"), 

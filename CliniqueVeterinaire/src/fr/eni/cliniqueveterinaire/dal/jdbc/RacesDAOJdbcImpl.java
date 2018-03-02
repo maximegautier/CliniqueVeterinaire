@@ -43,7 +43,7 @@ public class RacesDAOJdbcImpl implements RacesDAO
 			psSelectRacesChat = cnx.prepareStatement(rqtSelectRacesChat);
 			rsSelectRacesChat = psSelectRacesChat.executeQuery();
 			
-			if(rsSelectRacesChat.next())
+			while(rsSelectRacesChat.next())
 			{
 				Races tmp = new Races(
 						rsSelectRacesChat.getString("Race"),
@@ -86,7 +86,7 @@ public class RacesDAOJdbcImpl implements RacesDAO
 			psSelectRacesChien = cnx.prepareStatement(rqtSelectRacesChien);
 			rsSelectRacesChien = psSelectRacesChien.executeQuery();
 			
-			if(rsSelectRacesChien.next())
+			while(rsSelectRacesChien.next())
 			{
 				Races tmp = new Races(
 						rsSelectRacesChien.getString("Race"),
