@@ -1,15 +1,22 @@
 package fr.eni.cliniqueveterinaire.ihm.agenda;
 
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.util.Calendar;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import org.jdatepicker.JDatePicker;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
 
 public class PanPriseRdv extends JPanel
 {
@@ -18,14 +25,12 @@ public class PanPriseRdv extends JPanel
 	private static PanPriseRdv instance;
 	
 	private JPanel panelPrincipal;
-	private JPanel panelPour;
-	private JPanel panelPar;
-	private JPanel panelQuand;
 	private JPanel panelListe;
 	
 	private JButton btnSupprimer;
 	private JButton btnValider;
 	
+	private JPanel panelPour;
 	private JLabel lblClient;
 	private JComboBox cbClient;
 	private JButton btnAjoutClient;
@@ -33,9 +38,18 @@ public class PanPriseRdv extends JPanel
 	private JComboBox cbAnimal;
 	private JButton btnAjoutAnimal;
 	
+	private JPanel panelPar;
 	private JLabel lblVeterinaire;
 	private JComboBox cbVeterinaire;
 	
+	private JPanel panelQuand;
+	private JPanel panelHeures;
+	private JLabel lblDate;
+	private JDatePicker dpDate;
+	private JLabel lblHeure;
+	private JComboBox cbHeure;
+	private JLabel lblH;
+	private JComboBox cbMinute;
 
     //endregion DECLARATION
 
@@ -202,36 +216,32 @@ public class PanPriseRdv extends JPanel
 			//COLONNE0
     		gbcPanelQuand.gridx =0;
     		gbcPanelQuand.gridy =0;
-			//COLONNE1
-    		gbcPanelQuand.gridx =0;
-	    	gbcPanelQuand.gridy =1;
+    		gbcPanelQuand.anchor = GridBagConstraints.WEST;
+    		panelQuand.add(getLblDate(), gbcPanelQuand);
 	    	
 		//LIGNE 1
 			
 			//COLONNE0
 	    	gbcPanelQuand.gridx =1;
 	    	gbcPanelQuand.gridy =0;
-			//COLONNE1
-	    	gbcPanelQuand.gridx =1;
-	    	gbcPanelQuand.gridy =1;
+	    	gbcPanelQuand.anchor = GridBagConstraints.WEST;
+    		panelQuand.add((Component) getDpDate(), gbcPanelQuand);
 	    
 		//LIGNE 2
 			
 			//COLONNE0
 	    	gbcPanelQuand.gridx =2;
 	    	gbcPanelQuand.gridy =0;
-			//COLONNE1
-	    	gbcPanelQuand.gridx =2;
-	    	gbcPanelQuand.gridy =1;
+	    	gbcPanelQuand.anchor = GridBagConstraints.WEST;
+    		panelQuand.add(getLblHeure(), gbcPanelQuand);
 	    	
 		//LIGNE 3
 			
 			//COLONNE0
 	    	gbcPanelQuand.gridx =2;
 	    	gbcPanelQuand.gridy =0;
-			//COLONNE1
-	    	gbcPanelQuand.gridx =2;
-	    	gbcPanelQuand.gridy =1;
+	    	gbcPanelQuand.anchor = GridBagConstraints.WEST;
+    		panelQuand.add(getPanelHeures(), gbcPanelQuand);
     	
     }
 
@@ -246,12 +256,6 @@ public class PanPriseRdv extends JPanel
 		
 			//COLONNE0
     		gbcPanelListe.gridx =0;
-    		gbcPanelListe.gridy =0;
-	    	
-		//LIGNE 1
-			
-			//COLONNE0
-    		gbcPanelListe.gridx =1;
     		gbcPanelListe.gridy =0;
     }
    
@@ -404,7 +408,72 @@ public class PanPriseRdv extends JPanel
 		return cbVeterinaire;
 	}
 
-	
+	public JPanel getPanelHeures() 
+	{
+		if(panelHeures == null)
+		{
+			panelHeures = new JPanel();
+			panelHeures.setLayout(new FlowLayout());
+			panelHeures.add(getCbHeure());
+			panelHeures.add(getLblH());
+			panelHeures.add(getCbMinute());
+		}
+		return panelHeures;
+	}
+
+	public JLabel getLblDate() 
+	{
+		if(lblDate == null)
+		{
+			lblDate = new JLabel("Date");
+		}
+		return lblDate;
+	}
+
+	public JDatePicker getDpDate() 
+	{
+		if(dpDate == null)
+		{
+			UtilDateModel model = new UtilDateModel();
+			int annee = Calendar.getInstance().get(Calendar.YEAR);
+			int mois = Calendar.getInstance().get(Calendar.MONTH);
+			int jour = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+			model.setDate(annee, mois, jour);
+			model.setSelected(true);
+			JDatePanelImpl datePanel = new JDatePanelImpl(model, null);
+			dpDate = new JDatePickerImpl(datePanel, null);
+		}
+		return dpDate;
+	}
+
+	public JLabel getLblHeure() 
+	{
+		if(lblHeure == null)
+		{
+			lblHeure = new JLabel("Heure");
+		}
+		return lblHeure;
+	}
+
+	public JComboBox getCbHeure() 
+	{
+		return cbHeure;
+	}
+
+	public JLabel getLblH() 
+	{
+		if(lblH == null)
+		{
+			lblH = new JLabel(" h ");
+		}
+		return lblH;
+	}
+
+	public JComboBox getCbMinute() 
+	{
+		return cbMinute;
+	}
+
 	
 	
     //endregion GET/SET
