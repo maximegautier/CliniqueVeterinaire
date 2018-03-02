@@ -355,6 +355,10 @@ public class PanPriseRdv extends JPanel
 	
 	public JComboBox getCbClient() 
 	{
+		if(cbClient == null)
+		{
+			cbClient = new JComboBox();
+		}
 		return cbClient;
 	}
 
@@ -381,6 +385,10 @@ public class PanPriseRdv extends JPanel
 	
 	public JComboBox getCbAnimal() 
 	{
+		if(cbAnimal == null)
+		{
+			cbAnimal = new JComboBox();
+		}
 		return cbAnimal;
 	}
 
@@ -405,6 +413,10 @@ public class PanPriseRdv extends JPanel
 
 	public JComboBox getCbVeterinaire() 
 	{
+		if(cbVeterinaire == null)
+		{
+			cbVeterinaire = new JComboBox();
+		}
 		return cbVeterinaire;
 	}
 
@@ -457,6 +469,10 @@ public class PanPriseRdv extends JPanel
 
 	public JComboBox getCbHeure() 
 	{
+		if(cbHeure == null)
+		{
+			cbHeure = new JComboBox();
+		}
 		return cbHeure;
 	}
 
@@ -471,6 +487,10 @@ public class PanPriseRdv extends JPanel
 
 	public JComboBox getCbMinute() 
 	{
+		if(cbMinute == null)
+		{
+			cbMinute = new JComboBox();
+		}
 		return cbMinute;
 	}
 
