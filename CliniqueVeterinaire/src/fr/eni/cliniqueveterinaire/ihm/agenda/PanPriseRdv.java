@@ -49,7 +49,7 @@ public class PanPriseRdv extends JPanel
 	private JPanel panelQuand;
 	private JPanel panelHeures;
 	private JLabel lblDate;
-	private JDatePicker dpDate;
+	private JDatePickerImpl dpDate;
 	private JLabel lblHeure;
 	private JComboBox cbHeure;
 	private JLabel lblH;
@@ -448,18 +448,18 @@ public class PanPriseRdv extends JPanel
 		return lblDate;
 	}
 
-	public JDatePicker getDpDate() 
+	public JDatePickerImpl getDpDate() 
 	{
 		if(dpDate == null)
 		{
 			UtilDateModel model = new UtilDateModel();
+			model.setSelected(true);
 			Properties p = new Properties();
 			p.put("text.today", "Today");
 			p.put("text.month", "Month");
 			p.put("text.year", "Year");
 			JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
-			JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
-			dpDate = new JDatePickerImpl(datePanel, null);
+			dpDate = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 		}
 		return dpDate;
 	}

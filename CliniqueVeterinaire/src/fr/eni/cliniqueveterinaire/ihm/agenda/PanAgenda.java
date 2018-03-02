@@ -1,26 +1,28 @@
 package fr.eni.cliniqueveterinaire.ihm.agenda;
 
-import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 import javax.swing.BorderFactory;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
-import javax.swing.event.ListDataListener;
 
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
 import fr.eni.cliniqueveterinaire.bll.BLLException;
-import fr.eni.cliniqueveterinaire.bo.Personnels;
-import fr.eni.cliniqueveterinaire.dal.DALException;
-import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
 
 public class PanAgenda extends JPanel{
 
@@ -28,7 +30,8 @@ public class PanAgenda extends JPanel{
 	private JPanel panelHead;
 	private JPanel panelTable;
 	private JComboBox<String> cbVeterinaire;
-	
+	private JDatePickerImpl dpDate;
+	private JButton btnDossier;
 	
 	public static PanAgenda getInstance()
 	{
@@ -56,6 +59,11 @@ public class PanAgenda extends JPanel{
 		gbc.gridx = 0;
 		gbc.gridy = 2;
 		add(getPanelTable(),gbc);
+		
+		gbc.gridx = 0;
+		gbc.gridy = 3;
+		gbc.anchor = GridBagConstraints.EAST;
+		add(getBtnDossier(),gbc);
 	}
 
 	
@@ -76,7 +84,7 @@ public class PanAgenda extends JPanel{
 				e.printStackTrace();
 			}
 			panelHead.add(new JLabel("   Date :"));
-			
+			panelHead.add((Component)getDpDate());
 
 		}
 		return panelHead;
@@ -106,5 +114,38 @@ public class PanAgenda extends JPanel{
 			cbVeterinaire.setModel(new DefaultComboBoxModel(lPerso.toArray()));
 		}
 		return cbVeterinaire;
+	}
+	
+	public JDatePickerImpl getDpDate() 
+	{
+		if(dpDate == null)
+		{
+			UtilDateModel model = new UtilDateModel();
+			model.setSelected(true);
+			Properties p = new Properties();
+			p.put("text.today", "Today");
+			p.put("text.month", "Month");
+			p.put("text.year", "Year");
+			JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+			dpDate = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+		}
+		return dpDate;
+	}
+	
+	public JButton getBtnDossier()
+	{
+		if (btnDossier == null)
+		{
+			btnDossier = new JButton("Dossier medical",new ImageIcon("ressources/icons8-dossier-32.png"));
+			btnDossier.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
+					System.out.println("btnDossier actionPerformed");
+				}
+			});
+		}
+		return btnDossier;
 	}
 }
