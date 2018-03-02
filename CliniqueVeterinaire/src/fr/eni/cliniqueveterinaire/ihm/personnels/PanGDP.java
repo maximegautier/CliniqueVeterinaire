@@ -143,12 +143,15 @@ public class PanGDP extends JPanel{
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
-					try {
-						PanGDPController.getInstance().reinitialiser();
-					} catch (DALException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+						try {
+							PanGDPController.getInstance().reinitialiser();
+						} catch (DALException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						} catch (BLLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 				}
 			});
 		}

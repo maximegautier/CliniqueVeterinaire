@@ -56,43 +56,43 @@ public class Personnels
 	}
 
 	public void setCodePers(int codePers) {
-		codePers = codePers;
+		this.codePers = codePers;
 	}
 	public String getNom() {
 		return nom;
 	}
 	public void setNom(String nom) {
-		nom = nom;
+		this.nom = nom;
 	}
 	public String getMotPasse() {
 		return motPasse;
 	}
 	public void setMotPasse(String motPasse) {
-		motPasse = motPasse;
+		this.motPasse = motPasse;
 	}
 	public String getRole() {
 		return role;
 	}
 	public void setRole(String role) {
-		role = role;
+		this.role = role;
 	}
 	public boolean getArchive() {
 		return archive;
 	}
 	public void setArchive(boolean archive) {
-		archive = archive;
+		this.archive = archive;
 	}
 	public String getPrenom() {
 		return prenom;
 	}
 	public void setPrenom(String prenom) {
-		prenom = prenom;
+		this.prenom = prenom;
 	}
 	public String getLogin() {
 		return login;
 	}
 	public void setLogin(String login) {
-		login = login;
+		this.login = login;
 	}
 	
 	public String getDisplayName()

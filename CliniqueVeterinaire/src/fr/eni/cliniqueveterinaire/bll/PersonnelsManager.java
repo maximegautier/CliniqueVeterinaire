@@ -146,7 +146,7 @@ public class PersonnelsManager
 			{
 				// Modification du mot de page de l'objet
 				personnel.setMotPasse(newMotPasse);
-				
+				System.out.println(personnel.getMotPasse());
 				// Modification dans la BDD
 				try {
 					personnelsDAO.update(personnel);

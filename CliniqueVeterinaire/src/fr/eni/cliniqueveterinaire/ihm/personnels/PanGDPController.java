@@ -36,32 +36,27 @@ public class PanGDPController extends JPanel{
 	}
 	
 	public void supprimer() throws BLLException{
-	/*	int NumLigne = 0;
-	    try {
-			NumLigne = panelGDP.getInstance().getTablePersonnel().getSelectedRow();
-			if (NumLigne == -1)
-			{
-				JOptionPane.showMessageDialog(null, "Veuillez selectionner une ligne", "Erreur", JOptionPane.INFORMATION_MESSAGE);
-			} 
-			else
-			{
-				Personnels personnel = PersonnelsManager.selectTousPersonnels().get(NumLigne);
-				JOptionPane jop = new JOptionPane();			
-				int option = jop.showConfirmDialog(null, "Etes-vous sur de vouloir supprimer " + personnel.getNom() + " ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-							
-				if(option == JOptionPane.OK_OPTION){				
-					PersonnelsManager.supprimer(personnel);
-					rafraichirTable();
-				}
+		int NumLigne = 0;
+	    NumLigne = panelGDP.getInstance().getTablePersonnel().getSelectedRow();
+		if (NumLigne == -1)
+		{
+			JOptionPane.showMessageDialog(null, "Veuillez selectionner une ligne", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+		} 
+		else
+		{
+			Personnels personnel = PersonnelsManager.selectTousPersonnels().get(NumLigne);
+			JOptionPane jop = new JOptionPane();			
+			int option = jop.showConfirmDialog(null, "Etes-vous sur de vouloir supprimer " + personnel.getNom() + " ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+						
+			if(option == JOptionPane.OK_OPTION){				
+				PersonnelsManager.supprimer(personnel);
+				rafraichirTable();
 			}
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			throw new BLLException(e.getMessage());
-		}*/
+		}
 	}
 	
-	public void reinitialiser() throws DALException{
-		/*int NumLigne = panelGDP.getInstance().getTablePersonnel().getSelectedRow();
+	public void reinitialiser() throws DALException, BLLException{
+		int NumLigne = panelGDP.getInstance().getTablePersonnel().getSelectedRow();
 		if (NumLigne == -1)
 		{
 			JOptionPane.showMessageDialog(null, "Veuillez selectionner une ligne", "Erreur", JOptionPane.INFORMATION_MESSAGE);
@@ -70,7 +65,8 @@ public class PanGDPController extends JPanel{
 		{
 			Personnels personnel = PersonnelsManager.selectTousPersonnels().get(NumLigne);
 			DialogReinit dialogReinit = new DialogReinit(fenMenu,personnel);
-		}*/
+			rafraichirTable();
+		}
 	}
 	
 	public void validerAjout(String nom, String prenom, String role, String mdp)
@@ -94,45 +90,10 @@ public class PanGDPController extends JPanel{
 		PersonnelsManager.modificationMotPasse(personnel, ancienMDP, nouveauMDP);
 		rafraichirTable();
 	}
-
-	
-	public Vector<Vector> completerTableau() throws BLLException
-	{
-		List<Personnels> lPersonnels = null;
-		lPersonnels = PersonnelsManager.selectTousPersonnels();
-		
-		Vector<Vector> vecRow = new Vector<Vector>();
-		
-		for (Personnels tmp : lPersonnels)
-		{
-			Vector<String> tmpVct = new Vector<String>();
-			tmpVct.addElement(tmp.getNom());
-			tmpVct.addElement(tmp.getRole());
-			tmpVct.addElement(tmp.getMotPasse());
-			
-			vecRow.addElement(tmpVct);
-		}	
-		return vecRow;
-	}
-	
-	public Vector<String> getEntete()
-	{
-		Vector<String> entetes = new Vector<String>();
-		entetes.addElement("Nom");
-		entetes.addElement("Role");
-		entetes.addElement("Mot de Passe");
-		return entetes;
-	}
 	
 	public void rafraichirTable() throws BLLException{
-		/*while (panelGDP.getInstance().getDefTableModel().getRowCount() > 0)
-		{
-			panelGDP.getInstance().getDefTableModel().removeRow(0);
-		}
-		
-		// Rafraichir la table
-		panelGDP.getInstance().getDefTableModel().setDataVector(completerTableau(), getEntete());	
-	*/}
+		panelGDP.getInstance().getTablePersonnel().setData(PersonnelsManager.selectTousPersonnels());
+	}
 	
 	public List<String> remplirComboAjouter()
 	{

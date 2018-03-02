@@ -8,13 +8,11 @@ import java.util.List;
 import javax.swing.JTable;
 
 import fr.eni.cliniqueveterinaire.bll.BLLException;
-import fr.eni.cliniqueveterinaire.bo.Agendas;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
-import fr.eni.cliniqueveterinaire.ihm.agenda.ModelAgendaVet;
 
 public class TablePersonnels extends JTable{
 
-private ModelPersonnels modelPersonnels;
+	private ModelPersonnels modelPersonnels;
 	
 	public TablePersonnels(List<Personnels> list) throws BLLException{
 		setPreferredScrollableViewportSize(new Dimension(this.getPreferredSize().width-30,500));
@@ -26,6 +24,10 @@ private ModelPersonnels modelPersonnels;
 		setShowGrid(false);
 		setFont(new Font("Arial", Font.BOLD, 15));
 		setFillsViewportHeight(true);
+	}
+	
+	public void setData(List<Personnels> data) {
+		modelPersonnels.setDataChanged(data);
 	}
 	
 }

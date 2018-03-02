@@ -6,7 +6,7 @@ import javax.swing.table.AbstractTableModel;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
 
 public class ModelPersonnels extends AbstractTableModel{
-
+	
 	private List<Personnels> listPersonnels;
 	private final String[] entetes = { "Login", "Role", "Mot de passe"};
 	
@@ -48,5 +48,14 @@ public class ModelPersonnels extends AbstractTableModel{
 				throw new IllegalArgumentException();
 		}
 	}
+	
+	public void setData(List<Personnels> data) {
+		 this.listPersonnels = data;
+		 fireTableDataChanged();
+		}
 
+	public void setDataChanged(List<Personnels> data){
+		this.listPersonnels = data;
+		fireTableDataChanged();
+	}
 }
