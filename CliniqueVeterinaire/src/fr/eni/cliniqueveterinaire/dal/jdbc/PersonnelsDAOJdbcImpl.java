@@ -18,9 +18,10 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 	private String rqtSelectById = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle  ,Archive FROM Personnels LEFT JOIN Personnels_Roles ON Personnels_Roles.CodePers = Personnels.CodePers LEFT JOIN Roles ON Roles.Libelle = Personnels_Roles.Libelle_Role WHERE Personnels.CodePers = ? AND Archive = 0";
 	private String rqtSelectByName = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle ,Archive FROM Personnels LEFT JOIN Personnels_Roles ON Personnels_Roles.CodePers = Personnels.CodePers LEFT JOIN Roles ON Roles.Libelle = Personnels_Roles.Libelle_Role WHERE Nom = ? AND Archive = 0";
 	private String rqtSelectAll = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle,Archive FROM Personnels LEFT JOIN Personnels_Roles ON Personnels_Roles.CodePers = Personnels.CodePers LEFT JOIN Roles ON Roles.Libelle = Personnels_Roles.Libelle_Role WHERE Archive = 0 ORDER BY Nom";
-	private String rqtInsert = "INSERT INTO Personnels VALUES (?,?,?,?,?,?)";
+	private String rqtInsert = "INSERT INTO Personnels VALUES (?,?,?,?,?)";
+	private String rqtInsertPersonnelsRoles = "INSERT INTO Personnels_Roles VALUES (?,?)";
 	private String rqtDelete = "UPDATE Personnels SET Archive = 1 WHERE CodePers = ?";
-	private String rqtUpdate = "UPDATE Personnels SET Nom=?, Prenom=?, Login=?, MotPasse=?, Role=?, Archive = ? WHERE CodePers = ?";
+	private String rqtUpdate = "UPDATE Personnels SET Nom=?, Prenom=?, Login=?, MotPasse=?, Archive = ? WHERE CodePers = ?";
 	private String rqtSelectRole = "SELECT Libelle From Roles";
 	private String rqtVerifieSiExiste = "SELECT * FROM Personnels WHERE Nom = ?";
 	private String rqtSelectVeterinaire = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle, Archive FROM Personnels JOIN Personnels_Roles ON Personnels_Roles.CodePers = Personnels.CodePers JOIN Roles ON Roles.Libelle = Personnels_Roles.Libelle_Role WHERE libelle = 'vet' AND Archive = 0";
@@ -215,7 +216,6 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 	public int insert(Personnels personnel) throws DALException {
 		Connection cnx = null;
 		PreparedStatement rqt = null;
-
 		try {
 			cnx = JdbcTools.getConnection();
 			rqt = cnx.prepareStatement(rqtInsert, Statement.RETURN_GENERATED_KEYS);
@@ -223,18 +223,18 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 			rqt.setString(2, personnel.getPrenom());
 			rqt.setString(3, personnel.getLogin());
 			rqt.setString(4, personnel.getMotPasse());
-			rqt.setString(5, personnel.getRole());
-			rqt.setBoolean(6, personnel.getArchive());
+			rqt.setBoolean(5, personnel.getArchive());
 			int nbRows = rqt.executeUpdate();
 			if(nbRows == 1){
 				ResultSet rs = rqt.getGeneratedKeys();
 				if(rs.next()){
 					personnel.setCodePers(rs.getInt(1));
 				}
+				insertPersonnelsRoles(rs.getInt(1), personnel.getRole());
 			}
 			return personnel.getCodePers();
 		} catch (SQLException e) {
-			throw new DALException("Insert article failed - " + personnel, e);
+			throw new DALException("Insert personnel failed - " + personnel, e);
 		} finally {
 			try {
 				if (rqt != null){
@@ -247,7 +247,34 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 				throw new DALException("close failed - ", e);
 			}
 		}
-	}	
+	}
+	
+	@Override
+	public void insertPersonnelsRoles(int codePers, String role) throws DALException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		System.out.println(codePers + "  " + role);
+		try {
+			cnx = JdbcTools.getConnection();
+			rqt = cnx.prepareStatement(rqtInsertPersonnelsRoles);
+			rqt.setString(1, role);
+			rqt.setInt(2, codePers);
+			rqt.executeUpdate();
+		} catch (SQLException e) {
+			throw new DALException("Insert PersonnelsRoles failed", e);
+		} finally {
+			try {
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				throw new DALException("close failed - ", e);
+			}
+		}
+	}
 
 	/* Créee par Maxime GAUTIER */
 	@Override
@@ -262,9 +289,8 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 			rqt.setString(2, personnel.getPrenom());
 			rqt.setString(3, personnel.getLogin());
 			rqt.setString(4, personnel.getMotPasse());
-			rqt.setString(5, personnel.getRole());
-			rqt.setBoolean(6, personnel.getArchive());
-			rqt.setInt(7, personnel.getCodePers());
+			rqt.setBoolean(5, personnel.getArchive());
+			rqt.setInt(6, personnel.getCodePers());
 			rqt.executeUpdate();
 			
 		} catch (SQLException e) {
@@ -410,7 +436,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 						rs.getString("Prenom"),
 						rs.getString("Login"),
 						rs.getString("MotPasse"),
-						rs.getString("Role"),
+						rs.getString("Libelle"),
 						rs.getBoolean("Archive")		
 				);
 				personnels.add(personnel);

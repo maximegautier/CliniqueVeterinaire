@@ -25,5 +25,7 @@ public interface PersonnelsDAO {
 	public boolean verifieSiExiste(String nomPersonnel) throws DALException;
 	
 	public List<Personnels> selectVeterinaire() throws DALException;
+
+	public void insertPersonnelsRoles(int codePers, String role) throws DALException;
 	
 }
