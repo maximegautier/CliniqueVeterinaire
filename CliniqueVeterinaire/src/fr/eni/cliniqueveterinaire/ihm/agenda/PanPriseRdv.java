@@ -8,9 +8,13 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.swing.BorderFactory;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -19,6 +23,9 @@ import javax.swing.JPanel;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+
+import fr.eni.cliniqueveterinaire.bll.BLLException;
+import fr.eni.cliniqueveterinaire.bo.Clients;
 
 public class PanPriseRdv extends JPanel
 {
@@ -52,6 +59,8 @@ public class PanPriseRdv extends JPanel
 	private JComboBox cbHeure;
 	private JLabel lblH;
 	private JComboBox cbMinute;
+	
+	private List<Clients> clients;
 
     //endregion DECLARATION
 
@@ -59,6 +68,15 @@ public class PanPriseRdv extends JPanel
 
 	private PanPriseRdv()
 	{	
+		try 
+		{
+			clients = PanAgendaController.selectClients();
+		} 
+		catch (BLLException e) 
+		{
+			e.printStackTrace();
+		}
+		
 		getPanelPrincipal();
 	}
 
@@ -354,7 +372,15 @@ public class PanPriseRdv extends JPanel
 	{
 		if(cbClient == null)
 		{
+			List<String> nomsClients = new ArrayList();
+			
+			for(Clients tmp : clients)
+			{
+				nomsClients.add(tmp.getNomClient());
+			}
+			
 			cbClient = new JComboBox();
+			cbClient.setModel(new DefaultComboBoxModel(nomsClients.toArray()));
 		}
 		return cbClient;
 	}

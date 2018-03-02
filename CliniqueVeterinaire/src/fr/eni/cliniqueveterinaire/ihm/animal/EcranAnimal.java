@@ -626,7 +626,7 @@ public class EcranAnimal extends JFrame
 		{
 			nomRace.add(tmp.getRace());
 		}
-		
+
         CbRace = new JComboBox();    
         CbRace.setModel(new DefaultComboBoxModel(nomRace.toArray()));
 		return CbRace;

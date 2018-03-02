@@ -83,6 +83,11 @@ public class Clients
 				+ ville + ", NumTel=" + numTel + ", Assurance=" + assurance + ", Email=" + email + ", Remarque="
 				+ remarque + ", Archive=" + archive + "]";
 	}
+	
+	public String afficherNom()
+	{
+		return nomClient;
+	}
     
     //endregion METHODS
 	
