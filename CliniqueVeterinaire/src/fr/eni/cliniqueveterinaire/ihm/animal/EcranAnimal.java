@@ -680,7 +680,5 @@ public class EcranAnimal extends JFrame
 		return currentFrame;
 	}
 	
-	
-	
     //endregion GET/SET
 }

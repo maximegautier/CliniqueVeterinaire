@@ -88,8 +88,15 @@ public class ClientsManager {
 		return leClient;
 	}
 	
-	public List<Clients> selectAll() throws DALException{		
-		return clientsDAO.selectAll();
+	public List<Clients> selectAll() throws BLLException{		
+		try 
+		{
+			return clientsDAO.selectAll();
+		} 
+		catch (DALException e) 
+		{
+			throw new BLLException(e.getMessage());
+		}
 	}
 
 	public void ajouterClient(Clients leClient) throws BLLException, DALException {

@@ -6,14 +6,20 @@ import java.util.List;
 
 import fr.eni.cliniqueveterinaire.bll.AgendasManager;
 import fr.eni.cliniqueveterinaire.bll.BLLException;
+import fr.eni.cliniqueveterinaire.bll.ClientsManager;
 import fr.eni.cliniqueveterinaire.bll.PersonnelsManager;
 import fr.eni.cliniqueveterinaire.bo.Agendas;
+import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
+import fr.eni.cliniqueveterinaire.dal.ClientsDAO;
+import fr.eni.cliniqueveterinaire.dal.DALException;
+import fr.eni.cliniqueveterinaire.dal.DAOFactory;
 
 public class PanAgendaController 
 {
     //region DECLARATION
 	
+	private static ClientsDAO clientsDAO;
 
     //endregion DECLARATION
 
@@ -39,6 +45,11 @@ public class PanAgendaController
 		}
 		
 		return lNomPersonnel;
+	}
+	
+	public static List<Clients> selectClients() throws BLLException
+	{
+		return ClientsManager.getInstance().selectAll();
 	}
 	
     //endregion METHODS
