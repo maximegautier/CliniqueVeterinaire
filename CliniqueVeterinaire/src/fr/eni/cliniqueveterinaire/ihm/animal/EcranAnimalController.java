@@ -34,11 +34,10 @@ public class EcranAnimalController
 	
 	public void startApp()
 	{
-		fenAnimal = new EcranAnimal(1,3);
+		fenAnimal = new EcranAnimal(1);
 		fenAnimal.setVisible(true);
 	}
-	
-	
+		
 	public Animaux selectAnimal(int codeAnimal) throws BLLException
 	{
 		tmpAnimal = AnimauxManager.selectAnimal(codeAnimal);

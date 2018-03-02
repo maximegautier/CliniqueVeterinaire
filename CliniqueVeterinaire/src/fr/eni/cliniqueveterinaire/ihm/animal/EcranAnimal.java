@@ -421,6 +421,7 @@ public class EcranAnimal extends JFrame
 						try 
 						{
 							Animaux aModifier = new Animaux(
+									getCodeAnimal(),
 									getCodeClient(),
 									getCbRace().getSelectedItem().toString(), 
 									getTfdNom().getText(), 
@@ -651,7 +652,7 @@ public class EcranAnimal extends JFrame
 	
 	public int getCodeClient() 
 	{
-		return CodeClient = clientCourant.getCodeClient();
+		return CodeClient;
 	}
 
 	public int getCodeAnimal() 

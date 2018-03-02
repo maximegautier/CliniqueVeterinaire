@@ -334,7 +334,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 	{
 		boolean aRetourner = false;
 		Connection cnx = JdbcTools.getConnection();
-		String rqtVerifieSiExiste = "SELECT * FROM Animaux WHERE NomAnimal = '?' AND CodeClient = '?'";
+		String rqtVerifieSiExiste = "SELECT * FROM Animaux WHERE NomAnimal = ? AND CodeClient = ?";
 		PreparedStatement psVerifieSiExiste = null;
 		ResultSet rsVerifieSiExiste = null;
 		
