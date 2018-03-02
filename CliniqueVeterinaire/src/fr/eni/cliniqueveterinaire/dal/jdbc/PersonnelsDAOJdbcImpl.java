@@ -167,7 +167,8 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 
 	/* Créee par Maxime GAUTIER */
 	@Override
-	public List<Personnels> selectAll() throws DALException {
+	public List<Personnels> selectAll() throws DALException
+	{
 		Connection cnx = null;
 		Statement rqt = null;
 		ResultSet rs = null;

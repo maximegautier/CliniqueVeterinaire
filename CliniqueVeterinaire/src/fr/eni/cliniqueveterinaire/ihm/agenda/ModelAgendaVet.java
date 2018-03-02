@@ -19,11 +19,11 @@ public class ModelAgendaVet extends AbstractTableModel{
 	
 	public ModelAgendaVet(List<Agendas> list) throws BLLException
 	{
-		/* A supprimé */
-		list.clear();
-		list.add(new Agendas(2, 3, new Date()));
-		/* --------------- */
-		
+		list.add(new Agendas(2, 4, new Date()));
+		list.add(new Agendas(2, 4, new Date()));
+		list.add(new Agendas(2, 4, new Date()));
+		list.add(new Agendas(2, 4, new Date()));
+		list.add(new Agendas(2, 4, new Date()));
 		this.listRdv=list;
 	}
 

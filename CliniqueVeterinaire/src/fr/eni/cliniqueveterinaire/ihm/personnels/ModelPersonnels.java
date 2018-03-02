@@ -48,11 +48,6 @@ public class ModelPersonnels extends AbstractTableModel{
 				throw new IllegalArgumentException();
 		}
 	}
-	
-	public void setData(List<Personnels> data) {
-		 this.listPersonnels = data;
-		 fireTableDataChanged();
-		}
 
 	public void setDataChanged(List<Personnels> data){
 		this.listPersonnels = data;

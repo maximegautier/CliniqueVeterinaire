@@ -1,6 +1,8 @@
 package fr.eni.cliniqueveterinaire.ihm.agenda;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.util.List;
 import javax.swing.JTable;
 
@@ -15,6 +17,12 @@ public class TableAgendaVet extends JTable{
 		setPreferredScrollableViewportSize(new Dimension(this.getPreferredSize().width-30,500));
 		modelTableVet = new ModelAgendaVet(list);
 		this.setModel(modelTableVet);
+		
+		setRowHeight(30);  
+        setBackground(new Color(238,238,238));
+		setShowGrid(false);
+		setFont(new Font("Arial",Font.BOLD, 15));
+		setFillsViewportHeight(true);
 	}
 	
 }

@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import fr.eni.cliniqueveterinaire.bo.Agendas;
+import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.dal.AgendasDAO;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 
@@ -33,14 +34,15 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 	@Override
 	public List<Agendas> selectParDate(Date jour) throws DALException 
 	{		
-		List<Agendas> aRetourner = new ArrayList<Agendas>();
-		Connection cnx = JdbcTools.getConnection();
+		Connection cnx = null;
 		String rqtSelectParDate = "SELECT * FROM Agendas WHERE DateRdv = ?";
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
+		List<Agendas> aRetourner = new ArrayList<Agendas>();
 		
 		try 
 		{
+			cnx = JdbcTools.getConnection();
 			rqt = cnx.prepareStatement(rqtSelectParDate);
 			rqt.setTimestamp(1, new java.sql.Timestamp(jour.getTime()));
 			rs = rqt.executeQuery();
@@ -51,9 +53,10 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 				tmpRdv = new Agendas(
 						rs.getInt("CodeVeto"),
 						rs.getInt("CodeAnimal"),
-						rs.getDate("DateRdv"));
-			}
-			aRetourner.add(tmpRdv);
+						rs.getDate("DateRdv")
+				);
+				aRetourner.add(tmpRdv);
+			}		
 		} 
 		catch (SQLException e) 
 		{
@@ -78,7 +81,6 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 				throw new DALException(e.getMessage());
 			}
 		}
-		
 		return aRetourner;
 	}
 
