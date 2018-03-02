@@ -27,7 +27,7 @@ public class AppliTestBLL {
 		
 		// Ajout du personnel				
 		for (Personnels personnel : lPersonnels) {
-			PersonnelsManager.Ajouter(personnel);
+			PersonnelsManager.ajouter(personnel);
 		}
 		
 		// Affichage du personnels
@@ -126,7 +126,7 @@ public class AppliTestBLL {
 		// Suppresion Personnels
 		System.out.println("");
 		System.out.println("___________________ Suppresion personnel ___________________");
-		PersonnelsManager.Supprimer(perso1);
+		PersonnelsManager.supprimer(perso1);
 		System.out.println("Apres");
 		System.out.println(PersonnelsManager.selectTousPersonnels());
 	}

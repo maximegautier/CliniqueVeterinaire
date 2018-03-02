@@ -28,7 +28,7 @@ public class PersonnelsManager
     
     //region METHODS
 	/* Créé par Maxime GAUTIER */
-	public static Personnels Authentification(String nom, String motPasse)
+	public static Personnels authentification(String nom, String motPasse)
 	{
 		Personnels personnel = null;
 		try {
@@ -40,7 +40,7 @@ public class PersonnelsManager
 	}
 
 	/* Créé par Maxime GAUTIER */
-	public static int Ajouter(Personnels personnel) throws BLLException
+	public static int ajouter(Personnels personnel) throws BLLException
 	{
 		try {
 			if(personnel == null)
@@ -157,7 +157,7 @@ public class PersonnelsManager
 	}
 	
 	/* Créé par Maxime GAUTIER */
-	public static boolean Supprimer(Personnels perso) throws BLLException
+	public static boolean supprimer(Personnels perso) throws BLLException
 	{
 		//Logique de suppression en base (Archive = 1) via DAO
 		try {

@@ -37,7 +37,7 @@ public class EcranLoginController
 	
 	public void connexion(String login, String password) throws DALException
 	{
-		Personnels persoConnect = PersonnelsManager.Authentification(login,password);
+		Personnels persoConnect = PersonnelsManager.authentification(login,password);
 		
 		if (persoConnect == null)
 		{

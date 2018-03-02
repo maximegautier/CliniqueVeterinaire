@@ -50,7 +50,7 @@ public class PanGDPController extends JPanel{
 				int option = jop.showConfirmDialog(null, "Etes-vous sur de vouloir supprimer " + personnel.getNom() + " ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 							
 				if(option == JOptionPane.OK_OPTION){				
-					PersonnelsManager.Supprimer(personnel);
+					PersonnelsManager.supprimer(personnel);
 					rafraichirTable();
 				}
 			}
@@ -78,7 +78,7 @@ public class PanGDPController extends JPanel{
 		Personnels personnel = new Personnels(nom,prenom,"Login",mdp,role,false);
 		try {
 			// Ajouter le nouveau personnel
-			PersonnelsManager.Ajouter(personnel);
+			PersonnelsManager.ajouter(personnel);
 			
 			rafraichirTable();
 			
