@@ -9,8 +9,12 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.agenda.PanAgenda;
+import fr.eni.cliniqueveterinaire.ihm.agenda.PanPriseRdv;
+import fr.eni.cliniqueveterinaire.ihm.login.EcranLogin;
+import fr.eni.cliniqueveterinaire.ihm.login.EcranLoginController;
 import fr.eni.cliniqueveterinaire.ihm.personnels.PanGDP;
 
 public class EcranMenu extends JFrame{
@@ -18,9 +22,10 @@ public class EcranMenu extends JFrame{
 	private static EcranMenu instance;
 	
 	private JMenuBar menuBar = new JMenuBar();
-	private JMenu mFichier, mRDV, mAgenda, mGDP;
+	private JMenu mFichier, mRDV;
 	private JMenuItem miDeconnexion, miFermer;
 	private JMenuItem miRDV, miClient;
+	private JMenuItem mAgenda, mGDP;
 	
 	public static EcranMenu getInstance() {
 		if (EcranMenu.instance == null){
@@ -37,14 +42,30 @@ public class EcranMenu extends JFrame{
 		setIconImage(new ImageIcon("ressources/ico_veto.png").getImage());
 		
 		menuBar.add(getMFichier());
-		menuBar.add(getMRDV());
-		menuBar.add(getMAgenda());
-		menuBar.add(getMGDP());
+		
+		switch (EcranLoginController.getCurrentPersonnel().getRole())
+		{
+			case "adm" :
+				menuBar.add(getMRDV());
+				menuBar.add(getMAgenda());
+				menuBar.add(getMGDP());
+				setContentPane(PanGDP.getInstance());
+				break;
+			case "vet":
+				menuBar.add(getMAgenda());
+				setContentPane(PanAgenda.getInstance());
+				break;
+			case "sec":
+				menuBar.add(getMRDV());
+				setContentPane(PanPriseRdv.getInstance());
+				break;
+			case "ass":
+				System.out.println("role assistant : pas de fenetre");
+				break;
+		}
 		
 		setJMenuBar(menuBar);
 		
-		setContentPane(PanAgenda.getInstance());
-
 		setVisible(true);
 		setLocationRelativeTo(null);
 	}
@@ -67,16 +88,32 @@ public class EcranMenu extends JFrame{
 		return mRDV;
 	}
 	
-	public JMenu getMAgenda(){
+	public JMenuItem getMAgenda(){
 		if (mAgenda == null) {
-			mAgenda = new JMenu("Agenda");
+			mAgenda = new JMenuItem("Agenda");
+			mAgenda.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					setContentPane(PanAgenda.getInstance());
+					repaint();
+					validate();
+				}
+			});
 		}
 		return mAgenda;
 	}
 	
-	public JMenu getMGDP(){
+	public JMenuItem getMGDP(){
 		if (mGDP == null) {
-			mGDP = new JMenu("Gestion du personnel");
+			mGDP = new JMenuItem("Gestion du personnel");
+			mGDP.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					setContentPane(PanGDP.getInstance());
+					repaint();
+					revalidate();
+				}
+			});
 		}
 		return mGDP;
 	}
@@ -87,12 +124,7 @@ public class EcranMenu extends JFrame{
 			miDeconnexion.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					try {
-						EcranMenuController.getInstance().Deconnexion();
-					} catch (DALException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					EcranMenuController.getInstance().Deconnexion();
 				}
 			});
 		}
@@ -105,12 +137,7 @@ public class EcranMenu extends JFrame{
 			miFermer.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					try {
-						EcranMenuController.getInstance().Fermer();
-					} catch (DALException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					System.exit(0);
 				}
 			});
 		}
@@ -120,6 +147,14 @@ public class EcranMenu extends JFrame{
 	public JMenuItem getMiRDV(){
 		if (miRDV == null) {
 			miRDV = new JMenuItem("Prise des rendez-vous");
+			miRDV.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					setContentPane(PanPriseRdv.getInstance());
+					repaint();
+					revalidate();
+				}
+			});
 		}
 		return miRDV;
 	}
@@ -130,5 +165,5 @@ public class EcranMenu extends JFrame{
 		}
 		return miClient;
 	}
-	
+		
 }

@@ -14,9 +14,14 @@ public class EcranMenuController {
 		fenLogin = EcranLogin.getInstance();
 	}
 	
-	public static EcranMenuController getInstance() throws DALException{
+	public static EcranMenuController getInstance(){
 		if ( EcranMenuController.instance == null){
-			EcranMenuController.instance = new EcranMenuController();
+			try {
+				EcranMenuController.instance = new EcranMenuController();
+			} catch (DALException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return EcranMenuController.instance;
 	}
@@ -28,10 +33,6 @@ public class EcranMenuController {
 		fenLogin.getlError().setVisible(false);
 		fenLogin.getTxtLogin().requestFocusInWindow();
 		fenLogin.setVisible(true);
-	}
-	
-	public void Fermer(){
-		System.exit(0);
 	}
 	
 }

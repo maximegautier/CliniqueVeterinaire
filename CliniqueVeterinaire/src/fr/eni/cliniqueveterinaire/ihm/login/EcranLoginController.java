@@ -13,6 +13,7 @@ public class EcranLoginController
 	private static EcranLoginController instance;
 	private EcranLogin fenLogin;
 	private EcranMenu fenMenu;
+	private static Personnels currentPersonnel;
 
 	private EcranLoginController()
 	{
@@ -37,14 +38,20 @@ public class EcranLoginController
 	
 	public void connexion(String login, String password) throws DALException
 	{
-		Personnels persoConnect = PersonnelsManager.authentification(login,password);
+		currentPersonnel = PersonnelsManager.authentification(login,password);
 		
-		if (persoConnect == null)
+		if (currentPersonnel == null)
 		{
 			fenLogin.getlError().setVisible(true);
 		} else {
 			fenLogin.setVisible(false);
 			fenMenu = EcranMenu.getInstance();
 		}
+	}
+
+	public static Personnels getCurrentPersonnel() {
+		return currentPersonnel;
 	}	
+	
+	
 }
