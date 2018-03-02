@@ -88,10 +88,15 @@ public class PersonnelsManager
 	}
 	
 	/* Créé par Maxime GAUTIER */
-	public static List<Personnels> selectTousPersonnels() throws DALException
+	public static List<Personnels> selectTousPersonnels() throws BLLException
 	{
 		List<Personnels> lPersonnels = null;
-		lPersonnels = personnelsDAO.selectAll();
+		try {
+			lPersonnels = personnelsDAO.selectAll();
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			throw new BLLException(e.getMessage());
+		}
 		return lPersonnels;
 	}
 	

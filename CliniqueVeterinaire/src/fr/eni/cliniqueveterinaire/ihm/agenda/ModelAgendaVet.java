@@ -5,17 +5,25 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
+import fr.eni.cliniqueveterinaire.bll.AnimauxManager;
+import fr.eni.cliniqueveterinaire.bll.BLLException;
+import fr.eni.cliniqueveterinaire.bll.ClientsManager;
 import fr.eni.cliniqueveterinaire.bo.Agendas;
 import fr.eni.cliniqueveterinaire.bo.Animaux;
 import fr.eni.cliniqueveterinaire.bo.Clients;
-import fr.eni.cliniqueveterinaire.bo.Races;
 
 public class ModelAgendaVet extends AbstractTableModel{
 	
 	private List<Agendas> listRdv;
 	private final String[] entetes = { "Heure", "Nom du client", "Animal", "Race" };
 	
-	public ModelAgendaVet(List<Agendas> list){
+	public ModelAgendaVet(List<Agendas> list) throws BLLException
+	{
+		/* A supprimé */
+		list.clear();
+		list.add(new Agendas(2, 3, new Date()));
+		/* --------------- */
+		
 		this.listRdv=list;
 	}
 
@@ -36,49 +44,40 @@ public class ModelAgendaVet extends AbstractTableModel{
 
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
-		switch (columnIndex) {
-
-		case 0:
-			// Date
-			return listRdv.get(rowIndex).getDateRdv();
-
-		case 1:
-			// Client
-			return listRdv.get(rowIndex).getDateRdv();
-
-		case 2:
-			// Animal
-			return listRdv.get(rowIndex).getDateRdv();
-
-		case 3:
-			// Race
-			return listRdv.get(rowIndex).getDateRdv();
-
-		default:
-			throw new IllegalArgumentException();
+		Animaux animal = null;
+		try {
+			animal = AnimauxManager.selectAnimal(listRdv.get(rowIndex).getCodeAnimal());
+			
+		} catch (BLLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-	}
-	
-	@Override
-	public Class<?> getColumnClass(int columnIndex) {
+		
 		switch (columnIndex) {
 			case 0:
+				// Date
+				return listRdv.get(rowIndex).getDateRdv();
+	
 			case 1:
-				return Date.class;
+				// Client
+				try {			
+					Clients client = ClientsManager.getInstance().selectById(animal.getCodeClient());
+					return client.getNomClient() + " " + client.getPrenomClient();
+				} catch (BLLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			case 2:
+				// Animal
+				return animal.getNomAnimal();
 	
 			case 3:
-				return Clients.class;
-	
-			case 2:
-				return Animaux.class;
-	
-			case 4:
-				return Races.class;
+				// Race
+				return animal.getRace();
 	
 			default:
-				return Object.class;
+				throw new IllegalArgumentException();
 		}
 	}
 	
-
 }

@@ -54,15 +54,11 @@ public class PanAgenda extends JPanel{
 		
 		gbc.gridx = 0;
 		gbc.gridy = 1;
-		add(new JLabel("test"),gbc);
-		
-		gbc.gridx = 0;
-		gbc.gridy = 2;
 		add(getPanelTable(),gbc);
 		
 		gbc.gridx = 0;
-		gbc.gridy = 3;
-		gbc.anchor = GridBagConstraints.EAST;
+		gbc.gridy = 2;
+		//gbc.anchor = GridBagConstraints.WEST;
 		add(getBtnDossier(),gbc);
 	}
 
@@ -95,8 +91,9 @@ public class PanAgenda extends JPanel{
 		if (panelTable == null)
 		{
 			panelTable = new JPanel();
+			panelTable.setPreferredSize(new Dimension(this.getPreferredSize().width -15,300));
 			try {
-				TableAgendaVet tableAgenda = new TableAgendaVet(PanAgendaController.remplirTableau(new Date()));
+				panelTable.add(new TableAgendaVet(PanAgendaController.remplirTableau(new Date())));
 			} catch (BLLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -1,0 +1,52 @@
+package fr.eni.cliniqueveterinaire.ihm.personnels;
+
+import java.util.List;
+
+import javax.swing.table.AbstractTableModel;
+import fr.eni.cliniqueveterinaire.bo.Personnels;
+
+public class ModelPersonnels extends AbstractTableModel{
+
+	private List<Personnels> listPersonnels;
+	private final String[] entetes = { "Login", "Role", "Mot de passe"};
+	
+	public ModelPersonnels(List<Personnels> list) {	
+		this.listPersonnels=list;	
+	}
+	
+	@Override
+	public int getColumnCount() {
+		return entetes.length;
+	}
+
+	@Override
+	public String getColumnName(int columnIndex) {
+		return entetes[columnIndex];
+	}
+	
+	@Override
+	public int getRowCount() {
+		return listPersonnels.size();
+	}
+
+	@Override
+	public Object getValueAt(int rowIndex, int columnIndex) {
+		
+		switch (columnIndex) {
+			case 0:
+				// Nom prenom
+				return listPersonnels.get(rowIndex).getNom() +" "+ listPersonnels.get(rowIndex).getPrenom();
+	
+			case 1:
+				// Role
+				return listPersonnels.get(rowIndex).getRole();
+			case 2:
+				// Animal
+				return listPersonnels.get(rowIndex).getMotPasse();
+
+			default:
+				throw new IllegalArgumentException();
+		}
+	}
+
+}

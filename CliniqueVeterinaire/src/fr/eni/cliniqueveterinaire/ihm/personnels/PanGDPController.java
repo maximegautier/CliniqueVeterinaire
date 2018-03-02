@@ -36,7 +36,7 @@ public class PanGDPController extends JPanel{
 	}
 	
 	public void supprimer() throws BLLException{
-		int NumLigne = 0;
+	/*	int NumLigne = 0;
 	    try {
 			NumLigne = panelGDP.getInstance().getTablePersonnel().getSelectedRow();
 			if (NumLigne == -1)
@@ -57,11 +57,11 @@ public class PanGDPController extends JPanel{
 		} catch (DALException e) {
 			// TODO Auto-generated catch block
 			throw new BLLException(e.getMessage());
-		}
+		}*/
 	}
 	
 	public void reinitialiser() throws DALException{
-		int NumLigne = panelGDP.getInstance().getTablePersonnel().getSelectedRow();
+		/*int NumLigne = panelGDP.getInstance().getTablePersonnel().getSelectedRow();
 		if (NumLigne == -1)
 		{
 			JOptionPane.showMessageDialog(null, "Veuillez selectionner une ligne", "Erreur", JOptionPane.INFORMATION_MESSAGE);
@@ -70,7 +70,7 @@ public class PanGDPController extends JPanel{
 		{
 			Personnels personnel = PersonnelsManager.selectTousPersonnels().get(NumLigne);
 			DialogReinit dialogReinit = new DialogReinit(fenMenu,personnel);
-		}
+		}*/
 	}
 	
 	public void validerAjout(String nom, String prenom, String role, String mdp)
@@ -99,12 +99,7 @@ public class PanGDPController extends JPanel{
 	public Vector<Vector> completerTableau() throws BLLException
 	{
 		List<Personnels> lPersonnels = null;
-		try {
-			lPersonnels = PersonnelsManager.selectTousPersonnels();
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			throw new BLLException(e.getMessage());
-		}
+		lPersonnels = PersonnelsManager.selectTousPersonnels();
 		
 		Vector<Vector> vecRow = new Vector<Vector>();
 		
@@ -130,14 +125,14 @@ public class PanGDPController extends JPanel{
 	}
 	
 	public void rafraichirTable() throws BLLException{
-		while (panelGDP.getInstance().getDefTableModel().getRowCount() > 0)
+		/*while (panelGDP.getInstance().getDefTableModel().getRowCount() > 0)
 		{
 			panelGDP.getInstance().getDefTableModel().removeRow(0);
 		}
 		
 		// Rafraichir la table
 		panelGDP.getInstance().getDefTableModel().setDataVector(completerTableau(), getEntete());	
-	}
+	*/}
 	
 	public List<String> remplirComboAjouter()
 	{

@@ -9,6 +9,7 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -19,7 +20,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import fr.eni.cliniqueveterinaire.bll.BLLException;
+import fr.eni.cliniqueveterinaire.bll.PersonnelsManager;
 import fr.eni.cliniqueveterinaire.dal.DALException;
+import fr.eni.cliniqueveterinaire.ihm.agenda.PanAgendaController;
+import fr.eni.cliniqueveterinaire.ihm.agenda.TableAgendaVet;
 import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
 
 public class PanGDP extends JPanel{
@@ -27,8 +31,7 @@ public class PanGDP extends JPanel{
 	private static PanGDP instance;
 	private JPanel panelHead, panelTable;
 	private JButton bAjouter, bSupprimer, bReinitialiser;
-	private JTable tPersonnel;
-	private DefaultTableModel defTableModel;
+	private TablePersonnels tablePersonnels;
 	
 	public static PanGDP getInstance()
 	{
@@ -50,12 +53,7 @@ public class PanGDP extends JPanel{
 		
 		gbc.gridx =0;
 		gbc.gridy =1;
-		try {
-			add(getPanelTable(),gbc);
-		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		add(getPanelTable(),gbc);
 	}
 	
 	private JPanel getPanelHead()
@@ -74,15 +72,15 @@ public class PanGDP extends JPanel{
 		return panelHead;
 	}
 	
-	private JPanel getPanelTable() throws DALException
+	private JPanel getPanelTable()
 	{
 		if (panelTable == null)
 		{
 			panelTable = new JPanel();
 			panelTable.setBorder(BorderFactory.createLineBorder(Color.black));
 			panelTable.setOpaque(true);
-			
-			panelTable.add(getTablePersonnel(), BorderLayout.CENTER);
+			panelTable.setPreferredSize(new Dimension(this.getPreferredSize().width -15,380));
+			panelTable.add(getTablePersonnel());
 		
 			JScrollPane js=new JScrollPane(getTablePersonnel());
 	        js.setVisible(true);
@@ -157,7 +155,29 @@ public class PanGDP extends JPanel{
 		return bReinitialiser;
 	}
 	
-	public JTable getTablePersonnel() throws DALException
+	public TablePersonnels getTablePersonnel()
+	{
+		if (tablePersonnels == null)
+		{
+			try {
+				tablePersonnels = new TablePersonnels(PersonnelsManager.selectTousPersonnels());
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			tablePersonnels.setRowHeight(50);  
+			tablePersonnels.setBackground(new Color(238,238,238));
+			tablePersonnels.setShowGrid(false);
+			tablePersonnels.setFont(new Font("Arial", Font.BOLD, 15));
+			tablePersonnels.isCellEditable(5, 2);
+			int h = this.getPreferredSize().height - 80 -getPanelHead().getPreferredSize().height;
+			tablePersonnels.setPreferredScrollableViewportSize(new Dimension(this.getPreferredSize().width-30,h-22));
+			tablePersonnels.setFillsViewportHeight(true);
+		}
+		return tablePersonnels;
+	}
+	
+/*	public JTable getTablePersonnel() throws DALException
 	{
 		if (tPersonnel == null)
 		{
@@ -178,7 +198,8 @@ public class PanGDP extends JPanel{
 		}
 		return tPersonnel;
 	}
-	
+*/
+/*	
 	public DefaultTableModel getDefTableModel()
 	{
 		if (defTableModel == null)
@@ -192,4 +213,5 @@ public class PanGDP extends JPanel{
 		}
 		return defTableModel;
 	}
+*/
 }
