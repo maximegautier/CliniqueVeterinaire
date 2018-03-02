@@ -13,8 +13,8 @@ public class Races
 
 	public Races(String race, String espece) 
 	{
-		race = race;
-		espece = espece;
+		this.race = race;
+		this.espece = espece;
 	}
 
     //endregion CTOR

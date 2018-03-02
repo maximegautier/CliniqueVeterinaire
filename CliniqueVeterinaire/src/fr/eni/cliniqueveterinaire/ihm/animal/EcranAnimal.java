@@ -2,6 +2,7 @@ package fr.eni.cliniqueveterinaire.ihm.animal;
 
 import java.awt.Color;
 import java.awt.ComponentOrientation;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -25,6 +26,7 @@ import javax.swing.WindowConstants;
 
 import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bo.Animaux;
+import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.bo.Races;
 
 /* Créé par Erwin DUPUIS */
@@ -63,8 +65,9 @@ public class EcranAnimal extends JFrame
     private JLabel LblTatouage;
     private JTextField TFdTatouage;
     
-    private List<Races> raceChat;
-    private List<Races> raceChien;
+    private List<Races> race;
+    private Clients clientCourant;
+    private Animaux animalCourant;
 
     //endregion DECLARATION
 
@@ -75,20 +78,30 @@ public class EcranAnimal extends JFrame
     	getCurrentFrame();
     	
     	this.typeOperation = false;    	
-    	this.CodeClient = codeClient;
-    	this.CodeAnimal = codeAnimal;
-    	this.raceChat = new ArrayList<Races>();
-    	this.raceChien = new ArrayList<Races>();
+    	this.CodeClient = 1;//codeClient;
+    	this.CodeAnimal = 3;//codeAnimal;
+    	this.race = new ArrayList<Races>();
     	
-	    this.setSize(640, 480);
+	    this.setSize(580, 340);
+	    //this.setPreferredSize(new Dimension(640, 480));
 	    this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	    this.setTitle("Animaux");
-	    this.setLocationRelativeTo(null);
-	    this.setupIHM();
-	
-	    this.setVisible(true);    	
+	    this.setLocationRelativeTo(null);   	
+	    	    
+	    try 
+	    {
+	    	clientCourant = EcranAnimalController.getInstance().selectClientParCode(CodeClient);
+			animalCourant = EcranAnimalController.getInstance().selectAnimal(CodeAnimal);
+		} catch (BLLException e) 
+	    {
+			e.printStackTrace();
+		}	    
+	       
+	    this.remplirChampsSiAnimal();	
 	    
-	    EcranAnimalController.getInstance().remplirChamps();
+	    this.setupIHM();
+		
+	    this.setVisible(true); 
     }
 
     public EcranAnimal(int codeClient)
@@ -97,16 +110,29 @@ public class EcranAnimal extends JFrame
     	
     	this.typeOperation = true;
     	this.CodeClient = codeClient;
-    	this.raceChat = new ArrayList<Races>();
-    	this.raceChien = new ArrayList<Races>();
+    	this.race = new ArrayList<Races>();
     	
-	    this.setSize(640, 480);
+	    this.setSize(580, 340);
 	    this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	    this.setTitle("Animaux");
-	    this.setLocationRelativeTo(null);
+	    this.setLocationRelativeTo(null);	    	    
+	    
+	    try 
+	    {
+	    	clientCourant = EcranAnimalController.getInstance().selectClientParCode(CodeClient);
+	    	race = EcranAnimalController.getInstance().selectRacesChat();
+	    	
+	    	this.getCbEspece().setSelectedItem("Chat");
+	    	this.getCbRace().setSelectedIndex(0);
+		} 
+	    catch (BLLException e) 
+	    {
+			e.printStackTrace();
+		}
+	    
 	    this.setupIHM();
 	
-	    this.setVisible(true);    	
+	    this.setVisible(true);  
     }
     
     // CTOR A N'UTILISER QUE DANS LE CONTROLLER
@@ -114,10 +140,10 @@ public class EcranAnimal extends JFrame
     {
     	getCurrentFrame();
     	
-    	this.raceChat = new ArrayList<Races>();
-    	this.raceChien = new ArrayList<Races>();
+    	this.race = new ArrayList<Races>();
     	
 	    this.setSize(580, 340);
+	    //this.setPreferredSize(new Dimension(640, 480));
 	    this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	    this.setTitle("Animaux");
 	    this.setLocationRelativeTo(null);
@@ -133,7 +159,7 @@ public class EcranAnimal extends JFrame
     public void setupIHM()
     {
     	mainPanel = new JPanel();
-        mainPanel.setSize(this.getWidth(), this.getHeight());
+        mainPanel.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
         mainPanel.setOpaque(true);
         mainPanel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
         mainPanel.setLayout(new GridBagLayout());
@@ -192,8 +218,6 @@ public class EcranAnimal extends JFrame
     		//COLONNE 1
 	    	FormGBC.gridx =1;
 	    	FormGBC.gridy =0;
-	    	FormGBC.anchor = GridBagConstraints.WEST;
-	    	PanelFormulaire.add(this.getTFdCode(), FormGBC);
     		//COLONNE 2
 	    	FormGBC.gridx =2;
 	    	FormGBC.gridy =0;
@@ -286,6 +310,50 @@ public class EcranAnimal extends JFrame
 	    	FormGBC.gridy =4;
     }
     
+	public void remplirChampsSiAnimal()
+	{
+		this.getTFdCode().setText(String.valueOf(animalCourant.getCodeAnimal()));
+		this.getTfdNom().setText(animalCourant.getNomAnimal());
+		this.getCbSexe().setSelectedItem(animalCourant.getsexe());
+		if(animalCourant.getCouleur() != null)
+		{
+			this.getTfdCouleur().setText(animalCourant.getCouleur());
+		}
+		
+		this.getCbEspece().setSelectedItem(animalCourant.getEspece());
+		
+		switch(animalCourant.getEspece())
+		{
+			case "Chien":
+				try 
+				{
+					race = EcranAnimalController.getInstance().selectRacesChien();
+				} 
+				catch (BLLException e) 
+				{
+					e.printStackTrace();
+				}
+				break;
+			case "Chat" :
+				try 
+				{
+					race = EcranAnimalController.getInstance().selectRacesChat();
+				} 
+				catch (BLLException e) 
+				{
+					e.printStackTrace();
+				}
+				break;
+		}
+
+		this.getCbRace().setSelectedItem(animalCourant.getRace());
+		
+		if(animalCourant.gettatouage() != null)
+		{
+			this.getTfdTatouage().setText(animalCourant.gettatouage());
+		}	
+	}
+	
     //endregion METHODS
 
     //region GET/SET
@@ -398,7 +466,7 @@ public class EcranAnimal extends JFrame
 	{
 		if(LblClient == null)
 		{
-			LblClient = new JLabel("Client : (concat du nom du client ICI)");
+			LblClient = new JLabel("Client : "+clientCourant.getNomClient());
 		}
 		return LblClient;
 	}
@@ -407,7 +475,7 @@ public class EcranAnimal extends JFrame
 	{
 		if(LblCode == null)
 		{
-			LblCode = new JLabel("Code : ");
+			LblCode = new JLabel("Code : "+this.CodeClient);
 		}
 		return LblCode;
 	}
@@ -495,8 +563,41 @@ public class EcranAnimal extends JFrame
 			try 
 			{
 				espece = EcranAnimalController.getInstance().selectEspeces();
-	            CbEspece = new JComboBox();
+	            CbEspece = new JComboBox();	          
 	            CbEspece.setModel(new DefaultComboBoxModel(espece.toArray()));
+	            CbEspece.addActionListener(new ActionListener() 
+	            {	       
+					@Override
+					public void actionPerformed(ActionEvent e) 
+					{
+						switch(CbEspece.getSelectedItem().toString())
+						{
+							case "Chat":
+								try 
+								{
+									race = EcranAnimalController.getInstance().selectRacesChat();
+								} 
+								catch (BLLException e1) 
+								{
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								break;
+							
+							case "Chien": 
+								try 
+								{
+									race = EcranAnimalController.getInstance().selectRacesChien();
+								} 
+								catch (BLLException e1) 
+								{
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+								break;
+						}						
+					}
+				});
 			} 
 			catch (BLLException e) 
 			{
@@ -517,57 +618,16 @@ public class EcranAnimal extends JFrame
 	}
 
 	public JComboBox getCbRace() 
-	{
-		switch(CbEspece.getSelectedItem().toString())
+	{		
+		List<String> nomRace = new ArrayList();	
+		
+		for(Races tmp : race)
 		{
-			case "Chat" :
-				if(CbRace == null)
-		        {
-		            List<String> race = new ArrayList<String>();
-		            
-		            try 
-		            {
-						raceChat = EcranAnimalController.getInstance().selectRacesChat();
-					} 
-		            catch (BLLException e) 
-		            {
-						e.printStackTrace();
-					}
-		            
-		            for(Races tmpItem : raceChat)
-		            {
-		            	race.add(tmpItem.getRace());
-		            }
-		
-		            CbRace = new JComboBox();
-		            CbRace.setModel(new DefaultComboBoxModel(race.toArray()));
-		        }	
-				break;
-				
-			case "Chien" : 
-				if(CbRace == null)
-		        {
-		            List<String> race = new ArrayList<String>();
-		            
-		            try 
-		            {
-						raceChien = EcranAnimalController.getInstance().selectRacesChien();
-					} 
-		            catch (BLLException e) 
-		            {
-						e.printStackTrace();
-					}
-		            
-		            for(Races tmpItem : raceChien)
-		            {
-		            	race.add(tmpItem.getRace());
-		            }
-		
-		            CbRace = new JComboBox();
-		            CbRace.setModel(new DefaultComboBoxModel(race.toArray()));
-		        }	
-				break;
+			nomRace.add(tmp.getRace());
 		}
+		
+        CbRace = new JComboBox();    
+        CbRace.setModel(new DefaultComboBoxModel(nomRace.toArray()));
 		return CbRace;
 	}
 
@@ -591,7 +651,7 @@ public class EcranAnimal extends JFrame
 	
 	public int getCodeClient() 
 	{
-		return CodeClient;
+		return CodeClient = clientCourant.getCodeClient();
 	}
 
 	public int getCodeAnimal() 
@@ -599,24 +659,14 @@ public class EcranAnimal extends JFrame
 		return CodeAnimal;
 	}
 	
-	public List<Races> getRaceChat() 
+	public List<Races> getRace() 
 	{
-		return raceChat;
+		return race;
 	}
 
-	public void setRaceChat(List<Races> raceChat) 
+	public void setRace(List<Races> race) 
 	{
-		this.raceChat = raceChat;
-	}
-	
-	public List<Races> getRaceChien() 
-	{
-		return raceChien;
-	}
-
-	public void setRaceChien(List<Races> raceChien) 
-	{
-		this.raceChien = raceChien;
+		this.race = race;
 	}
 	
 	public JFrame getCurrentFrame()
@@ -628,6 +678,8 @@ public class EcranAnimal extends JFrame
 		
 		return currentFrame;
 	}
+	
+	
 	
     //endregion GET/SET
 }
