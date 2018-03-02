@@ -13,7 +13,7 @@ import fr.eni.cliniqueveterinaire.bo.Races;
 public class ModelAgendaVet extends AbstractTableModel{
 	
 	private List<Agendas> listRdv;
-	private final String[] entetes = { "Heure", "Nom du client", "Animal", "Race"};
+	private final String[] entetes = { "Heure", "Nom du client", "Animal", "Race" };
 	
 	public ModelAgendaVet(List<Agendas> list){
 		this.listRdv=list;

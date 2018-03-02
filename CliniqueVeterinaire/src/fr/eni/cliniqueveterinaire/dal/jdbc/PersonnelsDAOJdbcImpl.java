@@ -23,7 +23,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 	private String rqtUpdate = "UPDATE Personnels SET Nom=?, Prenom=?, Login=?, MotPasse=?, Role=?, Archive = ? WHERE CodePers = ?";
 	private String rqtSelectRole = "SELECT DISTINCT Role From Personnels";
 	private String rqtVerifieSiExiste = "SELECT * FROM Personnels WHERE Nom = ?";
-	private String rqtSelectVeterinaire = "SELECT CodePers,Nom,Prenom,Login,MotPasse,Role,Archive WHERE Role='vet' AND Archive = 0";
+	private String rqtSelectVeterinaire = "SELECT CodePers,Nom,Prenom,Login,MotPasse,Role,Archive FROM Personnels WHERE Role='vet' AND Archive = 0";
 	
 	public PersonnelsDAOJdbcImpl()
 	{

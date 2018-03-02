@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,24 +37,24 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 		List<Agendas> aRetourner = new ArrayList<Agendas>();
 		Connection cnx = JdbcTools.getConnection();
 		String rqtSelectParDate = "SELECT * FROM Agendas WHERE DateRdv = ?";
-		PreparedStatement psSelectParDate = null;
-		ResultSet rsSelectParDate = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
 		
 		try 
 		{
-			psSelectParDate = cnx.prepareStatement(rqtSelectParDate);
-			psSelectParDate.setDate(1, (java.sql.Date) jour);
-			rsSelectParDate = psSelectParDate.executeQuery();
+			rqt = cnx.prepareStatement(rqtSelectParDate);
+			rqt.setTimestamp(1, new java.sql.Timestamp(jour.getTime()));
+			rs = rqt.executeQuery();
+			Agendas tmpRdv = null;
 			
-			if(rsSelectParDate.next())
+			while(rs.next())
 			{
-				Agendas tmpRdv = new Agendas(
-						rsSelectParDate.getInt("CodeVeto"),
-						rsSelectParDate.getInt("CodeAnimal"),
-						rsSelectParDate.getDate("DateRdv"));
-				
-				aRetourner.add(tmpRdv);
+				tmpRdv = new Agendas(
+						rs.getInt("CodeVeto"),
+						rs.getInt("CodeAnimal"),
+						rs.getDate("DateRdv"));
 			}
+			aRetourner.add(tmpRdv);
 		} 
 		catch (SQLException e) 
 		{
@@ -63,9 +64,15 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 		{
 			try
 			{
-				psSelectParDate.close();
-				rsSelectParDate.close();
-				cnx.close();
+				if (rs != null){
+					rs.close();
+				}
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
 			}
 			catch(SQLException e)
 			{

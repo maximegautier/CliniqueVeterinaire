@@ -95,7 +95,10 @@ public class Personnels
 		login = login;
 	}
 	
-	
+	public String getDisplayName()
+	{
+		return nom + " " + prenom;
+	}
 
     //endregion GET/SET
 }

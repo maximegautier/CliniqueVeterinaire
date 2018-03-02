@@ -5,12 +5,20 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.util.Date;
+import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
+import javax.swing.event.ListDataListener;
 
+import fr.eni.cliniqueveterinaire.bll.BLLException;
+import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
 
@@ -19,6 +27,7 @@ public class PanAgenda extends JPanel{
 	private static PanAgenda instance;
 	private JPanel panelHead;
 	private JPanel panelTable;
+	private JComboBox<String> cbVeterinaire;
 	
 	
 	public static PanAgenda getInstance()
@@ -36,7 +45,17 @@ public class PanAgenda extends JPanel{
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(5, 5, 5, 5);
 		
+		gbc.gridx = 0;
+		gbc.gridy = 0;
 		add(getPanelHead(),gbc);
+		
+		gbc.gridx = 0;
+		gbc.gridy = 1;
+		add(new JLabel("test"),gbc);
+		
+		gbc.gridx = 0;
+		gbc.gridy = 2;
+		add(getPanelTable(),gbc);
 	}
 
 	
@@ -50,6 +69,14 @@ public class PanAgenda extends JPanel{
 			panelHead.setOpaque(true);
 			panelHead.setPreferredSize(new Dimension(this.getPreferredSize().width -15,60));
 			panelHead.add(new JLabel("Veterinaire :"));
+			try {
+				panelHead.add(getCbVeterinaire());
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			panelHead.add(new JLabel("   Date :"));
+			
 
 		}
 		return panelHead;
@@ -60,8 +87,24 @@ public class PanAgenda extends JPanel{
 		if (panelTable == null)
 		{
 			panelTable = new JPanel();
-			PanAgendaController.remplirTableau();
+			try {
+				TableAgendaVet tableAgenda = new TableAgendaVet(PanAgendaController.remplirTableau(new Date()));
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return panelTable;
+	}
+	
+	public JComboBox<String> getCbVeterinaire() throws BLLException
+	{
+		if (cbVeterinaire == null){
+			cbVeterinaire = new JComboBox<String>();
+			List<String> lPerso = PanAgendaController.remplirComboVeterinaire();
+			
+			cbVeterinaire.setModel(new DefaultComboBoxModel(lPerso.toArray()));
+		}
+		return cbVeterinaire;
 	}
 }

@@ -26,7 +26,7 @@ public class AgendasManager
     
     //region METHODS
     
-	public static List<Agendas> selectEntreDates(Date jour) throws BLLException
+	public static List<Agendas> selectParDate(Date jour) throws BLLException
 	{
 		if(jour == null)
 		{
