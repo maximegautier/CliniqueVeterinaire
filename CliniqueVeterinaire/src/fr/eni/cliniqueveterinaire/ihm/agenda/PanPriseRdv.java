@@ -6,6 +6,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.Calendar;
+import java.util.Properties;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -447,13 +448,24 @@ public class PanPriseRdv extends JPanel
 		if(dpDate == null)
 		{
 			UtilDateModel model = new UtilDateModel();
+			//model.setDate(20,04,2014);
+			// Need this...
+			Properties p = new Properties();
+			p.put("text.today", "Today");
+			p.put("text.month", "Month");
+			p.put("text.year", "Year");
+			JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
+			// Don't know about the formatter, but there it is...
+			JDatePickerImpl datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+			
+			/*UtilDateModel model = new UtilDateModel();
 			int annee = Calendar.getInstance().get(Calendar.YEAR);
 			int mois = Calendar.getInstance().get(Calendar.MONTH);
 			int jour = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 			model.setDate(annee, mois, jour);
 			model.setSelected(true);
 			JDatePanelImpl datePanel = new JDatePanelImpl(model, null);
-			dpDate = new JDatePickerImpl(datePanel, null);
+			dpDate = new JDatePickerImpl(datePanel, null);*/
 		}
 		return dpDate;
 	}
@@ -498,3 +510,4 @@ public class PanPriseRdv extends JPanel
 	
     //endregion GET/SET
 }
+
