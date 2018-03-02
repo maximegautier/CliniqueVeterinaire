@@ -5,8 +5,6 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -18,7 +16,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListModel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListDataListener;
 
 public class EcranRechercheClients extends JFrame{
 	

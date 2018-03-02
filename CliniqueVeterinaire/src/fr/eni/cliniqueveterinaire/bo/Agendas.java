@@ -41,7 +41,7 @@ public class Agendas
 	}
 
 	public void setCodeVeto(int codeVeto) {
-		codeVeto = codeVeto;
+		this.codeVeto = codeVeto;
 	}
 
 	public int getCodeAnimal() {
@@ -49,7 +49,7 @@ public class Agendas
 	}
 
 	public void setCodeAnimal(int codeAnimal) {
-		codeAnimal = codeAnimal;
+		this.codeAnimal = codeAnimal;
 	}
 
 	public Date getDateRdv() {
@@ -57,7 +57,7 @@ public class Agendas
 	}
 
 	public void setDateRdv(Date dateRdv) {
-		dateRdv = dateRdv;
+		this.dateRdv = dateRdv;
 	}
 
     //endregion GET/SET

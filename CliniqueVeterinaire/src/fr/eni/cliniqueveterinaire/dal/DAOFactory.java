@@ -1,9 +1,5 @@
 package fr.eni.cliniqueveterinaire.dal;
 
-import java.util.Date;
-import java.util.List;
-
-import fr.eni.cliniqueveterinaire.bo.Agendas;
 import fr.eni.cliniqueveterinaire.dal.jdbc.AgendasDAOJdbcImpl;
 import fr.eni.cliniqueveterinaire.dal.jdbc.AnimauxDAOJdbcImpl;
 import fr.eni.cliniqueveterinaire.dal.jdbc.ClientsDAOJdbcImpl;

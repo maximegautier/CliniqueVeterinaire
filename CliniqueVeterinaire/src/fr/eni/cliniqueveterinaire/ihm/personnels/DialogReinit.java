@@ -1,6 +1,5 @@
 package fr.eni.cliniqueveterinaire.ihm.personnels;
 
-import java.awt.ComponentOrientation;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -18,7 +17,6 @@ import javax.swing.JTextField;
 import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.dal.DALException;
-import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
 
 /* Créé par Erwin DUPUIS */
 public class DialogReinit extends JDialog

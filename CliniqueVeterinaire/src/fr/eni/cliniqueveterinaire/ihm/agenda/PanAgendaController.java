@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.swing.JComboBox;
-
 import fr.eni.cliniqueveterinaire.bll.AgendasManager;
 import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bll.PersonnelsManager;
@@ -33,7 +31,7 @@ public class PanAgendaController
 	public static List<String> remplirComboVeterinaire() throws BLLException{
 		List<Personnels> lPersonnel = PersonnelsManager.selectTousVeterinaires();
 		
-		List<String> lNomPersonnel = new ArrayList();
+		List<String> lNomPersonnel = new ArrayList<String>();
 		
 		for (Personnels tmp : lPersonnel)
 		{

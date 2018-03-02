@@ -1,10 +1,8 @@
 package fr.eni.cliniqueveterinaire.dal.jdbc;
-import fr.eni.cliniqueveterinaire.dal.jdbc.*;
 import fr.eni.cliniqueveterinaire.bo.*;
 import fr.eni.cliniqueveterinaire.dal.*;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -163,7 +161,7 @@ public class ClientsDAOJdbcImpl implements ClientsDAO {
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
-		List<Clients> lesClient = new ArrayList();
+		List<Clients> lesClient = new ArrayList<Clients>();
 		
 		try{
 			cnx = JdbcTools.getConnection();

@@ -1,7 +1,6 @@
 package fr.eni.cliniqueveterinaire.ihm.personnels;
 
 import java.util.List;
-import java.util.Vector;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;

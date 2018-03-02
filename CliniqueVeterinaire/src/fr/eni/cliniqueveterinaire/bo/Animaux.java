@@ -92,7 +92,7 @@ public class Animaux
 	}
 
 	public void setCodeAnimal(int codeAnimal) {
-		codeAnimal = codeAnimal;
+		this.codeAnimal = codeAnimal;
 	}
 
 	public int getCodeClient() {
@@ -100,7 +100,7 @@ public class Animaux
 	}
 
 	public void setCodeClient(int codeClient) {
-		codeClient = codeClient;
+		this.codeClient = codeClient;
 	}
 
 	public String getRace() {
@@ -108,7 +108,7 @@ public class Animaux
 	}
 
 	public void setRace(String race) {
-		race = race;
+		this.race = race;
 	}
 
 	public String getNomAnimal() {
@@ -116,7 +116,7 @@ public class Animaux
 	}
 
 	public void setNomAnimal(String nomAnimal) {
-		nomAnimal = nomAnimal;
+		this.nomAnimal = nomAnimal;
 	}
 
 	public String getsexe() {
@@ -124,7 +124,7 @@ public class Animaux
 	}
 
 	public void setsexe(String sexe) {
-		sexe = sexe;
+		this.sexe = sexe;
 	}
 
 	public String getCouleur() {
@@ -132,7 +132,7 @@ public class Animaux
 	}
 
 	public void setCouleur(String couleur) {
-		couleur = couleur;
+		this.couleur = couleur;
 	}
 
 	public String getEspece() {
@@ -140,7 +140,7 @@ public class Animaux
 	}
 
 	public void setEspece(String espece) {
-		espece = espece;
+		this.espece = espece;
 	}
 
 	public String gettatouage() {
@@ -148,7 +148,7 @@ public class Animaux
 	}
 
 	public void settatouage(String tatouage) {
-		tatouage = tatouage;
+		this.tatouage = tatouage;
 	}
 
 	public String getAntecedents() {
@@ -156,7 +156,7 @@ public class Animaux
 	}
 
 	public void setAntecedents(String antecedents) {
-		antecedents = antecedents;
+		this.antecedents = antecedents;
 	}
 
 	public boolean getarchive() {
@@ -164,7 +164,7 @@ public class Animaux
 	}
 
 	public void setarchive(boolean archive) {
-		archive = archive;
+		this.archive = archive;
 	}
 
     //endregion GET/SET

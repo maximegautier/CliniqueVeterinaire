@@ -93,73 +93,73 @@ public class Clients
 	}
 
 	public void setCodeClient(int codeClient) {
-		codeClient = codeClient;
+		this.codeClient = codeClient;
 	}
 	public String getNomClient() {
 		return nomClient;
 	}
 	public void setNomClient(String nomClient) {
-		nomClient = nomClient;
+		this.nomClient = nomClient;
 	}
 	public String getPrenomClient() {
 		return prenomClient;
 	}
 	public void setPrenomClient(String prenomClient) {
-		prenomClient = prenomClient;
+		this.prenomClient = prenomClient;
 	}
 	public String getAdresse1() {
 		return adresse1;
 	}
 	public void setAdresse1(String adresse1) {
-		adresse1 = adresse1;
+		this.adresse1 = adresse1;
 	}
 	public String getAdresse2() {
 		return adresse2;
 	}
 	public void setAdresse2(String adresse2) {
-		adresse2 = adresse2;
+		this.adresse2 = adresse2;
 	}
 	public String getCodePostal() {
 		return codePostal;
 	}
 	public void setCodePostal(String codePostal) {
-		codePostal = codePostal;
+		this.codePostal = codePostal;
 	}
 	public String getVille() {
 		return ville;
 	}
 	public void setVille(String ville) {
-		ville = ville;
+		this.ville = ville;
 	}
 	public String getNumTel() {
 		return numTel;
 	}
 	public void setNumTel(String numTel) {
-		numTel = numTel;
+		this.numTel = numTel;
 	}
 	public String getAssurance() {
 		return assurance;
 	}
 	public void setAssurance(String assurance) {
-		assurance = assurance;
+		this.assurance = assurance;
 	}
 	public String getEmail() {
 		return email;
 	}
 	public void setEmail(String email) {
-		email = email;
+		this.email = email;
 	}
 	public String getRemarque() {
 		return remarque;
 	}
 	public void setRemarque(String remarque) {
-		remarque = remarque;
+		this.remarque = remarque;
 	}
 	public boolean isArchive() {
 		return archive;
 	}
 	public void setArchive(boolean archive) {
-		archive = archive;
+		this.archive = archive;
 	}
 	
 	//endregion GET/SET

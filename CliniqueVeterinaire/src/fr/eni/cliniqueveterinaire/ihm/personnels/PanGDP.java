@@ -1,6 +1,5 @@
 package fr.eni.cliniqueveterinaire.ihm.personnels;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -9,22 +8,17 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
 import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bll.PersonnelsManager;
 import fr.eni.cliniqueveterinaire.dal.DALException;
-import fr.eni.cliniqueveterinaire.ihm.agenda.PanAgendaController;
-import fr.eni.cliniqueveterinaire.ihm.agenda.TableAgendaVet;
-import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
+
 
 public class PanGDP extends JPanel{
 
@@ -165,7 +159,6 @@ public class PanGDP extends JPanel{
 			try {
 				tablePersonnels = new TablePersonnels(PersonnelsManager.selectTousPersonnels());
 			} catch (BLLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			tablePersonnels.setRowHeight(50);  
@@ -179,42 +172,5 @@ public class PanGDP extends JPanel{
 		}
 		return tablePersonnels;
 	}
-	
-/*	public JTable getTablePersonnel() throws DALException
-	{
-		if (tPersonnel == null)
-		{
-			tPersonnel = new JTable(getDefTableModel()){ 
-					public boolean isCellEditable(int row, int column) 
-					{ 
-							return false; 
-					}
-			};
-	        tPersonnel.setRowHeight(50);  
-	        tPersonnel.setBackground(new Color(238,238,238));
-			tPersonnel.setShowGrid(false);
-			tPersonnel.setFont(new Font("Arial", Font.BOLD, 15));
-			tPersonnel.isCellEditable(5, 2);
-			int h = this.getPreferredSize().height - 80 -getPanelHead().getPreferredSize().height;
-			tPersonnel.setPreferredScrollableViewportSize(new Dimension(this.getPreferredSize().width-30,h-22));
-			tPersonnel.setFillsViewportHeight(true);
-		}
-		return tPersonnel;
-	}
-*/
-/*	
-	public DefaultTableModel getDefTableModel()
-	{
-		if (defTableModel == null)
-		{
-			try {
-				defTableModel = new DefaultTableModel(PanGDPController.getInstance().completerTableau(),PanGDPController.getInstance().getEntete());
-			} catch (BLLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return defTableModel;
-	}
-*/
+
 }

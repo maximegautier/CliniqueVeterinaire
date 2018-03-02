@@ -1,6 +1,5 @@
 package fr.eni.cliniqueveterinaire.bll;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

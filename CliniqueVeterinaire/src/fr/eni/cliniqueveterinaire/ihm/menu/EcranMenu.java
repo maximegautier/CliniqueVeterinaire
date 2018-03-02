@@ -9,11 +9,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-import fr.eni.cliniqueveterinaire.bo.Personnels;
-import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.agenda.PanAgenda;
 import fr.eni.cliniqueveterinaire.ihm.agenda.PanPriseRdv;
-import fr.eni.cliniqueveterinaire.ihm.login.EcranLogin;
 import fr.eni.cliniqueveterinaire.ihm.login.EcranLoginController;
 import fr.eni.cliniqueveterinaire.ihm.personnels.PanGDP;
 
