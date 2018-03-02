@@ -174,7 +174,6 @@ public class ClientsDAOJdbcImpl implements ClientsDAO {
 						rs.getString("Adresse1"),rs.getString("Adresse2"),rs.getString("CodePostal"),
 						rs.getString("Ville"),rs.getString("NumTel"),rs.getString("Assurance"),
 						rs.getString("Email"),rs.getString("Remarque"),rs.getBoolean("Archive")));
-				System.out.println(lesClient.get(i).toString());
 				i++;
 			}
 		}catch(SQLException e){

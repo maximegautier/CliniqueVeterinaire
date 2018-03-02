@@ -23,6 +23,7 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 import fr.eni.cliniqueveterinaire.bll.BLLException;
+import fr.eni.cliniqueveterinaire.bo.Personnels;
 
 public class PanAgenda extends JPanel{
 
@@ -106,7 +107,7 @@ public class PanAgenda extends JPanel{
 	{
 		if (cbVeterinaire == null){
 			cbVeterinaire = new JComboBox<String>();
-			List<String> lPerso = PanAgendaController.remplirComboVeterinaire();
+			List<Personnels> lPerso = PanAgendaController.remplirComboVeterinaire();
 			
 			cbVeterinaire.setModel(new DefaultComboBoxModel(lPerso.toArray()));
 		}

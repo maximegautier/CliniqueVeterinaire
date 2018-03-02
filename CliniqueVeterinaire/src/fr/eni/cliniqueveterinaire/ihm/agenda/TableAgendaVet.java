@@ -20,7 +20,6 @@ public class TableAgendaVet extends JTable{
 		
 		setRowHeight(30);  
         setBackground(new Color(238,238,238));
-		setShowGrid(false);
 		setFont(new Font("Arial",Font.BOLD, 15));
 		setFillsViewportHeight(true);
 	}

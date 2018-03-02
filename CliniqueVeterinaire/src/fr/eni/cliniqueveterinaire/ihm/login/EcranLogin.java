@@ -51,6 +51,7 @@ public class EcranLogin extends JFrame{
 			panelConnexion.setLayout(new GridBagLayout());
 			gbcConnexion = new GridBagConstraints();	
 			gbcConnexion.insets = new Insets(5, 5, 15, 5);
+			gbcConnexion.anchor = GridBagConstraints.WEST;
 			
 			// Login
 			gbcConnexion.gridx=0;
@@ -69,6 +70,7 @@ public class EcranLogin extends JFrame{
 			panelConnexion.add(getTxtPassword(),gbcConnexion);
 			
 			// Valider
+			gbcConnexion.anchor = GridBagConstraints.CENTER;
 			gbcConnexion.gridx=0;
 			gbcConnexion.gridy=2;
 			gbcConnexion.gridwidth = 2;
@@ -85,14 +87,14 @@ public class EcranLogin extends JFrame{
 	
 	public JTextField getTxtLogin(){
 		if (tfLogin == null) {
-			tfLogin = new JTextField(15);
+			tfLogin = new JTextField("admin",15);
 		}
 		return tfLogin;
 	}
 	
 	public JTextField getTxtPassword(){
 		if (tfPassword == null) {
-			tfPassword = new JPasswordField(15);
+			tfPassword = new JPasswordField("admin",15);
 		}
 		return tfPassword;
 	}
