@@ -20,8 +20,7 @@ import javax.swing.border.EmptyBorder;
 public class EcranRechercheClients extends JFrame{
 	
 	private static EcranRechercheClients instance ;
-	
-	//bonjour
+
 	
 	//Composants Java Swing à intégrer à l'ihm
 		public JPanel panelPrincipal;

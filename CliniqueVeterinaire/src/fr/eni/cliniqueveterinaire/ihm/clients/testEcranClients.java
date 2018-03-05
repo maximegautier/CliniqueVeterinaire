@@ -11,11 +11,11 @@ public class testEcranClients {
 			@Override
 			public void run() 
 			{
-				/*	try {
+					try {
 						EcranClientsController.getInstance().startApp();
 					} catch (BLLException e) {
 						e.printStackTrace();
-					}*/
+					}
 			}	
 		});
 	}
