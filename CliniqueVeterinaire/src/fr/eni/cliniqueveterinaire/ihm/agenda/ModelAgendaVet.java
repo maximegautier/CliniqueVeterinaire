@@ -41,8 +41,8 @@ public class ModelAgendaVet extends AbstractTableModel{
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Animaux animal = null;
 		try {
+			int a = listRdv.get(rowIndex).getCodeAnimal();
 			animal = AnimauxManager.selectAnimal(listRdv.get(rowIndex).getCodeAnimal());
-			System.out.println(animal);
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
