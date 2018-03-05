@@ -11,9 +11,17 @@ public class ModeleTableAnimauxClients extends AbstractTableModel{
     private List<Animaux> data;
     private String[] title;
 
-    public ModeleTableAnimauxClients(List<Animaux> liste, String[] title){
+    public ModeleTableAnimauxClients(List<Animaux> liste){
+    	super();
+    	title = new String[7];
+    	title[0] = "Numéro";
+    	title[1] = "Nom";
+    	title[2] = "Sexe";
+    	title[3] = "Couleur";
+    	title[4] = "Race";
+    	title[5] = "Espece";
+    	title[6] = "Tatouage";
         this.data = liste;
-        this.title = title;
     }
     
     //Retourne le titre de la colonne et l'indice
@@ -52,6 +60,21 @@ public class ModeleTableAnimauxClients extends AbstractTableModel{
         }   
     	return aRetourner;
     }
+ 
+    public void removeAll() {
+        for(int i = 0 ; i<getRowCount();i++){
+        	data.remove(i);
+        	fireTableRowsDeleted(i, i);
+        	i++;
+        }        
+    }
+    
+    public void setDataChanged(List<Animaux> liste){
+    	this.data = liste;
+    	fireTableDataChanged();
+    }
+ 
+    
     
    /*
     //Modifier l'objet à l'intersection de ligne et colonne

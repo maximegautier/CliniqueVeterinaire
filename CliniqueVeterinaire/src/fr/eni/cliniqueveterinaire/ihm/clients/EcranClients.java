@@ -18,6 +18,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+
+import fr.eni.cliniqueveterinaire.bll.AnimauxManager;
 import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bo.Animaux;
 import fr.eni.cliniqueveterinaire.dal.DALException;
@@ -57,12 +59,13 @@ public class EcranClients extends JFrame{
 	public JButton bAjouterAnimal;
 	public JButton bSupprimerAnimal;
 	public JButton bEditerAnimal;
+	//public TableAnimauxClients tabAnimaux;
 	
 	public int codeClient = 1;
 	public int codeAnimal = 1;
 
 	//Méthode static de récupération d'une instance unique de la fenêtre 
-	public static EcranClients getInstance(){
+	public static EcranClients getInstance() throws BLLException{
 		if (EcranClients.instance == null){
 			EcranClients.instance = new EcranClients();
 		}
@@ -70,7 +73,7 @@ public class EcranClients extends JFrame{
 	}
 
 	//Constructeur
-	private EcranClients() {
+	private EcranClients() throws BLLException {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(1000, 500);
 		setResizable(true);
@@ -178,7 +181,7 @@ public class EcranClients extends JFrame{
 	}
 	
 	//Méthode de construction de l'ihm
-	private JPanel initEcranClients(){
+	private JPanel initEcranClients() throws BLLException{
 		//Section Barre de recherche
 		getGbcPrincipal().gridx=0;
 		getGbcPrincipal().gridy=0;
@@ -264,7 +267,7 @@ public class EcranClients extends JFrame{
 		return gbcButtonAnimaux;
 	}
 
-	public JScrollPane getScrollPanel() {
+	public JScrollPane getScrollPanel() throws BLLException {
 		if (scrollPanel == null) {
 			scrollPanel = new JScrollPane(getTabAnimaux(), JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 			scrollPanel.setPreferredSize(new Dimension(600,200));
@@ -272,10 +275,27 @@ public class EcranClients extends JFrame{
 		return scrollPanel;
 	}
 	
-	public JTable getTabAnimaux() {
+	/*public JTable getTabAnimaux() throws BLLException {
 		if (tabAnimaux == null) {
-			tabAnimaux = new JTable();//6,7
+			tabAnimaux = new TableAnimauxClients(AnimauxManager.selectAnimaux(codeClient));
 			tabAnimaux.setModel(getModele());
+			tabAnimaux.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+			tabAnimaux.getColumnModel().getColumn(0).setPreferredWidth(100);
+			tabAnimaux.getColumnModel().getColumn(1).setPreferredWidth(100);
+			tabAnimaux.getColumnModel().getColumn(2).setPreferredWidth(100);
+			tabAnimaux.getColumnModel().getColumn(3).setPreferredWidth(100);
+			tabAnimaux.getColumnModel().getColumn(4).setPreferredWidth(100);
+			tabAnimaux.getColumnModel().getColumn(5).setPreferredWidth(100);
+			tabAnimaux.getColumnModel().getColumn(6).setPreferredWidth(100);
+						
+			tabAnimaux.getTableHeader().resizeAndRepaint();
+		}
+		return tabAnimaux;
+	}*/
+	
+	public JTable getTabAnimaux() throws BLLException {
+		if (tabAnimaux == null) {
+			tabAnimaux = new JTable(new ModeleTableAnimauxClients(AnimauxManager.selectAnimaux(codeClient)));
 			tabAnimaux.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 			tabAnimaux.getColumnModel().getColumn(0).setPreferredWidth(100);
 			tabAnimaux.getColumnModel().getColumn(1).setPreferredWidth(100);
@@ -445,7 +465,7 @@ public class EcranClients extends JFrame{
 		return bEditerAnimal;
 	}
 
-	public JPanel getPanelTabAnimaux() {
+	public JPanel getPanelTabAnimaux() throws BLLException {
 		if(panelTabAnimaux == null){
 			panelTabAnimaux = new JPanel();
 			panelTabAnimaux.add(getScrollPanel());
@@ -512,12 +532,16 @@ public class EcranClients extends JFrame{
 	
 	public ModeleTableAnimauxClients getModele() {
 		if(modele == null){
-			modele = new ModeleTableAnimauxClients(new ArrayList<Animaux>(), new String[7]);
+			modele = new ModeleTableAnimauxClients(new ArrayList<Animaux>());
 		}
 		return modele;
 	}
 
 	public void setModele(ModeleTableAnimauxClients modele) {
 		this.modele = modele;
+	}
+	
+	public void setTabAnimaux(List<Animaux> liste) throws BLLException{
+		tabAnimaux = new TableAnimauxClients(liste);
 	}
 }

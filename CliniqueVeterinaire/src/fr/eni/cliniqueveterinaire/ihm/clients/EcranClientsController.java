@@ -26,7 +26,7 @@ public class EcranClientsController {
 	{
 		fenClient = fenCli;
 		remplirChamps();
-		remplirTable(fenClient.getCodeClient());
+		actualiseTab(fenClient.getCodeClient());
 		fenClient.setVisible(true);
 	}
 	
@@ -58,23 +58,6 @@ public class EcranClientsController {
 		fenClient.getTxtVille().setText(leClient.getVille());
 	}
 	
-	public void remplirTable(int codeClient) throws NumberFormatException, BLLException{
-		List<Animaux> listeAnimaux = new ArrayList();
-		String[] titresCol = new String[7];
-		
-		listeAnimaux = AnimauxManager.selectAnimaux(3);//fenClient.getCodeClient());
-		
-		titresCol[0] = "Numéro";
-		titresCol[1] = "Nom";
-		titresCol[2] = "Sexe";
-		titresCol[3] = "Couleur";
-		titresCol[4] = "Race";
-		titresCol[5] = "Espece";
-		titresCol[6] = "Tatouage";
-		
-		fenClient.setModele(new ModeleTableAnimauxClients(listeAnimaux, titresCol));
-	}
-	
 	public void clickClientsRecherche(){
 		EcranRechercheClients.getInstance();
 	}
@@ -90,12 +73,23 @@ public class EcranClientsController {
 	public int clickClientsSuivant(int codeClient) throws BLLException, DALException{
 		int id = ClientsManager.getInstance().clientSuivant(codeClient).getCodeClient();
 		actualiseChamps(id);
+		actualiseTab(id);
 		return id;
+	}
+	
+	public void actualiseTab(int codeClient) throws BLLException{
+		int i =0;
+		List<Animaux> listeAnimaux = AnimauxManager.selectAnimaux(codeClient);
+		((ModeleTableAnimauxClients) (fenClient.getTabAnimaux().getModel())).setDataChanged(listeAnimaux);
+		for(Animaux anim : listeAnimaux){
+			System.out.println(anim.toString());
+		}
 	}
 	
 	public int clickClientsPrecedent(int codeClient) throws BLLException, DALException{
 		int id = ClientsManager.getInstance().clientPrecedent(codeClient).getCodeClient();
 		actualiseChamps(id);
+		actualiseTab(id);
 		return id;
 	}
 	
