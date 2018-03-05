@@ -36,7 +36,7 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 	public List<Agendas> selectParDate(Date jour) throws DALException 
 	{		
 		Connection cnx = null;
-		String rqtSelectParDate = "SELECT * FROM Agendas WHERE DateRdv = ?";
+		String rqtSelectParDate = "SELECT * FROM Agendas WHERE CAST(DateRdv as Date) = ? ORDER BY DateRdv";
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
 		List<Agendas> aRetourner = new ArrayList<Agendas>();
@@ -89,7 +89,7 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 	public List<Agendas> selectParDateVeterinaire(Date jour, int codeVeterinaire) throws DALException
 	{
 		Connection cnx = null;
-		String rqtSelectParDateVeterinaire = "SELECT * FROM Agendas WHERE DateRdv = ? AND CodeVeto = ?";
+		String rqtSelectParDateVeterinaire = "SELECT * FROM Agendas WHERE CAST(DateRdv as Date) = ? AND CodeVeto = ? ORDER BY DateRdv";
 		PreparedStatement rqt = null;
 		ResultSet rs = null;
 		List<Agendas> aRetourner = new ArrayList<Agendas>();
@@ -152,7 +152,7 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 		{
 			psAjouter = cnx.prepareStatement(rqtAjouter);
 			psAjouter.setInt(1, aAjouter.getCodeVeto());
-			psAjouter.setDate(2, (java.sql.Date) aAjouter.getDateRdv());
+			psAjouter.setTimestamp(2, new Timestamp(aAjouter.getDateRdv().getTime()));
 			psAjouter.setInt(3, aAjouter.getCodeAnimal());
 			
 			int nbRows = psAjouter.executeUpdate();
@@ -199,7 +199,7 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 		{
 			psSupprimer = cnx.prepareStatement(rqtSupprimer);
 			psSupprimer.setInt(1, aSupprimer.getCodeVeto());
-			psSupprimer.setDate(2, (java.sql.Date) aSupprimer.getDateRdv());
+			psSupprimer.setTimestamp(2, new Timestamp(aSupprimer.getDateRdv().getTime()));
 			psSupprimer.setInt(3, aSupprimer.getCodeAnimal());
 			
 			int nbRows = psSupprimer.executeUpdate();

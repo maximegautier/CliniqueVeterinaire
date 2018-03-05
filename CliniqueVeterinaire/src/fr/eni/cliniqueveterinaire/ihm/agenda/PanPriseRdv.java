@@ -277,6 +277,7 @@ public class PanPriseRdv extends JPanel
     {
     	panelListe = new JPanel();
     	panelListe.setLayout(new GridBagLayout());
+    	panelListe.setPreferredSize(new Dimension(400, 475));
     	GridBagConstraints gbcPanelListe = new GridBagConstraints();
     	gbcPanelListe.insets = new Insets(5,5,5,5);
     	
@@ -303,7 +304,6 @@ public class PanPriseRdv extends JPanel
 		try 
 		{
 			rdv = PanAgendaController.selectAgendasParDateVeterinaire(dateSelect, veterinaireCourant.getCodePers());   
-			//rdv.add(new Agendas(2, 4, new Date()));
 		} 
 		catch (BLLException e) 
 		{
