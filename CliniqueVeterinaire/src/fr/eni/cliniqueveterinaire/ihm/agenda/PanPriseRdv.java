@@ -1,5 +1,6 @@
 package fr.eni.cliniqueveterinaire.ihm.agenda;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -20,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -38,8 +40,10 @@ public class PanPriseRdv extends JPanel
 	private static PanPriseRdv instance;
 	
 	private JPanel panelPrincipal;
-	private JPanel panelListe;
 	
+	private JPanel panelListe;
+	private TableAgendaVet tableRdv;
+
 	private JButton btnSupprimer;
 	private JButton btnValider;
 	
@@ -93,30 +97,34 @@ public class PanPriseRdv extends JPanel
     
     public void initialisePanelPrincipal()
     {	
+		//this.setLayout(new GridBagLayout());
     	GridBagConstraints gbcPrincipal = new GridBagConstraints();
     	gbcPrincipal.insets = new Insets(5, 5, 5, 5);
 		
 		//LIGNE 0
 			
 			//COLONNE0
+    		//gbcPrincipal.anchor = GridBagConstraints.LINE_START;
 	    	gbcPrincipal.gridx =0;
-	    	gbcPrincipal.gridy =0;
+	    	gbcPrincipal.gridy =0;	    	
 	    	this.add(getPanelPour(), gbcPrincipal);
 			//COLONNE1
 	    	gbcPrincipal.gridx =1;
 	    	gbcPrincipal.gridy =0;
+	    	gbcPrincipal.anchor = GridBagConstraints.CENTER;
 	    	this.add(getPanelPar(), gbcPrincipal);
 			//COLONNE2
 	    	gbcPrincipal.gridx =2;
 	    	gbcPrincipal.gridy =0;
+	    	//gbcPrincipal.anchor = GridBagConstraints.LINE_START;
 	    	this.add(getPanelQuand(), gbcPrincipal);
 	    	
 		//LIGNE 1
 			
-			//COLONNE0
-	    	gbcPrincipal.gridx =0;
-	    	gbcPrincipal.gridy =1;
+			//COLONNE0	    	
 	    	gbcPrincipal.gridwidth = 3;
+	    	gbcPrincipal.gridx =0;
+	    	gbcPrincipal.gridy =1;	    	
 	    	this.add(getPanelListe(), gbcPrincipal);
 			//COLONNE1
 	    	gbcPrincipal.gridx =1;
@@ -132,8 +140,7 @@ public class PanPriseRdv extends JPanel
 	    	gbcPrincipal.gridy =2;
 			//COLONNE1
 	    	gbcPrincipal.gridx =1;
-	    	gbcPrincipal.gridy =2;
-	    	gbcPrincipal.gridwidth = 1;	    	
+	    	gbcPrincipal.gridy =2;    	
 			//COLONNE2
 	    	gbcPrincipal.gridx =2;
 	    	gbcPrincipal.gridy =2;
@@ -147,7 +154,7 @@ public class PanPriseRdv extends JPanel
     public void initialisePanelPour()
     {
     	panelPour = new JPanel();
-    	panelPour.setPreferredSize(new Dimension(150, 175));
+    	panelPour.setPreferredSize(new Dimension(225, 175));
     	panelPour.setBorder(BorderFactory.createTitledBorder("Pour"));
     	panelPour.setLayout(new GridBagLayout());
     	GridBagConstraints gbcPanelPour = new GridBagConstraints();
@@ -276,25 +283,22 @@ public class PanPriseRdv extends JPanel
     public void initialisePanelListe()
     {
     	panelListe = new JPanel();
-    	panelListe.setLayout(new GridBagLayout());
-    	panelListe.setPreferredSize(new Dimension(400, 475));
-    	GridBagConstraints gbcPanelListe = new GridBagConstraints();
-    	gbcPanelListe.insets = new Insets(5,5,5,5);
+    	//panelListe.setLayout(new GridBagLayout());
+    	panelListe.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+    	panelListe.setPreferredSize(new Dimension(this.getPreferredSize().width - 15, 200));
+    	//GridBagConstraints gbcPanelListe = new GridBagConstraints();
+    	//gbcPanelListe.insets = new Insets(5,5,5,5);
     	
 		//LIGNE 0
 		
 			//COLONNE0
-    		gbcPanelListe.gridx =0;
-    		gbcPanelListe.gridy =0;
-    		initialiseListeRdv();
-    		try 
-    		{
-				panelListe.add(new TableAgendaVet(rdv));
-			} 
-    		catch (BLLException e) 
-    		{
-				e.printStackTrace();
-			}
+    		//gbcPanelListe.gridx =0;
+    		//gbcPanelListe.gridy =0;    		
+			panelListe.add(getTableRdv());
+
+    		JScrollPane js=new JScrollPane(getTableRdv());
+	        js.setVisible(true);
+	        panelListe.add(js);
     }
    
     public void initialiseListeRdv()
@@ -555,7 +559,26 @@ public class PanPriseRdv extends JPanel
 		return cbMinute;
 	}
 
-	
+	public TableAgendaVet getTableRdv() 
+	{
+		if(tableRdv == null)
+		{
+			try 
+			{
+				initialiseListeRdv();
+				tableRdv = new TableAgendaVet(rdv);								
+			} 
+			catch (BLLException e) 
+			{
+				e.printStackTrace();
+			}
+			
+			int h = this.getPreferredSize().height - 230;
+			int w = this.getPreferredSize().width - 19;
+			tableRdv.setPreferredScrollableViewportSize(new Dimension(w,h));
+		}
+		return tableRdv;
+	}
 	
     //endregion GET/SET
 }
