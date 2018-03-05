@@ -44,6 +44,11 @@ public class PanAgendaController
 		return lPersonnel;
 	}
 	
+	public static List<Agendas> selectAgendasParDateVeterinaire(Date jour, int codeVeterinaire) throws BLLException
+	{
+		return AgendasManager.selectParDateVeterinaire(jour, codeVeterinaire);
+	}
+	
 	public static List<Clients> selectClients() throws BLLException
 	{
 		return ClientsManager.getInstance().selectAll();
