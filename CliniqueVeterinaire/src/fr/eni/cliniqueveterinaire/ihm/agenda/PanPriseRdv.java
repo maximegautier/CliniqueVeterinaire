@@ -267,6 +267,20 @@ public class PanPriseRdv extends JPanel
 		}
     }
     
+    public void initialiseListeAnimaux()
+    {
+		Clients clientCourant = (Clients) cbClient.getSelectedItem();
+		
+		try 
+		{
+			animaux = PanAgendaController.selectAnimauxClient(clientCourant.getCodeClient());
+		} 
+		catch (BLLException e) 
+		{
+			e.printStackTrace();
+		} 
+    }
+    
     //endregion METHODS
 
     //region GET/SET
@@ -357,8 +371,17 @@ public class PanPriseRdv extends JPanel
 		if(cbClient == null)
 		{	
 			cbClient = new JComboBox();
-			cbClient.setModel(new DefaultComboBoxModel(clients.toArray()));
+			cbClient.setModel(new DefaultComboBoxModel(clients.toArray()));	
+			initialiseListeAnimaux();
 			
+			cbClient.addActionListener(new ActionListener() 
+			{				
+				@Override
+				public void actionPerformed(ActionEvent e) 
+				{
+					initialiseListeAnimaux();				
+				}
+			});
 			
 		}
 		return cbClient;
@@ -395,6 +418,12 @@ public class PanPriseRdv extends JPanel
 		if(cbAnimal == null)
 		{
 			cbAnimal = new JComboBox();
+			
+			if(animaux != null)
+			{
+				cbClient.setModel(new DefaultComboBoxModel(animaux.toArray()));				
+			}
+
 		}
 		return cbAnimal;
 	}
@@ -434,6 +463,16 @@ public class PanPriseRdv extends JPanel
 			cbVeterinaire = new JComboBox();
 			cbVeterinaire.setModel(new DefaultComboBoxModel(veterinaires.toArray()));
 			cbVeterinaire.setSelectedIndex(0);
+			
+			cbVeterinaire.addActionListener(new ActionListener()
+			{				
+				@Override
+				public void actionPerformed(ActionEvent e) 
+				{
+					initialiseListeRdv();
+					getTableRdv().setData(rdv);
+				}
+			});
 		}
 		return cbVeterinaire;
 	}

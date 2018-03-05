@@ -78,9 +78,7 @@ public class Animaux
 	@Override
 	public String toString()
 	{
-		return "Animaux [CodeAnimal=" + codeAnimal + ", CodeClient=" + codeClient + ", Race=" + race + ", NomAnimal="
-				+ nomAnimal + ", sexe=" + sexe + ", Couleur=" + couleur + ", Espece=" + espece + ", tatouage="
-				+ tatouage + ", Antecedents=" + antecedents + ", archive=" + archive + "]";
+		return race + " " + nomAnimal;
 	}
     
     //endregion METHODS
