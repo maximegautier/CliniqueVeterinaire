@@ -109,7 +109,6 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 			
 			while(rs.next())
 			{
-				System.out.println("ok");
 				tmpRdv = new Agendas(
 						rs.getInt("CodeVeto"),
 						rs.getInt("CodeAnimal"),
