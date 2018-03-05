@@ -372,7 +372,12 @@ public class PanPriseRdv extends JPanel
 		{	
 			cbClient = new JComboBox();
 			cbClient.setModel(new DefaultComboBoxModel(clients.toArray()));	
-			initialiseListeAnimaux();			
+			cbClient.setSelectedIndex(0);
+			
+			initialiseListeAnimaux();
+			DefaultComboBoxModel model = new DefaultComboBoxModel( animaux.toArray() );
+			getCbAnimal().setModel(model);
+			
 			cbClient.addActionListener(new ActionListener() 
 			{				
 				@Override
