@@ -9,6 +9,7 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 
@@ -25,6 +26,7 @@ import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
 import fr.eni.cliniqueveterinaire.bll.BLLException;
+import fr.eni.cliniqueveterinaire.bo.Agendas;
 import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
 
@@ -63,6 +65,7 @@ public class PanPriseRdv extends JPanel
 	
 	private List<Clients> clients;
 	private List<Personnels> veterinaires;
+	private List<Agendas> rdv;
 
     //endregion DECLARATION
 
@@ -73,7 +76,7 @@ public class PanPriseRdv extends JPanel
 		try 
 		{
 			clients = PanAgendaController.selectClients();
-			veterinaires = PanAgendaController.remplirComboVeterinaire();
+			veterinaires = PanAgendaController.selectVeterinaires();
 		} 
 		catch (BLLException e) 
 		{
@@ -138,9 +141,7 @@ public class PanPriseRdv extends JPanel
 	    	this.add(getBtnSupprimer(), gbcPrincipal);
 	    	gbcPrincipal.anchor = GridBagConstraints.EAST;
 	    	this.add(getBtnValider(), gbcPrincipal);
-	    	
-	    	
-	    	
+	    	    	
     }
     
     public void initialisePanelPour()
@@ -284,6 +285,9 @@ public class PanPriseRdv extends JPanel
 			//COLONNE0
     		gbcPanelListe.gridx =0;
     		gbcPanelListe.gridy =0;
+    		Personnels veterinaireCourant = (Personnels) getCbVeterinaire().getSelectedItem();
+    		//getDpDate().
+    		//panelListe.add(new TableAgendaVet())
     }
    
     //endregion METHODS
@@ -450,6 +454,7 @@ public class PanPriseRdv extends JPanel
 		{
 			cbVeterinaire = new JComboBox();
 			cbVeterinaire.setModel(new DefaultComboBoxModel(veterinaires.toArray()));
+			cbVeterinaire.setSelectedIndex(0);
 		}
 		return cbVeterinaire;
 	}

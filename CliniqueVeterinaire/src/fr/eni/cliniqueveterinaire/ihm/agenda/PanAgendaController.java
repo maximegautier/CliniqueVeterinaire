@@ -35,7 +35,7 @@ public class PanAgendaController
 		return AgendasManager.selectParDate(jour);
 	}
 	
-	public static List<Personnels> remplirComboVeterinaire() throws BLLException
+	public static List<Personnels> selectVeterinaires() throws BLLException
 	{
 		List<Personnels> lPersonnel = PersonnelsManager.selectTousVeterinaires();
 		
@@ -55,6 +55,11 @@ public class PanAgendaController
 	public static void ouvrirDossier()
 	{
 		EcranDossier ecranDossier = new EcranDossier();
+	}
+	
+	public static List<Agendas> selectAgendasParDateVeterinaire(Date jour, int codeVeterinaire) throws BLLException
+	{
+		return AgendasManager.selectParDateVeterinaire(jour, codeVeterinaire);
 	}
 	
     //endregion METHODS
