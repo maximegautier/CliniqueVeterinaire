@@ -15,4 +15,6 @@ public interface AgendasDAO
 	public boolean ajouter(Agendas aAjouter) throws DALException;
 	
 	public boolean supprimer(Agendas aSupprimer) throws DALException;
+	
+	public boolean verifieSiExiste(Agendas aVerifier) throws DALException;
 }

@@ -129,6 +129,33 @@ public class AgendasManager
 		}
 	}
 	
+	public static boolean verifierSiExiste(Agendas aVerifier) throws BLLException
+	{
+		if(aVerifier.getDateRdv() == null)
+		{
+			throw new BLLException("La date du rendez-vous à verifier ne peut pas etre null");
+		}
+		else if(isNegativeInt(aVerifier.getCodeVeto()))
+		{
+			throw new BLLException("Le code veterinaire du rendez-vous à verifier ne peut pas etre null");
+		}
+		else if(isNegativeInt(aVerifier.getCodeAnimal()))
+		{
+			throw new BLLException("Le code animal du rendez-vous a verifier ne peut pas etre null");
+		}
+		else
+		{
+			try 
+			{
+				return DAOFactory.getAgendasDAO().verifieSiExiste(aVerifier);
+			} 
+			catch (DALException e) 
+			{
+				throw new BLLException(e.getMessage());
+			}
+		}
+	}
+	
 	//************
 	//UTILITAIRES
 	//************	

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -229,6 +230,50 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 			}
 		}
 	
+		return aRetourner;
+	}
+
+	
+	@Override
+	public boolean verifieSiExiste(Agendas aVerifier) throws DALException 
+	{
+		boolean aRetourner = false;
+		Connection cnx = null;
+		String rqtVerifieSiExiste = "SELECT * FROM Agendas WHERE DateRdv = ? AND CodeVeto = ? AND CodeAnimal = ?";
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		
+		try 
+		{
+			cnx = JdbcTools.getConnection();		
+			rqt = cnx.prepareStatement(rqtVerifieSiExiste);
+			rqt.setTimestamp(1, new Timestamp(aVerifier.getDateRdv().getTime()));	
+			rqt.setInt(2, aVerifier.getCodeVeto());
+			rqt.setInt(3, aVerifier.getCodeAnimal());
+			rs = rqt.executeQuery();
+			
+			if(rs.next())
+			{
+				aRetourner = true;
+			}			
+		} 
+		catch (SQLException e) 
+		{
+			throw new DALException(e.getMessage());
+		} 
+		finally
+		{
+			try
+			{
+				rqt.close();
+				rqt.close();
+			}
+			catch(SQLException e)
+			{
+				throw new DALException(e.getMessage());
+			}			
+		}
+		
 		return aRetourner;
 	}
     
