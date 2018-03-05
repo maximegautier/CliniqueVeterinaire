@@ -619,15 +619,8 @@ public class EcranAnimal extends JFrame
 
 	public JComboBox getCbRace() 
 	{		
-		List<String> nomRace = new ArrayList();	
-		
-		for(Races tmp : race)
-		{
-			nomRace.add(tmp.getRace());
-		}
-
         CbRace = new JComboBox();    
-        CbRace.setModel(new DefaultComboBoxModel(nomRace.toArray()));
+        CbRace.setModel(new DefaultComboBoxModel(race.toArray()));
 		return CbRace;
 	}
 

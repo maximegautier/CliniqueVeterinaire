@@ -24,7 +24,7 @@ public class Races
 	@Override
 	public String toString() 
 	{
-		return "Races [Race=" + race + ", Espece=" + espece + "]";
+		return race;
 	}	
     
     //endregion METHODS
