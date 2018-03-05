@@ -39,7 +39,7 @@ public class AnimauxManager
 		{
 			try 
 			{
-				aRetourner = animauxDAO.selectAnimaux(1);
+				aRetourner = animauxDAO.selectAnimaux(CodeClient);
 			} 
 			catch (DALException e) 
 			{
