@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -96,15 +98,18 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 		
 		try 
 		{
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+			String reportDate = df.format(jour);			
 			cnx = JdbcTools.getConnection();
 			rqt = cnx.prepareStatement(rqtSelectParDateVeterinaire);
-			rqt.setTimestamp(1, new java.sql.Timestamp(jour.getTime()));
+			rqt.setString(1, reportDate);
 			rqt.setInt(2, codeVeterinaire);
 			rs = rqt.executeQuery();
 			Agendas tmpRdv = null;
 			
 			while(rs.next())
 			{
+				System.out.println("ok");
 				tmpRdv = new Agendas(
 						rs.getInt("CodeVeto"),
 						rs.getInt("CodeAnimal"),

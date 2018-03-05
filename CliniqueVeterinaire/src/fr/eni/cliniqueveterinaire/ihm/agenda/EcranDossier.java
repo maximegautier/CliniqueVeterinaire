@@ -13,6 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import fr.eni.cliniqueveterinaire.bo.Animaux;
@@ -21,7 +22,7 @@ import fr.eni.cliniqueveterinaire.bo.Clients;
 
 public class EcranDossier extends JFrame{
 
-	private JPanel panelDossier, panelHead, panelInfo, panelAntecedent;
+	private JPanel panelDossier, panelHead, panelInfo, panelAntecedent, panelInfoClient, panelInfoAnimal;
 	private JButton btnValider, btnAnnuler;
 	private GridBagConstraints gbc;
 	
@@ -83,9 +84,53 @@ public class EcranDossier extends JFrame{
 	private JPanel getPanelInfo() {
 		if (panelInfo == null) {
 			panelInfo = new JPanel();
-			
+			panelInfo.add(getPanelInfoClient());
+			panelInfo.add(getPanelInfoAnimal());
 		}
 		return panelInfo;
+	}
+	
+	private JPanel getPanelInfoClient() {
+		if (panelInfoClient == null) {
+			panelInfoClient = new JPanel();
+			panelInfoClient.setBorder(BorderFactory.createTitledBorder("Client"));
+			panelInfoClient.add(new JLabel(client.toString()));
+		}
+		return panelInfoClient;
+	}
+	
+	
+	private JPanel getPanelInfoAnimal() {
+		if (panelInfoAnimal == null) {
+			panelInfoAnimal = new JPanel();
+			GridBagConstraints gbc = new GridBagConstraints();
+			gbc.insets = new Insets(5, 5, 5, 5);
+			
+			// Code animal
+			gbc.gridx = 0;
+			gbc.gridy = 0;
+			panelInfoAnimal.add(new JLabel("Animal :"), gbc);
+			gbc.gridx = 1;
+			panelInfoAnimal.add(new JLabel(Integer.toString(animal.getCodeAnimal())));
+			
+			// Nom animal
+			gbc.gridx = 1;
+			gbc.gridy = 1;
+			panelInfoAnimal.add(new JLabel(animal.getNomAnimal()));
+			
+			// Couleur + sexe animal
+			gbc.gridy = 2;
+			panelInfoAnimal.add(new JLabel(animal.getCouleur() + "  " + animal.getsexe()));
+			
+			// Espece + race animal
+			gbc.gridy = 3;
+			panelInfoAnimal.add(new JLabel(animal.getEspece() + " " + animal.getRace()));
+			
+			// Tatouage animal
+			gbc.gridy = 4;
+			panelInfoAnimal.add(new JLabel(animal.gettatouage()));
+		}
+		return panelInfoClient;
 	}
 	
 	
@@ -116,7 +161,7 @@ public class EcranDossier extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
-					
+					dispose();
 				}
 			});
 		}

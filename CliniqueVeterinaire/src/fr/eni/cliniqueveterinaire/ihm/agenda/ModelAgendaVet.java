@@ -42,7 +42,7 @@ public class ModelAgendaVet extends AbstractTableModel{
 		Animaux animal = null;
 		try {
 			animal = AnimauxManager.selectAnimal(listRdv.get(rowIndex).getCodeAnimal());
-			
+			System.out.println(animal);
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -55,7 +55,8 @@ public class ModelAgendaVet extends AbstractTableModel{
 	
 			case 1:
 				// Client
-				try {			
+				try {
+					
 					Clients client = ClientsManager.getInstance().selectById(animal.getCodeClient());
 					return client.getNomClient() + " " + client.getPrenomClient();
 				} catch (BLLException e) {

@@ -87,7 +87,6 @@ public class PanAgenda extends JPanel{
 			try {
 				panelHead.add(getCbVeterinaire());
 			} catch (BLLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			panelHead.add(new JLabel("   Date :"));
