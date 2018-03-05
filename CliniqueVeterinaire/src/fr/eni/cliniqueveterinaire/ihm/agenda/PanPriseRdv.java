@@ -71,6 +71,7 @@ public class PanPriseRdv extends JPanel
 	private List<Clients> clients;
 	private List<Personnels> veterinaires;
 	private List<Agendas> rdv;
+	private List<Animaux> animaux;
 
     //endregion DECLARATION
 
@@ -96,59 +97,18 @@ public class PanPriseRdv extends JPanel
     //region METHODS
     
     public void initialisePanelPrincipal()
-    {	
-		//this.setLayout(new GridBagLayout());
-    	GridBagConstraints gbcPrincipal = new GridBagConstraints();
-    	gbcPrincipal.insets = new Insets(5, 5, 5, 5);
-		
-		//LIGNE 0
-			
-			//COLONNE0
-    		//gbcPrincipal.anchor = GridBagConstraints.LINE_START;
-	    	gbcPrincipal.gridx =0;
-	    	gbcPrincipal.gridy =0;	    	
-	    	this.add(getPanelPour(), gbcPrincipal);
-			//COLONNE1
-	    	gbcPrincipal.gridx =1;
-	    	gbcPrincipal.gridy =0;
-	    	gbcPrincipal.anchor = GridBagConstraints.CENTER;
-	    	this.add(getPanelPar(), gbcPrincipal);
-			//COLONNE2
-	    	gbcPrincipal.gridx =2;
-	    	gbcPrincipal.gridy =0;
-	    	//gbcPrincipal.anchor = GridBagConstraints.LINE_START;
-	    	this.add(getPanelQuand(), gbcPrincipal);
-	    	
-		//LIGNE 1
-			
-			//COLONNE0	    	
-	    	gbcPrincipal.gridwidth = 3;
-	    	gbcPrincipal.gridx =0;
-	    	gbcPrincipal.gridy =1;	    	
-	    	this.add(getPanelListe(), gbcPrincipal);
-			//COLONNE1
-	    	gbcPrincipal.gridx =1;
-	    	gbcPrincipal.gridy =1;
-			//COLONNE2
-	    	gbcPrincipal.gridx =2;
-	    	gbcPrincipal.gridy =1;
-	    
-		//LIGNE 2
-			
-			//COLONNE0
-	    	gbcPrincipal.gridx =0;
-	    	gbcPrincipal.gridy =2;
-			//COLONNE1
-	    	gbcPrincipal.gridx =1;
-	    	gbcPrincipal.gridy =2;    	
-			//COLONNE2
-	    	gbcPrincipal.gridx =2;
-	    	gbcPrincipal.gridy =2;
-	    	gbcPrincipal.anchor = GridBagConstraints.WEST;
-	    	this.add(getBtnSupprimer(), gbcPrincipal);
-	    	gbcPrincipal.anchor = GridBagConstraints.EAST;
-	    	this.add(getBtnValider(), gbcPrincipal);
-	    	    	
+    {		    	
+    	this.add(getPanelPour());
+
+    	this.add(getPanelPar());
+
+    	this.add(getPanelQuand());
+    	
+    	this.add(getPanelListe());
+
+    	this.add(getBtnSupprimer());
+
+    	this.add(getBtnValider());    	    	
     }
     
     public void initialisePanelPour()
@@ -283,22 +243,14 @@ public class PanPriseRdv extends JPanel
     public void initialisePanelListe()
     {
     	panelListe = new JPanel();
-    	//panelListe.setLayout(new GridBagLayout());
-    	panelListe.setBorder(BorderFactory.createLineBorder(Color.BLACK));
     	panelListe.setPreferredSize(new Dimension(this.getPreferredSize().width - 15, 200));
-    	//GridBagConstraints gbcPanelListe = new GridBagConstraints();
-    	//gbcPanelListe.insets = new Insets(5,5,5,5);
-    	
-		//LIGNE 0
-		
-			//COLONNE0
-    		//gbcPanelListe.gridx =0;
-    		//gbcPanelListe.gridy =0;    		
-			panelListe.add(getTableRdv());
+   		
+		panelListe.add(getTableRdv());
 
-    		JScrollPane js=new JScrollPane(getTableRdv());
-	        js.setVisible(true);
-	        panelListe.add(js);
+		JScrollPane js=new JScrollPane(getTableRdv());
+		js.setPreferredSize(new Dimension(this.getPreferredSize().width - 15, 190));
+        js.setVisible(true);
+        panelListe.add(js);
     }
    
     public void initialiseListeRdv()
@@ -311,7 +263,6 @@ public class PanPriseRdv extends JPanel
 		} 
 		catch (BLLException e) 
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
@@ -407,6 +358,8 @@ public class PanPriseRdv extends JPanel
 		{	
 			cbClient = new JComboBox();
 			cbClient.setModel(new DefaultComboBoxModel(clients.toArray()));
+			
+			
 		}
 		return cbClient;
 	}

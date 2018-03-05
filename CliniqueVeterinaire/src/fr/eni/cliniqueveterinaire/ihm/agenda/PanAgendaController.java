@@ -7,10 +7,12 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import fr.eni.cliniqueveterinaire.bll.AgendasManager;
+import fr.eni.cliniqueveterinaire.bll.AnimauxManager;
 import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bll.ClientsManager;
 import fr.eni.cliniqueveterinaire.bll.PersonnelsManager;
 import fr.eni.cliniqueveterinaire.bo.Agendas;
+import fr.eni.cliniqueveterinaire.bo.Animaux;
 import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.dal.ClientsDAO;
@@ -52,6 +54,11 @@ public class PanAgendaController
 	public static List<Clients> selectClients() throws BLLException
 	{
 		return ClientsManager.getInstance().selectAll();
+	}
+	
+	public static List<Animaux> selectAnimauxClient(int codeClient) throws BLLException 
+	{
+		return AnimauxManager.selectAnimaux(codeClient);
 	}
 	
 	public static void ouvrirAjoutAnimal(int codeClient)
