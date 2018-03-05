@@ -66,7 +66,7 @@ public class PanAgendaController
 		EcranAnimal ecranAnimal = new EcranAnimal(codeClient);
 	}
 	
-	public static void ouvrirDossier(TableAgendaVet table)
+	public static void ouvrirDossier(TableAgendaVet table, List<Agendas> listRdv) throws BLLException
 	{
 	    int numLigne = table.getSelectedRow();
 		if (numLigne == -1)
@@ -75,8 +75,8 @@ public class PanAgendaController
 		} 
 		else
 		{
-				//List<Agendas> list = PanAgendaController.remplirTableau(new Date(), );
-				//EcranDossier ecranDossier = new EcranDossier();
+			Animaux animal = AnimauxManager.selectAnimal(listRdv.get(numLigne).getCodeAnimal());
+			EcranDossier ecranDossier = new EcranDossier(animal);
 		}
 		
 	}

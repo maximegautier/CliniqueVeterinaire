@@ -9,6 +9,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
+import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.ihm.agenda.PanAgenda;
 import fr.eni.cliniqueveterinaire.ihm.agenda.PanPriseRdv;
 import fr.eni.cliniqueveterinaire.ihm.clients.EcranClients;
@@ -155,7 +156,12 @@ public class EcranMenu extends JFrame{
 			miClient.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					EcranClients ecranClient = EcranClients.getInstance();
+					try {
+						EcranClients ecranClient = EcranClients.getInstance();
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 		}

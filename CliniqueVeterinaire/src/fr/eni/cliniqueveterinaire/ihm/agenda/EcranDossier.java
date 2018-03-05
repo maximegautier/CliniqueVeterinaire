@@ -1,7 +1,5 @@
 package fr.eni.cliniqueveterinaire.ihm.agenda;
 
-import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -17,8 +15,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import fr.eni.cliniqueveterinaire.bo.Animaux;
-import fr.eni.cliniqueveterinaire.bo.Clients;
-
 
 public class EcranDossier extends JFrame{
 
@@ -27,13 +23,10 @@ public class EcranDossier extends JFrame{
 	private GridBagConstraints gbc;
 	
 	private Animaux animal;
-	private Clients client;
 	
-	public EcranDossier(Animaux animal, Clients client) {
+	public EcranDossier(Animaux animal) {
 		this.animal = animal;
-		this.client = client;
 		
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(500, 400);
 		setResizable(false);
 		setTitle("Dossier Medical");
@@ -47,22 +40,20 @@ public class EcranDossier extends JFrame{
 		if (panelDossier == null) {
 			panelDossier = new JPanel();
 			panelDossier.setLayout(new GridBagLayout());
-			panelDossier.setOpaque(true);
 			gbc = new GridBagConstraints();	
-			gbc.insets = new Insets(5, 5, 15, 5);
-			gbc.anchor = GridBagConstraints.CENTER;
+			gbc.insets = new Insets(5, 5, 5, 5);
 			
 			// Head
 			gbc.gridx = 0;
 			gbc.gridy = 0;
-			gbc.gridwidth = 3;
 			panelDossier.add(getPanelHead(), gbc);
-			gbc.gridwidth = 0;
+
 			
 			// Info animal - client
 			gbc.gridx = 0;
 			gbc.gridy = 1;
 			panelDossier.add(getPanelInfo(), gbc);
+
 			
 		}
 		return panelHead;
@@ -74,7 +65,6 @@ public class EcranDossier extends JFrame{
 			panelHead.setBorder(BorderFactory.createTitledBorder("De"));
 			panelHead.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			panelHead.setOpaque(true);
-			panelHead.setPreferredSize(new Dimension(this.getPreferredSize().width -15,30));
 			panelHead.add(getBtnValider());
 			panelHead.add(getBtnAnnuler());
 		}
@@ -94,7 +84,7 @@ public class EcranDossier extends JFrame{
 		if (panelInfoClient == null) {
 			panelInfoClient = new JPanel();
 			panelInfoClient.setBorder(BorderFactory.createTitledBorder("Client"));
-			panelInfoClient.add(new JLabel(client.toString()));
+			panelInfoClient.add(new JLabel("client ..."));
 		}
 		return panelInfoClient;
 	}
