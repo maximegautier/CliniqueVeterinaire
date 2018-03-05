@@ -7,6 +7,7 @@ import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.dal.ClientsDAO;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.dal.DAOFactory;
+import fr.eni.cliniqueveterinaire.ihm.clients.EcranClients;
 
 public class ClientsManager {
 	
@@ -65,6 +66,7 @@ public class ClientsManager {
 		}		
 	}
 	
+	
 	public Clients clientSuivant(int codeClient) throws BLLException, DALException{
 		Clients leClient = null;
 		Clients clientPrecedent;
@@ -76,13 +78,47 @@ public class ClientsManager {
 			if(clientsDAO.selectById(codeClient) == null){
 				throw new BLLException("(ClientsManager)clientSuivant : Le client n'éxiste pas (id incorrect)");
 			}else{
-				clientPrecedent = listeClients.get(0);
-				for(int i = 1; i < listeClients.size();i++){
-					if(clientPrecedent.getCodeClient() == codeClient){
-						leClient = listeClients.get(i);
+				listeClients=clientsDAO.selectAll();
+				if(listeClients.get(listeClients.size()-1).getCodeClient() == codeClient){
+					leClient = listeClients.get(0);
+				}else{
+					clientPrecedent = listeClients.get(0);
+					for(int i = 1; i < listeClients.size();i++){
+						if(clientPrecedent.getCodeClient() == codeClient){
+							leClient = listeClients.get(i);
+						}
+						clientPrecedent = listeClients.get(i);
 					}
 				}
-			        
+			}			
+		}
+		return leClient;
+	}
+	
+	public Clients clientPrecedent(int codeClient) throws BLLException, DALException{
+		Clients leClient = null;
+		Clients clientSuivant;
+		List<Clients> listeClients = new ArrayList<Clients>();
+		if(codeClient <= 0 ){
+			throw new BLLException("(ClientsManager)clientPrecedent : Le codeClient ne peut pas être null");
+		}else
+		{
+			if(clientsDAO.selectById(codeClient) == null){
+				throw new BLLException("(ClientsManager)clientPrecedent : Le client n'éxiste pas (id incorrect)");
+			}else{
+				listeClients=clientsDAO.selectAll();
+				clientSuivant = listeClients.get(listeClients.size()-1);
+				
+				if(listeClients.get(0).getCodeClient() == codeClient){
+					leClient = listeClients.get(listeClients.size()-1);
+				}else{
+					for(int i = listeClients.size()-2; i >=0 ;i--){
+						if(clientSuivant.getCodeClient() == codeClient){
+							leClient = listeClients.get(i);
+						}
+						clientSuivant=listeClients.get(i);
+					}					
+				}
 			}			
 		}
 		return leClient;
@@ -107,6 +143,7 @@ public class ClientsManager {
 		}
 		
 	}
+	
 	
 	public static ClientsManager getInstance() throws BLLException
 	{

@@ -14,7 +14,7 @@ public class testEcranClients {
 			public void run() 
 			{
 					try {
-						EcranClientsController.getInstance().startApp();
+						EcranClientsController.getInstance().startApp(EcranClients.getInstance());
 					} catch (BLLException e) {
 						e.printStackTrace();
 					}

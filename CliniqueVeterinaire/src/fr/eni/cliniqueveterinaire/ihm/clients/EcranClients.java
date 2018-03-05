@@ -7,6 +7,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -16,13 +18,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-
+import fr.eni.cliniqueveterinaire.bll.BLLException;
+import fr.eni.cliniqueveterinaire.bo.Animaux;
+import fr.eni.cliniqueveterinaire.dal.DALException;
+import fr.eni.cliniqueveterinaire.ihm.login.EcranLoginController;
 
 
 public class EcranClients extends JFrame{
 	private static EcranClients instance;
 	
 	//Composants Java Swing à intégrer à l'ihm
+	public ModeleTableAnimauxClients modele;
 	public JPanel panelPrincipal;
 	public JPanel panelRecherche;
 	public JPanel panelFormulaire;
@@ -36,6 +42,8 @@ public class EcranClients extends JFrame{
 	public JButton bSupprimerClient;
 	public JButton bValider;
 	public JButton bAnnuler;
+	public JButton bClientSuivant;
+	public JButton bClientPrecedent;
 	public JTextField txtNom;
 	public JTextField txtPrenom;
 	public JTextField txtCodeClient;
@@ -50,6 +58,8 @@ public class EcranClients extends JFrame{
 	public JButton bSupprimerAnimal;
 	public JButton bEditerAnimal;
 	
+	public int codeClient = 1;
+	public int codeAnimal = 1;
 
 	//Méthode static de récupération d'une instance unique de la fenêtre 
 	public static EcranClients getInstance(){
@@ -142,6 +152,13 @@ public class EcranClients extends JFrame{
 		getGbcFormulaire().gridx=1;
 		getGbcFormulaire().gridy=6;
 		getPanelFormulaire().add(getTxtVille(),getGbcFormulaire());
+		getGbcFormulaire().gridx=0;
+		getGbcFormulaire().gridy=7;
+		getPanelFormulaire().add(getbClientPrecedent(),getGbcFormulaire());
+		getGbcFormulaire().gridx=1;
+		getGbcFormulaire().gridy=7;
+		getPanelFormulaire().add(getbClientSuivant(),getGbcFormulaire());
+		
 		
 		return getPanelFormulaire();
 	}
@@ -257,23 +274,17 @@ public class EcranClients extends JFrame{
 	
 	public JTable getTabAnimaux() {
 		if (tabAnimaux == null) {
-			tabAnimaux = new JTable(6,7);
+			tabAnimaux = new JTable();//6,7
+			tabAnimaux.setModel(getModele());
 			tabAnimaux.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 			tabAnimaux.getColumnModel().getColumn(0).setPreferredWidth(100);
-		    tabAnimaux.getColumnModel().getColumn(0).setHeaderValue("Numéro");
 			tabAnimaux.getColumnModel().getColumn(1).setPreferredWidth(100);
-			tabAnimaux.getColumnModel().getColumn(1).setHeaderValue("Nom");
 			tabAnimaux.getColumnModel().getColumn(2).setPreferredWidth(100);
-			tabAnimaux.getColumnModel().getColumn(2).setHeaderValue("Sexe");
 			tabAnimaux.getColumnModel().getColumn(3).setPreferredWidth(100);
-			tabAnimaux.getColumnModel().getColumn(3).setHeaderValue("Couleur");
 			tabAnimaux.getColumnModel().getColumn(4).setPreferredWidth(100);
-			tabAnimaux.getColumnModel().getColumn(4).setHeaderValue("Race");
 			tabAnimaux.getColumnModel().getColumn(5).setPreferredWidth(100);
-			tabAnimaux.getColumnModel().getColumn(5).setHeaderValue("Espece");
 			tabAnimaux.getColumnModel().getColumn(6).setPreferredWidth(100);
-			tabAnimaux.getColumnModel().getColumn(6).setHeaderValue("Tatouage");
-			
+						
 			tabAnimaux.getTableHeader().resizeAndRepaint();
 		}
 		return tabAnimaux;
@@ -285,7 +296,7 @@ public class EcranClients extends JFrame{
 			bAjouterClient.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					//A remplir
+					EcranClientsController.getInstance().clickClientsAjouter();
 				}
 			});
 		}
@@ -298,7 +309,11 @@ public class EcranClients extends JFrame{
 			bSupprimerClient.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					//A remplir
+					try {
+						EcranClientsController.getInstance().clickClientsSupprime(codeClient);
+					} catch (BLLException | DALException e1) {
+						e1.printStackTrace();
+					}
 				}
 			});
 		}
@@ -337,7 +352,7 @@ public class EcranClients extends JFrame{
 			bRechercher.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					//A remplir
+					EcranClientsController.getInstance().clickClientsRecherche();
 				}
 			});
 		}
@@ -393,7 +408,7 @@ public class EcranClients extends JFrame{
 			bAjouterAnimal.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					//A remplir
+					EcranClientsController.getInstance().clickAjouterAnimaux();
 				}
 			});
 		}
@@ -406,7 +421,11 @@ public class EcranClients extends JFrame{
 			bSupprimerAnimal.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					//A remplir
+					try {
+						EcranClientsController.getInstance().clickSupprimerAnimaux(codeAnimal);
+					} catch (BLLException e1) {
+						e1.printStackTrace();
+					}
 				}
 			});
 		}
@@ -447,5 +466,58 @@ public class EcranClients extends JFrame{
 			txtComplementAdresse = new JTextField(15);
 		}
 		return txtComplementAdresse;
+	}
+	
+	public JButton getbClientSuivant() {
+		if(bClientSuivant == null){
+			bClientSuivant = new JButton(">");
+			bClientSuivant.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					try {
+						codeClient = EcranClientsController.getInstance().clickClientsSuivant(codeClient);
+					} catch (BLLException | DALException e1) {
+						e1.printStackTrace();
+					}
+				}
+			});
+		}
+		return bClientSuivant;
+	}
+
+	public JButton getbClientPrecedent() {
+		if(bClientPrecedent == null){
+			bClientPrecedent = new JButton("<");
+			bClientPrecedent.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					try {
+						codeClient = EcranClientsController.getInstance().clickClientsPrecedent(codeClient);
+					} catch (BLLException | DALException e1) {
+						e1.printStackTrace();
+					}
+				}
+			});
+		}
+		return bClientPrecedent;
+	}
+	
+	public int getCodeClient() {
+		return codeClient;
+	}
+
+	public void setCodeClient(int codeClient) {
+		this.codeClient = codeClient;
+	}
+	
+	public ModeleTableAnimauxClients getModele() {
+		if(modele == null){
+			modele = new ModeleTableAnimauxClients(new ArrayList<Animaux>(), new String[7]);
+		}
+		return modele;
+	}
+
+	public void setModele(ModeleTableAnimauxClients modele) {
+		this.modele = modele;
 	}
 }
