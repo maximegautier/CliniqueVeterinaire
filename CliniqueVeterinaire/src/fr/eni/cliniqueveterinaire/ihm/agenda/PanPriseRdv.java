@@ -128,8 +128,8 @@ public class PanPriseRdv extends JPanel
 	    	gbcPanelPour.anchor = GridBagConstraints.WEST;
 	    	panelPour.add(getLblClient(), gbcPanelPour);
 			//COLONNE1
-	    	gbcPanelPour.gridx =1;
-	    	gbcPanelPour.gridy =0;
+	    	//gbcPanelPour.gridx =1;
+	    	//gbcPanelPour.gridy =0;
 	    	
 		//LIGNE 1
 			
@@ -152,7 +152,7 @@ public class PanPriseRdv extends JPanel
 	    	gbcPanelPour.anchor = GridBagConstraints.WEST;
 	    	panelPour.add(getLblAnimal(), gbcPanelPour);
 			//COLONNE1
-	    	gbcPanelPour.gridx =1;
+	    	//gbcPanelPour.gridx =1;
 	    	gbcPanelPour.gridy =2;
 	    	
 		//LIGNE 3
@@ -372,14 +372,15 @@ public class PanPriseRdv extends JPanel
 		{	
 			cbClient = new JComboBox();
 			cbClient.setModel(new DefaultComboBoxModel(clients.toArray()));	
-			initialiseListeAnimaux();
-			
+			initialiseListeAnimaux();			
 			cbClient.addActionListener(new ActionListener() 
 			{				
 				@Override
 				public void actionPerformed(ActionEvent e) 
 				{
-					initialiseListeAnimaux();				
+					initialiseListeAnimaux();
+					DefaultComboBoxModel model = new DefaultComboBoxModel( animaux.toArray() );
+					getCbAnimal().setModel(model);
 				}
 			});
 			
@@ -421,7 +422,7 @@ public class PanPriseRdv extends JPanel
 			
 			if(animaux != null)
 			{
-				cbClient.setModel(new DefaultComboBoxModel(animaux.toArray()));				
+				cbClient.setModel(new DefaultComboBoxModel(clients.toArray()));				
 			}
 
 		}

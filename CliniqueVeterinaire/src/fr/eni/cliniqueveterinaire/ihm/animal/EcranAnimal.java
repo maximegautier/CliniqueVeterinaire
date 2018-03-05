@@ -84,7 +84,6 @@ public class EcranAnimal extends JFrame
     	
 	    this.setSize(580, 340);
 	    //this.setPreferredSize(new Dimension(640, 480));
-	    this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	    this.setTitle("Animaux");
 	    this.setLocationRelativeTo(null);   	
 	    	    
