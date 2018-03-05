@@ -10,6 +10,8 @@ public interface AgendasDAO
 {
 	public List<Agendas> selectParDate(Date jour) throws DALException;
 	
+	public List<Agendas> selectParDateVeterinaire(Date jour, int codeVeterinaire) throws DALException;
+	
 	public boolean ajouter(Agendas aAjouter) throws DALException;
 	
 	public boolean supprimer(Agendas aSupprimer) throws DALException;

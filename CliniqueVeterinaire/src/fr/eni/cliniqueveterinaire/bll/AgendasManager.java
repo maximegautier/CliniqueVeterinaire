@@ -44,6 +44,29 @@ public class AgendasManager
 		}
 	}
 	
+	public static List<Agendas> selectParDateVeterinaire(Date jour, int codeVeterinaire) throws BLLException
+	{
+		if(jour == null)
+		{
+			throw new BLLException("La date ne peut pas être null");
+		}
+		else if(isNegativeInt(codeVeterinaire))
+		{
+			throw new BLLException("Le code veterinaire ne peut pas être null");
+		}
+		else
+		{
+			try 
+			{
+				return DAOFactory.getAgendasDAO().selectParDateVeterinaire(jour, codeVeterinaire);
+			} 
+			catch (DALException e) 
+			{
+				throw new BLLException(e.getMessage());
+			}
+		}
+	}
+	
 	public static boolean ajouter(Agendas aAjouter) throws BLLException
 	{
 		if(aAjouter == null)

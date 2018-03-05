@@ -85,6 +85,60 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 	}
 
 	@Override
+	public List<Agendas> selectParDateVeterinaire(Date jour, int codeVeterinaire) throws DALException
+	{
+		Connection cnx = null;
+		String rqtSelectParDateVeterinaire = "SELECT * FROM Agendas WHERE DateRdv = ? AND CodeVeto = ?";
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		List<Agendas> aRetourner = new ArrayList<Agendas>();
+		
+		try 
+		{
+			cnx = JdbcTools.getConnection();
+			rqt = cnx.prepareStatement(rqtSelectParDateVeterinaire);
+			rqt.setTimestamp(1, new java.sql.Timestamp(jour.getTime()));
+			rqt.setInt(2, codeVeterinaire);
+			rs = rqt.executeQuery();
+			Agendas tmpRdv = null;
+			
+			while(rs.next())
+			{
+				tmpRdv = new Agendas(
+						rs.getInt("CodeVeto"),
+						rs.getInt("CodeAnimal"),
+						rs.getDate("DateRdv")
+				);
+				aRetourner.add(tmpRdv);
+			}		
+		} 
+		catch (SQLException e) 
+		{
+			throw new DALException(e.getMessage());
+		}
+		finally
+		{
+			try
+			{
+				if (rs != null){
+					rs.close();
+				}
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			}
+			catch(SQLException e)
+			{
+				throw new DALException(e.getMessage());
+			}
+		}
+		return aRetourner;
+	}
+	
+	@Override
 	public boolean ajouter(Agendas aAjouter) throws DALException 
 	{	
 		boolean aRetourner = false;
