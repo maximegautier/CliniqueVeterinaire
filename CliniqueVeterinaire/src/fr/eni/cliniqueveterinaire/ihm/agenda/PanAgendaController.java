@@ -37,7 +37,7 @@ public class PanAgendaController
 		return AgendasManager.selectParDateVeterinaire(jour, codeVet);
 	}
 	
-	public static List<Personnels> remplirComboVeterinaire() throws BLLException
+	public static List<Personnels> selectVeterinaires() throws BLLException
 	{
 		List<Personnels> lPersonnel = PersonnelsManager.selectTousVeterinaires();
 		

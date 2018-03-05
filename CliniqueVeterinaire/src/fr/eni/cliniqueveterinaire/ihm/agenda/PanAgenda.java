@@ -112,7 +112,7 @@ public class PanAgenda extends JPanel{
 	{
 		if (cbVeterinaire == null){
 			cbVeterinaire = new JComboBox<Personnels>();
-			List<Personnels> lPerso = PanAgendaController.remplirComboVeterinaire();
+			List<Personnels> lPerso = PanAgendaController.selectVeterinaires();
 			
 			cbVeterinaire.setModel(new DefaultComboBoxModel(lPerso.toArray()));
 		}
