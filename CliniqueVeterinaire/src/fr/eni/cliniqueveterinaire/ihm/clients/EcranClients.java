@@ -540,8 +540,4 @@ public class EcranClients extends JFrame{
 	public void setModele(ModeleTableAnimauxClients modele) {
 		this.modele = modele;
 	}
-	
-	public void setTabAnimaux(List<Animaux> liste) throws BLLException{
-		tabAnimaux = new TableAnimauxClients(liste);
-	}
 }
