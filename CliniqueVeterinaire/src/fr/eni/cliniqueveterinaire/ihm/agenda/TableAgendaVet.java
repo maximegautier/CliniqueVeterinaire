@@ -8,6 +8,7 @@ import javax.swing.JTable;
 
 import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bo.Agendas;
+import fr.eni.cliniqueveterinaire.bo.Personnels;
 
 public class TableAgendaVet extends JTable{
 
@@ -22,6 +23,10 @@ public class TableAgendaVet extends JTable{
         setBackground(new Color(238,238,238));
 		setFont(new Font("Arial",Font.BOLD, 15));
 		setFillsViewportHeight(true);
+	}
+	
+	public void setData(List<Agendas> data) {
+		modelTableVet.setDataChanged(data);
 	}
 	
 }

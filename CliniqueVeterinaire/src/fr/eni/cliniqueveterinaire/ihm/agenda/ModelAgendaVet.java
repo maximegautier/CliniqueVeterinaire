@@ -11,6 +11,7 @@ import fr.eni.cliniqueveterinaire.bll.ClientsManager;
 import fr.eni.cliniqueveterinaire.bo.Agendas;
 import fr.eni.cliniqueveterinaire.bo.Animaux;
 import fr.eni.cliniqueveterinaire.bo.Clients;
+import fr.eni.cliniqueveterinaire.bo.Personnels;
 
 public class ModelAgendaVet extends AbstractTableModel{
 	
@@ -74,6 +75,11 @@ public class ModelAgendaVet extends AbstractTableModel{
 			default:
 				throw new IllegalArgumentException();
 		}
+	}
+	
+	public void setDataChanged(List<Agendas> data){
+		this.listRdv = data;
+		fireTableDataChanged();
 	}
 	
 }
