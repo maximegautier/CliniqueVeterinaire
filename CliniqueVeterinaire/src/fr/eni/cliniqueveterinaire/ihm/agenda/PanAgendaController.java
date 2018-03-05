@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import fr.eni.cliniqueveterinaire.bll.AgendasManager;
 import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bll.ClientsManager;
@@ -31,11 +33,11 @@ public class PanAgendaController
     
     //region METHODS
     
-	public static List<Agendas> remplirTableau(Date jour) throws BLLException{
-		return AgendasManager.selectParDate(jour);
+	public static List<Agendas> remplirTableau(Date jour, int codeVet) throws BLLException{
+		return AgendasManager.selectParDateVeterinaire(jour, codeVet);
 	}
 	
-	public static List<Personnels> selectVeterinaires() throws BLLException
+	public static List<Personnels> remplirComboVeterinaire() throws BLLException
 	{
 		List<Personnels> lPersonnel = PersonnelsManager.selectTousVeterinaires();
 		
@@ -52,14 +54,20 @@ public class PanAgendaController
 		EcranAnimal ecranAnimal = new EcranAnimal(codeClient);
 	}
 	
-	public static void ouvrirDossier()
+	public static void ouvrirDossier(TableAgendaVet table)
 	{
-		EcranDossier ecranDossier = new EcranDossier();
-	}
-	
-	public static List<Agendas> selectAgendasParDateVeterinaire(Date jour, int codeVeterinaire) throws BLLException
-	{
-		return AgendasManager.selectParDateVeterinaire(jour, codeVeterinaire);
+	    int numLigne = table.getSelectedRow();
+		if (numLigne == -1)
+		{
+			JOptionPane.showMessageDialog(null, "Veuillez selectionner une ligne", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+		} 
+		else
+		{
+				//List<Agendas> list = PanAgendaController.remplirTableau(new Date(), );
+				//System.out.println(list.get(numLigne));
+				//EcranDossier ecranDossier = new EcranDossier();
+		}
+		
 	}
 	
     //endregion METHODS

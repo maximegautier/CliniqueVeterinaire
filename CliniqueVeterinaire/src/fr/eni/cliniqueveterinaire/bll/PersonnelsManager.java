@@ -197,7 +197,7 @@ public class PersonnelsManager
 		return aRetourner;
 	}
 	
-	public Personnels selectPersonnel(String nom)
+	public static Personnels selectPersonnel(String nom)
 	{
 		Personnels tmp = null;
 		try {

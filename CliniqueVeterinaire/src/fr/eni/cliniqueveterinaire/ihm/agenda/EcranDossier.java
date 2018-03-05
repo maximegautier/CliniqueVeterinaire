@@ -15,17 +15,23 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import fr.eni.cliniqueveterinaire.bll.BLLException;
+import fr.eni.cliniqueveterinaire.bo.Animaux;
+import fr.eni.cliniqueveterinaire.bo.Clients;
+
 
 public class EcranDossier extends JFrame{
 
 	private JPanel panelDossier, panelHead, panelInfo, panelAntecedent;
 	private JButton btnValider, btnAnnuler;
-	public GridBagConstraints gbc;
+	private GridBagConstraints gbc;
 	
+	private Animaux animal;
+	private Clients client;
 	
-	
-	public EcranDossier() {
+	public EcranDossier(Animaux animal, Clients client) {
+		this.animal = animal;
+		this.client = client;
+		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(500, 400);
 		setResizable(false);

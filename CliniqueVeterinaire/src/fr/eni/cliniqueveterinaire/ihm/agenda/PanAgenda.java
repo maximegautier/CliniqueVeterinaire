@@ -1,8 +1,10 @@
 package fr.eni.cliniqueveterinaire.ihm.agenda;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -22,17 +24,25 @@ import javax.swing.JPanel;
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
+
+import fr.eni.cliniqueveterinaire.bll.AnimauxManager;
 import fr.eni.cliniqueveterinaire.bll.BLLException;
+import fr.eni.cliniqueveterinaire.bll.PersonnelsManager;
+import fr.eni.cliniqueveterinaire.bo.Animaux;
+import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
+import fr.eni.cliniqueveterinaire.ihm.personnels.PanGDPController;
+import fr.eni.cliniqueveterinaire.ihm.personnels.TablePersonnels;
 
 public class PanAgenda extends JPanel{
 
 	private static PanAgenda instance;
 	private JPanel panelHead;
 	private JPanel panelTable;
-	private JComboBox<String> cbVeterinaire;
+	private JComboBox<Personnels> cbVeterinaire;
 	private JDatePickerImpl dpDate;
 	private JButton btnDossier;
+	private TableAgendaVet tableAgendaVet;
 	
 	public static PanAgenda getInstance()
 	{
@@ -93,20 +103,15 @@ public class PanAgenda extends JPanel{
 		{
 			panelTable = new JPanel();
 			panelTable.setPreferredSize(new Dimension(this.getPreferredSize().width -15,300));
-			try {
-				panelTable.add(new TableAgendaVet(PanAgendaController.remplirTableau(new Date())));
-			} catch (BLLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			panelTable.add(getTableAgendaVet());
 		}
 		return panelTable;
 	}
 	
-	public JComboBox<String> getCbVeterinaire() throws BLLException
+	public JComboBox<Personnels> getCbVeterinaire() throws BLLException
 	{
 		if (cbVeterinaire == null){
-			cbVeterinaire = new JComboBox<String>();
+			cbVeterinaire = new JComboBox<Personnels>();
 			List<Personnels> lPerso = PanAgendaController.remplirComboVeterinaire();
 			
 			cbVeterinaire.setModel(new DefaultComboBoxModel(lPerso.toArray()));
@@ -140,10 +145,33 @@ public class PanAgenda extends JPanel{
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
-					PanAgendaController.ouvrirDossier();
+					PanAgendaController.ouvrirDossier(getTableAgendaVet());
 				}
 			});
 		}
 		return btnDossier;
+	}
+	
+	public TableAgendaVet getTableAgendaVet()
+	{
+		if (tableAgendaVet == null)
+		{
+			try {	
+				Date date = (Date) getDpDate().getModel().getValue();
+				Personnels personnel = (Personnels) getCbVeterinaire().getSelectedItem();
+				tableAgendaVet = new TableAgendaVet(PanAgendaController.remplirTableau(date,personnel.getCodePers()));
+			} catch (BLLException e) {
+				e.printStackTrace();
+			}
+			tableAgendaVet.setRowHeight(50);  
+			tableAgendaVet.setBackground(new Color(238,238,238));
+			tableAgendaVet.setShowGrid(false);
+			tableAgendaVet.setFont(new Font("Arial", Font.BOLD, 15));
+			tableAgendaVet.isCellEditable(5, 2);
+			int h = this.getPreferredSize().height - 80 -getPanelHead().getPreferredSize().height;
+			tableAgendaVet.setPreferredScrollableViewportSize(new Dimension(this.getPreferredSize().width-30,h-22));
+			tableAgendaVet.setFillsViewportHeight(true);
+		}
+		return tableAgendaVet;
 	}
 }
