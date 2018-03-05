@@ -20,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
@@ -104,6 +105,10 @@ public class PanAgenda extends JPanel{
 			panelTable = new JPanel();
 			panelTable.setPreferredSize(new Dimension(this.getPreferredSize().width -15,300));
 			panelTable.add(getTableAgendaVet());
+			
+			JScrollPane js=new JScrollPane(getTableAgendaVet());
+	        js.setVisible(true);
+	        panelTable.add(js);
 		}
 		return panelTable;
 	}
@@ -193,18 +198,13 @@ public class PanAgenda extends JPanel{
 			try {	
 				Date date = (Date) getDpDate().getModel().getValue();
 				Personnels personnel = (Personnels) getCbVeterinaire().getSelectedItem();
-				tableAgendaVet = new TableAgendaVet(PanAgendaController.remplirTableau(date,personnel.getCodePers()));
+				tableAgendaVet = new TableAgendaVet(PanAgendaController.selectAgendasParDateVeterinaire(date,personnel.getCodePers()));
 			} catch (BLLException e) {
 				e.printStackTrace();
-			}
-			tableAgendaVet.setRowHeight(50);  
-			tableAgendaVet.setBackground(new Color(238,238,238));
-			tableAgendaVet.setShowGrid(false);
-			tableAgendaVet.setFont(new Font("Arial", Font.BOLD, 15));
-			tableAgendaVet.isCellEditable(5, 2);
-			int h = this.getPreferredSize().height - 80 -getPanelHead().getPreferredSize().height;
-			tableAgendaVet.setPreferredScrollableViewportSize(new Dimension(this.getPreferredSize().width-30,h-22));
-			tableAgendaVet.setFillsViewportHeight(true);
+			}  
+			int h = this.getPreferredSize().height - 230;
+			int w = this.getPreferredSize().width - 19;
+			tableAgendaVet.setPreferredScrollableViewportSize(new Dimension(w,h));
 		}
 		return tableAgendaVet;
 	}

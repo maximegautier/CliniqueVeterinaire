@@ -10,7 +10,6 @@ public class EcranMenuController {
 	EcranMenu fenMenu;
 
 	private EcranMenuController() throws DALException{
-		fenMenu = EcranMenu.getInstance();
 		fenLogin = EcranLogin.getInstance();
 	}
 	
@@ -27,8 +26,6 @@ public class EcranMenuController {
 	}
 
 	public void Deconnexion(){
-		fenMenu.dispose();
-		//fenMenu.
 		fenLogin.getTxtLogin().setText("");
 		fenLogin.getTxtPassword().setText("");
 		fenLogin.getlError().setVisible(false);

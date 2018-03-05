@@ -29,7 +29,7 @@ public class DialogAdd{
 
 	public DialogAdd() throws DALException
 	{
-		dialogAjouter = new JDialog(EcranMenu.getInstance());
+		dialogAjouter = new JDialog();
 		dialogAjouter.setSize(300, 300);
 		dialogAjouter.setResizable(false);
 		dialogAjouter.setTitle("Ajouter un personnel");

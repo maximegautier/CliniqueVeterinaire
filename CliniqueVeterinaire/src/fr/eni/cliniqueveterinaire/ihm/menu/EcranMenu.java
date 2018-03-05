@@ -17,25 +17,16 @@ import fr.eni.cliniqueveterinaire.ihm.personnels.PanGDP;
 
 public class EcranMenu extends JFrame{
 	
-	private static EcranMenu instance;
-	
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu mFichier, mRDV;
 	private JMenuItem miDeconnexion, miFermer;
 	private JMenuItem miRDV, miClient;
 	private JMenuItem mAgenda, mGDP;
 	
-	public static EcranMenu getInstance() {
-		if (EcranMenu.instance == null){
-			EcranMenu.instance = new EcranMenu();
-		}
-		return EcranMenu.instance;
-	}
-	
-	private EcranMenu() {
+	public EcranMenu() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);		
 		setSize(700, 500);
-		setResizable(true);
+		setResizable(false);
 		setTitle("Clinique Veterinaire");
 		setIconImage(new ImageIcon("ressources/ico_veto.png").getImage());
 		
@@ -122,6 +113,7 @@ public class EcranMenu extends JFrame{
 			miDeconnexion.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
+
 					EcranMenuController.getInstance().Deconnexion();
 				}
 			});

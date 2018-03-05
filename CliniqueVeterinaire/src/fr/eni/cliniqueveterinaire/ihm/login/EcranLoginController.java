@@ -44,7 +44,7 @@ public class EcranLoginController
 			fenLogin.getlError().setVisible(true);
 		} else {
 			fenLogin.dispose();
-			fenMenu = EcranMenu.getInstance();
+			fenMenu = new EcranMenu();
 			fenMenu.setVisible(true);
 		}
 	}
