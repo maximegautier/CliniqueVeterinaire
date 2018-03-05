@@ -59,7 +59,6 @@ public class EcranClients extends JFrame{
 	public JButton bAjouterAnimal;
 	public JButton bSupprimerAnimal;
 	public JButton bEditerAnimal;
-	//public TableAnimauxClients tabAnimaux;
 	
 	public int codeClient = 1;
 	public int codeAnimal = 1;
@@ -78,6 +77,11 @@ public class EcranClients extends JFrame{
 		setSize(1000, 500);
 		setResizable(true);
 		setTitle("Clients");
+		
+		EcranClientsController.getInstance().remplirChamps();
+		EcranClientsController.getInstance().actualiseTab(getCodeClient());
+		
+		
 		setContentPane(initEcranClients());
 		setVisible(true);
 		setLocationRelativeTo(null);
@@ -274,24 +278,6 @@ public class EcranClients extends JFrame{
 		}
 		return scrollPanel;
 	}
-	
-	/*public JTable getTabAnimaux() throws BLLException {
-		if (tabAnimaux == null) {
-			tabAnimaux = new TableAnimauxClients(AnimauxManager.selectAnimaux(codeClient));
-			tabAnimaux.setModel(getModele());
-			tabAnimaux.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-			tabAnimaux.getColumnModel().getColumn(0).setPreferredWidth(100);
-			tabAnimaux.getColumnModel().getColumn(1).setPreferredWidth(100);
-			tabAnimaux.getColumnModel().getColumn(2).setPreferredWidth(100);
-			tabAnimaux.getColumnModel().getColumn(3).setPreferredWidth(100);
-			tabAnimaux.getColumnModel().getColumn(4).setPreferredWidth(100);
-			tabAnimaux.getColumnModel().getColumn(5).setPreferredWidth(100);
-			tabAnimaux.getColumnModel().getColumn(6).setPreferredWidth(100);
-						
-			tabAnimaux.getTableHeader().resizeAndRepaint();
-		}
-		return tabAnimaux;
-	}*/
 	
 	public JTable getTabAnimaux() throws BLLException {
 		if (tabAnimaux == null) {
