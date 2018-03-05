@@ -28,6 +28,7 @@ import org.jdatepicker.impl.UtilDateModel;
 import fr.eni.cliniqueveterinaire.bll.AnimauxManager;
 import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bll.PersonnelsManager;
+import fr.eni.cliniqueveterinaire.bo.Agendas;
 import fr.eni.cliniqueveterinaire.bo.Animaux;
 import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
@@ -114,6 +115,23 @@ public class PanAgenda extends JPanel{
 			List<Personnels> lPerso = PanAgendaController.selectVeterinaires();
 			
 			cbVeterinaire.setModel(new DefaultComboBoxModel(lPerso.toArray()));
+			cbVeterinaire.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
+					Date date = (Date) getDpDate().getModel().getValue();
+					Personnels personnel;
+					try {
+						personnel = (Personnels) getCbVeterinaire().getSelectedItem();
+						List<Agendas> data = PanAgendaController.remplirTableau(date, personnel.getCodePers());
+						getTableAgendaVet().setData(data);
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}	
+				}
+			});
 		}
 		return cbVeterinaire;
 	}
@@ -130,6 +148,23 @@ public class PanAgenda extends JPanel{
 			p.put("text.year", "Year");
 			JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
 			dpDate = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+			dpDate.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
+					Date date = (Date) getDpDate().getModel().getValue();
+					Personnels personnel;
+					try {
+						personnel = (Personnels) getCbVeterinaire().getSelectedItem();
+						List<Agendas> data = PanAgendaController.remplirTableau(date, personnel.getCodePers());
+						getTableAgendaVet().setData(data);
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}	
+				}
+			});
 		}
 		return dpDate;
 	}

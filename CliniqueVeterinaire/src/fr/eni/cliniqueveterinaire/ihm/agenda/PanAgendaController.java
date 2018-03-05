@@ -69,7 +69,6 @@ public class PanAgendaController
 		else
 		{
 				//List<Agendas> list = PanAgendaController.remplirTableau(new Date(), );
-				//System.out.println(list.get(numLigne));
 				//EcranDossier ecranDossier = new EcranDossier();
 		}
 		
