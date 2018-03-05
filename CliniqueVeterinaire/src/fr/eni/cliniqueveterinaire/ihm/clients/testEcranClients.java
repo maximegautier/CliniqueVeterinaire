@@ -2,6 +2,8 @@ package fr.eni.cliniqueveterinaire.ihm.clients;
 
 import javax.swing.SwingUtilities;
 
+import fr.eni.cliniqueveterinaire.bll.BLLException;
+
 
 
 public class testEcranClients {
