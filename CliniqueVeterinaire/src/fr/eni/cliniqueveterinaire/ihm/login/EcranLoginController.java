@@ -31,8 +31,7 @@ public class EcranLoginController
 	
 	public void startApp() throws DALException
 	{
-		/* Modifié pour commencer sur fenMenu */
-		fenLogin = fenLogin.getInstance();
+		fenLogin = EcranLogin.getInstance();
 		fenLogin.setVisible(true);
 	}
 	
@@ -52,6 +51,5 @@ public class EcranLoginController
 	public static Personnels getCurrentPersonnel() {
 		return currentPersonnel;
 	}	
-	
 	
 }

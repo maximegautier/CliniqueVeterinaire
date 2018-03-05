@@ -140,7 +140,7 @@ public class PanAgenda extends JPanel{
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
-					System.out.println("btnDossier actionPerformed");
+					PanAgendaController.ouvrirDossier();
 				}
 			});
 		}

@@ -52,6 +52,11 @@ public class PanAgendaController
 		EcranAnimal ecranAnimal = new EcranAnimal(codeClient);
 	}
 	
+	public static void ouvrirDossier()
+	{
+		EcranDossier ecranDossier = new EcranDossier();
+	}
+	
     //endregion METHODS
 
     //region GET/SET
