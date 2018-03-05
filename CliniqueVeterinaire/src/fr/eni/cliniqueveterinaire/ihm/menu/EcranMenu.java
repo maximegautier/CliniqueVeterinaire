@@ -11,6 +11,7 @@ import javax.swing.JMenuItem;
 
 import fr.eni.cliniqueveterinaire.ihm.agenda.PanAgenda;
 import fr.eni.cliniqueveterinaire.ihm.agenda.PanPriseRdv;
+import fr.eni.cliniqueveterinaire.ihm.clients.EcranClients;
 import fr.eni.cliniqueveterinaire.ihm.login.EcranLoginController;
 import fr.eni.cliniqueveterinaire.ihm.personnels.PanGDP;
 
@@ -34,7 +35,7 @@ public class EcranMenu extends JFrame{
 	private EcranMenu() {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);		
 		setSize(700, 500);
-		setResizable(false);
+		setResizable(true);
 		setTitle("Clinique Veterinaire");
 		setIconImage(new ImageIcon("ressources/ico_veto.png").getImage());
 		
@@ -159,6 +160,12 @@ public class EcranMenu extends JFrame{
 	public JMenuItem getMiClient(){
 		if (miClient == null) {
 			miClient = new JMenuItem("Gestion des clients");
+			miClient.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					EcranClients ecranClient = EcranClients.getInstance();
+				}
+			});
 		}
 		return miClient;
 	}

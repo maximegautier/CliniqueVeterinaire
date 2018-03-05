@@ -113,12 +113,7 @@ public class EcranLogin extends JFrame{
 			bValider.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					try {
-						EcranLoginController.getInstance().connexion(getTxtLogin().getText(),getTxtPassword().getText());
-					} catch (DALException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					EcranLoginController.getInstance().connexion(getTxtLogin().getText(),getTxtPassword().getText());
 				}
 			});
 		}

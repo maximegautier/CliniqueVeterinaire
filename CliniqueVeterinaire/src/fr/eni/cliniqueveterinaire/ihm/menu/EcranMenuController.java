@@ -28,6 +28,7 @@ public class EcranMenuController {
 
 	public void Deconnexion(){
 		fenMenu.dispose();
+		//fenMenu.
 		fenLogin.getTxtLogin().setText("");
 		fenLogin.getTxtPassword().setText("");
 		fenLogin.getlError().setVisible(false);

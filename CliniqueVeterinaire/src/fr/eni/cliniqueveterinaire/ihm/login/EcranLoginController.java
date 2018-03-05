@@ -35,7 +35,7 @@ public class EcranLoginController
 		fenLogin.setVisible(true);
 	}
 	
-	public void connexion(String login, String password) throws DALException
+	public void connexion(String login, String password)
 	{
 		currentPersonnel = PersonnelsManager.authentification(login,password);
 		
@@ -43,8 +43,9 @@ public class EcranLoginController
 		{
 			fenLogin.getlError().setVisible(true);
 		} else {
-			fenLogin.setVisible(false);
+			fenLogin.dispose();
 			fenMenu = EcranMenu.getInstance();
+			fenMenu.setVisible(true);
 		}
 	}
 
