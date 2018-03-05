@@ -27,6 +27,7 @@ import org.jdatepicker.impl.UtilDateModel;
 
 import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bo.Agendas;
+import fr.eni.cliniqueveterinaire.bo.Animaux;
 import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
 
@@ -92,7 +93,6 @@ public class PanPriseRdv extends JPanel
     
     public void initialisePanelPrincipal()
     {	
-		this.setLayout(new GridBagLayout());
     	GridBagConstraints gbcPrincipal = new GridBagConstraints();
     	gbcPrincipal.insets = new Insets(5, 5, 5, 5);
 		
@@ -285,11 +285,33 @@ public class PanPriseRdv extends JPanel
 			//COLONNE0
     		gbcPanelListe.gridx =0;
     		gbcPanelListe.gridy =0;
-    		Personnels veterinaireCourant = (Personnels) getCbVeterinaire().getSelectedItem();
-    		//getDpDate().
-    		//panelListe.add(new TableAgendaVet())
+    		initialiseListeRdv();
+    		try 
+    		{
+				panelListe.add(new TableAgendaVet(rdv));
+			} 
+    		catch (BLLException e) 
+    		{
+				e.printStackTrace();
+			}
     }
    
+    public void initialiseListeRdv()
+    {
+    	Personnels veterinaireCourant = (Personnels) getCbVeterinaire().getSelectedItem();
+		Date dateSelect = (Date) getDpDate().getModel().getValue();
+		try 
+		{
+			rdv = PanAgendaController.selectAgendasParDateVeterinaire(dateSelect, veterinaireCourant.getCodePers());   
+			//rdv.add(new Agendas(2, 4, new Date()));
+		} 
+		catch (BLLException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
     //endregion METHODS
 
     //region GET/SET
