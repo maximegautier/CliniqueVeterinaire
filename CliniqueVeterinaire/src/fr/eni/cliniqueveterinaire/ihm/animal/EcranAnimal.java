@@ -492,7 +492,7 @@ public class EcranAnimal extends JFrame implements Update
 	{
 		if(lblCodeAnimal == null)
 		{
-			lblCodeAnimal = new JLabel("");
+			lblCodeAnimal = new JLabel();
 		}
 		return lblCodeAnimal;
 	}
