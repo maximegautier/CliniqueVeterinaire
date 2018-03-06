@@ -127,7 +127,6 @@ public class EcranAnimal extends JFrame implements Update
     	this.race = new ArrayList<Races>();
     	
 	    this.setSize(700, 340);
-	    this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	    this.setTitle("Animaux");
 	    this.setLocationRelativeTo(null);	    	    
 	    
