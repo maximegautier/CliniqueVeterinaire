@@ -26,7 +26,7 @@ import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.login.EcranLoginController;
 
 
-public class EcranClients extends JFrame{
+public class EcranClients extends JPanel{
 	private static EcranClients instance;
 	
 	//Composants Java Swing à intégrer à l'ihm
@@ -73,18 +73,14 @@ public class EcranClients extends JFrame{
 
 	//Constructeur
 	private EcranClients() throws BLLException {
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setSize(1000, 500);
-		setResizable(true);
-		setTitle("Clients");
-		
-		EcranClientsController.getInstance().remplirChamps();
-		EcranClientsController.getInstance().actualiseTab(getCodeClient());
-		
-		
-		setContentPane(initEcranClients());
+		setPreferredSize(new Dimension(700,500));
+		GridBagConstraints gbc = new GridBagConstraints();
+		gbc.insets = new Insets(5, 5, 5, 5);	
+		gbc.gridx=0;
+		gbc.gridx=0;
+		add(initEcranClients(),gbc);
 		setVisible(true);
-		setLocationRelativeTo(null);
+		EcranClientsController.getInstance().startApp(this);
 	}
 		
 	private JPanel initBarreRecherche(){			
@@ -274,7 +270,7 @@ public class EcranClients extends JFrame{
 	public JScrollPane getScrollPanel() throws BLLException {
 		if (scrollPanel == null) {
 			scrollPanel = new JScrollPane(getTabAnimaux(), JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-			scrollPanel.setPreferredSize(new Dimension(600,200));
+			scrollPanel.setPreferredSize(new Dimension(400,200));
 		}
 		return scrollPanel;
 	}
@@ -368,42 +364,42 @@ public class EcranClients extends JFrame{
 
 	public JTextField getTxtNom() {
 		if (txtNom == null) {
-			txtNom = new JTextField(15);			
+			txtNom = new JTextField(10);			
 		}
 		return txtNom;
 	}
 
 	public JTextField getTxtPrenom() {
 		if (txtPrenom == null) {
-			txtPrenom = new JTextField(15);			
+			txtPrenom = new JTextField(10);			
 		}
 		return txtPrenom;
 	}
 
 	public JTextField getTxtCodeClient() {
 		if (txtCodeClient == null) {
-			txtCodeClient = new JTextField(15);			
+			txtCodeClient = new JTextField(10);			
 		}
 		return txtCodeClient;
 	}
 
 	public JTextField getTxtAdresse() {
 		if (txtAdresse == null) {
-			txtAdresse = new JTextField(15);			
+			txtAdresse = new JTextField(10);			
 		}
 		return txtAdresse;
 	}
 
 	public JTextField getTxtCodePostal() {
 		if (txtCodePostal == null) {
-			txtCodePostal = new JTextField(15);			
+			txtCodePostal = new JTextField(10);			
 		}
 		return txtCodePostal;
 	}
 
 	public JTextField getTxtVille() {
 		if (txtVille == null) {
-			txtVille = new JTextField(15);			
+			txtVille = new JTextField(10);			
 		}
 		return txtVille;
 	}
@@ -469,7 +465,7 @@ public class EcranClients extends JFrame{
 	
 	public JTextField getTxtComplementAdresse() {
 		if(txtComplementAdresse == null){
-			txtComplementAdresse = new JTextField(15);
+			txtComplementAdresse = new JTextField(10);
 		}
 		return txtComplementAdresse;
 	}
