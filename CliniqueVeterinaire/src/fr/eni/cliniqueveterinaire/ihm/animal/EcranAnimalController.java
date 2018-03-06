@@ -16,9 +16,6 @@ public class EcranAnimalController
 {
     //region DECLARATION
 
-	private static EcranAnimalController instance;
-	private EcranAnimal fenAnimal;
-	private Animaux tmpAnimal;
 
     //endregion DECLARATION
 
@@ -31,46 +28,33 @@ public class EcranAnimalController
     //endregion CTOR
     
     //region METHODS    
-	
-	public void startApp()
-	{
-		fenAnimal = new EcranAnimal(1);
-		fenAnimal.setVisible(true);
-	}
 		
-	public Animaux selectAnimal(int codeAnimal) throws BLLException
+	public static Animaux selectAnimal(int codeAnimal) throws BLLException
 	{
-		tmpAnimal = AnimauxManager.selectAnimal(codeAnimal);
-		
-		return tmpAnimal;
+		return AnimauxManager.selectAnimal(codeAnimal);		
 	}
 	
-	public List<String> selectEspeces() throws BLLException
+	public static List<String> selectEspeces() throws BLLException
 	{
 		return AnimauxManager.selectEspece();
 	}
     
-	public List<Races> selectRacesChien() throws BLLException
+	public static List<Races> selectRaces(String espece) throws BLLException
 	{
-		return RacesManager.selectRacesChien();
+		return RacesManager.selectRaces(espece);
 	}
 	
-	public List<Races> selectRacesChat() throws BLLException
-	{
-		return RacesManager.selectRacesChat();
-	}
-	
-	public Clients selectClientParCode(int codeClient) throws BLLException
+	public static Clients selectClientParCode(int codeClient) throws BLLException
 	{
 		return ClientsManager.getInstance().selectById(codeClient);
 	}
 	
-	public boolean modifier(Animaux aModifier) throws BLLException
+	public static boolean modifier(Animaux aModifier) throws BLLException
 	{
 		return AnimauxManager.modifier(aModifier);
 	}
 	
-	public int ajouter(Animaux aAjouter) throws BLLException
+	public static int ajouter(Animaux aAjouter) throws BLLException
 	{
 		return AnimauxManager.ajouter(aAjouter);
 	}
@@ -79,14 +63,6 @@ public class EcranAnimalController
 
     //region GET/SET
 
-	public static EcranAnimalController getInstance()
-	{
-		if(EcranAnimalController.instance == null)
-		{
-			EcranAnimalController.instance = new EcranAnimalController();
-		}
-		return EcranAnimalController.instance;
-	}
 
     //endregion GET/SET
 }

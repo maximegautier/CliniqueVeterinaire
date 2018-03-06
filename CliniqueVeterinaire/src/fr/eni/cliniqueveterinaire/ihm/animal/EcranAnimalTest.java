@@ -13,7 +13,7 @@ public class EcranAnimalTest
 			@Override
 			public void run() 
 			{
-					EcranAnimalController.getInstance().startApp();
+					//EcranAnimalController.getInstance().startApp();
 			}	
 		});
 

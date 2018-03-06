@@ -9,9 +9,15 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.swing.BorderFactory;
@@ -353,6 +359,30 @@ public class PanPriseRdv extends JPanel
 		if(btnValider == null)
 		{
 			btnValider = new JButton("Valider");
+			btnValider.addActionListener(new ActionListener() 
+			{			
+				@Override
+				public void actionPerformed(ActionEvent e) 
+				{
+					String date = getDpDate().getModel().getDay() + "/" + getDpDate().getModel().getMonth() + "/" + getDpDate().getModel().getYear() + " "; /* dd/MM/yyyy */
+					String heure = getCbHeure().getSelectedItem().toString() + ":"; /* HH: */
+					String minutesSecondes = getCbMinute().getSelectedItem().toString()+ ":00"; /* mm:ss */
+					
+					String dateTime = date + " " + heure+minutesSecondes;
+					
+					DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.FRANCE);
+					try 
+					{
+						Date dt = format.parse(dateTime);
+						System.out.println(dt);
+					} 
+					catch (ParseException e1) 
+					{
+						e1.printStackTrace();
+					}
+					
+				}
+			});						
 		}
 		return btnValider;
 	}
@@ -535,6 +565,18 @@ public class PanPriseRdv extends JPanel
 		if(cbHeure == null)
 		{
 			cbHeure = new JComboBox();
+			
+			List<String> heures = new ArrayList<String>();
+			
+			int iterator = 07;
+			
+			while(iterator < 21)
+			{
+				heures.add(Integer.toString(iterator));
+				iterator ++;
+			}
+			
+			cbHeure.setModel(new DefaultComboBoxModel(heures.toArray()));
 		}
 		return cbHeure;
 	}
@@ -553,6 +595,9 @@ public class PanPriseRdv extends JPanel
 		if(cbMinute == null)
 		{
 			cbMinute = new JComboBox();
+			
+			List<String> minutes = Arrays.asList("00", "15", "30", "45");
+			cbMinute.setModel(new DefaultComboBoxModel(minutes.toArray()));
 		}
 		return cbMinute;
 	}

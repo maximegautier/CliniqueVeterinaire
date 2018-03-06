@@ -89,8 +89,8 @@ public class EcranAnimal extends JFrame
 	    	    
 	    try 
 	    {
-	    	clientCourant = EcranAnimalController.getInstance().selectClientParCode(CodeClient);
-			animalCourant = EcranAnimalController.getInstance().selectAnimal(CodeAnimal);
+	    	clientCourant = EcranAnimalController.selectClientParCode(CodeClient);
+			animalCourant = EcranAnimalController.selectAnimal(CodeAnimal);
 		} catch (BLLException e) 
 	    {
 			e.printStackTrace();
@@ -118,11 +118,9 @@ public class EcranAnimal extends JFrame
 	    
 	    try 
 	    {
-	    	clientCourant = EcranAnimalController.getInstance().selectClientParCode(CodeClient);
-	    	race = EcranAnimalController.getInstance().selectRacesChat();
-	    	
-	    	//this.getCbEspece().setSelectedItem("Chat");
-	    	//this.getCbRace().setSelectedIndex(0);
+	    	clientCourant = EcranAnimalController.selectClientParCode(CodeClient);    	
+	    	this.getCbEspece().setSelectedItem("Chat");
+	    	race = EcranAnimalController.selectRaces(getCbEspece().getSelectedItem().toString());
 		} 
 	    catch (BLLException e) 
 	    {
@@ -321,28 +319,14 @@ public class EcranAnimal extends JFrame
 		
 		this.getCbEspece().setSelectedItem(animalCourant.getEspece());
 		
-		switch(animalCourant.getEspece())
+
+		try 
 		{
-			case "Chien":
-				try 
-				{
-					race = EcranAnimalController.getInstance().selectRacesChien();
-				} 
-				catch (BLLException e) 
-				{
-					e.printStackTrace();
-				}
-				break;
-			case "Chat" :
-				try 
-				{
-					race = EcranAnimalController.getInstance().selectRacesChat();
-				} 
-				catch (BLLException e) 
-				{
-					e.printStackTrace();
-				}
-				break;
+			race = EcranAnimalController.selectRaces(animalCourant.getEspece());
+		} 
+		catch (BLLException e) 
+		{
+			e.printStackTrace();
 		}
 
 		this.getCbRace().setSelectedItem(animalCourant.getRace());
@@ -407,7 +391,7 @@ public class EcranAnimal extends JFrame
 									null/* Antécedents */, 
 									false);
 							
-							EcranAnimalController.getInstance().ajouter(aAjouter);
+							EcranAnimalController.ajouter(aAjouter);
 							currentFrame.dispose();
 						} 
 						catch (BLLException e2) 
@@ -431,7 +415,7 @@ public class EcranAnimal extends JFrame
 									null/* Antécedents */, 
 									false);
 							
-							EcranAnimalController.getInstance().modifier(aModifier);
+							EcranAnimalController.modifier(aModifier);
 							currentFrame.dispose();
 						} 
 						catch (BLLException e1) 
@@ -562,7 +546,7 @@ public class EcranAnimal extends JFrame
             List<String> espece;
 			try 
 			{
-				espece = EcranAnimalController.getInstance().selectEspeces();
+				espece = EcranAnimalController.selectEspeces();
 	            CbEspece = new JComboBox();	          
 	            CbEspece.setModel(new DefaultComboBoxModel(espece.toArray()));
 	            CbEspece.addActionListener(new ActionListener() 
@@ -570,42 +554,21 @@ public class EcranAnimal extends JFrame
 					@Override
 					public void actionPerformed(ActionEvent e) 
 					{
-						switch(CbEspece.getSelectedItem().toString())
+						try
 						{
-							case "Chat":
-								try 
-								{
-									race = EcranAnimalController.getInstance().selectRacesChat();
-									DefaultComboBoxModel model = new DefaultComboBoxModel( race.toArray() );
-									getCbRace().setModel(model);
-								} 
-								catch (BLLException e1) 
-								{
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}
-								break;
-							
-							case "Chien": 
-								try 
-								{
-									race = EcranAnimalController.getInstance().selectRacesChien();
-									DefaultComboBoxModel model = new DefaultComboBoxModel( race.toArray() );
-									getCbRace().setModel(model);
-								} 
-								catch (BLLException e1) 
-								{
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}
-								break;
-						}						
+							race = EcranAnimalController.selectRaces(CbEspece.getSelectedItem().toString());
+						} 
+						catch (BLLException e1) 
+						{
+							e1.printStackTrace();
+						}
+						DefaultComboBoxModel model = new DefaultComboBoxModel( race.toArray() );
+						getCbRace().setModel(model);												
 					}
 				});
 			} 
 			catch (BLLException e) 
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         }

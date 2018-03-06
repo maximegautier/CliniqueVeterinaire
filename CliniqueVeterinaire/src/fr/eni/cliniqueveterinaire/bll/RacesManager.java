@@ -1,5 +1,6 @@
 package fr.eni.cliniqueveterinaire.bll;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.cliniqueveterinaire.bo.Races;
@@ -52,14 +53,25 @@ public class RacesManager
 	
 	public static List<Races> selectRaces(String espece) throws BLLException
 	{
+		List<Races> aRetourner = new ArrayList<Races>();
+		
 		if(isEmptyOrNull(espece))
 		{
 			throw new BLLException("L'espece renseignée ne peut pas être null");
 		}
 		else
 		{
-			return RacesManager.selectRaces(espece);
+			try 
+			{
+				aRetourner = getRacesDao().selectRaces(espece);
+			} 
+			catch (DALException e) 
+			{
+				throw new BLLException(e.getMessage());
+			}
 		}
+		
+		return aRetourner;
 	}
     
 	//************
