@@ -47,7 +47,7 @@ public class EcranMenu extends JFrame{
 				break;
 			case "sec":
 				menuBar.add(getMRDV());
-				setContentPane(PanPriseRdv.getInstance());
+				setContentPane(new PanPriseRdv());
 				break;
 			case "ass":
 				System.out.println("role assistant : pas de fenetre");
@@ -140,7 +140,7 @@ public class EcranMenu extends JFrame{
 			miRDV.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					setContentPane(PanPriseRdv.getInstance());
+					setContentPane(new PanPriseRdv());
 					repaint();
 					revalidate();
 				}

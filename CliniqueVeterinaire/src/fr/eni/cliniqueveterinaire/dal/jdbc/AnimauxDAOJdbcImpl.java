@@ -122,20 +122,6 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 		return aRetourner;
 	}
 	
-	/*public String selectClientParAnimal(int codeAnimal) throws DALException
-	{
-		Connection cnx = JdbcTools.getConnection();
-		Animaux aRetourner = null;
-		String rqtSelectClientParAnimal = "SELECT C.NomClient + ' ' + C.PrenomClient as DisplayName FROM Animaux as A LEFT JOIN Clients as C on A.CodeClient = C.CodeClient WHERE A.CodeAnimal = 3";	
-		PreparedStatement psSelectClientParAnimal = null;
-		ResultSet rsSelectClientParAnimal = null;
-		
-		try
-		{
-
-		}
-	}*/
-	
 	@Override
 	public Animaux selectAnimal(int CodeAnimal) throws DALException 
 	{
@@ -334,7 +320,7 @@ public class AnimauxDAOJdbcImpl implements AnimauxDAO
 	{
 		boolean aRetourner = false;
 		Connection cnx = JdbcTools.getConnection();
-		String rqtVerifieSiExiste = "SELECT * FROM Animaux WHERE NomAnimal = ? AND CodeClient = ?";
+		String rqtVerifieSiExiste = "SELECT * FROM Animaux WHERE NomAnimal = ? AND CodeClient = ? AND Archive = 0";
 		PreparedStatement psVerifieSiExiste = null;
 		ResultSet rsVerifieSiExiste = null;
 		

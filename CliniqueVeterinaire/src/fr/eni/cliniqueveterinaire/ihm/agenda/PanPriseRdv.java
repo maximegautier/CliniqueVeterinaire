@@ -45,8 +45,6 @@ public class PanPriseRdv extends JPanel
 {
     //region DECLARATION
 
-	private static PanPriseRdv instance;
-	
 	private JPanel panelPrincipal;
 	
 	private JPanel panelListe;
@@ -85,18 +83,8 @@ public class PanPriseRdv extends JPanel
 
     //region CTOR
 
-	private PanPriseRdv()
+	public PanPriseRdv()
 	{	
-		/*try 
-		{
-			//clients = PanAgendaController.selectClients();
-			//veterinaires = PanAgendaController.selectVeterinaires();
-		} 
-		catch (BLLException e) 
-		{
-			e.printStackTrace();
-		}*/
-		
 		getPanelPrincipal();
 	}
 
@@ -292,15 +280,6 @@ public class PanPriseRdv extends JPanel
     //endregion METHODS
 
     //region GET/SET
-
-	public static JPanel getInstance()
-	{
-		if(PanPriseRdv.instance == null)
-		{
-			PanPriseRdv.instance = new PanPriseRdv();
-		}
-		return PanPriseRdv.instance;
-	}
 	
 	public JPanel getPanelPrincipal() 
 	{
