@@ -86,6 +86,11 @@ public class PanAgendaController
 		AgendasManager.ajouter(aAjouter);
 	}
 	
+	public static void supprimerRdv(Agendas aSupprimer) throws BLLException
+	{
+		AgendasManager.supprimer(aSupprimer);
+	}
+	
     //endregion METHODS
 
     //region GET/SET

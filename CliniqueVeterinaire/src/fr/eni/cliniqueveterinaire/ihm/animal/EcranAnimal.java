@@ -28,6 +28,7 @@ import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bo.Animaux;
 import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.bo.Races;
+import fr.eni.cliniqueveterinaire.ihm.agenda.PanPriseRdv;
 
 /* Créé par Erwin DUPUIS */
 public class EcranAnimal extends JFrame
@@ -392,6 +393,7 @@ public class EcranAnimal extends JFrame
 									false);
 							
 							EcranAnimalController.ajouter(aAjouter);
+							JOptionPane.showMessageDialog(null, "Animal ajouter", "Succes", JOptionPane.INFORMATION_MESSAGE);
 							currentFrame.dispose();
 						} 
 						catch (BLLException e2) 
@@ -416,6 +418,7 @@ public class EcranAnimal extends JFrame
 									false);
 							
 							EcranAnimalController.modifier(aModifier);
+							JOptionPane.showMessageDialog(null, "Animal modifié", "Succes", JOptionPane.INFORMATION_MESSAGE);
 							currentFrame.dispose();
 						} 
 						catch (BLLException e1) 

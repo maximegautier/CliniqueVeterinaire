@@ -192,7 +192,6 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 		Connection cnx = JdbcTools.getConnection();
 		String rqtSupprimer = "DELETE FROM Agendas WHERE CodeVeto = ? AND DateRdv = ? AND CodeAnimal = ?";
 		PreparedStatement psSupprimer = null;
-		ResultSet rs = null;
 		
 		try
 		{
@@ -204,8 +203,6 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 			int nbRows = psSupprimer.executeUpdate();
 			if(nbRows == 1)
 	        {
-	            rs = psSupprimer.getGeneratedKeys();
-	
 	            aRetourner = true;
 	        }
 	
@@ -219,8 +216,7 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 		{
 			try
 			{
-				psSupprimer.close();
-				rs.close();		
+				psSupprimer.close();		
 				cnx.close();
 			}
 			catch(SQLException e)

@@ -26,6 +26,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -39,6 +40,7 @@ import fr.eni.cliniqueveterinaire.bo.Animaux;
 import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
 
+/* Créé par Erwin DUPUIS */
 public class PanPriseRdv extends JPanel
 {
     //region DECLARATION
@@ -85,15 +87,15 @@ public class PanPriseRdv extends JPanel
 
 	private PanPriseRdv()
 	{	
-		try 
+		/*try 
 		{
-			clients = PanAgendaController.selectClients();
-			veterinaires = PanAgendaController.selectVeterinaires();
+			//clients = PanAgendaController.selectClients();
+			//veterinaires = PanAgendaController.selectVeterinaires();
 		} 
 		catch (BLLException e) 
 		{
 			e.printStackTrace();
-		}
+		}*/
 		
 		getPanelPrincipal();
 	}
@@ -350,6 +352,27 @@ public class PanPriseRdv extends JPanel
 		if(btnSupprimer == null)
 		{
 			btnSupprimer = new JButton("Supprimer");
+			
+			btnSupprimer.addActionListener(new ActionListener() 
+			{				
+				@Override
+				public void actionPerformed(ActionEvent e) 
+				{
+					int rowSelect = getTableRdv().getSelectedRow();
+					Agendas rdvSelect = rdv.get(rowSelect);
+					try 
+					{
+						PanAgendaController.supprimerRdv(rdvSelect);
+					} 
+					catch (BLLException e1) 
+					{
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "Erreur", JOptionPane.INFORMATION_MESSAGE);
+					}
+					
+					getTableRdv().setData(getRdv());
+					JOptionPane.showMessageDialog(null, "Rendez-vous supprimé", "Succes", JOptionPane.INFORMATION_MESSAGE);
+				}
+			});
 		}
 		return btnSupprimer;
 	}
@@ -388,12 +411,15 @@ public class PanPriseRdv extends JPanel
 					
 					try 
 					{
-						PanAgendaController.ajouterRdv(aAjouter);
+						PanAgendaController.ajouterRdv(aAjouter);						
 					} 
 					catch (BLLException e1) 
 					{
-						e1.printStackTrace();
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "Erreur", JOptionPane.INFORMATION_MESSAGE);
 					}
+					
+					getTableRdv().setData(getRdv());
+					JOptionPane.showMessageDialog(null, "Rendez-vous ajouté", "Succes", JOptionPane.INFORMATION_MESSAGE);
 					
 				}
 			});						
@@ -415,7 +441,7 @@ public class PanPriseRdv extends JPanel
 		if(cbClient == null)
 		{	
 			cbClient = new JComboBox();
-			cbClient.setModel(new DefaultComboBoxModel(clients.toArray()));	
+			cbClient.setModel(new DefaultComboBoxModel(getClients().toArray()));	
 			cbClient.setSelectedIndex(0);
 			
 			initialiseListeAnimaux();
@@ -471,7 +497,7 @@ public class PanPriseRdv extends JPanel
 			
 			if(animaux != null)
 			{
-				cbClient.setModel(new DefaultComboBoxModel(clients.toArray()));				
+				cbClient.setModel(new DefaultComboBoxModel(getClients().toArray()));				
 			}
 
 		}
@@ -511,7 +537,7 @@ public class PanPriseRdv extends JPanel
 		if(cbVeterinaire == null)
 		{
 			cbVeterinaire = new JComboBox();
-			cbVeterinaire.setModel(new DefaultComboBoxModel(veterinaires.toArray()));
+			cbVeterinaire.setModel(new DefaultComboBoxModel(getVeterinaires().toArray()));
 			cbVeterinaire.setSelectedIndex(0);
 			
 			cbVeterinaire.addActionListener(new ActionListener()
@@ -636,7 +662,57 @@ public class PanPriseRdv extends JPanel
 		}
 		return tableRdv;
 	}
+
 	
+	public List<Clients> getClients() 
+	{
+		if(clients == null)
+		{
+			try 
+			{
+				clients = PanAgendaController.selectClients();
+			} 
+			catch (BLLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		return clients;
+	}
+
+	
+	public List<Personnels> getVeterinaires() 
+	{
+		if(veterinaires == null)
+		{
+			try 
+			{
+				veterinaires = PanAgendaController.selectVeterinaires();
+			} 
+			catch (BLLException e) 
+			{
+				e.printStackTrace();
+			}
+		}
+		return veterinaires;
+	}
+
+	
+	public List<Agendas> getRdv() 
+	{
+		initialiseListeRdv();
+
+		return rdv;
+	}
+
+	
+	public List<Animaux> getAnimaux() 
+	{
+		initialiseListeAnimaux();
+		
+		return animaux;
+	}
+			
     //endregion GET/SET
 }
 
