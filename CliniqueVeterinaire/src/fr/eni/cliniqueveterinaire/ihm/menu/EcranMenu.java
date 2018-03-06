@@ -156,11 +156,13 @@ public class EcranMenu extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						EcranClients ecranClient = EcranClients.getInstance();
+						setContentPane(EcranClients.getInstance());
+						repaint();
+						revalidate();
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
-					}
+					}				
 				}
 			});
 		}

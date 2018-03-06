@@ -354,7 +354,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 			rs = rqt.executeQuery(rqtSelectRole);
 			
 			while (rs.next()){
-				list.add(rs.getString("Role"));
+				list.add(rs.getString("Libelle"));
 			}
 		} catch (SQLException e) {
 			throw new DALException("selectRole failed - " , e);

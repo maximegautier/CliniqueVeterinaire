@@ -45,32 +45,40 @@ public class PersonnelsManager
 		try {
 			if(personnel == null)
 			{
-				throw new BLLException("On ne peut pas ajouter un personnel null.");
+				throw new BLLException("Erreur, impossible de créer ce personnel, Verifier vos informations.");
 			}			
 			else if(isEmptyOrNull(personnel.getNom()))
 			{
-				throw new BLLException("On ne peut pas ajouter un personnel avec un nom null.");
+				throw new BLLException("Le champ \"Nom\" est vide.");
+			}
+			else if(isEmptyOrNull(personnel.getPrenom()))
+			{
+				throw new BLLException("Le champ \"Prenom\" est vide.");
+			}
+			else if(isEmptyOrNull(personnel.getLogin()))
+			{
+				throw new BLLException("Le champ \"Login\" est vide.");
+			}
+			else if(isEmptyOrNull(personnel.getRole()))
+			{
+				throw new BLLException("Le champ \"Role\" est vide.");
+			}
+			else if(isEmptyOrNull(personnel.getMotPasse()))
+			{
+				throw new BLLException("Le champ \"Mot de passe\" est vide.");
 			}
 			else if(verifieSiExiste(personnel.getNom()))
 			{
-				throw new BLLException("Il existe un personnel du meme nom.");
+				throw new BLLException("Il existe déjà un personnel du meme nom.");
 			}
 			else if(personnel.getNom().length()> 30)
 			{
 				throw new BLLException("La taille du nom depasse 30 caracteres.");
 			}
-			else if(isEmptyOrNull(personnel.getMotPasse()))
-			{
-				throw new BLLException("On ne peut pas ajouter un personnel avec un mot de passe null.");
-			}
 			else if(personnel.getMotPasse().length()>10)
 			{
 				throw new BLLException("La taille du mot de passe depasse 10 caracteres.");
-			}
-			else if(isEmptyOrNull(personnel.getRole()))
-			{
-				throw new BLLException("On ne peut pas ajouter un personnel avec un role null.");
-			}
+			}	
 			else if(personnel.getRole().length() > 3)
 			{
 				throw new BLLException("Le role est définie par : vet, adm... et ne peut pas excéder 3 caractères");

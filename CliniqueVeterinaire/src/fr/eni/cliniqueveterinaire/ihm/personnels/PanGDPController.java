@@ -15,7 +15,6 @@ import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
 public class PanGDPController extends JPanel{
 
 	private static PanGDPController instance;
-	private EcranLogin fenLogin;
 	private EcranMenu fenMenu;
 	private PanGDP panelGDP;
 
@@ -68,18 +67,17 @@ public class PanGDPController extends JPanel{
 		}
 	}
 	
-	public void validerAjout(String nom, String prenom, String role, String mdp)
+	public void validerAjout(String nom, String prenom, String login, String role, String mdp)
 	{
-		Personnels personnel = new Personnels(nom,prenom,"Login",mdp,role,false);
+		Personnels personnel = new Personnels(nom,prenom,login,mdp,role,false);
 		try {
 			// Ajouter le nouveau personnel
 			PersonnelsManager.ajouter(personnel);
 			
-			rafraichirTable();
-			
+			rafraichirTable();	
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();	
 		}
 	}
@@ -94,7 +92,7 @@ public class PanGDPController extends JPanel{
 		panelGDP.getInstance().getTablePersonnel().setData(PersonnelsManager.selectTousPersonnels());
 	}
 	
-	public List<String> remplirComboAjouter()
+	public List<String> selectTousRoles()
 	{
 		List<String> lRoles = null;;
 		try {
