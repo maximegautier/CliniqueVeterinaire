@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -18,6 +19,7 @@ import javax.swing.JTextField;
 
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
+import fr.eni.cliniqueveterinaire.log.LogFactory;
 
 public class DialogAdd{
 
@@ -166,6 +168,7 @@ public class DialogAdd{
 							(String) getCRole().getSelectedItem(),
 							getTfMDP().getText()
 							);
+					LogFactory.getLog().createLog(Level.INFO, getTfNom().getText() + " " + getTfPrenom().getText() + " a été ajouté");
 					dialogAjouter.dispose();
 				}
 			});

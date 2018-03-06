@@ -6,3 +6,17 @@ mars 06, 2018 2:05:07 PM fr.eni.cliniqueveterinaire.log.LogFileTxt createLog
 INFOS: Rendez-vous ajoute : Code vetérinaire : 2 , Date : Tue Mar 06 14:45:00 CET 2018 , CodeAnimal : 12
 mars 06, 2018 2:05:39 PM fr.eni.cliniqueveterinaire.log.LogFileTxt createLog
 INFOS: Rendez-vous supprime : Code vetérinaire : 2 , Date : Tue Mar 06 07:45:00 CET 2018 , CodeAnimal : 12
+mars 06, 2018 3:27:34 PM fr.eni.cliniqueveterinaire.log.LogFileTxt createLog
+INFOS: Rendez-vous ajouté : Code vétérinaire : 2 , Date rendez-vous : Thu Mar 08 13:00:00 CET 2018 , CodeAnimal : 12
+mars 06, 2018 3:27:46 PM fr.eni.cliniqueveterinaire.log.LogFileTxt createLog
+INFOS: Rendez-vous ajouté : Code vétérinaire : 2 , Date rendez-vous : Thu Mar 08 14:00:00 CET 2018 , CodeAnimal : 12
+mars 06, 2018 3:28:19 PM fr.eni.cliniqueveterinaire.log.LogFileTxt createLog
+INFOS: Rendez-vous ajouté : Code vétérinaire : 2 , Date rendez-vous : Tue Mar 06 18:00:00 CET 2018 , CodeAnimal : 16
+mars 06, 2018 3:59:50 PM fr.eni.cliniqueveterinaire.log.LogFileTxt createLog
+INFOS: ergdmqgomeqrhgom mdfmo a été ajouté
+mars 06, 2018 4:07:49 PM fr.eni.cliniqueveterinaire.log.LogFileTxt createLog
+GRAVE: Couche DAL - selectRdvVeterinaire failed - 
+mars 06, 2018 4:12:13 PM fr.eni.cliniqueveterinaire.log.LogFileTxt createLog
+INFOS: ergdmqgomeqrhgom mdfmo a été supprimé
+mars 06, 2018 4:17:38 PM fr.eni.cliniqueveterinaire.log.LogFileTxt createLog
+INFOS: Le mot de passe de admin admin a été réinitialisé

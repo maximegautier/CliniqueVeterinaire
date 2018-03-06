@@ -8,24 +8,33 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import fr.eni.cliniqueveterinaire.bll.BLLException;
-import fr.eni.cliniqueveterinaire.bll.PersonnelsManager;
-import fr.eni.cliniqueveterinaire.dal.DALException;
+import fr.eni.cliniqueveterinaire.bo.Personnels;
+import fr.eni.cliniqueveterinaire.ihm.agenda.PanAgendaController;
+import fr.eni.cliniqueveterinaire.log.LogFactory;
 
 
 public class PanPersonnels extends JPanel{
+	
+	private final static Logger LOGGER = Logger.getLogger(LogFactory.class.getName());
 
 	private static PanPersonnels instance;
 	private JPanel panelHead, panelTable;
 	private JButton bAjouter, bSupprimer, bReinitialiser;
 	private TablePersonnels tablePersonnels;
+	private List<Personnels> listPersonnels;
 	
 	public static PanPersonnels getInstance()
 	{
@@ -110,11 +119,26 @@ public class PanPersonnels extends JPanel{
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
-					try {
-						PanPersonnelsController.getInstance().supprimer();
-					} catch (BLLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+					int numLigne = 0;
+				    numLigne = getTablePersonnel().getSelectedRow();
+					if (numLigne == -1)
+					{
+						JOptionPane.showMessageDialog(null, "Veuillez selectionner une ligne", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+					} 
+					else
+					{
+						Personnels personnel = listPersonnels.get(numLigne);
+						JOptionPane jop = new JOptionPane();			
+						int option = jop.showConfirmDialog(null, "Etes-vous sur de vouloir supprimer " + personnel.getNom() + " ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+									
+						if(option == JOptionPane.OK_OPTION){		
+							try {
+								PanPersonnelsController.getInstance().supprimer(personnel);
+								LogFactory.getLog().createLog(Level.INFO, personnel.getDisplayName() + " a été supprimé");
+							} catch (BLLException e1) {
+								LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
+							}	
+						}
 					}
 				}
 			});
@@ -132,24 +156,44 @@ public class PanPersonnels extends JPanel{
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
-						try {
-							PanPersonnelsController.getInstance().reinitialiser();
-						} catch (BLLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
+					try {
+						int numLigne = getTablePersonnel().getSelectedRow();
+						if (numLigne == -1) {
+							JOptionPane.showMessageDialog(null, "Veuillez selectionner une ligne", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+						} else {
+							Personnels personnel = listPersonnels.get(numLigne);
+							PanPersonnelsController.getInstance().reinitialiser(personnel);
+							LogFactory.getLog().createLog(Level.INFO, "Le mot de passe de " +personnel.getDisplayName() + " a été réinitialisé");
 						}
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
+					}
 				}
 			});
 		}
 		return bReinitialiser;
 	}
 	
+	public void initialiseListePersonnels()
+    {
+		try 
+		{
+			listPersonnels = listPersonnels = PanPersonnelsController.getInstance().selectPersonnels();
+		} 
+		catch (BLLException e) 
+		{
+			LogFactory.getLog().createLog(Level.SEVERE, e.getMessage());
+		}
+    }
+	
 	public TablePersonnels getTablePersonnel()
 	{
 		if (tablePersonnels == null)
 		{
 			try {
-				tablePersonnels = new TablePersonnels(PersonnelsManager.selectTousPersonnels());
+				initialiseListePersonnels();
+				tablePersonnels = new TablePersonnels(listPersonnels);
 			} catch (BLLException e) {
 				e.printStackTrace();
 			}

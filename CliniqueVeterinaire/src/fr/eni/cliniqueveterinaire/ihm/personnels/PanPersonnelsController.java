@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bll.PersonnelsManager;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
-import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
 import fr.eni.cliniqueveterinaire.log.LogFactory;
 
@@ -36,39 +35,14 @@ public class PanPersonnelsController extends JPanel{
 		DialogAdd jdAjouter = new DialogAdd();
 	}
 	
-	public void supprimer() throws BLLException {
-		int NumLigne = 0;
-	    NumLigne = panelPersonnels.getInstance().getTablePersonnel().getSelectedRow();
-		if (NumLigne == -1)
-		{
-			JOptionPane.showMessageDialog(null, "Veuillez selectionner une ligne", "Erreur", JOptionPane.INFORMATION_MESSAGE);
-		} 
-		else
-		{
-			Personnels personnel = PersonnelsManager.selectTousPersonnels().get(NumLigne);
-			JOptionPane jop = new JOptionPane();			
-			int option = jop.showConfirmDialog(null, "Etes-vous sur de vouloir supprimer " + personnel.getNom() + " ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-						
-			if(option == JOptionPane.OK_OPTION){				
-				PersonnelsManager.supprimer(personnel);
-				
-				rafraichirTable();
-			}
-		}
+	public void supprimer(Personnels personnel) throws BLLException {
+		PersonnelsManager.supprimer(personnel);
+		rafraichirTable();
 	}
 	
-	public void reinitialiser() throws BLLException{
-		int NumLigne = panelPersonnels.getInstance().getTablePersonnel().getSelectedRow();
-		if (NumLigne == -1)
-		{
-			JOptionPane.showMessageDialog(null, "Veuillez selectionner une ligne", "Erreur", JOptionPane.INFORMATION_MESSAGE);
-		} 
-		else
-		{
-			Personnels personnel = PersonnelsManager.selectTousPersonnels().get(NumLigne);
-			DialogReinit dialogReinit = new DialogReinit(fenMenu,personnel);
-			rafraichirTable();
-		}
+	public void reinitialiser(Personnels personnel) throws BLLException{
+		DialogReinit dialogReinit = new DialogReinit(fenMenu,personnel);
+		rafraichirTable();
 	}
 	
 	public void validerAjout(String nom, String prenom, String login, String role, String mdp)
@@ -106,6 +80,15 @@ public class PanPersonnelsController extends JPanel{
 			e.printStackTrace();
 		}
 		return lRoles;
+	}
+	
+	public Personnels selectPersonnel(int id) throws BLLException
+	{
+		return PersonnelsManager.selectTousPersonnels().get(id);
+	}
+	
+	public List<Personnels> selectPersonnels() throws BLLException {
+		return PersonnelsManager.selectTousPersonnels();
 	}
 	
 }

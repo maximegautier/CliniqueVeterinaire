@@ -167,11 +167,16 @@ public class PersonnelsManager
 	}
 	
 	/* Créé par Maxime GAUTIER */
-	public static boolean supprimer(Personnels perso) throws BLLException
+	public static boolean supprimer(Personnels personnel) throws BLLException
 	{
 		//Logique de suppression en base (Archive = 1) via DAO
 		try {
-			personnelsDAO.delete(perso);
+			if(personnelsDAO.selectRdvVeterinaire(personnel.getCodePers())) {
+				throw new BLLException("Ce vétérinaire a encore des rendez-vous.");
+			} else {
+				personnelsDAO.delete(personnel);
+				
+			}	
 		} catch (DALException e) {
 			throw new BLLException(e.getMessage());
 		}

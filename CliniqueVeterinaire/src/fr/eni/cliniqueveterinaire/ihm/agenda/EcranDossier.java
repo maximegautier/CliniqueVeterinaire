@@ -8,6 +8,8 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -21,9 +23,12 @@ import javax.swing.JTextArea;
 import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bo.Animaux;
 import fr.eni.cliniqueveterinaire.bo.Clients;
+import fr.eni.cliniqueveterinaire.log.LogFactory;
 
 public class EcranDossier extends JFrame{
 
+	private final static Logger LOGGER = Logger.getLogger(LogFactory.class.getName());
+	
 	private JPanel panelDossier, panelHead, panelInfo, panelAntecedent, panelInfoClient, panelInfoAnimal;
 	private JButton btnValider, btnAnnuler;
 	private GridBagConstraints gbc;
@@ -150,9 +155,9 @@ public class EcranDossier extends JFrame{
 					animal.setAntecedents(getJtaAntecedent().getText());
 					try {
 						PanAgendaController.validerDossier(animal);
+						
 					} catch (BLLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
 					}
 					dispose();
 				}

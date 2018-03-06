@@ -28,4 +28,6 @@ public interface PersonnelsDAO {
 
 	public void insertPersonnelsRoles(int codePers, String role) throws DALException;
 	
+	public boolean selectRdvVeterinaire(int id) throws DALException;
+	
 }

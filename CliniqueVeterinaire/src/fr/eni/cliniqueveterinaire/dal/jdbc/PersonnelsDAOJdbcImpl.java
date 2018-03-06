@@ -25,6 +25,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 	private String rqtSelectRole = "SELECT Libelle From Roles";
 	private String rqtVerifieSiExiste = "SELECT * FROM Personnels WHERE Nom = ?";
 	private String rqtSelectVeterinaire = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle, Archive FROM Personnels JOIN Personnels_Roles ON Personnels_Roles.CodePers = Personnels.CodePers JOIN Roles ON Roles.Libelle = Personnels_Roles.Libelle_Role WHERE libelle = 'vet' AND Archive = 0";
+	private String rqtVerifieRdv = "SELECT * FROM Agendas WHERE CodeVeto = ? AND DateRdv > getDate()";
 	
 	public PersonnelsDAOJdbcImpl()
 	{
@@ -460,6 +461,45 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 			}
 		}
 		return personnels;
+	}
+	
+	/* Créee par Maxime GAUTIER */
+	public boolean selectRdvVeterinaire(int id) throws DALException
+	{
+		boolean aRetourner = false;
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		
+		try 
+		{
+			cnx = JdbcTools.getConnection();		
+			rqt = cnx.prepareStatement(rqtVerifieRdv);
+			rqt.setInt(1, id);		
+			rs = rqt.executeQuery();
+			
+			if(rs.next())
+			{
+				aRetourner = true;
+			}			
+		} catch (SQLException e) {
+			throw new DALException("selectRdvVeterinaire failed - " , e);
+		} finally {
+			try {
+				if (rs != null){
+					rs.close();
+				}
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return aRetourner;
 	}
 	
 }
