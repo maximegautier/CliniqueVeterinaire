@@ -44,6 +44,7 @@ import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.ihm.Update;
 import fr.eni.cliniqueveterinaire.ihm.animal.EcranAnimal;
 import fr.eni.cliniqueveterinaire.ihm.clients.EcranAjoutClients;
+import fr.eni.cliniqueveterinaire.ihm.personnels.PanPersonnelsController;
 import fr.eni.cliniqueveterinaire.log.LogFactory;
 
 /* Créé par Erwin DUPUIS */
@@ -367,20 +368,33 @@ public class PanPriseRdv extends JPanel implements Update
 				public void actionPerformed(ActionEvent e) 
 				{
 					int rowSelect = getTableRdv().getSelectedRow();
-					Agendas rdvSelect = rdv.get(rowSelect);
-					try 
+					if(rowSelect == -1)
 					{
-						PanAgendaController.supprimerRdv(rdvSelect);
-					} 
-					catch (BLLException e1) 
-					{
-						JOptionPane.showMessageDialog(null, e1.getMessage(), "Erreur", JOptionPane.INFORMATION_MESSAGE);
-						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
+						JOptionPane.showMessageDialog(null, "Veuillez sélectionner un ligne à supprimer", "Erreur", JOptionPane.INFORMATION_MESSAGE);
 					}
-					
-					getTableRdv().setData(getRdv());
-					JOptionPane.showMessageDialog(null, "Rendez-vous supprimé", "Succes", JOptionPane.INFORMATION_MESSAGE);
-					LogFactory.getLog().createLog(Level.INFO, "Rendez-vous supprimé : Code vétérinaire : "+rdvSelect.getCodeVeto()+" , Date : "+rdvSelect.getDateRdv()+" , CodeAnimal : "+rdvSelect.getCodeAnimal() );
+					else
+					{
+						Agendas rdvSelect = rdv.get(rowSelect);
+						JOptionPane jop = new JOptionPane();			
+						int option = jop.showConfirmDialog(null, "Etes-vous sur de vouloir supprimer ce rendez-vous ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+									
+						if(option == JOptionPane.OK_OPTION)
+						{								
+							try 
+							{
+								PanAgendaController.supprimerRdv(rdvSelect);
+							} 
+							catch (BLLException e1) 
+							{
+								JOptionPane.showMessageDialog(null, e1.getMessage(), "Erreur", JOptionPane.INFORMATION_MESSAGE);
+								LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
+							}
+							
+							getTableRdv().setData(getRdv());
+							JOptionPane.showMessageDialog(null, "Rendez-vous supprimé", "Succes", JOptionPane.INFORMATION_MESSAGE);
+							LogFactory.getLog().createLog(Level.INFO, "Rendez-vous supprimé : Code vétérinaire : "+rdvSelect.getCodeVeto()+" , Date : "+rdvSelect.getDateRdv()+" , CodeAnimal : "+rdvSelect.getCodeAnimal() );	
+						}					
+					}
 				}
 			});
 		}
@@ -675,7 +689,6 @@ public class PanPriseRdv extends JPanel implements Update
 		}
 		return tableRdv;
 	}
-
 	
 	public List<Clients> getClients() 
 	{
@@ -692,7 +705,6 @@ public class PanPriseRdv extends JPanel implements Update
 		}
 		return clients;
 	}
-
 	
 	public List<Personnels> getVeterinaires() 
 	{
@@ -709,7 +721,6 @@ public class PanPriseRdv extends JPanel implements Update
 		}
 		return veterinaires;
 	}
-
 	
 	public List<Agendas> getRdv() 
 	{
@@ -717,7 +728,6 @@ public class PanPriseRdv extends JPanel implements Update
 
 		return rdv;
 	}
-
 	
 	public List<Animaux> getAnimaux() 
 	{
@@ -725,7 +735,6 @@ public class PanPriseRdv extends JPanel implements Update
 		
 		return animaux;
 	}
-
 			
     //endregion GET/SET
 }
