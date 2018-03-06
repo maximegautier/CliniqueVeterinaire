@@ -135,15 +135,23 @@ public class ClientsManager {
 		}
 	}
 
-	public void ajouterClient(Clients leClient) throws BLLException, DALException {
+	public int ajouterClient(Clients leClient) throws BLLException, DALException {
+		int codeClient = -1;
 		if(leClient == null){
 			throw new BLLException("(ClientsManager)ajouterClient : le client est null");
 		}else{
-			clientsDAO.addClient(leClient);
+			codeClient  = clientsDAO.addClient(leClient);
 		}
-		
+		return codeClient; 
 	}
 	
+	public void editClient(Clients leClient) throws DALException, BLLException{
+		if(leClient == null || leClient.getCodeClient() <=0){
+			throw new BLLException("(ClientsManager)ajouterClient : le client ni le codeClient ne peuvent etre null");
+		}else{
+			clientsDAO.editClient(leClient);
+		}
+	}
 	
 	public static ClientsManager getInstance() throws BLLException
 	{

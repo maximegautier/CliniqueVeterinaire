@@ -198,7 +198,8 @@ public class ClientsDAOJdbcImpl implements ClientsDAO {
 	}
 
 	@Override
-	public void addClient(Clients leClient) throws DALException {
+	public int addClient(Clients leClient) throws DALException {
+		int codeClient = -1;
 		Connection cnx = null;
 		PreparedStatement rqt = null;
 		try {
@@ -213,8 +214,8 @@ public class ClientsDAOJdbcImpl implements ClientsDAO {
 			rqt.setString(7,leClient.getNumTel());
 			rqt.setString(8,leClient.getAssurance());
 			rqt.setString(9,leClient.getEmail());
-			rqt.setString(10,leClient.getNumTel());
-			rqt.setString(11,leClient.getRemarque());
+			rqt.setString(10,leClient.getRemarque());
+			rqt.setBoolean(11,leClient.isArchive() ? true : false);
 			if(leClient.isArchive()){
 				rqt.setBoolean(11,true);
 			}else{
@@ -225,6 +226,7 @@ public class ClientsDAOJdbcImpl implements ClientsDAO {
 			if(nbRows == 1){
 				ResultSet rs = rqt.getGeneratedKeys();
 				if(rs.next()){
+					codeClient = rs.getInt(1);
 					leClient.setCodeClient(nbRows);
 				}
 			}
@@ -244,7 +246,7 @@ public class ClientsDAOJdbcImpl implements ClientsDAO {
 				throw new DALException("Close connexion failed",e);
 			}
 		}
-		
+		return codeClient;
 	}
 
 	@Override
