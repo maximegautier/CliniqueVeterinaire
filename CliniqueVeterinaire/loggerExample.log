@@ -1,6 +1,0 @@
-mars 06, 2018 11:09:29 AM fr.eni.cliniqueveterinaire.log.LogFactory main
-INFOS: message 1
-mars 06, 2018 11:09:29 AM fr.eni.cliniqueveterinaire.log.LogFactory main
-GRAVE: message 2
-mars 06, 2018 11:09:29 AM fr.eni.cliniqueveterinaire.log.Log thing
-AVERTISSEMENT: something to log
