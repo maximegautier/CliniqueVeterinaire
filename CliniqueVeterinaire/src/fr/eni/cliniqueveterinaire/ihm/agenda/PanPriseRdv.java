@@ -452,6 +452,7 @@ public class PanPriseRdv extends JPanel implements Update
 		if(cbClient == null)
 		{	
 			cbClient = new JComboBox();
+			cbClient.setPreferredSize(new Dimension(170, 27));
 			cbClient.setModel(new DefaultComboBoxModel(getClients().toArray()));	
 			cbClient.setSelectedIndex(0);
 			
@@ -505,6 +506,7 @@ public class PanPriseRdv extends JPanel implements Update
 		if(cbAnimal == null)
 		{
 			cbAnimal = new JComboBox();
+			cbAnimal.setPreferredSize(new Dimension(170, 27));
 			
 			if(animaux != null)
 			{
@@ -547,6 +549,7 @@ public class PanPriseRdv extends JPanel implements Update
 		if(cbVeterinaire == null)
 		{
 			cbVeterinaire = new JComboBox();
+			cbVeterinaire.setPreferredSize(new Dimension(100, 27));
 			cbVeterinaire.setModel(new DefaultComboBoxModel(getVeterinaires().toArray()));
 			cbVeterinaire.setSelectedIndex(0);
 			

@@ -29,7 +29,7 @@ public class AgendasManager
 	{
 		if(jour == null)
 		{
-			throw new BLLException("(AgendasManager)SelectEntreDates : La date ne peut pas être null");
+			throw new BLLException("La date ne peut pas être nulle");
 		}
 		else
 		{
@@ -48,11 +48,11 @@ public class AgendasManager
 	{
 		if(jour == null)
 		{
-			throw new BLLException("La date ne peut pas être null");
+			throw new BLLException("La date ne peut pas être nulle");
 		}
 		else if(isNegativeInt(codeVeterinaire))
 		{
-			throw new BLLException("Le code veterinaire ne peut pas être null");
+			throw new BLLException("Le code veterinaire ne peut pas être nul");
 		}
 		else
 		{
@@ -71,19 +71,19 @@ public class AgendasManager
 	{
 		if(aAjouter == null)
 		{
-			throw new BLLException("(AgendasManager)Ajouter : Le rendez vous à ajouter ne peut pas etre null");
+			throw new BLLException("Le rendez vous à ajouter ne peut pas etre nul");
 		}
 		else if(isNegativeInt(aAjouter.getCodeAnimal()))
 		{
-			throw new BLLException("(AgendasManager)Ajouter : Le code de l'animal à consulter ne peut pas etre null");
+			throw new BLLException("Le code de l'animal à consulter ne peut pas etre nul");
 		}
 		else if(isNegativeInt(aAjouter.getCodeVeto()))
 		{
-			throw new BLLException("(AgendasManager)Ajouter : Le code du vétérinaire en charge ne peut pas etre null");
+			throw new BLLException("Le code du vétérinaire en charge ne peut pas etre nul");
 		}
 		else if(aAjouter.getDateRdv() == null)
 		{
-			throw new BLLException("(AgendasManager)Ajouter : La date de rendez vous ne peut pas etre null");
+			throw new BLLException("La date de rendez vous ne peut pas etre nulle");
 		}
 		else
 		{
@@ -102,19 +102,19 @@ public class AgendasManager
 	{
 		if(aSupprimer == null)
 		{
-			throw new BLLException("(AgendasManager)Supprimer : Le rendez vous à ajouter ne peut pas etre null");
+			throw new BLLException("Le rendez vous à ajouter ne peut pas etre nul");
 		}
 		else if(isNegativeInt(aSupprimer.getCodeAnimal()))
 		{
-			throw new BLLException("(AgendasManager)Supprimer : Le code de l'animal à consulter ne peut pas etre null");
+			throw new BLLException("Le code de l'animal à consulter ne peut pas etre nul");
 		}
 		else if(isNegativeInt(aSupprimer.getCodeVeto()))
 		{
-			throw new BLLException("(AgendasManager)Supprimer : Le code du vétérinaire en charge ne peut pas etre null");
+			throw new BLLException("Le code du vétérinaire en charge ne peut pas etre nul");
 		}
 		else if(aSupprimer.getDateRdv() == null)
 		{
-			throw new BLLException("(AgendasManager)Supprimer : La date de rendez vous ne peut pas etre null");
+			throw new BLLException("La date de rendez vous ne peut pas etre nulle");
 		}
 		else
 		{
@@ -133,15 +133,15 @@ public class AgendasManager
 	{
 		if(aVerifier.getDateRdv() == null)
 		{
-			throw new BLLException("La date du rendez-vous à verifier ne peut pas etre null");
+			throw new BLLException("La date du rendez-vous à verifier ne peut pas etre nulle");
 		}
 		else if(isNegativeInt(aVerifier.getCodeVeto()))
 		{
-			throw new BLLException("Le code veterinaire du rendez-vous à verifier ne peut pas etre null");
+			throw new BLLException("Le code veterinaire du rendez-vous à verifier ne peut pas etre nul");
 		}
 		else if(isNegativeInt(aVerifier.getCodeAnimal()))
 		{
-			throw new BLLException("Le code animal du rendez-vous a verifier ne peut pas etre null");
+			throw new BLLException("Le code animal du rendez-vous a verifier ne peut pas etre nul");
 		}
 		else
 		{

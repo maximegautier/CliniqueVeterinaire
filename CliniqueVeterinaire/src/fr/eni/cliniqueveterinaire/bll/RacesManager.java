@@ -26,30 +26,6 @@ public class RacesManager
     //endregion CTOR
     
     //region METHODS
-    
-	public static List<Races> selectRacesChat() throws BLLException
-	{
-		try 
-		{
-			return getRacesDao().selectRacesChat();
-		} 
-		catch (DALException e) 
-		{
-			throw new BLLException(e.getMessage());
-		}
-	}
-	
-	public static List<Races> selectRacesChien() throws BLLException 
-	{
-		try 
-		{
-			return getRacesDao().selectRacesChien();
-		} 
-		catch (DALException e) 
-		{
-			throw new BLLException(e.getMessage());
-		}
-	}
 	
 	public static List<Races> selectRaces(String espece) throws BLLException
 	{
@@ -57,7 +33,7 @@ public class RacesManager
 		
 		if(isEmptyOrNull(espece))
 		{
-			throw new BLLException("L'espece renseignée ne peut pas être null");
+			throw new BLLException("L'espece renseignée ne peut pas être nulle");
 		}
 		else
 		{

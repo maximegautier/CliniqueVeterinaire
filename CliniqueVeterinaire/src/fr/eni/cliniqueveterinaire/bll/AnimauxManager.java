@@ -91,31 +91,31 @@ public class AnimauxManager
 		
 		if(aAjouter == null)
 		{
-			throw new BLLException("(AnimauxManager)Ajouter : l'object Animal ne peut pas être null");
+			throw new BLLException("L'object Animal ne peut pas être nul");
 		}
 		else if(isEmptyOrNull(aAjouter.getNomAnimal()))
 		{
-			throw new BLLException("(AnimauxManager)Ajouter : le nom de l'animal ne peut pas être null");
+			throw new BLLException("Le nom de l'animal doit être renseigné");
 		}
 		else if(isEmptyOrNull(aAjouter.getsexe()))
 		{
-			throw new BLLException("(AnimauxManager)Ajouter : le sexe de l'animal ne peut pas être null");
+			throw new BLLException("Le sexe de l'animal doit être renseigné");
 		}
 		else if(aAjouter.getsexe().length() > 1)
 		{
-			throw new BLLException("(AnimauxManager)Ajouter : le sexe de l'animal ne peut pas excéder 1 caractère (M,F)");
+			throw new BLLException("Le sexe de l'animal ne peut pas excéder 1 caractère (M,F)");
 		}
 		else if(isEmptyOrNull(aAjouter.getRace()))
 		{
-			throw new BLLException("(AnimauxManager)Ajouter : la race de l'animal ne peut pas être null");
+			throw new BLLException("La race de l'animal doit être renseignée");
 		}
 		else if(isEmptyOrNull(aAjouter.getEspece()))
 		{
-			throw new BLLException("(AnimauxManager)Ajouter : l'espece de l'animal ne peut pas être null");
+			throw new BLLException("L'espece de l'animal doit être renseignée");
 		}
 		else if(isNegativeInt(aAjouter.getCodeClient()))
 		{
-			throw new BLLException("(AnimauxManager)Ajouter : le code client du propriètaire de l'animal ne peut pas être null");
+			throw new BLLException("Le code client du propriètaire de l'animal ne peut pas être nul");
 		}
 		else if(verifieSiExiste(aAjouter.getCodeClient(), aAjouter.getNomAnimal()))
 		{
@@ -123,11 +123,11 @@ public class AnimauxManager
 		}
 		else if(!isEmptyOrNull(aAjouter.gettatouage()) && aAjouter.gettatouage().length() > 10)
 		{
-			throw new BLLException("(AnimauxManager)Ajouter : la longueur du tatouage de l'animal ne peut excéder 10 caracteres");
+			throw new BLLException("La longueur du tatouage de l'animal ne peut excéder 10 caractères");
 		}
 		else if(!isEmptyOrNull(aAjouter.getCouleur()) && aAjouter.getCouleur().length() > 20)
 		{
-			
+			throw new BLLException("La longueur du nom de la couleur de l'animal ne peut excéder 20 caractères");
 		}
 		else
 		{
@@ -150,7 +150,7 @@ public class AnimauxManager
 		
 		if(isNegativeInt(CodeAnimal))
 		{
-			throw new BLLException("(AnimauxManager)Supprimer : La code animal à supprimer ne peut pas etre null");
+			throw new BLLException("Le code animal à supprimer ne peut pas etre nul");
 		}
 		else
 		{
@@ -173,31 +173,43 @@ public class AnimauxManager
 		
 		if(aModifier == null)
 		{
-			throw new BLLException("(AnimauxManager)Ajouter : l'object Animal ne peut pas être null");
+			throw new BLLException("L'object Animal ne peut pas être nul");
 		}
 		else if(isNegativeInt(aModifier.getCodeAnimal()))
 		{
-			throw new BLLException("(AnimauxManager)Ajouter : le code animal ne peut pas être null");
+			throw new BLLException("Le code animal ne peut pas être nul");
 		}
 		else if(isEmptyOrNull(aModifier.getNomAnimal()))
 		{
-			throw new BLLException("(AnimauxManager)Ajouter : le nom de l'animal ne peut pas être null");
+			throw new BLLException("Le nom de l'animal doit être renseigné");
 		}
 		else if(isEmptyOrNull(aModifier.getsexe()))
 		{
-			throw new BLLException("(AnimauxManager)Ajouter : le sexe de l'animal ne peut pas être null");
+			throw new BLLException("Le sexe de l'animal doit être renseigné");
+		}
+		else if(aModifier.getsexe().length() > 1)
+		{
+			throw new BLLException("Le sexe de l'animal ne peut pas excéder 1 caractère (M,F)");
 		}
 		else if(isEmptyOrNull(aModifier.getRace()))
 		{
-			throw new BLLException("(AnimauxManager)Ajouter : la race de l'animal ne peut pas être null");
+			throw new BLLException("La race de l'animal doit être renseigné");
 		}
 		else if(isEmptyOrNull(aModifier.getEspece()))
 		{
-			throw new BLLException("(AnimauxManager)Ajouter : l'espece de l'animal ne peut pas être null");
+			throw new BLLException("L'espece de l'animal doit être renseigné");
 		}
 		else if(isNegativeInt(aModifier.getCodeClient()))
 		{
-			throw new BLLException("(AnimauxManager)Ajouter : le code client du propriètaire de l'animal ne peut pas être null");
+			throw new BLLException("Le code client du propriètaire de l'animal ne peut pas être nul");
+		}
+		else if(!isEmptyOrNull(aModifier.gettatouage()) && aModifier.gettatouage().length() > 10)
+		{
+			throw new BLLException("La longueur du tatouage de l'animal ne peut excéder 10 caractères");
+		}
+		else if(!isEmptyOrNull(aModifier.getCouleur()) && aModifier.getCouleur().length() > 20)
+		{
+			throw new BLLException("La longueur du nom de la couleur de l'animal ne peut excéder 20 caractères");
 		}
 		else
 		{
