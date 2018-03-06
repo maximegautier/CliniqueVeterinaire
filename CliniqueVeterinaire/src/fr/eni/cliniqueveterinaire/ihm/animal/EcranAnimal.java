@@ -28,10 +28,11 @@ import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bo.Animaux;
 import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.bo.Races;
+import fr.eni.cliniqueveterinaire.ihm.Update;
 import fr.eni.cliniqueveterinaire.ihm.agenda.PanPriseRdv;
 
 /* Créé par Erwin DUPUIS */
-public class EcranAnimal extends JFrame
+public class EcranAnimal extends JFrame implements Update
 {
     //region DECLARATION
 
@@ -69,14 +70,18 @@ public class EcranAnimal extends JFrame
     private List<Races> race;
     private Clients clientCourant;
     private Animaux animalCourant;
+    
+    public Update update;
 
     //endregion DECLARATION
 
     //region CTOR
 
-    public EcranAnimal(int codeClient, int codeAnimal)
+    public EcranAnimal(int codeClient, int codeAnimal, Update update)
     {
     	getCurrentFrame();
+    	
+    	this.update = update;
     	
     	this.typeOperation = false;    	
     	this.CodeClient = 1;//codeClient;
@@ -104,9 +109,11 @@ public class EcranAnimal extends JFrame
 	    this.setVisible(true); 
     }
 
-    public EcranAnimal(int codeClient)
+    public EcranAnimal(int codeClient, Update update)
     {
     	getCurrentFrame();
+    	
+    	this.update = update;
     	
     	this.typeOperation = true;
     	this.CodeClient = codeClient;
@@ -338,6 +345,15 @@ public class EcranAnimal extends JFrame
 		}	
 	}
 	
+	@Override
+	public void updateAnimauxPanPriseRdv(List<Animaux> nvListeAnimaux) 
+	{
+		if(update != null)
+		{
+			update.updateAnimauxPanPriseRdv(nvListeAnimaux);
+		}
+	}
+	
     //endregion METHODS
 
     //region GET/SET
@@ -393,6 +409,8 @@ public class EcranAnimal extends JFrame
 									false);
 							
 							EcranAnimalController.ajouter(aAjouter);
+							List<Animaux> nvListeAnimaux = EcranAnimalController.selectAnimaux(aAjouter.getCodeClient());
+							updateAnimauxPanPriseRdv(nvListeAnimaux);
 							JOptionPane.showMessageDialog(null, "Animal ajouter", "Succes", JOptionPane.INFORMATION_MESSAGE);
 							currentFrame.dispose();
 						} 

@@ -39,13 +39,17 @@ import fr.eni.cliniqueveterinaire.bo.Agendas;
 import fr.eni.cliniqueveterinaire.bo.Animaux;
 import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
+import fr.eni.cliniqueveterinaire.ihm.Update;
+import fr.eni.cliniqueveterinaire.ihm.animal.EcranAnimal;
 import fr.eni.cliniqueveterinaire.ihm.clients.EcranAjoutClients;
 
 /* Créé par Erwin DUPUIS */
-public class PanPriseRdv extends JPanel
+public class PanPriseRdv extends JPanel implements Update
 {
     //region DECLARATION
 
+	private static PanPriseRdv instance;
+	
 	private JPanel panelPrincipal;
 	
 	private JPanel panelListe;
@@ -79,6 +83,8 @@ public class PanPriseRdv extends JPanel
 	private List<Personnels> veterinaires;
 	private List<Agendas> rdv;
 	private List<Animaux> animaux;
+	
+	public Update update;
 
     //endregion DECLARATION
 
@@ -87,6 +93,7 @@ public class PanPriseRdv extends JPanel
 	public PanPriseRdv()
 	{	
 		getPanelPrincipal();
+		update = this;
 	}
 
     //endregion CTOR
@@ -278,10 +285,26 @@ public class PanPriseRdv extends JPanel
 		} 
     }
     
+	@Override
+	public void updateAnimauxPanPriseRdv(List<Animaux> nvListeAnimaux) 
+	{
+		getCbAnimal().setModel(new DefaultComboBoxModel(getAnimaux().toArray()));
+	}
+    
     //endregion METHODS
 
     //region GET/SET
 	
+    public static PanPriseRdv getInstance()
+    {
+    	if(PanPriseRdv.instance == null)
+    	{
+    		PanPriseRdv.instance = new PanPriseRdv();
+    	}
+    	
+    	return PanPriseRdv.instance;
+    }
+    
 	public JPanel getPanelPrincipal() 
 	{
 		if(panelPrincipal == null)
@@ -326,7 +349,7 @@ public class PanPriseRdv extends JPanel
 		}
 		return panelListe;
 	}
-
+	
 	public JButton getBtnSupprimer() 
 	{
 		if(btnSupprimer == null)
@@ -459,7 +482,7 @@ public class PanPriseRdv extends JPanel
 		}
 		return btnAjoutClient;
 	}
-
+	
 	public JLabel getLblAnimal() 
 	{
 		if(lblAnimal == null)
@@ -468,7 +491,7 @@ public class PanPriseRdv extends JPanel
 		}
 		return lblAnimal;
 	}
-
+	
 	public JComboBox getCbAnimal() 
 	{
 		if(cbAnimal == null)
@@ -483,7 +506,7 @@ public class PanPriseRdv extends JPanel
 		}
 		return cbAnimal;
 	}
-
+	
 	public JButton getBtnAjoutAnimal() 
 	{
 		if(btnAjoutAnimal == null)
@@ -495,8 +518,7 @@ public class PanPriseRdv extends JPanel
 				public void actionPerformed(ActionEvent arg0) 
 				{
 					Clients selectClient = (Clients)getCbClient().getSelectedItem();
-					PanAgendaController.ouvrirAjoutAnimal(selectClient.getCodeClient());
-					
+					EcranAnimal ecranAnimal = new EcranAnimal(selectClient.getCodeClient(), update);				
 				}
 			});
 		}
@@ -692,6 +714,7 @@ public class PanPriseRdv extends JPanel
 		
 		return animaux;
 	}
+
 			
     //endregion GET/SET
 }

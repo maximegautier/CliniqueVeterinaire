@@ -59,12 +59,7 @@ public class PanAgendaController
 	public static List<Animaux> selectAnimauxClient(int codeClient) throws BLLException 
 	{
 		return AnimauxManager.selectAnimaux(codeClient);
-	}
-	
-	public static void ouvrirAjoutAnimal(int codeClient)
-	{
-		EcranAnimal ecranAnimal = new EcranAnimal(codeClient);
-	}
+	}	
 	
 	public static void ouvrirDossier(TableAgendaVet table, List<Agendas> listRdv) throws BLLException
 	{
