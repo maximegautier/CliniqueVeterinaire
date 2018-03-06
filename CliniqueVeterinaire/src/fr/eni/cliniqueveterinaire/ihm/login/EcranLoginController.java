@@ -48,6 +48,10 @@ public class EcranLoginController
 			fenMenu.setVisible(true);
 		}
 	}
+	
+	public void deconnexion() {
+		fenMenu.dispose();
+	}
 
 	public static Personnels getCurrentPersonnel() {
 		return currentPersonnel;
