@@ -380,7 +380,7 @@ public class PanPriseRdv extends JPanel implements Update
 					
 					getTableRdv().setData(getRdv());
 					JOptionPane.showMessageDialog(null, "Rendez-vous supprimé", "Succes", JOptionPane.INFORMATION_MESSAGE);
-					LogFactory.getLog().createLog(Level.INFO, "Rendez-vous supprime : Code vetérinaire : "+rdvSelect.getCodeVeto()+" , Date : "+rdvSelect.getDateRdv()+" , CodeAnimal : "+rdvSelect.getCodeAnimal() );
+					LogFactory.getLog().createLog(Level.INFO, "Rendez-vous supprimé : Code vétérinaire : "+rdvSelect.getCodeVeto()+" , Date : "+rdvSelect.getDateRdv()+" , CodeAnimal : "+rdvSelect.getCodeAnimal() );
 				}
 			});
 		}
@@ -431,7 +431,7 @@ public class PanPriseRdv extends JPanel implements Update
 					
 					getTableRdv().setData(getRdv());
 					JOptionPane.showMessageDialog(null, "Rendez-vous ajouté", "Succes", JOptionPane.INFORMATION_MESSAGE);
-					LogFactory.getLog().createLog(Level.INFO, "Rendez-vous ajoute : Code vetérinaire : "+aAjouter.getCodeVeto()+" , Date rendez-vous : "+aAjouter.getDateRdv()+" , CodeAnimal : "+aAjouter.getCodeAnimal());
+					LogFactory.getLog().createLog(Level.INFO, "Rendez-vous ajouté : Code vétérinaire : "+aAjouter.getCodeVeto()+" , Date rendez-vous : "+aAjouter.getDateRdv()+" , CodeAnimal : "+aAjouter.getCodeAnimal());
 				}
 			});						
 		}
