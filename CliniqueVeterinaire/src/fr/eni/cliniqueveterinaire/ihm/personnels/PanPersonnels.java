@@ -20,23 +20,23 @@ import fr.eni.cliniqueveterinaire.bll.PersonnelsManager;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 
 
-public class PanGDP extends JPanel{
+public class PanPersonnels extends JPanel{
 
-	private static PanGDP instance;
+	private static PanPersonnels instance;
 	private JPanel panelHead, panelTable;
 	private JButton bAjouter, bSupprimer, bReinitialiser;
 	private TablePersonnels tablePersonnels;
 	
-	public static PanGDP getInstance()
+	public static PanPersonnels getInstance()
 	{
-		if (PanGDP.instance == null)
+		if (PanPersonnels.instance == null)
 		{
-			PanGDP.instance = new PanGDP();
+			PanPersonnels.instance = new PanPersonnels();
 		}
-		return PanGDP.instance;
+		return PanPersonnels.instance;
 	}
 	
-	private PanGDP()
+	private PanPersonnels()
 	{
 		setPreferredSize(new Dimension(700,500));
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -94,7 +94,7 @@ public class PanGDP extends JPanel{
 				public void actionPerformed(ActionEvent e)
 				{
 					try {
-						PanGDPController.getInstance().ajouter();
+						PanPersonnelsController.getInstance().ajouter();
 					} catch (DALException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -116,7 +116,7 @@ public class PanGDP extends JPanel{
 				public void actionPerformed(ActionEvent e)
 				{
 					try {
-						PanGDPController.getInstance().supprimer();
+						PanPersonnelsController.getInstance().supprimer();
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -138,7 +138,7 @@ public class PanGDP extends JPanel{
 				public void actionPerformed(ActionEvent e)
 				{
 						try {
-							PanGDPController.getInstance().reinitialiser();
+							PanPersonnelsController.getInstance().reinitialiser();
 						} catch (DALException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();

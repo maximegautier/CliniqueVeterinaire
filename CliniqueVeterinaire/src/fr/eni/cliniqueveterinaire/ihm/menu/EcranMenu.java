@@ -14,7 +14,7 @@ import fr.eni.cliniqueveterinaire.ihm.agenda.PanAgenda;
 import fr.eni.cliniqueveterinaire.ihm.agenda.PanPriseRdv;
 import fr.eni.cliniqueveterinaire.ihm.clients.EcranClients;
 import fr.eni.cliniqueveterinaire.ihm.login.EcranLoginController;
-import fr.eni.cliniqueveterinaire.ihm.personnels.PanGDP;
+import fr.eni.cliniqueveterinaire.ihm.personnels.PanPersonnels;
 
 public class EcranMenu extends JFrame{
 	
@@ -39,7 +39,7 @@ public class EcranMenu extends JFrame{
 				menuBar.add(getMRDV());
 				menuBar.add(getMAgenda());
 				menuBar.add(getMGDP());
-				setContentPane(PanGDP.getInstance());
+				setContentPane(PanPersonnels.getInstance());
 				break;
 			case "vet":
 				menuBar.add(getMAgenda());
@@ -99,7 +99,7 @@ public class EcranMenu extends JFrame{
 			mGDP.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					setContentPane(PanGDP.getInstance());
+					setContentPane(PanPersonnels.getInstance());
 					repaint();
 					revalidate();
 				}

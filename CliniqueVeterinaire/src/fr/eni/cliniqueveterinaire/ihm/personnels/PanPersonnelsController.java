@@ -16,28 +16,27 @@ import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
 import fr.eni.cliniqueveterinaire.log.LogFileTxt;
 import fr.eni.cliniqueveterinaire.log.LogFactory;
 
-public class PanGDPController extends JPanel{
+public class PanPersonnelsController extends JPanel{
 
 	private final static Logger LOGGER = Logger.getLogger(LogFactory.class.getName());
 	
-	private static PanGDPController instance;
+	private static PanPersonnelsController instance;
 	private EcranMenu fenMenu;
-	private PanGDP panelGDP;
+	private PanPersonnels panelGDP;
 
-	private PanGDPController(){
+	private PanPersonnelsController(){
 		
 	}
 	
-	public static PanGDPController getInstance(){
-		if ( PanGDPController.instance == null){
-			PanGDPController.instance = new PanGDPController();
+	public static PanPersonnelsController getInstance(){
+		if ( PanPersonnelsController.instance == null){
+			PanPersonnelsController.instance = new PanPersonnelsController();
 		}
-		return PanGDPController.instance;
+		return PanPersonnelsController.instance;
 	}
 	
 	public void ajouter() throws DALException{
 		DialogAdd jdAjouter = new DialogAdd();
-		LogFactory.getLog().createLog(Level.SEVERE, "Personnel ajouté");
 	}
 	
 	public void supprimer() throws BLLException{
@@ -55,7 +54,6 @@ public class PanGDPController extends JPanel{
 						
 			if(option == JOptionPane.OK_OPTION){				
 				PersonnelsManager.supprimer(personnel);
-				LogFactory.getLog().createLog(Level.INFO, "Personnel supprimé");
 				rafraichirTable();
 			}
 		}

@@ -145,7 +145,7 @@ public class DialogAdd{
 		if (cRole == null)
 		{
 			cRole = new JComboBox<String>();
-			cRole.setModel(new DefaultComboBoxModel(PanGDPController.getInstance().selectTousRoles().toArray()));
+			cRole.setModel(new DefaultComboBoxModel(PanPersonnelsController.getInstance().selectTousRoles().toArray()));
 		}
 		return cRole;
 	}
@@ -160,7 +160,7 @@ public class DialogAdd{
 				public void actionPerformed(ActionEvent e)
 				{
 					try {
-						PanGDPController.getInstance().validerAjout(
+						PanPersonnelsController.getInstance().validerAjout(
 								getTfNom().getText(),
 								getTfPrenom().getText(),
 								getTfLogin().getText(),

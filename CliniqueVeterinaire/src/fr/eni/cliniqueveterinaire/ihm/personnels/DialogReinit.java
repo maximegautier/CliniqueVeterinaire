@@ -229,7 +229,7 @@ public class DialogReinit extends JDialog
 				public void actionPerformed(ActionEvent e)
 				{
 					try {
-						PanGDPController.getInstance().validerReinit(currentPersonnel, getTfdAncienMDP().getText(), getTfdNouveauMDP().getText());
+						PanPersonnelsController.getInstance().validerReinit(currentPersonnel, getTfdAncienMDP().getText(), getTfdNouveauMDP().getText());
 						JOptionPane.showMessageDialog(null, "Mot de passe changé", "Succes", JOptionPane.INFORMATION_MESSAGE);
 						dispose();
 					} catch (BLLException e1) {

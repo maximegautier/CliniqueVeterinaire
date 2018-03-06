@@ -1,2 +1,8 @@
 mars 06, 2018 11:47:05 AM fr.eni.cliniqueveterinaire.log.LogFileTxt createLog
 INFOS: Personnel supprimé
+mars 06, 2018 1:59:31 PM fr.eni.cliniqueveterinaire.log.LogFileTxt createLog
+INFOS: Personnel supprimé
+mars 06, 2018 2:05:07 PM fr.eni.cliniqueveterinaire.log.LogFileTxt createLog
+INFOS: Rendez-vous ajoute : Code vetérinaire : 2 , Date : Tue Mar 06 14:45:00 CET 2018 , CodeAnimal : 12
+mars 06, 2018 2:05:39 PM fr.eni.cliniqueveterinaire.log.LogFileTxt createLog
+INFOS: Rendez-vous supprime : Code vetérinaire : 2 , Date : Tue Mar 06 07:45:00 CET 2018 , CodeAnimal : 12
