@@ -39,6 +39,7 @@ import fr.eni.cliniqueveterinaire.bo.Agendas;
 import fr.eni.cliniqueveterinaire.bo.Animaux;
 import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
+import fr.eni.cliniqueveterinaire.ihm.clients.EcranAjoutClients;
 
 /* Créé par Erwin DUPUIS */
 public class PanPriseRdv extends JPanel
@@ -452,7 +453,7 @@ public class PanPriseRdv extends JPanel
 				@Override
 				public void actionPerformed(ActionEvent e) 
 				{
-					// TODO Auto-generated method stub					
+					EcranAjoutClients.getInstance();			
 				}
 			});
 		}
