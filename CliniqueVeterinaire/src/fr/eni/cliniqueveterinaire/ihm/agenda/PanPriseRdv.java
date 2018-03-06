@@ -95,7 +95,7 @@ public class PanPriseRdv extends JPanel implements Update
 
     //region CTOR
 
-	public PanPriseRdv()
+	private PanPriseRdv()
 	{	
 		getPanelPrincipal();
 		update = this;
