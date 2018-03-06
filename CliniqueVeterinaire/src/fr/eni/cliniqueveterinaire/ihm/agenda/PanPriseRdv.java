@@ -431,7 +431,7 @@ public class PanPriseRdv extends JPanel implements Update
 					
 					getTableRdv().setData(getRdv());
 					JOptionPane.showMessageDialog(null, "Rendez-vous ajouté", "Succes", JOptionPane.INFORMATION_MESSAGE);
-					LogFactory.getLog().createLog(Level.INFO, "Rendez-vous ajoute : Code vetérinaire : "+aAjouter.getCodeVeto()+" , Date : "+aAjouter.getDateRdv()+" , CodeAnimal : "+aAjouter.getCodeAnimal());
+					LogFactory.getLog().createLog(Level.INFO, "Rendez-vous ajoute : Code vetérinaire : "+aAjouter.getCodeVeto()+" , Date rendez-vous : "+aAjouter.getDateRdv()+" , CodeAnimal : "+aAjouter.getCodeAnimal());
 				}
 			});						
 		}
