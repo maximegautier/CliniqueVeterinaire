@@ -49,7 +49,39 @@ public class RacesManager
 			throw new BLLException(e.getMessage());
 		}
 	}
+	
+	public static List<Races> selectRaces(String espece) throws BLLException
+	{
+		if(isEmptyOrNull(espece))
+		{
+			throw new BLLException("L'espece renseignée ne peut pas être null");
+		}
+		else
+		{
+			return RacesManager.selectRaces(espece);
+		}
+	}
     
+	//************
+	//UTILITAIRES
+	//************	
+	
+    private static boolean isEmptyOrNull(String toTest)
+    {
+        if(toTest != null && !toTest.trim().isEmpty())
+            return false;
+        else
+            return true;
+    }
+
+    private static boolean isNegativeInt(int toCheck)
+    {
+        if(toCheck >= 0)
+            return false;
+        else
+            return true;
+    }
+	
     //endregion METHODS
 
     //region GET/SET

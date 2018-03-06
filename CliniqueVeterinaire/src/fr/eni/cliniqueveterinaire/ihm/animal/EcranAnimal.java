@@ -82,7 +82,7 @@ public class EcranAnimal extends JFrame
     	this.CodeAnimal = 3;//codeAnimal;
     	this.race = new ArrayList<Races>();
     	
-	    this.setSize(580, 340);
+	    this.setSize(650, 340);
 	    //this.setPreferredSize(new Dimension(640, 480));
 	    this.setTitle("Animaux");
 	    this.setLocationRelativeTo(null);   	
@@ -111,7 +111,7 @@ public class EcranAnimal extends JFrame
     	this.CodeClient = codeClient;
     	this.race = new ArrayList<Races>();
     	
-	    this.setSize(580, 340);
+	    this.setSize(700, 340);
 	    this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	    this.setTitle("Animaux");
 	    this.setLocationRelativeTo(null);	    	    
@@ -121,8 +121,8 @@ public class EcranAnimal extends JFrame
 	    	clientCourant = EcranAnimalController.getInstance().selectClientParCode(CodeClient);
 	    	race = EcranAnimalController.getInstance().selectRacesChat();
 	    	
-	    	this.getCbEspece().setSelectedItem("Chat");
-	    	this.getCbRace().setSelectedIndex(0);
+	    	//this.getCbEspece().setSelectedItem("Chat");
+	    	//this.getCbRace().setSelectedIndex(0);
 		} 
 	    catch (BLLException e) 
 	    {
@@ -141,7 +141,7 @@ public class EcranAnimal extends JFrame
     	
     	this.race = new ArrayList<Races>();
     	
-	    this.setSize(580, 340);
+	    this.setSize(700, 340);
 	    //this.setPreferredSize(new Dimension(640, 480));
 	    this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	    this.setTitle("Animaux");
@@ -405,7 +405,7 @@ public class EcranAnimal extends JFrame
 									getCbEspece().getSelectedItem().toString(),
 									getTfdTatouage().getText(),
 									null/* Antécedents */, 
-									true);
+									false);
 							
 							EcranAnimalController.getInstance().ajouter(aAjouter);
 							currentFrame.dispose();
@@ -429,7 +429,7 @@ public class EcranAnimal extends JFrame
 									getCbEspece().getSelectedItem().toString(),
 									getTfdTatouage().getText(),
 									null/* Antécedents */, 
-									true);
+									false);
 							
 							EcranAnimalController.getInstance().modifier(aModifier);
 							currentFrame.dispose();
@@ -576,6 +576,8 @@ public class EcranAnimal extends JFrame
 								try 
 								{
 									race = EcranAnimalController.getInstance().selectRacesChat();
+									DefaultComboBoxModel model = new DefaultComboBoxModel( race.toArray() );
+									getCbRace().setModel(model);
 								} 
 								catch (BLLException e1) 
 								{
@@ -588,6 +590,8 @@ public class EcranAnimal extends JFrame
 								try 
 								{
 									race = EcranAnimalController.getInstance().selectRacesChien();
+									DefaultComboBoxModel model = new DefaultComboBoxModel( race.toArray() );
+									getCbRace().setModel(model);
 								} 
 								catch (BLLException e1) 
 								{
@@ -619,8 +623,12 @@ public class EcranAnimal extends JFrame
 
 	public JComboBox getCbRace() 
 	{		
-        CbRace = new JComboBox();    
-        CbRace.setModel(new DefaultComboBoxModel(race.toArray()));
+		if(CbRace == null)
+		{
+	        CbRace = new JComboBox();    
+	        CbRace.setModel(new DefaultComboBoxModel(race.toArray()));			
+		}
+
 		return CbRace;
 	}
 

@@ -10,4 +10,6 @@ public interface RacesDAO
     public List<Races> selectRacesChat() throws DALException;
     
     public List<Races> selectRacesChien() throws DALException;
+    
+    public List<Races> selectRaces(String espece) throws DALException;
 }
