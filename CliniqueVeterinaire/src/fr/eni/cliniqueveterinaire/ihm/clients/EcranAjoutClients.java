@@ -47,7 +47,6 @@ public class EcranAjoutClients extends JFrame{
 
 	//Constructeur
 	private EcranAjoutClients() {
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setSize(300, 400);
 		setResizable(true);
 		setTitle("Nouveau Client");

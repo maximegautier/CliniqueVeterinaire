@@ -45,7 +45,6 @@ public class EcranRechercheClients extends JFrame{
 
 		//Constructeur
 		private EcranRechercheClients() {
-			setDefaultCloseOperation(EXIT_ON_CLOSE);
 			setSize(550, 300);
 			setResizable(true);
 			setTitle("Recherche Client");
