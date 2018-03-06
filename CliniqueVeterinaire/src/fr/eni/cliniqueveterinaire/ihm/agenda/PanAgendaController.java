@@ -81,6 +81,11 @@ public class PanAgendaController
 		
 	}
 	
+	public static void ajouterRdv(Agendas aAjouter) throws BLLException
+	{
+		AgendasManager.ajouter(aAjouter);
+	}
+	
     //endregion METHODS
 
     //region GET/SET

@@ -368,16 +368,31 @@ public class PanPriseRdv extends JPanel
 					String heure = getCbHeure().getSelectedItem().toString() + ":"; /* HH: */
 					String minutesSecondes = getCbMinute().getSelectedItem().toString()+ ":00"; /* mm:ss */
 					
-					String dateTime = date + " " + heure+minutesSecondes;
-					
+					String dateTime = date + " " + heure+minutesSecondes;					
 					DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.FRANCE);
+					Date dt = null;
 					try 
 					{
-						Date dt = format.parse(dateTime);
-						System.out.println(dt);
+						dt = format.parse(dateTime);
+						dt.setMonth(dt.getMonth() + 1);
 					} 
 					catch (ParseException e1) 
 					{
+						e1.printStackTrace();
+					}
+					
+					Personnels veto = (Personnels) getCbVeterinaire().getSelectedItem();
+					Animaux animal = (Animaux) getCbAnimal().getSelectedItem();
+					
+					Agendas aAjouter = new Agendas(veto.getCodePers(), animal.getCodeAnimal(), dt);
+					
+					try 
+					{
+						PanAgendaController.ajouterRdv(aAjouter);
+					} 
+					catch (BLLException e1) 
+					{
+						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					
