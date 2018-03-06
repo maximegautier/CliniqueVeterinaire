@@ -11,6 +11,7 @@ import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.login.EcranLogin;
 import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
+import fr.eni.cliniqueveterinaire.log.LogFactory;
 
 public class PanGDPController extends JPanel{
 
