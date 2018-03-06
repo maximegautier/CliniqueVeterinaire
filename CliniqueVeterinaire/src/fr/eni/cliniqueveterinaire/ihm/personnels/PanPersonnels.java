@@ -93,12 +93,7 @@ public class PanPersonnels extends JPanel{
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
-					try {
-						PanPersonnelsController.getInstance().ajouter();
-					} catch (DALException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					PanPersonnelsController.getInstance().ajouter();
 				}
 			});
 		}
@@ -139,9 +134,6 @@ public class PanPersonnels extends JPanel{
 				{
 						try {
 							PanPersonnelsController.getInstance().reinitialiser();
-						} catch (DALException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
 						} catch (BLLException e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();

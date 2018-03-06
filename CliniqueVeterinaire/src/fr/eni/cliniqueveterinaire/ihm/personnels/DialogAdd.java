@@ -27,7 +27,7 @@ public class DialogAdd{
 	private JComboBox<String> cRole;
 	private JButton bValider, bAnnuler;
 
-	public DialogAdd() throws DALException
+	public DialogAdd()
 	{
 		dialogAjouter = new JDialog();
 		dialogAjouter.setSize(300, 300);
@@ -40,7 +40,7 @@ public class DialogAdd{
 		
 	}
 
-	private JPanel getPanAdd() throws DALException{
+	private JPanel getPanAdd() {
 		panelAdd = new JPanel();
 		panelAdd.setOpaque(true);
 		
@@ -141,7 +141,7 @@ public class DialogAdd{
 		return tfLogin;
 	}
 	
-	public JComboBox<String> getCRole() throws DALException{
+	public JComboBox<String> getCRole() {
 		if (cRole == null)
 		{
 			cRole = new JComboBox<String>();
@@ -159,19 +159,14 @@ public class DialogAdd{
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
-					try {
-						PanPersonnelsController.getInstance().validerAjout(
-								getTfNom().getText(),
-								getTfPrenom().getText(),
-								getTfLogin().getText(),
-								(String) getCRole().getSelectedItem(),
-								getTfMDP().getText()
-								);
-						dialogAjouter.dispose();
-					} catch (DALException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					PanPersonnelsController.getInstance().validerAjout(
+							getTfNom().getText(),
+							getTfPrenom().getText(),
+							getTfLogin().getText(),
+							(String) getCRole().getSelectedItem(),
+							getTfMDP().getText()
+							);
+					dialogAjouter.dispose();
 				}
 			});
 		}

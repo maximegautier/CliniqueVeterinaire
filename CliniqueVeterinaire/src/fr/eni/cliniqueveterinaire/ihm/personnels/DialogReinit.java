@@ -16,7 +16,6 @@ import javax.swing.JTextField;
 
 import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
-import fr.eni.cliniqueveterinaire.dal.DALException;
 
 /* Créé par Erwin DUPUIS */
 public class DialogReinit extends JDialog
@@ -38,7 +37,7 @@ public class DialogReinit extends JDialog
 
     //region CTOR
 
-	public DialogReinit(JFrame parent, Personnels personnel) throws DALException
+	public DialogReinit(JFrame parent, Personnels personnel)
 	{
 		super(parent,"Réinitialiser le mot de passe",true);
 		this.currentPersonnel = personnel;

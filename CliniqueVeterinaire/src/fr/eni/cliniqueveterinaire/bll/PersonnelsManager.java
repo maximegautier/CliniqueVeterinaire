@@ -146,15 +146,12 @@ public class PersonnelsManager
 			throw new BLLException("(PersonnelsManager)Modifier : L'ancien mot de passe ne peut pas être null.");
 		}
 		else
-		{
-			// Logique de modification en base via DAO
-			
+		{			
 			// Si l'ancien MDP est correct
 			if (oldMotPasse.equals(personnel.getMotPasse()))
 			{
 				// Modification du mot de page de l'objet
 				personnel.setMotPasse(newMotPasse);
-				System.out.println(personnel.getMotPasse());
 				// Modification dans la BDD
 				try {
 					personnelsDAO.update(personnel);
@@ -176,8 +173,7 @@ public class PersonnelsManager
 		try {
 			personnelsDAO.delete(perso);
 		} catch (DALException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new BLLException(e.getMessage());
 		}
 		return false;			
 	}
@@ -217,8 +213,6 @@ public class PersonnelsManager
 		return tmp;
 	}
 	
-	
-	
 	//************
 	//UTILITAIRES
 	//************	
@@ -227,15 +221,6 @@ public class PersonnelsManager
     private static boolean isEmptyOrNull(String toTest)
     {
         if(toTest != null && !toTest.trim().isEmpty())
-            return false;
-        else
-            return true;
-    }
-    
-    /* Créé par Erwin DUPUIS */
-    private static boolean isNegativeInt(int toCheck)
-    {
-        if(toCheck >= 0)
             return false;
         else
             return true;

@@ -1,7 +1,6 @@
 package fr.eni.cliniqueveterinaire.ihm.personnels;
 
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
@@ -11,9 +10,7 @@ import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bll.PersonnelsManager;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.dal.DALException;
-import fr.eni.cliniqueveterinaire.ihm.login.EcranLogin;
 import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
-import fr.eni.cliniqueveterinaire.log.LogFileTxt;
 import fr.eni.cliniqueveterinaire.log.LogFactory;
 
 public class PanPersonnelsController extends JPanel{
@@ -22,7 +19,7 @@ public class PanPersonnelsController extends JPanel{
 	
 	private static PanPersonnelsController instance;
 	private EcranMenu fenMenu;
-	private PanPersonnels panelGDP;
+	private PanPersonnels panelPersonnels;
 
 	private PanPersonnelsController(){
 		
@@ -35,13 +32,13 @@ public class PanPersonnelsController extends JPanel{
 		return PanPersonnelsController.instance;
 	}
 	
-	public void ajouter() throws DALException{
+	public void ajouter() {
 		DialogAdd jdAjouter = new DialogAdd();
 	}
 	
-	public void supprimer() throws BLLException{
+	public void supprimer() throws BLLException {
 		int NumLigne = 0;
-	    NumLigne = panelGDP.getInstance().getTablePersonnel().getSelectedRow();
+	    NumLigne = panelPersonnels.getInstance().getTablePersonnel().getSelectedRow();
 		if (NumLigne == -1)
 		{
 			JOptionPane.showMessageDialog(null, "Veuillez selectionner une ligne", "Erreur", JOptionPane.INFORMATION_MESSAGE);
@@ -54,13 +51,14 @@ public class PanPersonnelsController extends JPanel{
 						
 			if(option == JOptionPane.OK_OPTION){				
 				PersonnelsManager.supprimer(personnel);
+				
 				rafraichirTable();
 			}
 		}
 	}
 	
-	public void reinitialiser() throws DALException, BLLException{
-		int NumLigne = panelGDP.getInstance().getTablePersonnel().getSelectedRow();
+	public void reinitialiser() throws BLLException{
+		int NumLigne = panelPersonnels.getInstance().getTablePersonnel().getSelectedRow();
 		if (NumLigne == -1)
 		{
 			JOptionPane.showMessageDialog(null, "Veuillez selectionner une ligne", "Erreur", JOptionPane.INFORMATION_MESSAGE);
@@ -95,7 +93,7 @@ public class PanPersonnelsController extends JPanel{
 	}
 	
 	public void rafraichirTable() throws BLLException{
-		panelGDP.getInstance().getTablePersonnel().setData(PersonnelsManager.selectTousPersonnels());
+		panelPersonnels.getInstance().getTablePersonnel().setData(PersonnelsManager.selectTousPersonnels());
 	}
 	
 	public List<String> selectTousRoles()
