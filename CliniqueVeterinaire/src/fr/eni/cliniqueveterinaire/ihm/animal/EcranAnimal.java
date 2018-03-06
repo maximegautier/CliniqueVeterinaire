@@ -50,27 +50,28 @@ public class EcranAnimal extends JFrame implements Update
 	private int CodeAnimal;
 	
     private JPanel mainPanel;
+    private JPanel clientPanel;
+    private JLabel lblClient;
+    private JTextField tfdClient;
+    private JPanel panelHead;
+    private JButton btnValider;
+    private JButton btnAnnuler;
     
-    private JPanel PanelHead;
-    private JButton BtnValider;
-    private JButton BtnAnnuler;
-    private JLabel LblClient;
-    
-    private JPanel PanelFormulaire;
-    private JLabel LblCode;
-    private JTextField TFdCode;
-    private JLabel LblNom;
-    private JTextField TFdNom;
-    private JLabel LblSexe;
-    private JComboBox CbSexe;
-    private JLabel LblCouleur;
-    private JTextField TFdCouleur;
-    private JLabel LblEspece;
-    private JComboBox CbEspece;
-    private JLabel LblRace;
-    private JComboBox CbRace;
-    private JLabel LblTatouage;
-    private JTextField TFdTatouage;
+    private JPanel panelFormulaire;
+    private JLabel lblCode;
+    private JLabel lblCodeAnimal;
+    private JLabel lblNom;
+    private JTextField tfdNom;
+    private JLabel lblSexe;
+    private JComboBox cbSexe;
+    private JLabel lblCouleur;
+    private JTextField tfdCouleur;
+    private JLabel lblEspece;
+    private JComboBox cbEspece;
+    private JLabel lblRace;
+    private JComboBox cbRace;
+    private JLabel lblTatouage;
+    private JTextField tfdTatouage;
     
     private List<Races> race;
     private Clients clientCourant;
@@ -102,7 +103,8 @@ public class EcranAnimal extends JFrame implements Update
 	    {
 	    	clientCourant = EcranAnimalController.selectClientParCode(CodeClient);
 			animalCourant = EcranAnimalController.selectAnimal(CodeAnimal);
-		} catch (BLLException e) 
+		} 
+	    catch (BLLException e) 
 	    {
 			LogFactory.getLog().createLog(Level.SEVERE, e.getMessage());
 		}	    
@@ -153,7 +155,7 @@ public class EcranAnimal extends JFrame implements Update
     	this.race = new ArrayList<Races>();
     	
 	    this.setSize(700, 340);
-	    //this.setPreferredSize(new Dimension(640, 480));
+	    this.setResizable(false);
 	    this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	    this.setTitle("Animaux");
 	    this.setLocationRelativeTo(null);
@@ -169,52 +171,37 @@ public class EcranAnimal extends JFrame implements Update
     public void setupIHM()
     {
     	mainPanel = new JPanel();
-        mainPanel.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()));
+        mainPanel.setPreferredSize(new Dimension(this.getWidth()-15, this.getHeight()-200));
         mainPanel.setOpaque(true);
-        mainPanel.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
-        mainPanel.setLayout(new GridBagLayout());
-        GridBagConstraints MainGBC = new GridBagConstraints();
-        MainGBC.insets = new Insets(5, 5, 5, 5);
     	this.setContentPane(mainPanel);
     	
-    	//LIGNE 0
-    		
-    		//COLONNE 0
-	    	MainGBC.gridx =0;
-	    	MainGBC.gridy =0;
-	    	MainGBC.gridwidth = 2;
-	    	MainGBC.fill = GridBagConstraints.HORIZONTAL;
-	    	mainPanel.add(this.getPanelHead(), MainGBC);
-	    	MainGBC.gridwidth = 0;
+    	mainPanel.add(this.getPanelHead());
     	
-    	//LIGNE 1
-		
-			//COLONNE 0
-	    	MainGBC.fill = GridBagConstraints.HORIZONTAL;
-	    	MainGBC.gridx =0;
-	    	MainGBC.gridy =1;		    	
-	    	mainPanel.add(this.getLblClient(), MainGBC);
-    	
-    	//LIGNE 2
-		
-			//COLONNE 0
-	    	MainGBC.gridx =0;
-	    	MainGBC.gridy =2;
-	    	MainGBC.gridwidth =2;
-	    	MainGBC.fill = GridBagConstraints.HORIZONTAL;
-	    	InitPanelFormulaire();
-	    	mainPanel.add(this.getPanelFormulaire(), MainGBC);
-	    	MainGBC.gridwidth = 0;	    	
+    	mainPanel.add(this.getClientPanel());
+	
+    	initPanelFormulaire();
+    	mainPanel.add(this.getPanelFormulaire());	    	
 	    	
 	    this.setContentPane(mainPanel);
     }
     
-    public void InitPanelFormulaire()
+    public void initPanelHead()
     {
-    	PanelFormulaire = new JPanel();
-    	PanelFormulaire.setOpaque(true);
-    	this.setContentPane(PanelFormulaire);
-    	PanelFormulaire.setLayout(new GridBagLayout());
+    	panelHead = new JPanel();
+		panelHead.setBorder(BorderFactory.createLineBorder(Color.black));
+		panelHead.setPreferredSize(new Dimension(595, 40));
+    	panelHead.setOpaque(true);
+    	panelHead.setLayout(new FlowLayout(FlowLayout.RIGHT));
+    	panelHead.add(getBtnAnnuler());
+    	panelHead.add(getBtnValider());
+    }
+    
+    public void initPanelFormulaire()
+    {
+    	panelFormulaire = new JPanel();
+    	panelFormulaire.setOpaque(true);
+    	this.setContentPane(panelFormulaire);
+    	panelFormulaire.setLayout(new GridBagLayout());
     	GridBagConstraints FormGBC = new GridBagConstraints();
     	FormGBC.insets = new Insets(5,5,5,5);
     	
@@ -224,10 +211,11 @@ public class EcranAnimal extends JFrame implements Update
 	    	FormGBC.gridx =0;
 	    	FormGBC.gridy =0;
 	    	FormGBC.anchor = GridBagConstraints.WEST;
-	    	PanelFormulaire.add(this.getLblCode(), FormGBC);
+	    	panelFormulaire.add(this.getLblCode(), FormGBC);
     		//COLONNE 1
 	    	FormGBC.gridx =1;
 	    	FormGBC.gridy =0;
+	    	panelFormulaire.add(this.getLblCodeAnimal(), FormGBC);
     		//COLONNE 2
 	    	FormGBC.gridx =2;
 	    	FormGBC.gridy =0;
@@ -241,22 +229,22 @@ public class EcranAnimal extends JFrame implements Update
 	    	FormGBC.gridx =0;
 	    	FormGBC.gridy =1;
 	    	FormGBC.anchor = GridBagConstraints.WEST;
-	    	PanelFormulaire.add(this.getLblNom(), FormGBC);
+	    	panelFormulaire.add(this.getLblNom(), FormGBC);
 			//COLONNE 1
 	    	FormGBC.gridx =1;
 	    	FormGBC.gridy =1;
 	    	FormGBC.anchor = GridBagConstraints.WEST;
-	    	PanelFormulaire.add(this.getTfdNom(), FormGBC);
+	    	panelFormulaire.add(this.getTfdNom(), FormGBC);
 			//COLONNE 2
 	    	FormGBC.gridx =2;
 	    	FormGBC.gridy =1;
 	    	FormGBC.anchor = GridBagConstraints.WEST;
-	    	PanelFormulaire.add(this.getLblSexe(), FormGBC);
+	    	panelFormulaire.add(this.getLblSexe(), FormGBC);
 			//COLONNE 3
 	    	FormGBC.gridx =3;
 	    	FormGBC.gridy =1;
 	    	FormGBC.anchor = GridBagConstraints.WEST;
-	    	PanelFormulaire.add(this.getCbSexe(), FormGBC);
+	    	panelFormulaire.add(this.getCbSexe(), FormGBC);
     	
     	//LIGNE 2
     	
@@ -264,12 +252,12 @@ public class EcranAnimal extends JFrame implements Update
 	    	FormGBC.gridx =0;
 	    	FormGBC.gridy =2;
 	    	FormGBC.anchor = GridBagConstraints.WEST;
-	    	PanelFormulaire.add(this.getLblCouleur(), FormGBC);
+	    	panelFormulaire.add(this.getLblCouleur(), FormGBC);
 			//COLONNE 1
 	    	FormGBC.gridx =1;
 	    	FormGBC.gridy =2;
 	    	FormGBC.anchor = GridBagConstraints.WEST;
-	    	PanelFormulaire.add(this.getTfdCouleur(), FormGBC);
+	    	panelFormulaire.add(this.getTfdCouleur(), FormGBC);
 			//COLONNE 2
 	    	FormGBC.gridx =2;
 	    	FormGBC.gridy =2;
@@ -283,22 +271,22 @@ public class EcranAnimal extends JFrame implements Update
 	    	FormGBC.gridx =0;
 	    	FormGBC.gridy =3;
 	    	FormGBC.anchor = GridBagConstraints.WEST;
-	    	PanelFormulaire.add(this.getLblEspece(), FormGBC);
+	    	panelFormulaire.add(this.getLblEspece(), FormGBC);
 			//COLONNE 1
 	    	FormGBC.gridx =1;
 	    	FormGBC.gridy =3;
 	    	FormGBC.anchor = GridBagConstraints.WEST;
-	    	PanelFormulaire.add(this.getCbEspece(), FormGBC);
+	    	panelFormulaire.add(this.getCbEspece(), FormGBC);
 			//COLONNE 2
 	    	FormGBC.gridx =2;
 	    	FormGBC.gridy =3;
 	    	FormGBC.anchor = GridBagConstraints.WEST;
-	    	PanelFormulaire.add(this.getLblRace(), FormGBC);
+	    	panelFormulaire.add(this.getLblRace(), FormGBC);
 			//COLONNE 3
 	    	FormGBC.gridx =3;
 	    	FormGBC.gridy =3;
 	    	FormGBC.anchor = GridBagConstraints.WEST;
-	    	PanelFormulaire.add(this.getCbRace(), FormGBC);
+	    	panelFormulaire.add(this.getCbRace(), FormGBC);
     	
     	//LIGNE 4
     	
@@ -306,12 +294,12 @@ public class EcranAnimal extends JFrame implements Update
 	    	FormGBC.gridx =0;
 	    	FormGBC.gridy =4;
 	    	FormGBC.anchor = GridBagConstraints.WEST;
-	    	PanelFormulaire.add(this.getLblTatouage(), FormGBC);
+	    	panelFormulaire.add(this.getLblTatouage(), FormGBC);
 			//COLONNE 1
 	    	FormGBC.gridx =1;
 	    	FormGBC.gridy =4;
 	    	FormGBC.anchor = GridBagConstraints.WEST;
-	    	PanelFormulaire.add(this.getTfdTatouage(), FormGBC);
+	    	panelFormulaire.add(this.getTfdTatouage(), FormGBC);
 			//COLONNE 2
 	    	FormGBC.gridx =2;
 	    	FormGBC.gridy =4;
@@ -320,9 +308,20 @@ public class EcranAnimal extends JFrame implements Update
 	    	FormGBC.gridy =4;
     }
     
+    public void initialiseClientPanel()
+    {
+    	clientPanel = new JPanel();
+    	clientPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+    	clientPanel.setBorder(BorderFactory.createTitledBorder("Client"));
+    	clientPanel.setPreferredSize(new Dimension(this.getWidth()-100, this.getHeight()-285));
+    	clientPanel.setOpaque(true);
+    	
+    	clientPanel.add(getTfdClient());    	
+    }
+    
 	public void remplirChampsSiAnimal()
 	{
-		this.getTFdCode().setText(String.valueOf(animalCourant.getCodeAnimal()));
+		this.getLblCodeAnimal().setText(String.valueOf(animalCourant.getCodeAnimal()));
 		this.getTfdNom().setText(animalCourant.getNomAnimal());
 		this.getCbSexe().setSelectedItem(animalCourant.getsexe());
 		if(animalCourant.getCouleur() != null)
@@ -350,6 +349,7 @@ public class EcranAnimal extends JFrame implements Update
 		}	
 	}
 	
+	//FONCTION POUR METTRE A JOUR LA LISTE D'ANIMAL QUAND NOUVEL ANIMAL
 	@Override
 	public void updateAnimauxPanPriseRdv(List<Animaux> nvListeAnimaux) 
 	{
@@ -365,34 +365,28 @@ public class EcranAnimal extends JFrame implements Update
     
     public JPanel getPanelFormulaire()
     {
-    	if(PanelFormulaire == null)
+    	if(panelFormulaire == null)
     	{
-    		InitPanelFormulaire();
+    		initPanelFormulaire();
     	}
-    	return PanelFormulaire;
+    	return panelFormulaire;
     }
     
     public JPanel getPanelHead()
     {
-    	if(PanelHead == null)
+    	if(panelHead == null)
     	{
-    		PanelHead = new JPanel();
-    		PanelHead.setBorder(BorderFactory.createLineBorder(Color.black));
-    		PanelHead.setSize(mainPanel.getWidth(), mainPanel.getHeight());
-        	PanelHead.setOpaque(true);
-        	PanelHead.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        	PanelHead.add(getBtnAnnuler());
-        	PanelHead.add(getBtnValider());
+    		initPanelHead();
     	}
-    	return PanelHead;
+    	return panelHead;
     }
 
 	public JButton getBtnValider() 
 	{
-		if(BtnValider == null)
+		if(btnValider == null)
 		{
-			BtnValider = new JButton("Valider");
-			BtnValider.addActionListener(new ActionListener() 
+			btnValider = new JButton("Valider");
+			btnValider.addActionListener(new ActionListener() 
 			{			
 				@Override
 				public void actionPerformed(ActionEvent e) 
@@ -456,15 +450,15 @@ public class EcranAnimal extends JFrame implements Update
 				}
 			});
 		}
-		return BtnValider;
+		return btnValider;
 	}
 
 	public JButton getBtnAnnuler() 
 	{
-		if(BtnAnnuler == null)
+		if(btnAnnuler == null)
 		{
-			BtnAnnuler = new JButton("Annuler");
-			BtnAnnuler.addActionListener(new ActionListener() 
+			btnAnnuler = new JButton("Annuler");
+			btnAnnuler.addActionListener(new ActionListener() 
 			{				
 				@Override
 				public void actionPerformed(ActionEvent e) 
@@ -473,120 +467,121 @@ public class EcranAnimal extends JFrame implements Update
 				}
 			});
 		}
-		return BtnAnnuler;
+		return btnAnnuler;
 	}
 
 	public JLabel getLblClient() 
 	{
-		if(LblClient == null)
+		if(lblClient == null)
 		{
-			LblClient = new JLabel("Client : "+clientCourant.getNomClient());
+			lblClient = new JLabel("Client : "+clientCourant.getNomClient());
 		}
-		return LblClient;
+		return lblClient;
 	}
 
 	public JLabel getLblCode() 
 	{
-		if(LblCode == null)
+		if(lblCode == null)
 		{
-			LblCode = new JLabel("Code : "+this.CodeClient);
+			lblCode = new JLabel("Code : ");
 		}
-		return LblCode;
+		return lblCode;
 	}
 
-	public JTextField getTFdCode() 
+	public JLabel getLblCodeAnimal() 
 	{
-		if(TFdCode == null)
+		if(lblCodeAnimal == null)
 		{
-			TFdCode = new JTextField(30);
+			lblCodeAnimal = new JLabel("");
 		}
-		return TFdCode;
+		return lblCodeAnimal;
 	}
 
 	public JLabel getLblNom() 
 	{
-		if(LblNom == null)
+		if(lblNom == null)
 		{
-			LblNom = new JLabel("Nom : ");
+			lblNom = new JLabel("Nom : ");
 		}
-		return LblNom;
+		return lblNom;
 	}
 
 	public JTextField getTfdNom() 
 	{
-		if(TFdNom == null)
+		if(tfdNom == null)
 		{
-			TFdNom = new JTextField(30);
+			tfdNom = new JTextField(30);
 		}
-		return TFdNom;
+		return tfdNom;
 	}
 
 	public JLabel getLblSexe() 
 	{
-		if(LblSexe == null)
+		if(lblSexe == null)
 		{
-			LblSexe = new JLabel("Sexe : ");
+			lblSexe = new JLabel("Sexe : ");
 		}
-		return LblSexe;
+		return lblSexe;
 	}
 
 	public JComboBox getCbSexe() 
 	{
-		if(CbSexe == null)
+		if(cbSexe == null)
         {
             List<String> sexe = Arrays.asList("M", "F");
 
-            CbSexe = new JComboBox();
-            CbSexe.setModel(new DefaultComboBoxModel(sexe.toArray()));
+            cbSexe = new JComboBox();
+            cbSexe.setModel(new DefaultComboBoxModel(sexe.toArray()));
         }
-		return CbSexe;
+		return cbSexe;
 	}
 
 	public JLabel getLblCouleur() 
 	{
-		if(LblCouleur == null)
+		if(lblCouleur == null)
 		{
-			LblCouleur = new JLabel("Couleur : ");
+			lblCouleur = new JLabel("Couleur : ");
 		}
-		return LblCouleur;
+		return lblCouleur;
 	}
 
 	public JTextField getTfdCouleur() 
 	{
-		if(TFdCouleur == null)
+		if(tfdCouleur == null)
 		{
-			TFdCouleur = new JTextField(30);
+			tfdCouleur = new JTextField(30);
 		}
-		return TFdCouleur;
+		return tfdCouleur;
 	}
 
 	public JLabel getLblEspece() 
 	{
-		if(LblEspece == null)
+		if(lblEspece == null)
 		{
-			LblEspece = new JLabel("Espèce : ");
+			lblEspece = new JLabel("Espèce : ");
 		}
-		return LblEspece;
+		return lblEspece;
 	}
 
 	public JComboBox getCbEspece() 
 	{
-		if(CbEspece == null)
+		if(cbEspece == null)
         {
             List<String> espece;
 			try 
 			{
 				espece = EcranAnimalController.selectEspeces();
-	            CbEspece = new JComboBox();	          
-	            CbEspece.setModel(new DefaultComboBoxModel(espece.toArray()));
-	            CbEspece.addActionListener(new ActionListener() 
+	            cbEspece = new JComboBox();	
+	            cbEspece.setPreferredSize(new Dimension(120,22));
+	            cbEspece.setModel(new DefaultComboBoxModel(espece.toArray()));
+	            cbEspece.addActionListener(new ActionListener() 
 	            {	       
 					@Override
 					public void actionPerformed(ActionEvent e) 
 					{
 						try
 						{
-							race = EcranAnimalController.selectRaces(CbEspece.getSelectedItem().toString());
+							race = EcranAnimalController.selectRaces(cbEspece.getSelectedItem().toString());
 						} 
 						catch (BLLException e1) 
 						{
@@ -602,45 +597,46 @@ public class EcranAnimal extends JFrame implements Update
 				LogFactory.getLog().createLog(Level.SEVERE, e.getMessage());
 			}
         }
-		return CbEspece;
+		return cbEspece;
 	}
 
 	public JLabel getLblRace() 
 	{
-		if(LblRace == null)
+		if(lblRace == null)
 		{
-			LblRace = new JLabel("Race : ");
+			lblRace = new JLabel("Race : ");
 		}
-		return LblRace;
+		return lblRace;
 	}
 
 	public JComboBox getCbRace() 
 	{		
-		if(CbRace == null)
+		if(cbRace == null)
 		{
-	        CbRace = new JComboBox();    
-	        CbRace.setModel(new DefaultComboBoxModel(race.toArray()));			
+	        cbRace = new JComboBox();  
+	        cbRace.setPreferredSize(new Dimension(120,22));
+	        cbRace.setModel(new DefaultComboBoxModel(race.toArray()));			
 		}
 
-		return CbRace;
+		return cbRace;
 	}
 
 	public JLabel getLblTatouage() 
 	{
-		if(LblTatouage == null)
+		if(lblTatouage == null)
 		{
-			LblTatouage = new JLabel("Tatouage : ");
+			lblTatouage = new JLabel("Tatouage : ");
 		}
-		return LblTatouage;
+		return lblTatouage;
 	}
 
 	public JTextField getTfdTatouage() 
 	{
-		if(TFdTatouage == null)
+		if(tfdTatouage == null)
 		{
-			TFdTatouage = new JTextField(30);
+			tfdTatouage = new JTextField(30);
 		}
-		return TFdTatouage;
+		return tfdTatouage;
 	}
 	
 	public int getCodeClient() 
@@ -672,6 +668,25 @@ public class EcranAnimal extends JFrame implements Update
 		
 		return currentFrame;
 	}
-	
+
+	public JPanel getClientPanel() 
+	{
+		if(clientPanel == null)
+		{
+			initialiseClientPanel();
+		}
+		return clientPanel;
+	}
+
+	public JTextField getTfdClient() 
+	{
+		if(tfdClient == null)
+		{
+			tfdClient = new JTextField(clientCourant.getNomClient(), 15);
+			tfdClient.setEditable(false);
+		}
+		return tfdClient;
+	}
+		
     //endregion GET/SET
 }
