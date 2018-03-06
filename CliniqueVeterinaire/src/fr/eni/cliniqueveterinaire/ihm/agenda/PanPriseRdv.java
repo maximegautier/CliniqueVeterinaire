@@ -19,6 +19,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.ComboBoxModel;
@@ -42,6 +44,7 @@ import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.ihm.Update;
 import fr.eni.cliniqueveterinaire.ihm.animal.EcranAnimal;
 import fr.eni.cliniqueveterinaire.ihm.clients.EcranAjoutClients;
+import fr.eni.cliniqueveterinaire.log.LogFactory;
 
 /* Créé par Erwin DUPUIS */
 public class PanPriseRdv extends JPanel implements Update
@@ -49,6 +52,8 @@ public class PanPriseRdv extends JPanel implements Update
     //region DECLARATION
 
 	private static PanPriseRdv instance;
+	
+	private final static Logger LOGGER = Logger.getLogger(LogFactory.class.getName());
 	
 	private JPanel panelPrincipal;
 	
@@ -267,7 +272,7 @@ public class PanPriseRdv extends JPanel implements Update
 		} 
 		catch (BLLException e) 
 		{
-			e.printStackTrace();
+			LogFactory.getLog().createLog(Level.SEVERE, e.getMessage());
 		}
     }
     
@@ -281,7 +286,7 @@ public class PanPriseRdv extends JPanel implements Update
 		} 
 		catch (BLLException e) 
 		{
-			e.printStackTrace();
+			LogFactory.getLog().createLog(Level.SEVERE, e.getMessage());
 		} 
     }
     
@@ -370,10 +375,12 @@ public class PanPriseRdv extends JPanel implements Update
 					catch (BLLException e1) 
 					{
 						JOptionPane.showMessageDialog(null, e1.getMessage(), "Erreur", JOptionPane.INFORMATION_MESSAGE);
+						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
 					}
 					
 					getTableRdv().setData(getRdv());
 					JOptionPane.showMessageDialog(null, "Rendez-vous supprimé", "Succes", JOptionPane.INFORMATION_MESSAGE);
+					LogFactory.getLog().createLog(Level.INFO, "Rendez-vous supprime : Code vetérinaire : "+rdvSelect.getCodeVeto()+" , Date : "+rdvSelect.getDateRdv()+" , CodeAnimal : "+rdvSelect.getCodeAnimal() );
 				}
 			});
 		}
@@ -404,7 +411,7 @@ public class PanPriseRdv extends JPanel implements Update
 					} 
 					catch (ParseException e1) 
 					{
-						e1.printStackTrace();
+						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
 					}
 					
 					Personnels veto = (Personnels) getCbVeterinaire().getSelectedItem();
@@ -419,11 +426,12 @@ public class PanPriseRdv extends JPanel implements Update
 					catch (BLLException e1) 
 					{
 						JOptionPane.showMessageDialog(null, e1.getMessage(), "Erreur", JOptionPane.INFORMATION_MESSAGE);
+						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
 					}
 					
 					getTableRdv().setData(getRdv());
 					JOptionPane.showMessageDialog(null, "Rendez-vous ajouté", "Succes", JOptionPane.INFORMATION_MESSAGE);
-					
+					LogFactory.getLog().createLog(Level.INFO, "Rendez-vous ajoute : Code vetérinaire : "+aAjouter.getCodeVeto()+" , Date : "+aAjouter.getDateRdv()+" , CodeAnimal : "+aAjouter.getCodeAnimal());
 				}
 			});						
 		}
@@ -655,7 +663,7 @@ public class PanPriseRdv extends JPanel implements Update
 			} 
 			catch (BLLException e) 
 			{
-				e.printStackTrace();
+				LogFactory.getLog().createLog(Level.SEVERE, e.getMessage());
 			}
 			
 			int h = this.getPreferredSize().height - 230;
@@ -676,7 +684,7 @@ public class PanPriseRdv extends JPanel implements Update
 			} 
 			catch (BLLException e) 
 			{
-				e.printStackTrace();
+				LogFactory.getLog().createLog(Level.SEVERE, e.getMessage());
 			}
 		}
 		return clients;
@@ -693,7 +701,7 @@ public class PanPriseRdv extends JPanel implements Update
 			} 
 			catch (BLLException e) 
 			{
-				e.printStackTrace();
+				LogFactory.getLog().createLog(Level.SEVERE, e.getMessage());
 			}
 		}
 		return veterinaires;

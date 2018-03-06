@@ -12,6 +12,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -30,6 +32,7 @@ import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.bo.Races;
 import fr.eni.cliniqueveterinaire.ihm.Update;
 import fr.eni.cliniqueveterinaire.ihm.agenda.PanPriseRdv;
+import fr.eni.cliniqueveterinaire.log.LogFactory;
 
 /* Créé par Erwin DUPUIS */
 public class EcranAnimal extends JFrame implements Update
@@ -38,6 +41,8 @@ public class EcranAnimal extends JFrame implements Update
 
 	//Permet de déterminer si nous devons modifier ou ajouter l'animal (1 = Ajouter / 0 = Modifier)
 	private boolean typeOperation;
+	
+	private final static Logger LOGGER = Logger.getLogger(LogFactory.class.getName());
 	
 	private JFrame currentFrame;
 	
@@ -99,7 +104,7 @@ public class EcranAnimal extends JFrame implements Update
 			animalCourant = EcranAnimalController.selectAnimal(CodeAnimal);
 		} catch (BLLException e) 
 	    {
-			e.printStackTrace();
+			LogFactory.getLog().createLog(Level.SEVERE, e.getMessage());
 		}	    
 	       
 	    this.remplirChampsSiAnimal();	
@@ -132,7 +137,7 @@ public class EcranAnimal extends JFrame implements Update
 		} 
 	    catch (BLLException e) 
 	    {
-			e.printStackTrace();
+	    	LogFactory.getLog().createLog(Level.SEVERE, e.getMessage());
 		}
 	    
 	    this.setupIHM();
@@ -334,7 +339,7 @@ public class EcranAnimal extends JFrame implements Update
 		} 
 		catch (BLLException e) 
 		{
-			e.printStackTrace();
+			LogFactory.getLog().createLog(Level.SEVERE, e.getMessage());
 		}
 
 		this.getCbRace().setSelectedItem(animalCourant.getRace());
@@ -408,15 +413,17 @@ public class EcranAnimal extends JFrame implements Update
 									null/* Antécedents */, 
 									false);
 							
-							EcranAnimalController.ajouter(aAjouter);
+							int codeAnimalAjoute = EcranAnimalController.ajouter(aAjouter);
 							List<Animaux> nvListeAnimaux = EcranAnimalController.selectAnimaux(aAjouter.getCodeClient());
 							updateAnimauxPanPriseRdv(nvListeAnimaux);
 							JOptionPane.showMessageDialog(null, "Animal ajouter", "Succes", JOptionPane.INFORMATION_MESSAGE);
+							LogFactory.getLog().createLog(Level.INFO, "Animal ajouté : "+codeAnimalAjoute);
 							currentFrame.dispose();
 						} 
 						catch (BLLException e2) 
 						{
 							JOptionPane.showMessageDialog(null, e2.getMessage(), "Erreur", JOptionPane.INFORMATION_MESSAGE);
+							LogFactory.getLog().createLog(Level.SEVERE, e2.getMessage());
 						}
 					}
 					else
@@ -437,11 +444,13 @@ public class EcranAnimal extends JFrame implements Update
 							
 							EcranAnimalController.modifier(aModifier);
 							JOptionPane.showMessageDialog(null, "Animal modifié", "Succes", JOptionPane.INFORMATION_MESSAGE);
+							LogFactory.getLog().createLog(Level.INFO, "Animal modifié : "+aModifier.getCodeAnimal());
 							currentFrame.dispose();
 						} 
 						catch (BLLException e1) 
 						{
 							JOptionPane.showMessageDialog(null, e1.getMessage(), "Erreur", JOptionPane.INFORMATION_MESSAGE);
+							LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
 						}
 					}
 				}
@@ -581,7 +590,7 @@ public class EcranAnimal extends JFrame implements Update
 						} 
 						catch (BLLException e1) 
 						{
-							e1.printStackTrace();
+							LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
 						}
 						DefaultComboBoxModel model = new DefaultComboBoxModel( race.toArray() );
 						getCbRace().setModel(model);												
@@ -590,7 +599,7 @@ public class EcranAnimal extends JFrame implements Update
 			} 
 			catch (BLLException e) 
 			{
-				e.printStackTrace();
+				LogFactory.getLog().createLog(Level.SEVERE, e.getMessage());
 			}
         }
 		return CbEspece;
