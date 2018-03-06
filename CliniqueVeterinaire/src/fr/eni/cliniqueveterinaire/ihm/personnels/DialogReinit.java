@@ -12,6 +12,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import fr.eni.cliniqueveterinaire.bll.BLLException;
@@ -26,9 +27,9 @@ public class DialogReinit extends JDialog
 	private JLabel lblPersonnel;
 	private JTextField tfdPersonnel;
 	private JLabel lblAncienMDP;
-	private JTextField tfdAncienMDP;
+	private JPasswordField tfdAncienMDP;
 	private JLabel lblNouveauMDP;
-	private JTextField tfdNouveauMDP;
+	private JPasswordField tfdNouveauMDP;
 	private JButton btnAnnuler;
 	private JButton btnValider;
 	private Personnels currentPersonnel;
@@ -169,11 +170,11 @@ public class DialogReinit extends JDialog
 	}
 	
 
-	public JTextField getTfdAncienMDP() 
+	public JPasswordField getTfdAncienMDP() 
 	{
 		if(tfdAncienMDP == null)
 		{
-			tfdAncienMDP = new JTextField(15);
+			tfdAncienMDP = new JPasswordField(15);
 		}
 		return tfdAncienMDP;
 	}
@@ -189,11 +190,11 @@ public class DialogReinit extends JDialog
 	}
 	
 
-	public JTextField getTfdNouveauMDP() 
+	public JPasswordField getTfdNouveauMDP() 
 	{
 		if(tfdNouveauMDP == null)
 		{
-			tfdNouveauMDP = new JTextField(15);
+			tfdNouveauMDP = new JPasswordField(15);
 		}
 		return tfdNouveauMDP;
 	}

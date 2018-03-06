@@ -8,7 +8,6 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +21,6 @@ import javax.swing.JScrollPane;
 
 import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
-import fr.eni.cliniqueveterinaire.ihm.agenda.PanAgendaController;
 import fr.eni.cliniqueveterinaire.log.LogFactory;
 
 
@@ -136,7 +134,8 @@ public class PanPersonnels extends JPanel{
 								PanPersonnelsController.getInstance().supprimer(personnel);
 								LogFactory.getLog().createLog(Level.INFO, personnel.getDisplayName() + " a été supprimé");
 							} catch (BLLException e1) {
-								LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
+								JOptionPane.showMessageDialog(null, e1.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);	
+								LogFactory.getLog().createLog(Level.WARNING, "Impossible de supprimer le veterinaire " + personnel.getNom() +" " + personnel.getPrenom()+". " + e1.getMessage());
 							}	
 						}
 					}

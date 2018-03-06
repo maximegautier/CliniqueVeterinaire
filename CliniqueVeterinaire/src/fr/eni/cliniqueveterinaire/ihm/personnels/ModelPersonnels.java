@@ -41,8 +41,8 @@ public class ModelPersonnels extends AbstractTableModel{
 				// Role
 				return listPersonnels.get(rowIndex).getRole();
 			case 2:
-				// Animal
-				return listPersonnels.get(rowIndex).getMotPasse();
+				// Mot de passe
+				return "***********";
 
 			default:
 				throw new IllegalArgumentException();

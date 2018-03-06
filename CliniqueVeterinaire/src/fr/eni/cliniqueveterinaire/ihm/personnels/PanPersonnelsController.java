@@ -51,12 +51,10 @@ public class PanPersonnelsController extends JPanel{
 		try {
 			// Ajouter le nouveau personnel
 			PersonnelsManager.ajouter(personnel);
-			
 			rafraichirTable();	
 		} catch (BLLException e) {
 			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
-			e.printStackTrace();	
+			JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);	
 		}
 	}
 	

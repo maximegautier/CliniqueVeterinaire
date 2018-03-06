@@ -159,7 +159,7 @@ public class PersonnelsManager
 					throw new BLLException(e.getMessage());
 				}			
 			}
-			else if (!oldMotPasse.equals(personnel.getMotPasse()))
+			else 
 			{
 				throw new BLLException("L'ancien mot de passe est incorrect !");
 			}
