@@ -59,11 +59,11 @@ public class EcranClientsController {
 	}
 	
 	public void clickClientsRecherche(){
-		EcranRechercheClients.getInstance();
+		EcranRechercheClients.getInstance().setVisible(true);
 	}
 	
 	public void clickClientsAjouter(){
-		EcranAjoutClients.getInstance();
+		EcranAjoutClients.getInstance().setVisible(true);
 	}
 	
 	public void clickClientsSupprime(int codeClient) throws BLLException, DALException{
