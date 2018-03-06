@@ -25,15 +25,13 @@ public class EcranClientsController {
 	public void startApp(EcranClients fenCli) throws BLLException
 	{
 		fenClient = fenCli;
-		remplirChamps();
+		remplirChamps(fenCli.getCodeClient());
 		actualiseTab(fenClient.getCodeClient());
 		fenClient.setVisible(true);
 	}
 	
-	public void remplirChamps() throws BLLException{
-		Clients leClient = null;
-		
-		leClient = ClientsManager.getInstance().selectFirst();
+	public void remplirChamps(int codeClient) throws BLLException{
+		Clients leClient = ClientsManager.getInstance().selectById(codeClient);
 		
 		fenClient.getTxtCodeClient().setText(""+leClient.getCodeClient());
 		fenClient.getTxtNom().setText(leClient.getNomClient());
@@ -97,8 +95,16 @@ public class EcranClientsController {
 		new EcranAnimal();
 	}
 	
+	public int validerNouveauClient(Clients newClient) throws BLLException, DALException{
+		return ClientsManager.getInstance().ajouterClient(newClient);
+	}
+	
 	public void clickSupprimerAnimaux(int codeAnimal) throws BLLException{
 		AnimauxManager.supprimer(codeAnimal);
+	}
+	
+	public void clickClientsModifier(Clients leClient) throws DALException, BLLException{
+		ClientsManager.getInstance().editClient(leClient);
 	}
 	
 	public static EcranClientsController getInstance()
