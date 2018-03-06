@@ -61,18 +61,10 @@ public class PanAgendaController
 		return AnimauxManager.selectAnimaux(codeClient);
 	}	
 	
-	public static void ouvrirDossier(TableAgendaVet table, List<Agendas> listRdv) throws BLLException
+	public static void ouvrirDossier(Animaux animal) throws BLLException
 	{
-	    int numLigne = table.getSelectedRow();
-		if (numLigne == -1)
-		{
-			JOptionPane.showMessageDialog(null, "Veuillez selectionner une ligne", "Erreur", JOptionPane.INFORMATION_MESSAGE);
-		} 
-		else
-		{
-			Animaux animal = AnimauxManager.selectAnimal(listRdv.get(numLigne).getCodeAnimal());
-			EcranDossier ecranDossier = new EcranDossier(animal);
-		}
+			Clients client = ClientsManager.getInstance().selectById(animal.getCodeClient());
+			EcranDossier ecranDossier = new EcranDossier(animal,client);
 		
 	}
 	

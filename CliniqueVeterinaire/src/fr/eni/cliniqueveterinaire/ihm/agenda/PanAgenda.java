@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -25,8 +26,10 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import org.jdatepicker.impl.JDatePickerImpl;
 import org.jdatepicker.impl.UtilDateModel;
 
+import fr.eni.cliniqueveterinaire.bll.AnimauxManager;
 import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bo.Agendas;
+import fr.eni.cliniqueveterinaire.bo.Animaux;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
 
 public class PanAgenda extends JPanel{
@@ -180,7 +183,16 @@ public class PanAgenda extends JPanel{
 				public void actionPerformed(ActionEvent e)
 				{
 					try {
-						PanAgendaController.ouvrirDossier(getTableAgendaVet(),listAgenda);
+						int numLigne = getTableAgendaVet().getSelectedRow();
+						if (numLigne == -1)
+						{
+							JOptionPane.showMessageDialog(null, "Veuillez selectionner une ligne", "Erreur", JOptionPane.ERROR_MESSAGE);
+						} 
+						else
+						{
+							Animaux animal = AnimauxManager.selectAnimal(listAgenda.get(numLigne).getCodeAnimal());
+							PanAgendaController.ouvrirDossier(animal);	
+						}
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

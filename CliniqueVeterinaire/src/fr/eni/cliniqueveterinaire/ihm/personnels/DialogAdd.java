@@ -86,7 +86,6 @@ public class DialogAdd{
 		
 		// Champs obligatoire
 		gbc.insets = new Insets(5, 0, 5, 0);
-		gbc.anchor = GridBagConstraints.WEST;
 		gbc.gridx=0;
 		gbc.gridy=5;
 		gbc.gridwidth = 2;
