@@ -392,7 +392,6 @@ public class PanPriseRdv extends JPanel
 					} 
 					catch (BLLException e1) 
 					{
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 					

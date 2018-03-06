@@ -241,11 +241,6 @@ public class AnimauxManager
 		return aRetourner;
 	}
 	
-	/*public static String getClientAnimal(int codeAnimal)
-	{
-		return getAnimauxDAO().selectClientParAnimal(codeAnimal);
-	}
-	*/
 	//************
 	//UTILITAIRES
 	//************	
