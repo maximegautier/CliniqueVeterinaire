@@ -1,5 +1,6 @@
 package fr.eni.cliniqueveterinaire.ihm.agenda;
 
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -52,7 +53,8 @@ public class ModelAgendaVet extends AbstractTableModel{
 		switch (columnIndex) {
 			case 0:
 				// Date
-				return listRdv.get(rowIndex).getDateRdv();
+				DateFormat shortDateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT,DateFormat.SHORT);
+				return shortDateFormat.format(listRdv.get(rowIndex).getDateRdv());
 	
 			case 1:
 				// Client

@@ -56,7 +56,7 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 				tmpRdv = new Agendas(
 						rs.getInt("CodeVeto"),
 						rs.getInt("CodeAnimal"),
-						rs.getDate("DateRdv")
+						new Date(rs.getTimestamp("DateRdv").getTime())	
 				);
 				aRetourner.add(tmpRdv);
 			}		
@@ -112,7 +112,7 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 				tmpRdv = new Agendas(
 						rs.getInt("CodeVeto"),
 						rs.getInt("CodeAnimal"),
-						rs.getDate("DateRdv")
+						new Date(rs.getTimestamp("DateRdv").getTime())
 				);
 				aRetourner.add(tmpRdv);
 			}		
@@ -150,7 +150,6 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 		Connection cnx = JdbcTools.getConnection();
 		String rqtAjouter = "INSERT INTO Agendas(CodeVeto, DateRdv, CodeAnimal) VALUES (?,?,?)";
 		PreparedStatement psAjouter = null;
-		ResultSet rs = null;
 		
 		try 
 		{
@@ -162,11 +161,8 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 			int nbRows = psAjouter.executeUpdate();
 			if(nbRows == 1)
             {
-                rs = psAjouter.getGeneratedKeys();
-
                 aRetourner = true;
             }
-
 			psAjouter.close();
 		} 
 		catch (SQLException e) 
@@ -178,7 +174,6 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 			try
 			{
 				psAjouter.close();
-				rs.close();
 				cnx.close();
 			}
 			catch(SQLException e)
