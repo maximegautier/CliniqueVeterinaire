@@ -2,6 +2,8 @@
 
 package fr.eni.cliniqueveterinaire.ihm.login;
 
+import javax.swing.JOptionPane;
+
 import fr.eni.cliniqueveterinaire.bll.PersonnelsManager;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.dal.DALException;
@@ -35,14 +37,18 @@ public class EcranLoginController
 		fenLogin.setVisible(true);
 	}
 	
+	// Permet d'afficher l'écran menu si les identifiants sont OK
 	public void connexion(String login, String password)
 	{
+		// Recuperation du personnel connecté
 		currentPersonnel = PersonnelsManager.authentification(login,password);
 		
 		if (currentPersonnel == null)
 		{
-			fenLogin.getlError().setVisible(true);
+			// Si identifiants KO, affichage du message d'erreur
+			JOptionPane.showMessageDialog(null, "Identifiants incorrects", "Erreur", JOptionPane.ERROR_MESSAGE);
 		} else {
+			// Sinon
 			fenLogin.dispose();
 			fenMenu = new EcranMenu();
 			fenMenu.setVisible(true);
@@ -51,6 +57,10 @@ public class EcranLoginController
 	
 	public void deconnexion() {
 		fenMenu.dispose();
+		fenLogin.getTxtLogin().setText("");
+		fenLogin.getTxtPassword().setText("");
+		fenLogin.getTxtLogin().requestFocusInWindow();
+		fenLogin.setVisible(true);	
 	}
 
 	public static Personnels getCurrentPersonnel() {

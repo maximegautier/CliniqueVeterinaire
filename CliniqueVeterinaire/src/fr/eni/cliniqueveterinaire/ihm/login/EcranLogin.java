@@ -75,12 +75,6 @@ public class EcranLogin extends JFrame{
 			gbcConnexion.gridy=2;
 			gbcConnexion.gridwidth = 2;
 			panelConnexion.add(getbValider(),gbcConnexion);
-			
-			// Erreur mot de passe
-			gbcConnexion.insets = new Insets(0, 0, 0, 0);
-			gbcConnexion.gridx=0;
-			gbcConnexion.gridy=3;
-			panelConnexion.add(getlError(),gbcConnexion);
 		}
 		return panelConnexion;
 	}

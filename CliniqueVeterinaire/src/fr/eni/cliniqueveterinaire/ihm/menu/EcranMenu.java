@@ -114,7 +114,7 @@ public class EcranMenu extends JFrame{
 			miDeconnexion.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					EcranMenuController.Deconnexion();
+					EcranLoginController.getInstance().deconnexion();
 				}
 			});
 		}
