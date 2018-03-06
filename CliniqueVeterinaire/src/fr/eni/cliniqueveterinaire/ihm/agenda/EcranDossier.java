@@ -1,5 +1,6 @@
 package fr.eni.cliniqueveterinaire.ihm.agenda;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -9,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -16,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bo.Animaux;
 import fr.eni.cliniqueveterinaire.bo.Clients;
 
@@ -33,7 +36,7 @@ public class EcranDossier extends JFrame{
 		this.animal = animal;
 		this.client = client;
 		
-		setSize(500, 400);
+		setSize(600, 320);
 		setResizable(false);
 		setTitle("Dossier Medical");
 		setContentPane(getPanelDossier());
@@ -45,27 +48,11 @@ public class EcranDossier extends JFrame{
 	private JPanel getPanelDossier() {
 		if (panelDossier == null) {
 			panelDossier = new JPanel();
-			panelDossier.setLayout(new GridBagLayout());
-			gbc = new GridBagConstraints();	
-			gbc.insets = new Insets(5, 5, 5, 5);
-			
-			// Head
-			gbc.gridx = 0;
-			gbc.gridy = 0;
-			gbc.gridwidth = 3;
+			panelDossier.setPreferredSize(new Dimension(600,300));
 			panelDossier.add(getPanelHead(), gbc);
-			gbc.gridwidth = 1;
 
-			
-			// Info animal - client
-			gbc.gridx = 0;
-			gbc.gridy = 1;
 			panelDossier.add(getPanelInfo(), gbc);
-			
-			// Antecedent
-			gbc.gridx = 1;
-			gbc.gridy = 1;
-			gbc.gridwidth = 2;
+
 			panelDossier.add(getPanelAntecedent(), gbc);
 			
 		}
@@ -75,8 +62,9 @@ public class EcranDossier extends JFrame{
 	private JPanel getPanelHead() {
 		if (panelHead == null) {
 			panelHead = new JPanel();
-			panelHead.setBorder(BorderFactory.createTitledBorder("De"));
+			panelHead.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			panelHead.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			panelHead.setPreferredSize(new Dimension(580,getBtnValider().getPreferredSize().height+12));
 			panelHead.setOpaque(true);
 			panelHead.add(getBtnValider());
 			panelHead.add(getBtnAnnuler());
@@ -87,7 +75,7 @@ public class EcranDossier extends JFrame{
 	private JPanel getPanelInfo() {
 		if (panelInfo == null) {
 			panelInfo = new JPanel();
-			panelInfo.setPreferredSize(new Dimension(200,200));
+			panelInfo.setLayout(new BoxLayout(panelInfo, BoxLayout.PAGE_AXIS));
 			panelInfo.add(getPanelInfoClient());
 			panelInfo.add(getPanelInfoAnimal());
 		}
@@ -98,11 +86,11 @@ public class EcranDossier extends JFrame{
 		if (panelInfoClient == null) {
 			panelInfoClient = new JPanel();
 			panelInfoClient.setBorder(BorderFactory.createTitledBorder("Client"));
+			panelInfoClient.setPreferredSize(new Dimension(200,50));
 			panelInfoClient.add(new JLabel(client.getNomClient() + " " + client.getPrenomClient()));
 		}
 		return panelInfoClient;
 	}
-	
 	
 	private JPanel getPanelInfoAnimal() {
 		if (panelInfoAnimal == null) {
@@ -142,13 +130,12 @@ public class EcranDossier extends JFrame{
 	private JPanel getPanelAntecedent() {
 		if (panelAntecedent == null) {
 			panelAntecedent = new JPanel();
+			panelAntecedent.setLayout(new BoxLayout(panelAntecedent, BoxLayout.Y_AXIS));
+			panelAntecedent.add(new JLabel("Antécédents / Consultations"));
 			panelAntecedent.add(getJtaAntecedent());
 		}
 		return panelAntecedent;
 	}
-	
-	
-	
 	
 	public JButton getBtnValider()
 	{
@@ -160,7 +147,14 @@ public class EcranDossier extends JFrame{
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
-					
+					animal.setAntecedents(getJtaAntecedent().getText());
+					try {
+						PanAgendaController.validerDossier(animal);
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					dispose();
 				}
 			});
 		}
@@ -188,9 +182,9 @@ public class EcranDossier extends JFrame{
 	{
 		if (jtaAntecedent == null)
 		{
-			jtaAntecedent = new JTextArea(5, 20);
+			jtaAntecedent = new JTextArea(12, 33);
+			jtaAntecedent.setText(animal.getAntecedents());
 			jtaAntecedent.setEditable(true);
-			
 		}
 		return jtaAntecedent;
 	}

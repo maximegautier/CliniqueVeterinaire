@@ -1,10 +1,7 @@
 package fr.eni.cliniqueveterinaire.ihm.agenda;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import javax.swing.JOptionPane;
 
 import fr.eni.cliniqueveterinaire.bll.AgendasManager;
 import fr.eni.cliniqueveterinaire.bll.AnimauxManager;
@@ -16,9 +13,6 @@ import fr.eni.cliniqueveterinaire.bo.Animaux;
 import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.dal.ClientsDAO;
-import fr.eni.cliniqueveterinaire.dal.DALException;
-import fr.eni.cliniqueveterinaire.dal.DAOFactory;
-import fr.eni.cliniqueveterinaire.ihm.animal.EcranAnimal;
 
 public class PanAgendaController 
 {
@@ -42,7 +36,6 @@ public class PanAgendaController
 	public static List<Personnels> selectVeterinaires() throws BLLException
 	{
 		List<Personnels> lPersonnel = PersonnelsManager.selectTousVeterinaires();
-		
 		return lPersonnel;
 	}
 	
@@ -65,7 +58,6 @@ public class PanAgendaController
 	{
 			Clients client = ClientsManager.getInstance().selectById(animal.getCodeClient());
 			EcranDossier ecranDossier = new EcranDossier(animal,client);
-		
 	}
 	
 	public static void ajouterRdv(Agendas aAjouter) throws BLLException
@@ -76,6 +68,11 @@ public class PanAgendaController
 	public static void supprimerRdv(Agendas aSupprimer) throws BLLException
 	{
 		AgendasManager.supprimer(aSupprimer);
+	}
+	
+	public static void validerDossier(Animaux animal) throws BLLException
+	{
+		AnimauxManager.modifier(animal);
 	}
 	
     //endregion METHODS
