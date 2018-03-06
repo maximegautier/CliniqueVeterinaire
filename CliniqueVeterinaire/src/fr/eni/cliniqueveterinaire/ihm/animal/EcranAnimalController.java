@@ -18,12 +18,6 @@ import fr.eni.cliniqueveterinaire.ihm.login.EcranLogin;
 /* Créé par Erwin DUPUIS */
 public class EcranAnimalController
 {
-    //region DECLARATION
-
-	
-
-    //endregion DECLARATION
-
     //region CTOR
 
 	public EcranAnimalController()
@@ -70,9 +64,4 @@ public class EcranAnimalController
 	}
 	
     //endregion METHODS
-
-    //region GET/SET
-
-
-    //endregion GET/SET
 }
