@@ -26,7 +26,7 @@ import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.log.LogFactory;
 
 public class EcranDossier extends JFrame{
-
+	
 	private final static Logger LOGGER = Logger.getLogger(LogFactory.class.getName());
 	
 	private JPanel panelDossier, panelHead, panelInfo, panelAntecedent, panelInfoClient, panelInfoAnimal;
@@ -155,7 +155,7 @@ public class EcranDossier extends JFrame{
 					animal.setAntecedents(getJtaAntecedent().getText());
 					try {
 						PanAgendaController.validerDossier(animal);
-						
+						LogFactory.getLog().createLog(Level.INFO, "Consultation du dossier medical de " + animal.getNomAnimal() +".");
 					} catch (BLLException e1) {
 						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
 					}
