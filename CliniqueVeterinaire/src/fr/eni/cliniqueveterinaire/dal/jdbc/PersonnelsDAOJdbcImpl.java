@@ -24,7 +24,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 	private String rqtUpdate = "UPDATE Personnels SET Nom=?, Prenom=?, Login=?, MotPasse=?, Archive = ? WHERE CodePers = ?";
 	private String rqtSelectRole = "SELECT Libelle From Roles";
 	private String rqtVerifieSiExiste = "SELECT * FROM Personnels WHERE Nom = ?";
-	private String rqtSelectVeterinaire = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Archive FROM Personnels WHERE libelle = 'vet' AND Archive = 0";
+	private String rqtSelectVeterinaire = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle, Archive FROM Personnels JOIN Personnels_Roles ON Personnels_Roles.CodePers = Personnels.CodePers JOIN Roles ON Roles.Libelle = Personnels_Roles.Libelle_Role WHERE libelle = 'vet' AND Archive = 0";
 	private String rqtVerifieRdv = "SELECT * FROM Agendas WHERE CodeVeto = ? AND DateRdv > getDate()";
 	private String rqtAjoutPersonnelsRole = "INSERT INTO Personnels_Roles VALUES (?,?)";
 	private String rqtSelectRolePersonnels = "SELECT Libelle_Role FROM Personnels LEFT JOIN Personnels_Roles ON Personnels_Roles.CodePers = Personnels.CodePers LEFT JOIN Roles ON Personnels_Roles.Libelle_Role = Roles.Libelle WHERE Personnels.CodePers = ?";
