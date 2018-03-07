@@ -291,6 +291,48 @@ public class PanPriseRdv extends JPanel implements Update
 		} 
     }
     
+    public boolean verifieDateRdv(Agendas aAjouter)
+    {
+		boolean verifieDateRdv = false;
+		
+		for(Agendas tmp : rdv)
+		{
+			if(tmp.getDateRdv() == aAjouter.getDateRdv() && tmp.getCodeVeto() == aAjouter.getCodeVeto())
+			{
+				JOptionPane.showMessageDialog(null, "Deux rendez-vous ne peuvent pas avoir lieu à la même heure.", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+				LogFactory.getLog().createLog(Level.SEVERE, "Deux rendez-vous ne peuvent pas avoir lieu à la même heure.");
+			}
+			else
+			{
+				verifieDateRdv = true;
+			}
+		}
+		
+		return verifieDateRdv;
+    }
+    
+    public Date conversionDate()
+    {
+    	String date = getDpDate().getModel().getDay() + "/" + getDpDate().getModel().getMonth() + "/" + getDpDate().getModel().getYear() + " "; /* dd/MM/yyyy */
+		String heure = getCbHeure().getSelectedItem().toString() + ":"; /* HH: */
+		String minutesSecondes = getCbMinute().getSelectedItem().toString()+ ":00"; /* mm:ss */
+		
+		String dateTime = date + " " + heure+minutesSecondes;					
+		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.FRANCE);
+		Date dt = null;
+		try 
+		{
+			dt = format.parse(dateTime);
+			dt.setMonth(dt.getMonth() + 1);
+		} 
+		catch (ParseException e1) 
+		{
+			LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
+		}
+		
+		return dt;
+    }
+    
 	@Override
 	public void updatePanPriseRdv() 
 	{
@@ -412,41 +454,40 @@ public class PanPriseRdv extends JPanel implements Update
 				@Override
 				public void actionPerformed(ActionEvent e) 
 				{
-					String date = getDpDate().getModel().getDay() + "/" + getDpDate().getModel().getMonth() + "/" + getDpDate().getModel().getYear() + " "; /* dd/MM/yyyy */
-					String heure = getCbHeure().getSelectedItem().toString() + ":"; /* HH: */
-					String minutesSecondes = getCbMinute().getSelectedItem().toString()+ ":00"; /* mm:ss */
+					/***********************/
+					//Conversion des dates...
+					/***********************/
+					Date dt = conversionDate();
 					
-					String dateTime = date + " " + heure+minutesSecondes;					
-					DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.FRANCE);
-					Date dt = null;
-					try 
-					{
-						dt = format.parse(dateTime);
-						dt.setMonth(dt.getMonth() + 1);
-					} 
-					catch (ParseException e1) 
-					{
-						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
-					}
+					/***********************/
+					//Initialisation
+					/***********************/
 					
 					Personnels veto = (Personnels) getCbVeterinaire().getSelectedItem();
 					Animaux animal = (Animaux) getCbAnimal().getSelectedItem();
 					
 					Agendas aAjouter = new Agendas(veto.getCodePers(), animal.getCodeAnimal(), dt);
 					
-					try 
-					{
-						PanAgendaController.ajouterRdv(aAjouter);						
-					} 
-					catch (BLLException e1) 
-					{
-						JOptionPane.showMessageDialog(null, e1.getMessage(), "Erreur", JOptionPane.INFORMATION_MESSAGE);
-						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
-					}
+					/***********************/
+					//Ajout à la base 
+					/***********************/
 					
-					getTableRdv().setData(getRdv());
-					JOptionPane.showMessageDialog(null, "Rendez-vous ajouté", "Succes", JOptionPane.INFORMATION_MESSAGE);
-					LogFactory.getLog().createLog(Level.INFO, "Rendez-vous ajouté : Code vétérinaire : "+aAjouter.getCodeVeto()+" , Date rendez-vous : "+aAjouter.getDateRdv()+" , CodeAnimal : "+aAjouter.getCodeAnimal());
+					if(verifieDateRdv(aAjouter))
+					{
+						try 
+						{
+							PanAgendaController.ajouterRdv(aAjouter);						
+						} 
+						catch (BLLException e1) 
+						{
+							JOptionPane.showMessageDialog(null, e1.getMessage(), "Erreur", JOptionPane.INFORMATION_MESSAGE);
+							LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
+						}
+						
+						getTableRdv().setData(getRdv());
+						JOptionPane.showMessageDialog(null, "Rendez-vous ajouté", "Succes", JOptionPane.INFORMATION_MESSAGE);
+						LogFactory.getLog().createLog(Level.INFO, "Rendez-vous ajouté : Code vétérinaire : "+aAjouter.getCodeVeto()+" , Date rendez-vous : "+aAjouter.getDateRdv()+" , CodeAnimal : "+aAjouter.getCodeAnimal());
+					}					
 				}
 			});						
 		}
