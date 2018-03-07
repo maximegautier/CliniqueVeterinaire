@@ -70,6 +70,7 @@ public class EcranClients extends JPanel implements Update{
 	public JDialog dialFen;
 	public JDialog dialFenEchec;
 	public JDialog dialFenSucces;
+	public JDialog dialFenSupprimer;
 	
 	public int codeClient = 1;
 	public int codeAnimal = 1;
@@ -392,7 +393,6 @@ public class EcranClients extends JPanel implements Update{
 					try {
 						EcranClientsController.getInstance().clickAnnuler(getCodeClient());
 					} catch (BLLException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
@@ -505,7 +505,11 @@ public class EcranClients extends JPanel implements Update{
 				public void actionPerformed(ActionEvent e) {
 					try {
 						int indiceLigne = getTabAnimaux().getSelectedRow();
-						EcranClientsController.getInstance().clickSupprimerAnimaux(getCodeClient(),Integer.parseInt((String) getTabAnimaux().getValueAt(indiceLigne, 0)));
+						if(indiceLigne != -1){
+							EcranClientsController.getInstance().clickSupprimerAnimaux(getCodeClient(),Integer.parseInt((String) getTabAnimaux().getValueAt(indiceLigne, 0)));
+						}else{
+							getJDialogErreurSuppression().setVisible(true);
+						}
 					} catch (BLLException e1) {
 						e1.printStackTrace();
 					}
@@ -522,7 +526,12 @@ public class EcranClients extends JPanel implements Update{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						EcranClientsController.getInstance().clickEditerAnimaux(getCodeClient(),Integer.parseInt((String) getTabAnimaux().getValueAt(getTabAnimaux().getSelectedRow(), 0)));
+						int indiceLigne = getTabAnimaux().getSelectedRow();
+						if(indiceLigne != -1){
+							EcranClientsController.getInstance().clickEditerAnimaux(getCodeClient(),Integer.parseInt((String) getTabAnimaux().getValueAt(indiceLigne, 0)));
+						}else{
+							getJDialogErreurSuppression().setVisible(true);
+						}
 					} catch (NumberFormatException | BLLException e1) {
 						e1.printStackTrace();
 					}					
@@ -722,6 +731,37 @@ public class EcranClients extends JPanel implements Update{
 			});
 		}
 		return dialFenEchec;
+	}
+	
+	public JDialog getJDialogErreurSuppression(){
+		if(this.dialFenSupprimer == null){
+			dialFenSupprimer = new JDialog();
+			dialFenSupprimer.setModal(true);
+			dialFenSupprimer.setTitle("Attention");
+			String retour = "Veuillez selectionner au une ligne du tableau";
+			JPanel lePanel = new JPanel();
+			JButton bOk = new JButton("OK");
+			bOk.setPreferredSize(new Dimension(100,30));
+			GridBagConstraints gbc  = new GridBagConstraints();
+			gbc.insets = new Insets(5,5,5,5);
+			gbc.gridx=0;
+			gbc.gridy=1;
+			lePanel.add(new JLabel(retour));
+			gbc.gridx=0;
+			gbc.gridy=3;
+			gbc.gridwidth = 2;
+			lePanel.add(bOk);
+			dialFenSupprimer.add(lePanel);
+			dialFenSupprimer.setLocationRelativeTo(null);
+			dialFenSupprimer.setSize(350, 150);
+			bOk.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					dialFenSupprimer.setVisible(false);
+				}
+			});
+		}
+		return dialFenSupprimer;
 	}
 	
 	public JDialog getJDialogSaisieReussie(){

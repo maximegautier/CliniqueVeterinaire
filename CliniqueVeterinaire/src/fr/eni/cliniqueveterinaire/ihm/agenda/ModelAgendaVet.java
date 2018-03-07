@@ -60,7 +60,6 @@ public class ModelAgendaVet extends AbstractTableModel{
 					
 					return client.getNomClient() + " " + client.getPrenomClient();
 				} catch (BLLException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			case 2:
