@@ -129,6 +129,25 @@ public class AgendasManager
 		}
 	}
 	
+	public static boolean supprimerParNom(int codeAnimal) throws BLLException
+	{
+		if(isNegativeInt(codeAnimal))
+		{
+			throw new BLLException("Le code de l'animal à consulter ne peut pas etre nul");
+		}
+		else
+		{
+			try 
+			{
+				return DAOFactory.getAgendasDAO().supprimerParNom(codeAnimal);
+			} 
+			catch (DALException e) 
+			{
+				throw new BLLException(e.getMessage());
+			}
+		}
+	}
+	
 	public static boolean verifierSiExiste(Agendas aVerifier) throws BLLException
 	{
 		if(aVerifier.getDateRdv() == null)

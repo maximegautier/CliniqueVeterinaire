@@ -228,6 +228,46 @@ public class AgendasDAOJdbcImpl implements AgendasDAO
 		return aRetourner;
 	}
 
+	@Override
+	public boolean supprimerParNom(int codeAnimal) throws DALException 
+	{
+		boolean aRetourner = false;
+		Connection cnx = JdbcTools.getConnection();
+		String rqtSupprimer = "DELETE FROM Agendas WHERE CodeAnimal = ?";
+		PreparedStatement psSupprimer = null;
+		
+		try
+		{
+			psSupprimer = cnx.prepareStatement(rqtSupprimer);
+			psSupprimer.setInt(1, codeAnimal);
+			
+			int nbRows = psSupprimer.executeUpdate();
+			if(nbRows == 1)
+	        {
+	            aRetourner = true;
+	        }
+	
+			psSupprimer.close();
+		} 
+		catch (SQLException e) 
+		{
+			throw new DALException(e.getMessage());
+		}
+		finally
+		{
+			try
+			{
+				psSupprimer.close();		
+				cnx.close();
+			}
+			catch(SQLException e)
+			{
+				throw new DALException(e.getMessage());
+			}
+		}
+	
+		return aRetourner;
+	}
 	
 	@Override
 	public boolean verifieSiExiste(Agendas aVerifier) throws DALException 
