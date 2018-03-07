@@ -90,8 +90,8 @@ public class EcranAnimal extends JFrame implements Update
     	this.update = update;
     	
     	this.typeOperation = false;    	
-    	//this.CodeClient = 1;//codeClient;
-    	//this.CodeAnimal = 3;//codeAnimal;
+    	this.CodeClient = codeClient;
+    	this.CodeAnimal = codeAnimal;
     	this.race = new ArrayList<Races>();
     	
 	    this.setSize(650, 340);
