@@ -139,11 +139,11 @@ public class PersonnelsManager
 	{
 		if(isEmptyOrNull(newMotPasse))
 		{
-			throw new BLLException("(PersonnelsManager)Modifier : Le nouveau mot de passe ne peut pas être null.");
+			throw new BLLException("Le nouveau mot de passe ne peut pas être vide.");
 		}
 		else if (isEmptyOrNull(oldMotPasse))
 		{
-			throw new BLLException("(PersonnelsManager)Modifier : L'ancien mot de passe ne peut pas être null.");
+			throw new BLLException("L'ancien mot de passe ne peut pas être vide.");
 		}
 		else
 		{			

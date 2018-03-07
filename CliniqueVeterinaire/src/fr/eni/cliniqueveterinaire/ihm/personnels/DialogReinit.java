@@ -153,7 +153,7 @@ public class DialogReinit extends JDialog
 	{
 		if(tfdPersonnel == null)
 		{
-			tfdPersonnel = new JTextField(currentPersonnel.getNom());
+			tfdPersonnel = new JTextField(currentPersonnel.getDisplayName());
 			tfdPersonnel.setEditable(false);
 		}
 		return tfdPersonnel;
