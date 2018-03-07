@@ -56,7 +56,7 @@ public class EcranLogin extends JFrame{
 			// Login
 			gbcConnexion.gridx=0;
 			gbcConnexion.gridy=0;
-			JLabel lLogin = new JLabel("Nom");
+			JLabel lLogin = new JLabel("Login");
 			panelConnexion.add(lLogin,gbcConnexion);
 			gbcConnexion.gridx = 1;
 			panelConnexion.add(getTxtLogin(),gbcConnexion);

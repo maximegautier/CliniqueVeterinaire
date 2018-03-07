@@ -2,13 +2,15 @@ package fr.eni.cliniqueveterinaire.ihm.menu;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
-import javax.swing.Box;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 
 import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.ihm.agenda.PanAgenda;
@@ -26,7 +28,7 @@ public class EcranMenu extends JFrame{
 	private JMenuItem mAgenda, mGDP;
 	
 	public EcranMenu() {
-		setDefaultCloseOperation(EXIT_ON_CLOSE);		
+		setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);		
 		setSize(700, 500);
 		setResizable(false);
 		setTitle("Clinique Veterinaire");
@@ -56,6 +58,15 @@ public class EcranMenu extends JFrame{
 		}
 		
 		setJMenuBar(menuBar);
+		
+		this.addWindowListener(new WindowAdapter() {
+		  public void windowClosing(WindowEvent e) {
+		        int exit = JOptionPane.showConfirmDialog(null,"Êtes-vous sûr de vouloir quitter?","Quitter?",JOptionPane.YES_NO_OPTION);
+		        if (exit == JOptionPane.YES_OPTION) {
+		        	EcranLoginController.getInstance().fermeture();
+		        }		        
+		  }
+		} );
 		
 		setVisible(true);
 		setLocationRelativeTo(null);
@@ -128,7 +139,7 @@ public class EcranMenu extends JFrame{
 			miFermer.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					System.exit(0);
+					EcranLoginController.getInstance().fermeture();
 				}
 			});
 		}

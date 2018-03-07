@@ -202,7 +202,7 @@ public class PanPersonnels extends JPanel{
 			tablePersonnels.setFont(new Font("Arial", Font.BOLD, 15));
 			tablePersonnels.isCellEditable(5, 2);
 			int h = this.getPreferredSize().height - 80 -getPanelHead().getPreferredSize().height;
-			tablePersonnels.setPreferredScrollableViewportSize(new Dimension(this.getPreferredSize().width-30,h-22));
+			tablePersonnels.setPreferredScrollableViewportSize(new Dimension(this.getPreferredSize().width-50,h-22));
 			tablePersonnels.setFillsViewportHeight(true);
 		}
 		return tablePersonnels;

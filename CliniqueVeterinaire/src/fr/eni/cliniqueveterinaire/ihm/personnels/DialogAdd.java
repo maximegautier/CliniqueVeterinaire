@@ -5,27 +5,25 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Level;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-import fr.eni.cliniqueveterinaire.dal.DALException;
-import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
-import fr.eni.cliniqueveterinaire.log.LogFactory;
+import fr.eni.cliniqueveterinaire.bll.BLLException;
 
 public class DialogAdd{
 
 	private JDialog dialogAjouter;
 	private JPanel panelAdd;
-	private JTextField tfNom, tfPrenom, tfMDP, tfLogin;
+	private JTextField tfNom, tfPrenom, tfLogin;
+	private JPasswordField tfMDP;
 	private JComboBox<String> cRole;
 	private JButton bValider, bAnnuler;
 
@@ -127,10 +125,10 @@ public class DialogAdd{
 		return tfPrenom;
 	}
 	
-	public JTextField getTfMDP(){
+	public JPasswordField getTfMDP(){
 		if (tfMDP == null)
 		{
-			tfMDP = new JTextField(15);
+			tfMDP = new JPasswordField(15);
 		}
 		return tfMDP;
 	}
@@ -147,7 +145,12 @@ public class DialogAdd{
 		if (cRole == null)
 		{
 			cRole = new JComboBox<String>();
-			cRole.setModel(new DefaultComboBoxModel(PanPersonnelsController.getInstance().selectTousRoles().toArray()));
+			try {
+				cRole.setModel(new DefaultComboBoxModel(PanPersonnelsController.getInstance().selectTousRoles().toArray()));
+			} catch (BLLException e) {
+				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		return cRole;
 	}
@@ -161,14 +164,17 @@ public class DialogAdd{
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
-					PanPersonnelsController.getInstance().validerAjout(
-							getTfNom().getText(),
-							getTfPrenom().getText(),
-							getTfLogin().getText(),
-							(String) getCRole().getSelectedItem(),
-							getTfMDP().getText()
-							);
-					LogFactory.getLog().createLog(Level.INFO, getTfNom().getText() + " " + getTfPrenom().getText() + " a été ajouté");
+					try {
+						PanPersonnelsController.getInstance().validerAjout(
+								getTfNom().getText(),
+								getTfPrenom().getText(),
+								getTfLogin().getText(),
+								(String) getCRole().getSelectedItem(),
+								getTfMDP().getText()
+								);
+					} catch (BLLException e1) {
+						JOptionPane.showMessageDialog(null, e1.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+					}
 					dialogAjouter.dispose();
 				}
 			});

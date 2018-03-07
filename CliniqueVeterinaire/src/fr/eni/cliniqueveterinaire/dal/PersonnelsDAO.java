@@ -1,7 +1,6 @@
 package fr.eni.cliniqueveterinaire.dal;
 
 import java.util.List;
-
 import fr.eni.cliniqueveterinaire.bo.Personnels;
 
 public interface PersonnelsDAO {
@@ -29,5 +28,7 @@ public interface PersonnelsDAO {
 	public void insertPersonnelsRoles(int codePers, String role) throws DALException;
 	
 	public boolean selectRdvVeterinaire(int id) throws DALException;
+
+	boolean ajouterPersonnelsRole(int id, String role) throws DALException;
 	
 }

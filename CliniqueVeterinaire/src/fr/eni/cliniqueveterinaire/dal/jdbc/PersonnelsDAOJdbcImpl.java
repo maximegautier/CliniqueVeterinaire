@@ -14,7 +14,7 @@ import fr.eni.cliniqueveterinaire.dal.PersonnelsDAO;
 
 public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 {
-	private String rqtCheckConnec = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle ,Archive FROM Personnels LEFT JOIN Personnels_Roles ON Personnels_Roles.CodePers = Personnels.CodePers LEFT JOIN Roles ON Roles.Libelle = Personnels_Roles.Libelle_Role WHERE Nom = ? AND MotPasse = ? AND Archive = 0";
+	private String rqtCheckConnec = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle ,Archive FROM Personnels LEFT JOIN Personnels_Roles ON Personnels_Roles.CodePers = Personnels.CodePers LEFT JOIN Roles ON Roles.Libelle = Personnels_Roles.Libelle_Role WHERE Login = ? AND MotPasse = ? AND Archive = 0";
 	private String rqtSelectById = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle  ,Archive FROM Personnels LEFT JOIN Personnels_Roles ON Personnels_Roles.CodePers = Personnels.CodePers LEFT JOIN Roles ON Roles.Libelle = Personnels_Roles.Libelle_Role WHERE Personnels.CodePers = ? AND Archive = 0";
 	private String rqtSelectByName = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle ,Archive FROM Personnels LEFT JOIN Personnels_Roles ON Personnels_Roles.CodePers = Personnels.CodePers LEFT JOIN Roles ON Roles.Libelle = Personnels_Roles.Libelle_Role WHERE Nom = ? AND Archive = 0";
 	private String rqtSelectAll = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle,Archive FROM Personnels LEFT JOIN Personnels_Roles ON Personnels_Roles.CodePers = Personnels.CodePers LEFT JOIN Roles ON Roles.Libelle = Personnels_Roles.Libelle_Role WHERE Archive = 0 ORDER BY Nom";
@@ -26,6 +26,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 	private String rqtVerifieSiExiste = "SELECT * FROM Personnels WHERE Nom = ?";
 	private String rqtSelectVeterinaire = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle, Archive FROM Personnels JOIN Personnels_Roles ON Personnels_Roles.CodePers = Personnels.CodePers JOIN Roles ON Roles.Libelle = Personnels_Roles.Libelle_Role WHERE libelle = 'vet' AND Archive = 0";
 	private String rqtVerifieRdv = "SELECT * FROM Agendas WHERE CodeVeto = ? AND DateRdv > getDate()";
+	private String rqtAjoutPersonnelsRole = "INSERT INTO Personnels_Roles VALUES (?,?)";
 	
 	public PersonnelsDAOJdbcImpl()
 	{
@@ -255,7 +256,6 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 	public void insertPersonnelsRoles(int codePers, String role) throws DALException {
 		Connection cnx = null;
 		PreparedStatement rqt = null;
-		System.out.println(codePers + "  " + role);
 		try {
 			cnx = JdbcTools.getConnection();
 			rqt = cnx.prepareStatement(rqtInsertPersonnelsRoles);
@@ -322,9 +322,6 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 			rqt = cnx.prepareStatement(rqtDelete);
 			rqt.setInt(1, personnel.getCodePers());
 			rqt.executeUpdate();
-			
-			System.out.println("ok");
-			
 		} catch (SQLException e) {
 			throw new DALException("Delete article failed - " + personnel, e);
 		} finally {
@@ -500,6 +497,38 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 			}
 		}
 		return aRetourner;
+	}
+	
+	/* Créee par Maxime GAUTIER */
+	@Override
+	public boolean ajouterPersonnelsRole(int id, String role) throws DALException {
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		boolean aRetourner = false;
+		try {
+			cnx = JdbcTools.getConnection();
+			rqt = cnx.prepareStatement(rqtAjoutPersonnelsRole);
+			rqt.setString(1, role);
+			rqt.setInt(2, id);
+			int nbRows = rqt.executeUpdate();
+			if(nbRows == 1){
+				aRetourner = true;
+			}
+			return aRetourner;
+		} catch (SQLException e) {
+			throw new DALException("AjouterPersonnelsRole failed - ", e);
+		} finally {
+			try {
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				throw new DALException("close failed - ", e);
+			}
+		}
 	}
 	
 }

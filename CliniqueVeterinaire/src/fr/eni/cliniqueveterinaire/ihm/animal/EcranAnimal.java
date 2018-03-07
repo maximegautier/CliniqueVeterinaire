@@ -1,7 +1,6 @@
 package fr.eni.cliniqueveterinaire.ihm.animal;
 
 import java.awt.Color;
-import java.awt.ComponentOrientation;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -17,6 +16,7 @@ import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -110,6 +110,8 @@ public class EcranAnimal extends JFrame implements Update
 		}	    
 	       
 	    this.remplirChampsSiAnimal();	
+	    
+	    this.setIconImage(new ImageIcon("ressources/ico_veto.png").getImage());
 	    
 	    this.setupIHM();
 		

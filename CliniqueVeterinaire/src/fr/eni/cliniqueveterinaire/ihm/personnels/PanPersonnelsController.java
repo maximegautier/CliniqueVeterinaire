@@ -1,6 +1,7 @@
 package fr.eni.cliniqueveterinaire.ihm.personnels;
 
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JOptionPane;
@@ -45,17 +46,18 @@ public class PanPersonnelsController extends JPanel{
 		rafraichirTable();
 	}
 	
-	public void validerAjout(String nom, String prenom, String login, String role, String mdp)
+	public void validerAjout(String nom, String prenom, String login, String role, String mdp) throws BLLException
 	{
-		Personnels personnel = new Personnels(nom,prenom,login,mdp,role,false);
-		try {
+		if (PersonnelsManager.verifieSiExiste(nom)) {
+			Personnels personnel = PersonnelsManager.selectPersonnel(nom);
+			PersonnelsManager.ajouterPersonnelsRole(personnel.getCodePers(), role);
+		} else {
+			Personnels personnel = new Personnels(nom,prenom,login,mdp,role,false);
 			// Ajouter le nouveau personnel
 			PersonnelsManager.ajouter(personnel);
-			rafraichirTable();	
-		} catch (BLLException e) {
-			// TODO Auto-generated catch block
-			JOptionPane.showMessageDialog(null, e.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);	
+			LogFactory.getLog().createLog(Level.INFO, personnel.getNom() + " " + personnel.getPrenom() + " a été ajouté");	
 		}
+		rafraichirTable();
 	}
 	
 	public void validerReinit(Personnels personnel, String ancienMDP, String nouveauMDP) throws BLLException
@@ -68,15 +70,10 @@ public class PanPersonnelsController extends JPanel{
 		panelPersonnels.getInstance().getTablePersonnel().setData(PersonnelsManager.selectTousPersonnels());
 	}
 	
-	public List<String> selectTousRoles()
+	public List<String> selectTousRoles() throws BLLException
 	{
 		List<String> lRoles = null;;
-		try {
-			lRoles = PersonnelsManager.selectTousRoles();
-		} catch (BLLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		lRoles = PersonnelsManager.selectTousRoles();
 		return lRoles;
 	}
 	

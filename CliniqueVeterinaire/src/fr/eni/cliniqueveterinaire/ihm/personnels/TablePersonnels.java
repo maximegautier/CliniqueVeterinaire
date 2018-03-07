@@ -15,15 +15,8 @@ public class TablePersonnels extends JTable{
 	private ModelPersonnels modelPersonnels;
 	
 	public TablePersonnels(List<Personnels> list) throws BLLException{
-		setPreferredScrollableViewportSize(new Dimension(this.getPreferredSize().width-30,500));
 		modelPersonnels = new ModelPersonnels(list);
 		this.setModel(modelPersonnels);
-		
-		setRowHeight(50);  
-        setBackground(new Color(238,238,238));
-		setShowGrid(false);
-		setFont(new Font("Arial", Font.BOLD, 15));
-		setFillsViewportHeight(true);
 	}
 	
 	public void setData(List<Personnels> data) {

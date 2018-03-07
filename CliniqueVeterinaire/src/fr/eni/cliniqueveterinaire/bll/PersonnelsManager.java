@@ -206,16 +206,37 @@ public class PersonnelsManager
 		return aRetourner;
 	}
 	
-	public static Personnels selectPersonnel(String nom)
+	public static Personnels selectPersonnel(String nom) throws BLLException
 	{
+		if (isEmptyOrNull(nom)) {
+			throw new BLLException("Le role ne peut pas etre null");
+		}
 		Personnels tmp = null;
 		try {
 			tmp = personnelsDAO.selectByName(nom);
 		} catch (DALException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new BLLException(e.getMessage());
 		}
 		return tmp;
+	}
+	
+	public static boolean ajouterPersonnelsRole(int id, String role) throws BLLException
+	{
+		if (isNegativeInt(id)) {
+			throw new BLLException("ce personnel est introuvable");
+		}
+		else if (isEmptyOrNull(role)) {
+			throw new BLLException("Le role ne peut pas etre null");
+		}
+		else {
+			try {
+				return personnelsDAO.ajouterPersonnelsRole(id, role);
+			} catch (DALException e) {
+				// TODO Auto-generated catch block
+				throw new BLLException(e.getMessage());
+			}
+		}
 	}
 	
 	//************
@@ -226,6 +247,15 @@ public class PersonnelsManager
     private static boolean isEmptyOrNull(String toTest)
     {
         if(toTest != null && !toTest.trim().isEmpty())
+            return false;
+        else
+            return true;
+    }
+    
+    /* Créé par Erwin DUPUIS */
+    private static boolean isNegativeInt(int toCheck)
+    {
+        if(toCheck >= 0)
             return false;
         else
             return true;

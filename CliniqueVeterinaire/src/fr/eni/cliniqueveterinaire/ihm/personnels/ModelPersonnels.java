@@ -8,7 +8,7 @@ import fr.eni.cliniqueveterinaire.bo.Personnels;
 public class ModelPersonnels extends AbstractTableModel{
 	
 	private List<Personnels> listPersonnels;
-	private final String[] entetes = { "Login", "Role", "Mot de passe"};
+	private final String[] entetes = { "Nom Prenom", "Role", "Mot de passe"};
 	
 	public ModelPersonnels(List<Personnels> list) {	
 		this.listPersonnels=list;	
@@ -35,7 +35,7 @@ public class ModelPersonnels extends AbstractTableModel{
 		switch (columnIndex) {
 			case 0:
 				// Nom prenom
-				return listPersonnels.get(rowIndex).getNom() +" "+ listPersonnels.get(rowIndex).getPrenom();
+			return listPersonnels.get(rowIndex).getNom()+" "+listPersonnels.get(rowIndex).getPrenom();
 	
 			case 1:
 				// Role
