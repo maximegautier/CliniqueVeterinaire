@@ -350,11 +350,11 @@ public class EcranAnimal extends JFrame implements Update
 	
 	//FONCTION POUR METTRE A JOUR LA LISTE D'ANIMAL QUAND NOUVEL ANIMAL
 	@Override
-	public void updateAnimauxPanPriseRdv(List<Animaux> nvListeAnimaux) 
+	public void updatePanPriseRdv() 
 	{
 		if(update != null)
 		{
-			update.updateAnimauxPanPriseRdv(nvListeAnimaux);
+			update.updatePanPriseRdv();
 		}
 	}
 	
@@ -406,9 +406,8 @@ public class EcranAnimal extends JFrame implements Update
 									null/* Antécedents */, 
 									false);
 							
-							int codeAnimalAjoute = EcranAnimalController.ajouter(aAjouter);
-							List<Animaux> nvListeAnimaux = EcranAnimalController.selectAnimaux(aAjouter.getCodeClient());
-							updateAnimauxPanPriseRdv(nvListeAnimaux);
+							int codeAnimalAjoute = EcranAnimalController.ajouter(aAjouter);							
+							updatePanPriseRdv();
 							JOptionPane.showMessageDialog(null, "Animal ajouter", "Succes", JOptionPane.INFORMATION_MESSAGE);
 							LogFactory.getLog().createLog(Level.INFO, "Animal ajouté : "+codeAnimalAjoute);
 							currentFrame.dispose();
