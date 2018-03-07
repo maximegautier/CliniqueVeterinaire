@@ -17,13 +17,15 @@ public class AppliTestBLL {
 	{	
 		// Instanciation du jeu d'essai Personnels
 		System.out.println("___________________ Personnels ___________________");
+		List<String> listRole = new ArrayList<String>();
+		listRole.add("vet");
 		List<Personnels> lPersonnels = new ArrayList<>();
-		Personnels perso1 = new Personnels(1, "BOSAPIN", "Edmond", "BOSAPIN_J", "1234", "adm", false);
+		Personnels perso1 = new Personnels(1, "BOSAPIN", "Edmond", "BOSAPIN_J", "1234", listRole, false);
 		lPersonnels.add(perso1);
-		lPersonnels.add(new Personnels(2,"DECAJOU", "Benoit", "DECAJOU_B", "5678", "vet", false));
-		lPersonnels.add(new Personnels(3,"MONFILS", "Thibaut", "MONFILS_T", "5678", "ass", false));
-		lPersonnels.add(new Personnels(4,"DEJEU", "Odette", "DEJEU_O", "9101", "sec", false));
-		lPersonnels.add(new Personnels(5,"HISSON_MP", "Marie-Paul", "HISSON_P", "1121", "sec", true));
+		lPersonnels.add(new Personnels(2,"DECAJOU", "Benoit", "DECAJOU_B", "5678", listRole, false));
+		lPersonnels.add(new Personnels(3,"MONFILS", "Thibaut", "MONFILS_T", "5678", listRole, false));
+		lPersonnels.add(new Personnels(4,"DEJEU", "Odette", "DEJEU_O", "9101", listRole, false));
+		lPersonnels.add(new Personnels(5,"HISSON_MP", "Marie-Paul", "HISSON_P", "1121", listRole, true));
 		
 		// Ajout du personnel				
 		for (Personnels personnel : lPersonnels) {

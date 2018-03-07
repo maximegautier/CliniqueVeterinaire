@@ -39,7 +39,16 @@ public class ModelPersonnels extends AbstractTableModel{
 	
 			case 1:
 				// Role
-				return listPersonnels.get(rowIndex).getRole();
+				List<String> listRolePersonnel = listPersonnels.get(rowIndex).getListRole();
+				if (listRolePersonnel.size() == 1) {
+					return listRolePersonnel.get(0);
+				} else {
+					String displayRole = listRolePersonnel.get(0);
+					for (int i=1; i<listRolePersonnel.size(); i++){
+						displayRole += " - " + listRolePersonnel.get(i);
+					}
+					return displayRole;
+				}	
 			case 2:
 				// Mot de passe
 				return "***********";

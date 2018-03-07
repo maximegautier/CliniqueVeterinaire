@@ -59,10 +59,6 @@ public class PersonnelsManager
 			{
 				throw new BLLException("Le champ \"Login\" est vide.");
 			}
-			else if(isEmptyOrNull(personnel.getRole()))
-			{
-				throw new BLLException("Le champ \"Role\" est vide.");
-			}
 			else if(isEmptyOrNull(personnel.getMotPasse()))
 			{
 				throw new BLLException("Le champ \"Mot de passe\" est vide.");
@@ -79,10 +75,6 @@ public class PersonnelsManager
 			{
 				throw new BLLException("La taille du mot de passe depasse 10 caracteres.");
 			}	
-			else if(personnel.getRole().length() > 3)
-			{
-				throw new BLLException("Le role est définie par : vet, adm... et ne peut pas excéder 3 caractères");
-			} 
 			else
 			{
 				//Logique d'ajout à la base via DAO

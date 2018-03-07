@@ -1,5 +1,7 @@
 package fr.eni.cliniqueveterinaire.bo;
 
+import java.util.List;
+
 public class Personnels 
 {
     //region DECLARATION
@@ -9,30 +11,31 @@ public class Personnels
 	private String prenom;
 	private String login;
 	private String motPasse;
-	private String role;
+	List<String> listRole;
 	private boolean archive;
 	
     //endregion DECLARATION
 
     //region CTOR
-
-	public Personnels(int codePers, String nom, String prenom, String login, String motPasse, String role, boolean archive) 
+	
+	public Personnels(String nom, String prenom, String login, String motPasse, List<String> role,boolean archive) 
+	{
+		this.nom = nom;
+		this.prenom = prenom;
+		this.login = login;
+		this.motPasse = motPasse;
+		this.listRole = role;
+		this.archive = archive;
+	}
+	
+	public Personnels(int codePers, String nom, String prenom, String login, String motPasse, List<String> role,boolean archive) 
 	{
 		this.codePers = codePers;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.login = login;
 		this.motPasse = motPasse;
-		this.role = role;
-		this.archive = archive;
-	}
-	public Personnels(String nom, String prenom, String login, String motPasse, String role,boolean archive) 
-	{
-		this.nom = nom;
-		this.prenom = prenom;
-		this.login = login;
-		this.motPasse = motPasse;
-		this.role = role;
+		this.listRole = role;
 		this.archive = archive;
 	}
 
@@ -69,12 +72,6 @@ public class Personnels
 	public void setMotPasse(String motPasse) {
 		this.motPasse = motPasse;
 	}
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
-	}
 	public boolean getArchive() {
 		return archive;
 	}
@@ -93,7 +90,13 @@ public class Personnels
 	public void setLogin(String login) {
 		this.login = login;
 	}
-	
+	public List<String> getListRole() {
+		return listRole;
+	}
+	public void setListRole(List<String> listRole) {
+		this.listRole = listRole;
+	}
+
 	public String getDisplayName()
 	{
 		return nom + " " + prenom;

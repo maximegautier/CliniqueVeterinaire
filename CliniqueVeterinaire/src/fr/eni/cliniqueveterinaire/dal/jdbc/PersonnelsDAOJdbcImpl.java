@@ -14,10 +14,10 @@ import fr.eni.cliniqueveterinaire.dal.PersonnelsDAO;
 
 public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 {
-	private String rqtCheckConnec = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle ,Archive FROM Personnels LEFT JOIN Personnels_Roles ON Personnels_Roles.CodePers = Personnels.CodePers LEFT JOIN Roles ON Roles.Libelle = Personnels_Roles.Libelle_Role WHERE Login = ? AND MotPasse = ? AND Archive = 0";
-	private String rqtSelectById = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle  ,Archive FROM Personnels LEFT JOIN Personnels_Roles ON Personnels_Roles.CodePers = Personnels.CodePers LEFT JOIN Roles ON Roles.Libelle = Personnels_Roles.Libelle_Role WHERE Personnels.CodePers = ? AND Archive = 0";
-	private String rqtSelectByName = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle ,Archive FROM Personnels LEFT JOIN Personnels_Roles ON Personnels_Roles.CodePers = Personnels.CodePers LEFT JOIN Roles ON Roles.Libelle = Personnels_Roles.Libelle_Role WHERE Nom = ? AND Archive = 0";
-	private String rqtSelectAll = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle,Archive FROM Personnels LEFT JOIN Personnels_Roles ON Personnels_Roles.CodePers = Personnels.CodePers LEFT JOIN Roles ON Roles.Libelle = Personnels_Roles.Libelle_Role WHERE Archive = 0 ORDER BY Nom";
+	private String rqtCheckConnec = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle ,Archive FROM Personnels WHERE Login = ? AND MotPasse = ? AND Archive = 0";
+	private String rqtSelectById = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle  ,Archive FROM Personnels WHERE Personnels.CodePers = ? AND Archive = 0";
+	private String rqtSelectByName = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse ,Archive FROM Personnels WHERE Nom = ? AND Archive = 0";
+	private String rqtSelectAll = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse,Archive FROM Personnels WHERE Archive = 0 ORDER BY Nom";
 	private String rqtInsert = "INSERT INTO Personnels VALUES (?,?,?,?,?)";
 	private String rqtInsertPersonnelsRoles = "INSERT INTO Personnels_Roles VALUES (?,?)";
 	private String rqtDelete = "UPDATE Personnels SET Archive = 1 WHERE CodePers = ?";
@@ -27,11 +27,13 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 	private String rqtSelectVeterinaire = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle, Archive FROM Personnels JOIN Personnels_Roles ON Personnels_Roles.CodePers = Personnels.CodePers JOIN Roles ON Roles.Libelle = Personnels_Roles.Libelle_Role WHERE libelle = 'vet' AND Archive = 0";
 	private String rqtVerifieRdv = "SELECT * FROM Agendas WHERE CodeVeto = ? AND DateRdv > getDate()";
 	private String rqtAjoutPersonnelsRole = "INSERT INTO Personnels_Roles VALUES (?,?)";
+	private String rqtSelectRolePersonnels = "SELECT Libelle_Role FROM Personnels LEFT JOIN Personnels_Roles ON Personnels_Roles.CodePers = Personnels.CodePers LEFT JOIN Roles ON Personnels_Roles.Libelle_Role = Roles.Libelle WHERE Personnels.CodePers = ?";
 	
 	public PersonnelsDAOJdbcImpl()
 	{
 		
 	}
+	
 	/* Créee par Yael LEBARON */
 	public Personnels checkConnexion(String login,String mdp) throws DALException
 	{
@@ -55,7 +57,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 							rs.getString("Prenom"),
 							rs.getString("Login"),
 							rs.getString("MotPasse"),
-							rs.getString("Libelle"),
+							selectRolePersonnels(rs.getInt("CodePers")),
 							rs.getBoolean("Archive")
 					);
 				}
@@ -99,7 +101,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 						rs.getString("Prenom"),
 						rs.getString("Login"),
 						rs.getString("MotPasse"),
-						rs.getString("Libelle"),
+						selectRolePersonnels(rs.getInt("CodePers")),
 						rs.getBoolean("Archive")		
 				);
 			}
@@ -143,7 +145,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 						rs.getString("Prenom"),
 						rs.getString("Login"),
 						rs.getString("MotPasse"),
-						rs.getString("Libelle"),
+						selectRolePersonnels(rs.getInt("CodePers")),
 						rs.getBoolean("Archive")		
 				);
 			}
@@ -189,7 +191,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 						rs.getString("Prenom"),
 						rs.getString("Login"),
 						rs.getString("MotPasse"),
-						rs.getString("Libelle"),
+						selectRolePersonnels(rs.getInt("CodePers")),
 						rs.getBoolean("Archive")		
 				);
 				list.add(personnel);
@@ -233,7 +235,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 				if(rs.next()){
 					personnel.setCodePers(rs.getInt(1));
 				}
-				insertPersonnelsRoles(rs.getInt(1), personnel.getRole());
+				insertPersonnelsRoles(rs.getInt(1), personnel.getListRole().get(0));
 			}
 			return personnel.getCodePers();
 		} catch (SQLException e) {
@@ -294,7 +296,6 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 			rqt.setBoolean(5, personnel.getArchive());
 			rqt.setInt(6, personnel.getCodePers());
 			rqt.executeUpdate();
-			
 		} catch (SQLException e) {
 			throw new DALException("Update article failed - " + personnel, e);
 		} finally {
@@ -435,7 +436,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 						rs.getString("Prenom"),
 						rs.getString("Login"),
 						rs.getString("MotPasse"),
-						rs.getString("Libelle"),
+						selectRolePersonnels(rs.getInt("CodePers")),
 						rs.getBoolean("Archive")		
 				);
 				personnels.add(personnel);
@@ -529,6 +530,45 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 				throw new DALException("close failed - ", e);
 			}
 		}
+	}
+	
+
+	public List<String> selectRolePersonnels(int id) throws DALException
+	{
+		Connection cnx = null;
+		PreparedStatement rqt = null;
+		ResultSet rs = null;
+		List<String> listRole = new ArrayList<String>();
+
+		try {
+			cnx = JdbcTools.getConnection();
+		
+			rqt = cnx.prepareStatement(rqtSelectRolePersonnels);
+			rqt.setInt(1, id);
+
+			
+			rs = rqt.executeQuery();
+			while (rs.next()){
+				listRole.add(rs.getString("Libelle_Role"));
+			}
+		} catch (SQLException e) {
+			throw new DALException("CheckConnexion failed ", e);
+		} finally {
+			try {
+				if (rs != null){
+					rs.close();
+				}
+				if (rqt != null){
+					rqt.close();
+				}
+				if(cnx!=null){
+					cnx.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return listRole;
 	}
 	
 }

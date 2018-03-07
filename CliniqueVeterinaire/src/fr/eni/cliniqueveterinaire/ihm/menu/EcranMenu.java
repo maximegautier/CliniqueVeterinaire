@@ -13,6 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 import fr.eni.cliniqueveterinaire.bll.BLLException;
+import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.ihm.agenda.PanAgenda;
 import fr.eni.cliniqueveterinaire.ihm.agenda.PanPriseRdv;
 import fr.eni.cliniqueveterinaire.ihm.clients.EcranClients;
@@ -36,7 +37,7 @@ public class EcranMenu extends JFrame{
 		
 		menuBar.add(getMFichier());
 		
-		switch (EcranLoginController.getCurrentPersonnel().getRole())
+		switch (selectRolePersonnel(EcranLoginController.getCurrentPersonnel()))
 		{
 			case "adm" :
 				menuBar.add(getMRDV());
@@ -179,6 +180,31 @@ public class EcranMenu extends JFrame{
 			});
 		}
 		return miClient;
+	}
+	
+	private String selectRolePersonnel(Personnels personnel) {
+		boolean verifAdm = false;
+		String role = "";
+		for (String tmp : personnel.getListRole()) {
+			if (tmp.equals("adm")) {
+				verifAdm= true;
+			}
+			else if (tmp.equals("vet")) {
+				role = tmp;
+			}
+			else if (tmp.equals("sec")) {
+				role = tmp;
+			}
+			else if (tmp.equals("ass")) {
+				role = tmp;
+			}
+		}
+		if (verifAdm) {
+			return "adm";
+		} 
+		else {
+			return role;
+		}
 	}
 		
 }

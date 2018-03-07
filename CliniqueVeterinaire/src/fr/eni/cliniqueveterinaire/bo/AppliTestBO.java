@@ -1,6 +1,8 @@
 package fr.eni.cliniqueveterinaire.bo;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class AppliTestBO 
 {
@@ -27,7 +29,9 @@ public class AppliTestBO
 		System.out.println("---------------------------------------------------------------");
 		
 		//PERSONNELS
-		Personnels unPerso = new Personnels(54, "Norris", "Chuck","NORRIS_C", "Norris60", "vet",false);
+		List<String> listRole = new ArrayList<String>();
+		listRole.add("vet");
+		Personnels unPerso = new Personnels(54, "Norris", "Chuck","NORRIS_C", "Norris60", listRole ,false);
 		System.out.println("********** Création d'une fiche personnel **********");
 		System.out.println(unPerso.toString());
 		System.out.println("---------------------------------------------------------------");

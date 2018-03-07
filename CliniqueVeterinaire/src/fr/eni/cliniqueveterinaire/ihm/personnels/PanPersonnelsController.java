@@ -1,5 +1,6 @@
 package fr.eni.cliniqueveterinaire.ihm.personnels;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -52,7 +53,9 @@ public class PanPersonnelsController extends JPanel{
 			Personnels personnel = PersonnelsManager.selectPersonnel(nom);
 			PersonnelsManager.ajouterPersonnelsRole(personnel.getCodePers(), role);
 		} else {
-			Personnels personnel = new Personnels(nom,prenom,login,mdp,role,false);
+			List<String> listRole = new ArrayList<String>();
+			listRole.add(role);
+			Personnels personnel = new Personnels(nom,prenom,login,mdp,listRole,false);
 			// Ajouter le nouveau personnel
 			PersonnelsManager.ajouter(personnel);
 			LogFactory.getLog().createLog(Level.INFO, personnel.getNom() + " " + personnel.getPrenom() + " a été ajouté");	
