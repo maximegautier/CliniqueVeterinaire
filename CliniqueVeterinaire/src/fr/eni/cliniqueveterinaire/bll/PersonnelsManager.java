@@ -186,23 +186,14 @@ public class PersonnelsManager
 	public static boolean verifieSiExiste(String nomPersonnel) throws BLLException
 	{
 		boolean aRetourner = false; 
-		
-		if(isEmptyOrNull(nomPersonnel))
+		try 
 		{
-			throw new BLLException("Le nom du personnel ne peut pas etre null.");
-		}
-		else
+			aRetourner = personnelsDAO.verifieSiExiste(nomPersonnel);
+		} 
+		catch (DALException e) 
 		{
-			try 
-			{
-				aRetourner = personnelsDAO.verifieSiExiste(nomPersonnel);
-			} 
-			catch (DALException e) 
-			{
-				throw new BLLException(e.getMessage());
-			}
+			throw new BLLException(e.getMessage());
 		}
-		
 		return aRetourner;
 	}
 	
