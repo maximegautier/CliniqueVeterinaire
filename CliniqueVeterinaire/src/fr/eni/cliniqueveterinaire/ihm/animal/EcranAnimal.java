@@ -32,6 +32,8 @@ import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.bo.Races;
 import fr.eni.cliniqueveterinaire.ihm.Update;
 import fr.eni.cliniqueveterinaire.ihm.agenda.PanPriseRdv;
+import fr.eni.cliniqueveterinaire.ihm.clients.EcranClients;
+import fr.eni.cliniqueveterinaire.ihm.clients.EcranClientsController;
 import fr.eni.cliniqueveterinaire.log.LogFactory;
 
 /* Créé par Erwin DUPUIS */
@@ -413,6 +415,11 @@ public class EcranAnimal extends JFrame implements Update
 							JOptionPane.showMessageDialog(null, "Animal ajouter", "Succes", JOptionPane.INFORMATION_MESSAGE);
 							LogFactory.getLog().createLog(Level.INFO, "Animal ajouté : "+codeAnimalAjoute);
 							currentFrame.dispose();
+							try {
+								EcranClientsController.getInstance().actualiseTab(EcranClients.getInstance().getCodeClient());
+							} catch (BLLException e1) {
+								e1.printStackTrace();
+							}
 						} 
 						catch (BLLException e2) 
 						{
@@ -440,6 +447,11 @@ public class EcranAnimal extends JFrame implements Update
 							JOptionPane.showMessageDialog(null, "Animal modifié", "Succes", JOptionPane.INFORMATION_MESSAGE);
 							LogFactory.getLog().createLog(Level.INFO, "Animal modifié : "+aModifier.getCodeAnimal());
 							currentFrame.dispose();
+							try {
+								EcranClientsController.getInstance().actualiseTab(EcranClients.getInstance().getCodeClient());
+							} catch (BLLException e1) {
+								e1.printStackTrace();
+							}
 						} 
 						catch (BLLException e1) 
 						{
@@ -464,6 +476,11 @@ public class EcranAnimal extends JFrame implements Update
 				public void actionPerformed(ActionEvent e) 
 				{
 					currentFrame.dispose();
+					try {
+						EcranClientsController.getInstance().actualiseTab(EcranClients.getInstance().getCodeClient());
+					} catch (BLLException e1) {
+						e1.printStackTrace();
+					}
 				}
 			});
 		}
