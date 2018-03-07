@@ -311,18 +311,13 @@ public class PanPriseRdv extends JPanel implements Update
 		return verifieDateRdv;
     }
     
-    public Date conversionDate()
-    {
-    	String date = getDpDate().getModel().getDay() + "/" + getDpDate().getModel().getMonth() + "/" + getDpDate().getModel().getYear() + " "; /* dd/MM/yyyy */
-		String heure = getCbHeure().getSelectedItem().toString() + ":"; /* HH: */
-		String minutesSecondes = getCbMinute().getSelectedItem().toString()+ ":00"; /* mm:ss */
-		
-		String dateTime = date + " " + heure+minutesSecondes;					
+    public Date conversionDate(String aConvertir)
+    {    						
 		DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.FRANCE);
 		Date dt = null;
 		try 
 		{
-			dt = format.parse(dateTime);
+			dt = format.parse(aConvertir);
 			dt.setMonth(dt.getMonth() + 1);
 		} 
 		catch (ParseException e1) 
@@ -456,7 +451,12 @@ public class PanPriseRdv extends JPanel implements Update
 					/***********************/
 					//Conversion des dates...
 					/***********************/
-					Date dt = conversionDate();
+					String date = getDpDate().getModel().getDay() + "/" + getDpDate().getModel().getMonth() + "/" + getDpDate().getModel().getYear() + " "; /* dd/MM/yyyy */
+					String heure = getCbHeure().getSelectedItem().toString() + ":"; /* HH: */
+					String minutesSecondes = getCbMinute().getSelectedItem().toString()+ ":00"; /* mm:ss */
+					
+					String aConvertir = date + " " + heure+minutesSecondes;
+					Date dt = conversionDate(aConvertir);
 					
 					/***********************/
 					//Initialisation
