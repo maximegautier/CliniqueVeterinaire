@@ -2,10 +2,8 @@ package fr.eni.cliniqueveterinaire.ihm.clients;
 
 import java.util.List;
 
-import javax.swing.event.TableModelListener;
 import fr.eni.cliniqueveterinaire.bo.*;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
 
 public class ModeleTableAnimauxClients extends AbstractTableModel{
     private List<Animaux> data;

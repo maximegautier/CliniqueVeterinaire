@@ -1,10 +1,6 @@
 package fr.eni.cliniqueveterinaire.ihm.personnels;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.util.List;
-
 import javax.swing.JTable;
 
 import fr.eni.cliniqueveterinaire.bll.BLLException;
