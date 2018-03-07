@@ -31,7 +31,7 @@ public class EcranLoginController
 		return EcranLoginController.instance;
 	}
 	
-	public void startApp() throws DALException
+	public void startApp()
 	{
 		fenLogin = EcranLogin.getInstance();
 		fenLogin.setVisible(true);

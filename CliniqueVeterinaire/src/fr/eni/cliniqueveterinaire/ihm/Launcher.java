@@ -13,13 +13,8 @@ public class Launcher {
 
 			@Override
 			public void run() {
-					try {
-						LogFactory.getLog().init();
-						EcranLoginController.getInstance().startApp();
-					} catch (DALException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+				LogFactory.getLog().init();
+				EcranLoginController.getInstance().startApp();
 			}	
 		});
 		
