@@ -97,7 +97,7 @@ public class EcranAnimal extends JFrame implements Update
 	    this.setSize(650, 340);
 	    //this.setPreferredSize(new Dimension(640, 480));
 	    this.setTitle("Animaux");
-	    this.setLocationRelativeTo(null);   	
+	    this.setLocationRelativeTo(null);   	    
 	    	    
 	    try 
 	    {
@@ -111,11 +111,11 @@ public class EcranAnimal extends JFrame implements Update
 	       
 	    this.remplirChampsSiAnimal();	
 	    
-	    this.setIconImage(new ImageIcon("ressources/ico_veto.png").getImage());
-	    
 	    this.setupIHM();
 		
 	    this.setVisible(true); 
+	    
+	    this.setIconImage(new ImageIcon("ressources/ico_veto.png").getImage());
     }
 
     public EcranAnimal(int codeClient, Update update)
