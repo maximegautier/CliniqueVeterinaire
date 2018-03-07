@@ -1,6 +1,5 @@
 package fr.eni.cliniqueveterinaire.ihm.agenda;
 
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -12,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -23,7 +21,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.BorderFactory;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -44,7 +41,6 @@ import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.ihm.Update;
 import fr.eni.cliniqueveterinaire.ihm.animal.EcranAnimal;
 import fr.eni.cliniqueveterinaire.ihm.clients.EcranAjoutClients;
-import fr.eni.cliniqueveterinaire.ihm.personnels.PanPersonnelsController;
 import fr.eni.cliniqueveterinaire.log.LogFactory;
 
 /* Créé par Erwin DUPUIS */
