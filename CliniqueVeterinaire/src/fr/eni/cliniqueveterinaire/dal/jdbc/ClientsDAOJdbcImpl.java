@@ -170,7 +170,6 @@ public class ClientsDAOJdbcImpl implements ClientsDAO {
 			
 			rs = rqt.executeQuery();
 			int i =0;
-			System.out.println("Chui laaaaa");
 			while(rs.next()){
 				lesClient.add(new Clients(rs.getInt("CodeClient"),rs.getString("NomClient"),rs.getString("PrenomClient"),
 						rs.getString("Adresse1"),rs.getString("Adresse2"),rs.getString("CodePostal"),
