@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultComboBoxModel;
@@ -31,6 +32,8 @@ import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bo.Agendas;
 import fr.eni.cliniqueveterinaire.bo.Animaux;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
+import fr.eni.cliniqueveterinaire.ihm.login.EcranLoginController;
+import fr.eni.cliniqueveterinaire.log.LogFactory;
 
 public class PanAgenda extends JPanel{
 
@@ -71,7 +74,6 @@ public class PanAgenda extends JPanel{
 		add(getBtnDossier(),gbc);
 	}
 
-	
 	private JPanel getPanelHead()
 	{
 		if (panelHead == null)
@@ -112,12 +114,16 @@ public class PanAgenda extends JPanel{
 			List<Personnels> lPerso = new ArrayList<Personnels>();
 			try {
 				lPerso = PanAgendaController.selectVeterinaires();
-			} catch (BLLException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
+			} catch (BLLException e) {
+				LogFactory.getLog().createLog(Level.SEVERE, e.getMessage());
 			}
 			
 			cbVeterinaire.setModel(new DefaultComboBoxModel(lPerso.toArray()));
+			for (int i=0; i<lPerso.size(); i++) {
+				if (lPerso.get(i).getCodePers() == EcranLoginController.getCurrentPersonnel().getCodePers()) {
+					cbVeterinaire.setSelectedIndex(i);		
+				}
+			}
 			cbVeterinaire.addActionListener(new ActionListener()
 			{
 				@Override
@@ -130,8 +136,7 @@ public class PanAgenda extends JPanel{
 						List<Agendas> data = PanAgendaController.remplirTableau(date, personnel.getCodePers());
 						getTableAgendaVet().setData(data);
 					} catch (BLLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
 					}	
 				}
 			});
@@ -163,8 +168,7 @@ public class PanAgenda extends JPanel{
 						List<Agendas> data = PanAgendaController.remplirTableau(date, personnel.getCodePers());
 						getTableAgendaVet().setData(data);
 					} catch (BLLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
 					}	
 				}
 			});
@@ -194,8 +198,7 @@ public class PanAgenda extends JPanel{
 							PanAgendaController.ouvrirDossier(animal);	
 						}
 					} catch (BLLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
 					}
 				}
 			});
@@ -231,7 +234,7 @@ public class PanAgenda extends JPanel{
 		} 
 		catch (BLLException e) 
 		{
-			e.printStackTrace();
+			LogFactory.getLog().createLog(Level.SEVERE, e.getMessage());
 		}
     }
 }
