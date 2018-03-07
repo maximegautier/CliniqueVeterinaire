@@ -293,18 +293,18 @@ public class PanPriseRdv extends JPanel implements Update
     
     public boolean verifieDateRdv(Agendas aAjouter)
     {
-		boolean verifieDateRdv = false;
+		boolean verifieDateRdv = true;
 		
-		for(Agendas tmp : rdv)
+		if(!rdv.isEmpty())
 		{
-			if(tmp.getDateRdv() == aAjouter.getDateRdv() && tmp.getCodeVeto() == aAjouter.getCodeVeto())
+			for(Agendas tmp : rdv)
 			{
-				JOptionPane.showMessageDialog(null, "Deux rendez-vous ne peuvent pas avoir lieu à la même heure.", "Erreur", JOptionPane.INFORMATION_MESSAGE);
-				LogFactory.getLog().createLog(Level.SEVERE, "Deux rendez-vous ne peuvent pas avoir lieu à la même heure.");
-			}
-			else
-			{
-				verifieDateRdv = true;
+				if(tmp.getDateRdv().equals(aAjouter.getDateRdv()) && tmp.getCodeVeto() == aAjouter.getCodeVeto())
+				{
+					JOptionPane.showMessageDialog(null, "Deux rendez-vous ne peuvent pas avoir lieu à la même heure.", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+					LogFactory.getLog().createLog(Level.SEVERE, "Deux rendez-vous ne peuvent pas avoir lieu à la même heure.");
+					return false;
+				}
 			}
 		}
 		
