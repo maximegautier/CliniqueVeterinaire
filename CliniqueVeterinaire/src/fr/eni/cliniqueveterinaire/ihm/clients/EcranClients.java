@@ -358,7 +358,6 @@ public class EcranClients extends JPanel implements Update{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						//JDialog etes vous sur de vouloir supprimer?
 						int leCodeClient = getCodeClient();
 						setCodeClient(EcranClientsController.getInstance().clickClientsPrecedent(getCodeClient()));
 						EcranClientsController.getInstance().clickClientsSupprime(leCodeClient);

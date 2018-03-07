@@ -1,5 +1,6 @@
 package fr.eni.cliniqueveterinaire.ihm.clients;
 
+import java.awt.Rectangle;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -16,8 +17,12 @@ import fr.eni.cliniqueveterinaire.bo.Animaux;
 import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.Update;
+import fr.eni.cliniqueveterinaire.ihm.agenda.PanAgenda;
+import fr.eni.cliniqueveterinaire.ihm.agenda.PanAgendaController;
+import fr.eni.cliniqueveterinaire.ihm.agenda.PanPriseRdv;
 import fr.eni.cliniqueveterinaire.ihm.animal.EcranAnimal;
 import fr.eni.cliniqueveterinaire.ihm.animal.EcranAnimalController;
+import fr.eni.cliniqueveterinaire.ihm.personnels.PanPersonnelsController;
 
 public class EcranClientsController implements Update{
 	private static EcranClientsController instance;
@@ -93,6 +98,7 @@ public class EcranClientsController implements Update{
 			AgendasManager.supprimerParNom(anim.getCodeAnimal());
 			anim.setarchive(true);
 			AnimauxManager.modifier(anim);
+			PanAgenda.getInstance().getTableAgendaVet().setData(PanAgenda.getInstance().getListAgenda());
 		}
 	}
 	
@@ -101,6 +107,7 @@ public class EcranClientsController implements Update{
 		AgendasManager.supprimerParNom(lanimal.getCodeAnimal());
 		lanimal.setarchive(true);
 		AnimauxManager.modifier(lanimal);
+		PanAgenda.getInstance().getTableAgendaVet().setData(PanAgenda.getInstance().getListAgenda());
 		actualiseTab(codeClient);
 	}
 	
@@ -131,8 +138,9 @@ public class EcranClientsController implements Update{
 				EcranRechercheClients.getInstance().getListeClients().addMouseListener(new MouseAdapter() {
 				    public void mouseClicked(MouseEvent evt) {
 				        JList list = (JList)evt.getSource();
-				        if (evt.getClickCount() == 2) {
-				            int index = list.locationToIndex(evt.getPoint());
+				        Rectangle r = list.getCellBounds(0, list.getLastVisibleIndex()); 
+				        if (r != null && r.contains(evt.getPoint())&& evt.getClickCount() == 2) { 
+				        	int index = list.locationToIndex(evt.getPoint()); 
 				            EcranRechercheClients.getInstance().setVisible(false);
 				            try {
 								clickDoubleRecherche(index);
@@ -167,9 +175,6 @@ public class EcranClientsController implements Update{
 		int i =0;
 		List<Animaux> listeAnimaux = AnimauxManager.selectAnimaux(codeClient);
 		((ModeleTableAnimauxClients) (fenClient.getTabAnimaux().getModel())).setDataChanged(listeAnimaux);
-		for(Animaux anim : listeAnimaux){
-			System.out.println(anim.toString());
-		}
 	}
 	
 	public int clickClientsPrecedent(int codeClient) throws BLLException, DALException{
@@ -184,7 +189,7 @@ public class EcranClientsController implements Update{
 	}
 	
 	public void clickEditerAnimaux(int codeClient,int codeAnimal){
-		new EcranAnimal(1,codeAnimal,update);
+		new EcranAnimal(codeClient,codeAnimal,update);
 	}
 	
 	public int validerNouveauClient(Clients newClient) throws BLLException, DALException{
