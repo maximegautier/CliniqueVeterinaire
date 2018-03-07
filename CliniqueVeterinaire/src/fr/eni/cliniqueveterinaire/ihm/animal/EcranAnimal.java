@@ -90,8 +90,8 @@ public class EcranAnimal extends JFrame implements Update
     	this.update = update;
     	
     	this.typeOperation = false;    	
-    	this.CodeClient = 1;//codeClient;
-    	this.CodeAnimal = 3;//codeAnimal;
+    	//this.CodeClient = 1;//codeClient;
+    	//this.CodeAnimal = 3;//codeAnimal;
     	this.race = new ArrayList<Races>();
     	
 	    this.setSize(650, 340);
@@ -101,8 +101,8 @@ public class EcranAnimal extends JFrame implements Update
 	    	    
 	    try 
 	    {
-	    	clientCourant = EcranAnimalController.selectClientParCode(CodeClient);
-			animalCourant = EcranAnimalController.selectAnimal(CodeAnimal);
+	    	clientCourant = EcranAnimalController.selectClientParCode(codeClient);
+			animalCourant = EcranAnimalController.selectAnimal(codeAnimal);
 		} 
 	    catch (BLLException e) 
 	    {
