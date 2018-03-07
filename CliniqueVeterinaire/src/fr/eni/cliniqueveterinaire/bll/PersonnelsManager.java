@@ -28,13 +28,13 @@ public class PersonnelsManager
     
     //region METHODS
 	/* Créé par Maxime GAUTIER */
-	public static Personnels authentification(String nom, String motPasse)
+	public static Personnels authentification(String nom, String motPasse) throws BLLException
 	{
 		Personnels personnel = null;
 		try {
 			personnel = ((PersonnelsDAOJdbcImpl) personnelsDAO).checkConnexion(nom, motPasse);
 		} catch (DALException e) {
-			e.printStackTrace();
+			throw new BLLException(e.getMessage());
 		}
 		return personnel;
 	}

@@ -5,16 +5,22 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import fr.eni.cliniqueveterinaire.bll.BLLException;
+import fr.eni.cliniqueveterinaire.bo.Personnels;
 import fr.eni.cliniqueveterinaire.dal.DALException;
+import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
+import fr.eni.cliniqueveterinaire.log.LogFactory;
 
 public class EcranLogin extends JFrame{
 	
@@ -107,7 +113,22 @@ public class EcranLogin extends JFrame{
 			bValider.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					EcranLoginController.getInstance().connexion(getTxtLogin().getText(),getTxtPassword().getText());
+					try {
+						Personnels currentPersonnel = EcranLoginController.getInstance().connexion(getTxtLogin().getText(),getTxtPassword().getText());
+						if (currentPersonnel == null)
+						{
+							// Si identifiants KO, affichage du message d'erreur
+							JOptionPane.showMessageDialog(null, "Identifiants incorrects", "Erreur", JOptionPane.ERROR_MESSAGE);
+							LogFactory.getLog().createLog(Level.WARNING, "Tentative de connexion : " + getTxtLogin().getText() + " refusé");
+						} else {
+							// Sinon
+							LogFactory.getLog().createLog(Level.INFO, "Connexion : " + currentPersonnel.getDisplayName());
+							EcranLoginController.getInstance().affichageMenu();
+						}
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 		}
