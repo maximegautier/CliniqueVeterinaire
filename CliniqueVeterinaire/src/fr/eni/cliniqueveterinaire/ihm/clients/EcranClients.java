@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -21,12 +22,15 @@ import javax.swing.JTextField;
 
 import fr.eni.cliniqueveterinaire.bll.AnimauxManager;
 import fr.eni.cliniqueveterinaire.bll.BLLException;
+import fr.eni.cliniqueveterinaire.bll.ClientsManager;
 import fr.eni.cliniqueveterinaire.bo.Animaux;
+import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.dal.DALException;
+import fr.eni.cliniqueveterinaire.ihm.Update;
 import fr.eni.cliniqueveterinaire.ihm.login.EcranLoginController;
 
 
-public class EcranClients extends JPanel{
+public class EcranClients extends JPanel implements Update{
 	private static EcranClients instance;
 	
 	//Composants Java Swing à intégrer à l'ihm
@@ -53,12 +57,19 @@ public class EcranClients extends JPanel{
 	public JTextField txtComplementAdresse;
 	public JTextField txtCodePostal;
 	public JTextField txtVille;
+	public JTextField txtNumTel;
+	public JTextField txtEmail;
+	public JTextField txtRemarque;
+	public JTextField txtAssurance;
 	public JTable tabAnimaux;
 	public JScrollPane scrollPanel ;
 	public JPanel panelTabAnimaux;
 	public JButton bAjouterAnimal;
 	public JButton bSupprimerAnimal;
 	public JButton bEditerAnimal;
+	public JDialog dialFen;
+	public JDialog dialFenEchec;
+	public JDialog dialFenSucces;
 	
 	public int codeClient = 1;
 	public int codeAnimal = 1;
@@ -80,6 +91,8 @@ public class EcranClients extends JPanel{
 		gbc.gridx=0;
 		add(initEcranClients(),gbc);
 		setVisible(true);
+		
+		codeClient = ClientsManager.getInstance().selectFirst().getCodeClient();
 		EcranClientsController.getInstance().startApp(this);
 	}
 		
@@ -157,9 +170,33 @@ public class EcranClients extends JPanel{
 		getPanelFormulaire().add(getTxtVille(),getGbcFormulaire());
 		getGbcFormulaire().gridx=0;
 		getGbcFormulaire().gridy=7;
-		getPanelFormulaire().add(getbClientPrecedent(),getGbcFormulaire());
+		getPanelFormulaire().add(new JLabel("E-mail"),getGbcFormulaire());
 		getGbcFormulaire().gridx=1;
 		getGbcFormulaire().gridy=7;
+		getPanelFormulaire().add(getTxtEmail(),getGbcFormulaire());
+		getGbcFormulaire().gridx=0;
+		getGbcFormulaire().gridy=8;
+		getPanelFormulaire().add(new JLabel("Numéro"),getGbcFormulaire());
+		getGbcFormulaire().gridx=1;
+		getGbcFormulaire().gridy=8;
+		getPanelFormulaire().add(getTxtNumTel(),getGbcFormulaire());
+		getGbcFormulaire().gridx=0;
+		getGbcFormulaire().gridy=9;
+		getPanelFormulaire().add(new JLabel("Assurance"),getGbcFormulaire());
+		getGbcFormulaire().gridx=1;
+		getGbcFormulaire().gridy=9;
+		getPanelFormulaire().add(getTxtAssurance(),getGbcFormulaire());
+		getGbcFormulaire().gridx=0;
+		getGbcFormulaire().gridy=10;
+		getPanelFormulaire().add(new JLabel("Remarques"),getGbcFormulaire());
+		getGbcFormulaire().gridx=1;
+		getGbcFormulaire().gridy=10;
+		getPanelFormulaire().add(getTxtRemarque(),getGbcFormulaire());
+		getGbcFormulaire().gridx=0;
+		getGbcFormulaire().gridy=11;
+		getPanelFormulaire().add(getbClientPrecedent(),getGbcFormulaire());
+		getGbcFormulaire().gridx=1;
+		getGbcFormulaire().gridy=11;
 		getPanelFormulaire().add(getbClientSuivant(),getGbcFormulaire());
 		
 		
@@ -196,13 +233,21 @@ public class EcranClients extends JPanel{
 		getPanelPrincipal().add(initFormulaireClients(),getGbcPrincipal());
 			
 		//Section tableau animaux
-			
+		
+		GridBagConstraints gbc = new GridBagConstraints();
+		JPanel lePanel = new JPanel();
+		lePanel.setLayout(new GridBagLayout());
+		gbc.gridx=0;
+		gbc.gridy=0;
+		lePanel.add(getPanelTabAnimaux(),gbc);
+		gbc.gridx=0;
+		gbc.gridy=1;
+		lePanel.add(initSectionAnimaux(),gbc);
+	
 		getGbcPrincipal().gridx=1;
 		getGbcPrincipal().gridy=1;
-		getPanelPrincipal().add(getPanelTabAnimaux(),getGbcPrincipal());	
-		getGbcPrincipal().gridx=1;
-		getGbcPrincipal().gridy=2;
-		getPanelPrincipal().add(initSectionAnimaux(),getGbcPrincipal());		
+		getGbcPrincipal().gridheight=2;
+		getPanelPrincipal().add(lePanel,getGbcPrincipal());	
 		
 		return panelPrincipal;
 	}
@@ -246,7 +291,7 @@ public class EcranClients extends JPanel{
 	public GridBagConstraints getGbcPrincipal() {
 		if(gbcPrincipal == null){
 			gbcPrincipal = new GridBagConstraints();	
-			gbcPrincipal.insets = new Insets(5, 5, 15, 5);			
+			gbcPrincipal.insets = new Insets(5, 5, 5, 5);			
 		}
 		return gbcPrincipal;
 	}
@@ -254,7 +299,7 @@ public class EcranClients extends JPanel{
 	public GridBagConstraints getGbcFormulaire(){
 		if(gbcFormulaire == null){
 			gbcFormulaire = new GridBagConstraints();	
-			gbcFormulaire.insets = new Insets(5, 5, 10, 5);	
+			gbcFormulaire.insets = new Insets(5, 5, 5, 5);	
 		}		
 		return gbcFormulaire;
 	}
@@ -262,7 +307,7 @@ public class EcranClients extends JPanel{
 	public GridBagConstraints getGbcButtonAnimaux(){
 		if(gbcButtonAnimaux == null){
 			gbcButtonAnimaux= new GridBagConstraints();
-			gbcButtonAnimaux.insets = new Insets(0, 5, 15, 5);	
+			gbcButtonAnimaux.insets = new Insets(0, 5, 2, 5);	
 		}
 		return gbcButtonAnimaux;
 	}
@@ -312,7 +357,10 @@ public class EcranClients extends JPanel{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						EcranClientsController.getInstance().clickClientsSupprime(codeClient);
+						//JDialog etes vous sur de vouloir supprimer?
+						int leCodeClient = getCodeClient();
+						setCodeClient(EcranClientsController.getInstance().clickClientsPrecedent(getCodeClient()));
+						EcranClientsController.getInstance().clickClientsSupprime(leCodeClient);
 					} catch (BLLException | DALException e1) {
 						e1.printStackTrace();
 					}
@@ -328,7 +376,7 @@ public class EcranClients extends JPanel{
 			bValider.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					//A remplir
+					getJDialogModification().setVisible(true);
 				}
 			});
 		}
@@ -341,7 +389,12 @@ public class EcranClients extends JPanel{
 			bAnnuler.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					//A remplir
+					try {
+						EcranClientsController.getInstance().clickAnnuler(getCodeClient());
+					} catch (BLLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			});
 		}
@@ -403,14 +456,41 @@ public class EcranClients extends JPanel{
 		}
 		return txtVille;
 	}
+	public JTextField getTxtNumTel() {
+		if(this.txtNumTel == null){
+			this.txtNumTel = new JTextField(10);
+		}
+		return txtNumTel;
+	}
+
+	public JTextField getTxtEmail() {
+		if(this.txtEmail == null){
+			this.txtEmail = new JTextField(10);
+		}
+		return txtEmail;
+	}
+
+	public JTextField getTxtRemarque() {
+		if(this.txtRemarque == null){
+			this.txtRemarque = new JTextField(10);
+		}
+		return txtRemarque;
+	}
 	
+	public JTextField getTxtAssurance() {
+		if(this.txtAssurance == null){
+			this.txtAssurance = new JTextField(10);
+		}
+		return txtAssurance;
+	}
+
 	public JButton getbAjouterAnimal() {
 		if(bAjouterAnimal == null){
 			bAjouterAnimal = new JButton("Ajouter");
 			bAjouterAnimal.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					EcranClientsController.getInstance().clickAjouterAnimaux();
+					EcranClientsController.getInstance().clickAjouterAnimaux(getCodeClient());
 				}
 			});
 		}
@@ -424,7 +504,8 @@ public class EcranClients extends JPanel{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						EcranClientsController.getInstance().clickSupprimerAnimaux(codeAnimal);
+						int indiceLigne = getTabAnimaux().getSelectedRow();
+						EcranClientsController.getInstance().clickSupprimerAnimaux(getCodeClient(),Integer.parseInt((String) getTabAnimaux().getValueAt(indiceLigne, 0)));
 					} catch (BLLException e1) {
 						e1.printStackTrace();
 					}
@@ -440,7 +521,11 @@ public class EcranClients extends JPanel{
 			bEditerAnimal.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					//A remplir
+					try {
+						EcranClientsController.getInstance().clickEditerAnimaux(getCodeClient(),Integer.parseInt((String) getTabAnimaux().getValueAt(getTabAnimaux().getSelectedRow(), 0)));
+					} catch (NumberFormatException | BLLException e1) {
+						e1.printStackTrace();
+					}					
 				}
 			});
 		}
@@ -477,7 +562,7 @@ public class EcranClients extends JPanel{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						codeClient = EcranClientsController.getInstance().clickClientsSuivant(codeClient);
+						codeClient = EcranClientsController.getInstance().clickClientsSuivant(getCodeClient());
 					} catch (BLLException | DALException e1) {
 						e1.printStackTrace();
 					}
@@ -494,7 +579,7 @@ public class EcranClients extends JPanel{
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					try {
-						codeClient = EcranClientsController.getInstance().clickClientsPrecedent(codeClient);
+						codeClient = EcranClientsController.getInstance().clickClientsPrecedent(getCodeClient());
 					} catch (BLLException | DALException e1) {
 						e1.printStackTrace();
 					}
@@ -521,5 +606,169 @@ public class EcranClients extends JPanel{
 
 	public void setModele(ModeleTableAnimauxClients modele) {
 		this.modele = modele;
+	}
+	
+	public JDialog getJDialogModification(){
+		if(this.dialFen == null){
+			dialFen= new JDialog();
+			dialFen.setModal(true);
+			dialFen.setTitle("Attention");
+			String retour = "Etes vous sûr de vouloir faire ça ? Toutes les";
+			String retour2 = "modifications apportées au formulaire seront enregistrées";
+			JPanel lePanel = new JPanel();
+			JButton bValider = new JButton("Valider");
+			JButton bAnnuler = new JButton("Annuler");			
+			bValider.setPreferredSize(new Dimension(100,30));	
+			bAnnuler.setPreferredSize(new Dimension(100,30));
+			GridBagConstraints gbc  = new GridBagConstraints();
+			gbc.insets = new Insets(5,5,5,5);
+			gbc.gridx=0;
+			gbc.gridy=1;
+			gbc.gridwidth = 2;
+			lePanel.add(new JLabel(retour));
+			gbc.gridx=0;
+			gbc.gridy=2;
+			gbc.gridwidth = 2;
+			lePanel.add(new JLabel(retour2));
+			gbc.gridx=0;
+			gbc.gridy=3;
+			gbc.gridwidth = 1;
+			lePanel.add(bValider);
+			gbc.gridx=1;
+			gbc.gridy=3;
+			lePanel.add(bAnnuler);
+			dialFen.add(lePanel);
+			dialFen.setLocationRelativeTo(null);
+			dialFen.setSize(400, 150);
+			bValider.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if(verifieSaisie()){
+						Clients modifClient = new Clients(getCodeClient(),getTxtNom().getText(),
+								getTxtPrenom().getText(),getTxtAdresse().getText(),
+								getTxtComplementAdresse().getText(),getTxtCodePostal().getText(),
+								getTxtVille().getText(),getTxtNumTel().getText(),getTxtAssurance().getText(),
+								getTxtEmail().getText(),getTxtRemarque().getText(),false);
+						try {
+							EcranClientsController.getInstance().clickClientsModifier(modifClient);
+						} catch (DALException | BLLException e1) {
+							e1.printStackTrace();
+						}
+						dialFen.setVisible(false);
+						getJDialogSaisieReussie().setVisible(true);
+					}else{
+						dialFen.setVisible(false);
+						getJDialogErreurSaisie().setVisible(true);
+						videChamps();
+						try {
+							EcranClientsController.getInstance().remplirChamps(getCodeClient());
+						} catch (BLLException e1) {
+							e1.printStackTrace();
+						}
+					}
+					
+				}
+			});
+			bAnnuler.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					videChamps();
+					try {
+						EcranClientsController.getInstance().remplirChamps(getCodeClient());
+					} catch (BLLException e1) {
+						e1.printStackTrace();
+					}
+					dialFen.setVisible(false);
+				}
+			});
+		}
+		return dialFen;
+	}
+	
+	public boolean verifieSaisie(){
+		boolean res = true;
+		if(getTxtNom().getText().equals("") || getTxtPrenom().getText().equals("")){					
+			res = false;
+		}
+		return res;
+	}
+	
+	public JDialog getJDialogErreurSaisie(){
+		if(this.dialFenEchec == null){
+			dialFenEchec = new JDialog();
+			dialFenEchec.setModal(true);
+			dialFenEchec.setTitle("Attention");
+			String retour = "Veuillez renseigner au moins le nom et le prénom.";
+			JPanel lePanel = new JPanel();
+			JButton bOk = new JButton("OK");
+			bOk.setPreferredSize(new Dimension(100,30));
+			GridBagConstraints gbc  = new GridBagConstraints();
+			gbc.insets = new Insets(5,5,5,5);
+			gbc.gridx=0;
+			gbc.gridy=1;
+			lePanel.add(new JLabel(retour));
+			gbc.gridx=0;
+			gbc.gridy=3;
+			gbc.gridwidth = 2;
+			lePanel.add(bOk);
+			dialFenEchec.add(lePanel);
+			dialFenEchec.setLocationRelativeTo(null);
+			dialFenEchec.setSize(350, 150);
+			bOk.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					dialFenEchec.setVisible(false);
+				}
+			});
+		}
+		return dialFenEchec;
+	}
+	
+	public JDialog getJDialogSaisieReussie(){
+		if(this.dialFenSucces == null){
+			dialFenSucces = new JDialog();
+			dialFenSucces.setModal(true);
+			dialFenSucces.setTitle("Information");
+			String retour = "Nouveau client modifié avec succès";
+			JPanel lePanel = new JPanel();
+			JButton bOk = new JButton("OK");
+			bOk.setPreferredSize(new Dimension(100,30));
+			GridBagConstraints gbc  = new GridBagConstraints();
+			gbc.insets = new Insets(5,5,5,5);
+			gbc.gridx=0;
+			gbc.gridy=1;
+			lePanel.add(new JLabel(retour));
+			gbc.gridx=0;
+			gbc.gridy=2;
+			gbc.gridwidth = 2;
+			lePanel.add(bOk);
+			dialFenSucces.add(lePanel);
+			dialFenSucces.setLocationRelativeTo(null);
+			dialFenSucces.setSize(300, 100);
+			bOk.addActionListener(new ActionListener(){
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					dialFenSucces.setVisible(false);
+				}
+			});
+		}
+		return dialFenSucces;
+	}
+	
+	public void videChamps(){
+		this.getTxtNom().setText("");
+		this.getTxtPrenom().setText("");
+		this.getTxtAdresse().setText("");
+		this.getTxtComplementAdresse().setText("");
+		this.getTxtCodePostal().setText("");
+		this.getTxtVille().setText("");
+		this.getTxtEmail().setText("");
+		this.getTxtAssurance().setText("");
+		this.getTxtRemarque().setText("");
+		this.getTxtNumTel().setText("");
+	}
+
+	@Override
+	public void updatePanPriseRdv() {
 	}
 }

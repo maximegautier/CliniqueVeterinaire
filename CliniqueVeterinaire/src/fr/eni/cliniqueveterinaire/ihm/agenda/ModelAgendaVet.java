@@ -1,7 +1,6 @@
 package fr.eni.cliniqueveterinaire.ihm.agenda;
 
 import java.text.DateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
@@ -12,7 +11,6 @@ import fr.eni.cliniqueveterinaire.bll.ClientsManager;
 import fr.eni.cliniqueveterinaire.bo.Agendas;
 import fr.eni.cliniqueveterinaire.bo.Animaux;
 import fr.eni.cliniqueveterinaire.bo.Clients;
-import fr.eni.cliniqueveterinaire.bo.Personnels;
 
 public class ModelAgendaVet extends AbstractTableModel{
 	
@@ -42,12 +40,11 @@ public class ModelAgendaVet extends AbstractTableModel{
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		Animaux animal = null;
+		int a = listRdv.get(rowIndex).getCodeAnimal();
 		try {
-			int a = listRdv.get(rowIndex).getCodeAnimal();
-			animal = AnimauxManager.selectAnimal(listRdv.get(rowIndex).getCodeAnimal());
-		} catch (BLLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			animal = AnimauxManager.selectAnimal(a);
+		} catch (BLLException e1) {
+			e1.printStackTrace();
 		}
 		
 		switch (columnIndex) {
@@ -59,8 +56,8 @@ public class ModelAgendaVet extends AbstractTableModel{
 			case 1:
 				// Client
 				try {
-					
 					Clients client = ClientsManager.getInstance().selectById(animal.getCodeClient());
+					
 					return client.getNomClient() + " " + client.getPrenomClient();
 				} catch (BLLException e) {
 					// TODO Auto-generated catch block
