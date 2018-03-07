@@ -536,7 +536,7 @@ public class PanPriseRdv extends JPanel implements Update
 				@Override
 				public void actionPerformed(ActionEvent e) 
 				{
-					EcranAjoutClients.getInstance();			
+					EcranAjoutClients.getInstance().setVisible(true);;			
 				}
 			});
 		}
