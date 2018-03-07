@@ -237,4 +237,11 @@ public class PanAgenda extends JPanel{
 			LogFactory.getLog().createLog(Level.SEVERE, e.getMessage());
 		}
     }
+
+	public List<Agendas> getListAgenda() {
+		initialiseListeRdv();
+		return listAgenda;
+	}
+	
+	
 }

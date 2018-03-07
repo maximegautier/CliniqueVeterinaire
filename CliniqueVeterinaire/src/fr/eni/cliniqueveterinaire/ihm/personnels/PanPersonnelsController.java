@@ -74,7 +74,7 @@ public class PanPersonnelsController extends JPanel{
 	
 	public List<String> selectTousRoles() throws BLLException
 	{
-		List<String> lRoles = null;;
+		List<String> lRoles = null;
 		lRoles = PersonnelsManager.selectTousRoles();
 		return lRoles;
 	}
