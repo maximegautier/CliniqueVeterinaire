@@ -14,8 +14,8 @@ import fr.eni.cliniqueveterinaire.dal.PersonnelsDAO;
 
 public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 {
-	private String rqtCheckConnec = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle ,Archive FROM Personnels WHERE Login = ? AND MotPasse = ? AND Archive = 0";
-	private String rqtSelectById = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle  ,Archive FROM Personnels WHERE Personnels.CodePers = ? AND Archive = 0";
+	private String rqtCheckConnec = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse,Archive FROM Personnels WHERE Login = ? AND MotPasse = ? AND Archive = 0";
+	private String rqtSelectById = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse ,Archive FROM Personnels WHERE Personnels.CodePers = ? AND Archive = 0";
 	private String rqtSelectByName = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse ,Archive FROM Personnels WHERE Nom = ? AND Archive = 0";
 	private String rqtSelectAll = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse,Archive FROM Personnels WHERE Archive = 0 ORDER BY Nom";
 	private String rqtInsert = "INSERT INTO Personnels VALUES (?,?,?,?,?)";
@@ -24,7 +24,7 @@ public class PersonnelsDAOJdbcImpl implements PersonnelsDAO
 	private String rqtUpdate = "UPDATE Personnels SET Nom=?, Prenom=?, Login=?, MotPasse=?, Archive = ? WHERE CodePers = ?";
 	private String rqtSelectRole = "SELECT Libelle From Roles";
 	private String rqtVerifieSiExiste = "SELECT * FROM Personnels WHERE Nom = ?";
-	private String rqtSelectVeterinaire = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Roles.Libelle, Archive FROM Personnels JOIN Personnels_Roles ON Personnels_Roles.CodePers = Personnels.CodePers JOIN Roles ON Roles.Libelle = Personnels_Roles.Libelle_Role WHERE libelle = 'vet' AND Archive = 0";
+	private String rqtSelectVeterinaire = "SELECT Personnels.CodePers,Nom,Prenom,Login,MotPasse, Archive FROM Personnels WHERE libelle = 'vet' AND Archive = 0";
 	private String rqtVerifieRdv = "SELECT * FROM Agendas WHERE CodeVeto = ? AND DateRdv > getDate()";
 	private String rqtAjoutPersonnelsRole = "INSERT INTO Personnels_Roles VALUES (?,?)";
 	private String rqtSelectRolePersonnels = "SELECT Libelle_Role FROM Personnels LEFT JOIN Personnels_Roles ON Personnels_Roles.CodePers = Personnels.CodePers LEFT JOIN Roles ON Personnels_Roles.Libelle_Role = Roles.Libelle WHERE Personnels.CodePers = ?";
