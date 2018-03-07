@@ -44,8 +44,6 @@ public class EcranAnimal extends JFrame implements Update
 	//Permet de déterminer si nous devons modifier ou ajouter l'animal (1 = Ajouter / 0 = Modifier)
 	private boolean typeOperation;
 	
-	private final static Logger LOGGER = Logger.getLogger(LogFactory.class.getName());
-	
 	private JFrame currentFrame;
 	
 	private int CodeClient;

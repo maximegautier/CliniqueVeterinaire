@@ -27,8 +27,6 @@ import fr.eni.cliniqueveterinaire.log.LogFactory;
 
 public class EcranDossier extends JFrame{
 	
-	private final static Logger LOGGER = Logger.getLogger(LogFactory.class.getName());
-	
 	private JPanel panelDossier, panelHead, panelInfo, panelAntecedent, panelInfoClient, panelInfoAnimal;
 	private JButton btnValider, btnAnnuler;
 	private GridBagConstraints gbc;

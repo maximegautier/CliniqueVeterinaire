@@ -50,8 +50,6 @@ public class PanPriseRdv extends JPanel implements Update
 
 	private static PanPriseRdv instance;
 	
-	private final static Logger LOGGER = Logger.getLogger(LogFactory.class.getName());
-	
 	private JPanel panelPrincipal;
 	
 	private JPanel panelListe;

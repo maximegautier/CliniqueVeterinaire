@@ -14,8 +14,6 @@ import fr.eni.cliniqueveterinaire.ihm.menu.EcranMenu;
 import fr.eni.cliniqueveterinaire.log.LogFactory;
 
 public class PanPersonnelsController extends JPanel{
-
-	private final static Logger LOGGER = Logger.getLogger(LogFactory.class.getName());
 	
 	private static PanPersonnelsController instance;
 	private EcranMenu fenMenu;

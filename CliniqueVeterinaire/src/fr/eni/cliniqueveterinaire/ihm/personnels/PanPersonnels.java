@@ -25,8 +25,6 @@ import fr.eni.cliniqueveterinaire.log.LogFactory;
 
 
 public class PanPersonnels extends JPanel{
-	
-	private final static Logger LOGGER = Logger.getLogger(LogFactory.class.getName());
 
 	private static PanPersonnels instance;
 	private JPanel panelHead, panelTable;
