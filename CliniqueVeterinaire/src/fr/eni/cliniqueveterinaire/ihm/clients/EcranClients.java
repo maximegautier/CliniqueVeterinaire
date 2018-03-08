@@ -15,6 +15,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -513,7 +514,7 @@ public class EcranClients extends JPanel implements Update{
 							EcranClientsController.getInstance().clickSupprimerAnimaux(getCodeClient(),Integer.parseInt((String) getTabAnimaux().getValueAt(indiceLigne, 0)));
 							LogFactory.getLog().createLog(Level.INFO, "Animal supprimé");
 						}else{
-							getJDialogErreurSuppression().setVisible(true);
+							JOptionPane.showMessageDialog(null, "Veuillez selectionner une ligne du tableau", "Attention", JOptionPane.INFORMATION_MESSAGE);
 						}
 					} catch (BLLException e1) {
 						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
@@ -536,7 +537,7 @@ public class EcranClients extends JPanel implements Update{
 							EcranClientsController.getInstance().clickEditerAnimaux(getCodeClient(),Integer.parseInt((String) getTabAnimaux().getValueAt(indiceLigne, 0)));
 							LogFactory.getLog().createLog(Level.INFO, "Animal modifié");
 						}else{
-							getJDialogErreurSuppression().setVisible(true);
+							JOptionPane.showMessageDialog(null, "Veuillez selectionner une ligne du tableau", "Attention", JOptionPane.INFORMATION_MESSAGE);
 						}
 					} catch (NumberFormatException | BLLException e1) {
 						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
@@ -670,10 +671,10 @@ public class EcranClients extends JPanel implements Update{
 							e1.printStackTrace();
 						}
 						dialFen.setVisible(false);
-						getJDialogSaisieReussie().setVisible(true);
+						JOptionPane.showMessageDialog(null, "Saisie réussie", "Information", JOptionPane.INFORMATION_MESSAGE);
 					}else{
 						dialFen.setVisible(false);
-						getJDialogErreurSaisie().setVisible(true);
+						JOptionPane.showMessageDialog(null, "Veuillez renseigner au moins le nom et le prénom", "Attention", JOptionPane.INFORMATION_MESSAGE);
 						videChamps();
 						try {
 							EcranClientsController.getInstance().remplirChamps(getCodeClient());
