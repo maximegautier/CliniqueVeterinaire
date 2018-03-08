@@ -161,7 +161,6 @@ public class PanPersonnels extends JPanel{
 						} else {
 							Personnels personnel = listPersonnels.get(numLigne);
 							PanPersonnelsController.getInstance().reinitialiser(personnel);
-							LogFactory.getLog().createLog(Level.INFO, "Le mot de passe de " +personnel.getDisplayName() + " a été réinitialisé");
 						}
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block

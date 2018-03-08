@@ -5,6 +5,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -17,6 +18,7 @@ import javax.swing.JTextField;
 
 import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bo.Personnels;
+import fr.eni.cliniqueveterinaire.log.LogFactory;
 
 /* Créé par Erwin DUPUIS */
 public class DialogReinit extends JDialog
@@ -232,6 +234,7 @@ public class DialogReinit extends JDialog
 						PanPersonnelsController.getInstance().validerReinit(currentPersonnel, getTfdAncienMDP().getText(), getTfdNouveauMDP().getText());
 						JOptionPane.showMessageDialog(null, "Mot de passe changé", "Succes", JOptionPane.INFORMATION_MESSAGE);
 						dispose();
+						LogFactory.getLog().createLog(Level.INFO, "Le mot de passe de " +currentPersonnel.getDisplayName() + " a été réinitialisé");
 					} catch (BLLException e1) {
 						// TODO Auto-generated catch block
 						JOptionPane.showMessageDialog(null, e1.getMessage(), "Erreur", JOptionPane.INFORMATION_MESSAGE);
