@@ -8,13 +8,12 @@ import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.logging.Level;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -28,7 +27,7 @@ import fr.eni.cliniqueveterinaire.bo.Animaux;
 import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.Update;
-import fr.eni.cliniqueveterinaire.ihm.login.EcranLoginController;
+import fr.eni.cliniqueveterinaire.log.LogFactory;
 
 
 public class EcranClients extends JPanel implements Update{
@@ -202,8 +201,7 @@ public class EcranClients extends JPanel implements Update{
 		getGbcFormulaire().gridx=1;
 		getGbcFormulaire().gridy=11;
 		getPanelFormulaire().add(getbClientSuivant(),getGbcFormulaire());
-		
-		
+			
 		return getPanelFormulaire();
 	}
 	
@@ -366,8 +364,9 @@ public class EcranClients extends JPanel implements Update{
 						int leCodeClient = getCodeClient();
 						setCodeClient(EcranClientsController.getInstance().clickClientsPrecedent(getCodeClient()));
 						EcranClientsController.getInstance().clickClientsSupprime(leCodeClient);
+						LogFactory.getLog().createLog(Level.INFO, "Client supprimé");
 					} catch (BLLException | DALException e1) {
-						e1.printStackTrace();
+						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
 					}
 				}
 			});
@@ -398,7 +397,7 @@ public class EcranClients extends JPanel implements Update{
 					try {
 						EcranClientsController.getInstance().clickAnnuler(getCodeClient());
 					} catch (BLLException e1) {
-						e1.printStackTrace();
+						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
 					}
 				}
 			});
@@ -512,11 +511,12 @@ public class EcranClients extends JPanel implements Update{
 						int indiceLigne = getTabAnimaux().getSelectedRow();
 						if(indiceLigne != -1){
 							EcranClientsController.getInstance().clickSupprimerAnimaux(getCodeClient(),Integer.parseInt((String) getTabAnimaux().getValueAt(indiceLigne, 0)));
+							LogFactory.getLog().createLog(Level.INFO, "Animal supprimé");
 						}else{
 							getJDialogErreurSuppression().setVisible(true);
 						}
 					} catch (BLLException e1) {
-						e1.printStackTrace();
+						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
 					}
 				}
 			});
@@ -534,11 +534,12 @@ public class EcranClients extends JPanel implements Update{
 						int indiceLigne = getTabAnimaux().getSelectedRow();
 						if(indiceLigne != -1){
 							EcranClientsController.getInstance().clickEditerAnimaux(getCodeClient(),Integer.parseInt((String) getTabAnimaux().getValueAt(indiceLigne, 0)));
+							LogFactory.getLog().createLog(Level.INFO, "Animal modifié");
 						}else{
 							getJDialogErreurSuppression().setVisible(true);
 						}
 					} catch (NumberFormatException | BLLException e1) {
-						e1.printStackTrace();
+						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
 					}					
 				}
 			});
@@ -577,8 +578,8 @@ public class EcranClients extends JPanel implements Update{
 				public void actionPerformed(ActionEvent e) {
 					try {
 						codeClient = EcranClientsController.getInstance().clickClientsSuivant(getCodeClient());
-					} catch (BLLException | DALException e1) {
-						e1.printStackTrace();
+					} catch (BLLException e1) {
+						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
 					}
 				}
 			});
@@ -594,8 +595,8 @@ public class EcranClients extends JPanel implements Update{
 				public void actionPerformed(ActionEvent e) {
 					try {
 						codeClient = EcranClientsController.getInstance().clickClientsPrecedent(getCodeClient());
-					} catch (BLLException | DALException e1) {
-						e1.printStackTrace();
+					} catch (BLLException e1) {
+						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
 					}
 				}
 			});
@@ -665,7 +666,7 @@ public class EcranClients extends JPanel implements Update{
 								getTxtEmail().getText(),getTxtRemarque().getText(),false);
 						try {
 							EcranClientsController.getInstance().clickClientsModifier(modifClient);
-						} catch (DALException | BLLException e1) {
+						} catch (BLLException e1) {
 							e1.printStackTrace();
 						}
 						dialFen.setVisible(false);
@@ -690,7 +691,7 @@ public class EcranClients extends JPanel implements Update{
 					try {
 						EcranClientsController.getInstance().remplirChamps(getCodeClient());
 					} catch (BLLException e1) {
-						e1.printStackTrace();
+						
 					}
 					dialFen.setVisible(false);
 				}

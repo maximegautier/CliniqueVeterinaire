@@ -115,6 +115,7 @@ public class PanPersonnels extends JPanel{
 				@Override
 				public void actionPerformed(ActionEvent e)
 				{
+					
 					int numLigne = 0;
 				    numLigne = getTablePersonnel().getSelectedRow();
 					if (numLigne == -1)
@@ -205,5 +206,16 @@ public class PanPersonnels extends JPanel{
 		}
 		return tablePersonnels;
 	}
+
+	public List<Personnels> getListPersonnels() {
+		try {
+			listPersonnels = PanPersonnelsController.getInstance().selectPersonnels();
+		} catch (BLLException e) {
+			LogFactory.getLog().createLog(Level.SEVERE, e.getMessage());
+		}
+		return listPersonnels;
+	}
+	
+	
 
 }

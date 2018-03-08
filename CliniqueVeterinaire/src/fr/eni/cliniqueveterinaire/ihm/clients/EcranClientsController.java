@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
+import java.util.logging.Level;
 
 import javax.swing.JList;
 
@@ -18,17 +19,12 @@ import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.Update;
 import fr.eni.cliniqueveterinaire.ihm.agenda.PanAgenda;
-import fr.eni.cliniqueveterinaire.ihm.agenda.PanAgendaController;
-import fr.eni.cliniqueveterinaire.ihm.agenda.PanPriseRdv;
 import fr.eni.cliniqueveterinaire.ihm.animal.EcranAnimal;
-import fr.eni.cliniqueveterinaire.ihm.animal.EcranAnimalController;
-import fr.eni.cliniqueveterinaire.ihm.personnels.PanPersonnelsController;
+import fr.eni.cliniqueveterinaire.log.LogFactory;
 
 public class EcranClientsController implements Update{
 	private static EcranClientsController instance;
 	private EcranClients fenClient;
-	private EcranAjoutClients fenAjoutclient;
-	private EcranRechercheClients fenRechercheClient;
 	public Update update;
 	
 	private EcranClientsController(){
@@ -111,11 +107,11 @@ public class EcranClientsController implements Update{
 		actualiseTab(codeClient);
 	}
 	
-	public int clickClientsSuivant(int codeClient) throws BLLException, DALException{
+	public int clickClientsSuivant(int codeClient) throws BLLException {
 		int id =0 ;
 		try{
 			id = ClientsManager.getInstance().clientSuivant(codeClient).getCodeClient();
-		}catch(NullPointerException e){
+		}catch(DALException e){
 			throw new BLLException("Il n'y a qu'un seul client");
 		}
 		actualiseChamps(id);
@@ -127,7 +123,7 @@ public class EcranClientsController implements Update{
 		if(!recherche.equals("")){
 			boolean isEmpty = true;
 			List<Clients> listeClients = ClientsManager.getInstance().selectAll();
-			List<String> liste = new ArrayList();
+			List<String> liste = new ArrayList<String>();
 			for(Clients cli : listeClients){
 				if(cli.getNomClient().toLowerCase().contains(recherche.toLowerCase()) || 
 					cli.getPrenomClient().toLowerCase().contains(recherche.toLowerCase())){
@@ -169,21 +165,26 @@ public class EcranClientsController implements Update{
 	}
 	
 	public void ajouteListe(List<String> liste){
-		Vector<String> vecteur = new Vector();
+		Vector<String> vecteur = new Vector<String>();
 		for(String cli : liste){
 			vecteur.add(cli);
 		}
 		EcranRechercheClients.getInstance().getListeClients().setListData(vecteur);
 	}
 	
-	public void actualiseTab(int codeClient) throws BLLException{
-		int i =0;
+	public void actualiseTab(int codeClient) throws BLLException {
 		List<Animaux> listeAnimaux = AnimauxManager.selectAnimaux(codeClient);
 		((ModeleTableAnimauxClients) (fenClient.getTabAnimaux().getModel())).setDataChanged(listeAnimaux);
 	}
 	
-	public int clickClientsPrecedent(int codeClient) throws BLLException, DALException{
-		int id = ClientsManager.getInstance().clientPrecedent(codeClient).getCodeClient();
+	public int clickClientsPrecedent(int codeClient) throws BLLException{
+		int id = 0;
+		try {
+			id = ClientsManager.getInstance().clientPrecedent(codeClient).getCodeClient();
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			throw new BLLException(e.getMessage());
+		}
 		actualiseChamps(id);
 		actualiseTab(id);
 		return id;
@@ -197,15 +198,25 @@ public class EcranClientsController implements Update{
 		new EcranAnimal(codeClient,codeAnimal,update);
 	}
 	
-	public int validerNouveauClient(Clients newClient) throws BLLException, DALException{
-		return ClientsManager.getInstance().ajouterClient(newClient);
+	public int validerNouveauClient(Clients newClient) throws BLLException{
+		try {
+			return ClientsManager.getInstance().ajouterClient(newClient);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			throw new BLLException(e.getMessage());
+		}
 	}
 		
-	public void clickClientsModifier(Clients leClient) throws DALException, BLLException{
-		ClientsManager.getInstance().editClient(leClient);
+	public void clickClientsModifier(Clients leClient) throws BLLException{
+		try {
+			ClientsManager.getInstance().editClient(leClient);
+		} catch (DALException e) {
+			// TODO Auto-generated catch block
+			throw new BLLException(e.getMessage());
+		}
 	}
 	
-	public void clickAnnuler(int codeClient) throws BLLException{
+	public void clickAnnuler(int codeClient) throws BLLException {
 		actualiseChamps(codeClient);		
 	}
 	

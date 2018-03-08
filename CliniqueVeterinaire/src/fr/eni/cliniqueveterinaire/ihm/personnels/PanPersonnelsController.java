@@ -35,6 +35,7 @@ public class PanPersonnelsController extends JPanel{
 	}
 	
 	public void supprimer(Personnels personnel) throws BLLException {
+
 		PersonnelsManager.supprimer(personnel);
 		rafraichirTable();
 	}
@@ -49,6 +50,7 @@ public class PanPersonnelsController extends JPanel{
 		if (PersonnelsManager.verifieSiExiste(nom)) {
 			Personnels personnel = PersonnelsManager.selectPersonnel(nom);
 			PersonnelsManager.ajouterPersonnelsRole(personnel.getCodePers(), role);
+			rafraichirTable();
 		} else {
 			List<String> listRole = new ArrayList<String>();
 			listRole.add(role);
@@ -56,8 +58,8 @@ public class PanPersonnelsController extends JPanel{
 			// Ajouter le nouveau personnel
 			PersonnelsManager.ajouter(personnel);
 			LogFactory.getLog().createLog(Level.INFO, personnel.getNom() + " " + personnel.getPrenom() + " a été ajouté");	
+			rafraichirTable();
 		}
-		rafraichirTable();
 	}
 	
 	public void validerReinit(Personnels personnel, String ancienMDP, String nouveauMDP) throws BLLException
@@ -67,7 +69,7 @@ public class PanPersonnelsController extends JPanel{
 	}
 	
 	public void rafraichirTable() throws BLLException{
-		panelPersonnels.getInstance().getTablePersonnel().setData(PersonnelsManager.selectTousPersonnels());
+		panelPersonnels.getInstance().getTablePersonnel().setData(PanPersonnels.getInstance().getListPersonnels());
 	}
 	
 	public List<String> selectTousRoles() throws BLLException

@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -19,7 +20,7 @@ import javax.swing.JTextField;
 
 import fr.eni.cliniqueveterinaire.bll.BLLException;
 import fr.eni.cliniqueveterinaire.bo.Clients;
-import fr.eni.cliniqueveterinaire.dal.DALException;
+import fr.eni.cliniqueveterinaire.log.LogFactory;
 
 public class EcranAjoutClients extends JFrame{
 	private static EcranAjoutClients instance;
@@ -74,7 +75,6 @@ public class EcranAjoutClients extends JFrame{
 			panelPrincipal.setLayout(new GridBagLayout());
 			gbcPrincipal = new GridBagConstraints();	
 			gbcPrincipal.insets = new Insets(5, 5, 10, 5);
-			
 			
 			gbcPrincipal.gridx=0;
 			gbcPrincipal.gridy=0;
@@ -196,21 +196,18 @@ public class EcranAjoutClients extends JFrame{
 						Clients newClient = new Clients(getTxtNom().getText(),getTxtPrenom().getText(),
 								getTxtAdresse().getText(),getTxtComplementAdresse().getText(),
 								getTxtCodePostal().getText(),getTxtVille().getText(),getTxtNumTel().getText(),
-								getTxtAssurance().getText(),getTxtEmail().getText(),getTxtRemarque().getText(),
+								getTxtAssurance().getText(),getTxtEmail().getText(),getTxtRemarque().getText(), 
 								false);
 						try {
 							codeClient = EcranClientsController.getInstance().validerNouveauClient(newClient);
-						} catch (BLLException | DALException e1) {
-							e1.printStackTrace();
-						}
-						getJDialogSaisieReussie().setVisible(true);
-						setVisible(false);
-						videChamps();
-						try {
+							LogFactory.getLog().createLog(Level.INFO, "Nouveau Client : " + newClient.getNomClient() + " " + newClient.getPrenomClient());
+							getJDialogSaisieReussie().setVisible(true);
+							setVisible(false);
+							videChamps();
 							EcranClients.getInstance().setCodeClient(codeClient);
 							EcranClientsController.getInstance().startApp(EcranClients.getInstance());
 						} catch (BLLException e1) {
-							e1.printStackTrace();
+							LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
 						}
 					}else{
 						getJDialogErreurSaisie().setVisible(true);	

@@ -194,7 +194,6 @@ public class PanAgenda extends JPanel{
 						} 
 						else
 						{
-							System.out.println(getListAgenda().get(numLigne));
 							Animaux animal = AnimauxManager.selectAnimal(getListAgenda().get(numLigne).getCodeAnimal());
 							PanAgendaController.ouvrirDossier(animal);	
 						}
