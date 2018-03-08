@@ -144,6 +144,8 @@ public class EcranAnimal extends JFrame implements Update
 		}
 	    
 	    this.setupIHM();
+	    
+	    this.setIconImage(new ImageIcon("ressources/ico_veto.png").getImage());
 	
 	    this.setVisible(true);  
     }
