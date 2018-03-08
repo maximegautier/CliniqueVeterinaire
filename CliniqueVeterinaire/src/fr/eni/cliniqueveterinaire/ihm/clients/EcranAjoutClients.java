@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -81,9 +82,6 @@ public class EcranAjoutClients extends JFrame{
 			panelPrincipal.add(getPanelButton(),gbcPrincipal);
 			getPanelButton().setBorder(BorderFactory.createLineBorder(Color.black));
 			getPanelButton().add(getbValider());
-			getPanelButton().add(new JLabel("   "));
-			getPanelButton().add(new JLabel("    "));
-			getPanelButton().add(new JLabel(" "));
 			getPanelButton().add(getbAnnuler());
 			gbcPrincipal.gridx=0;
 			gbcPrincipal.gridy=1;
@@ -189,7 +187,7 @@ public class EcranAjoutClients extends JFrame{
 
 	public JButton getbValider() {
 		if(bValider == null){
-			bValider = new JButton("Valider");
+			bValider = new JButton("Valider",new ImageIcon("ressources/icons8-coche-filled-16.png"));
 			bValider.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -225,7 +223,7 @@ public class EcranAjoutClients extends JFrame{
 
 	public JButton getbAnnuler() {
 		if(bAnnuler == null){
-			bAnnuler = new JButton("Annuler");
+			bAnnuler = new JButton("Annuler",new ImageIcon("ressources/icons8-effacer-16.png"));
 			bAnnuler.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {

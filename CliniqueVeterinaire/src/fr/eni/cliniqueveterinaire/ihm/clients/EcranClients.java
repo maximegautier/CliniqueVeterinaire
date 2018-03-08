@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -34,46 +35,46 @@ public class EcranClients extends JPanel implements Update{
 	private static EcranClients instance;
 	
 	//Composants Java Swing à intégrer à l'ihm
-	public ModeleTableAnimauxClients modele;
-	public JPanel panelPrincipal;
-	public JPanel panelRecherche;
-	public JPanel panelFormulaire;
-	public JPanel panelButtonAnimal;
-	public GridBagConstraints gbcPrincipal; 
-	public GridBagConstraints gbcRecherche;
-	public GridBagConstraints gbcFormulaire;
-	public GridBagConstraints gbcButtonAnimaux;
-	public JButton bRechercher;
-	public JButton bAjouterClient;
-	public JButton bSupprimerClient;
-	public JButton bValider;
-	public JButton bAnnuler;
-	public JButton bClientSuivant;
-	public JButton bClientPrecedent;
-	public JTextField txtNom;
-	public JTextField txtPrenom;
-	public JTextField txtCodeClient;
-	public JTextField txtAdresse;
-	public JTextField txtComplementAdresse;
-	public JTextField txtCodePostal;
-	public JTextField txtVille;
-	public JTextField txtNumTel;
-	public JTextField txtEmail;
-	public JTextField txtRemarque;
-	public JTextField txtAssurance;
-	public JTable tabAnimaux;
-	public JScrollPane scrollPanel ;
-	public JPanel panelTabAnimaux;
-	public JButton bAjouterAnimal;
-	public JButton bSupprimerAnimal;
-	public JButton bEditerAnimal;
-	public JDialog dialFen;
-	public JDialog dialFenEchec;
-	public JDialog dialFenSucces;
-	public JDialog dialFenSupprimer;
+	private ModeleTableAnimauxClients modele;
+	private JPanel panelPrincipal;
+	private JPanel panelRecherche;
+	private JPanel panelFormulaire;
+	private JPanel panelButtonAnimal;
+	private GridBagConstraints gbcPrincipal; 
+	private GridBagConstraints gbcRecherche;
+	private GridBagConstraints gbcFormulaire;
+	private GridBagConstraints gbcButtonAnimaux;
+	private JButton bRechercher;
+	private JButton bAjouterClient;
+	private JButton bSupprimerClient;
+	private JButton bValider;
+	private JButton bAnnuler;
+	private JButton bClientSuivant;
+	private JButton bClientPrecedent;
+	private JTextField txtNom;
+	private JTextField txtPrenom;
+	private JTextField txtCodeClient;
+	private JTextField txtAdresse;
+	private JTextField txtComplementAdresse;
+	private JTextField txtCodePostal;
+	private JTextField txtVille;
+	private JTextField txtNumTel;
+	private JTextField txtEmail;
+	private JTextField txtRemarque;
+	private JTextField txtAssurance;
+	private JTable tabAnimaux;
+	private JScrollPane scrollPanel ;
+	private JPanel panelTabAnimaux;
+	private JButton bAjouterAnimal;
+	private JButton bSupprimerAnimal;
+	private JButton bEditerAnimal;
+	private JDialog dialFen;
+	private JDialog dialFenEchec;
+	private JDialog dialFenSucces;
+	private JDialog dialFenSupprimer;
 	
-	public int codeClient = 1;
-	public int codeAnimal = 1;
+	private int codeClient = 1;
+	private int codeAnimal = 1;
 
 	//Méthode static de récupération d'une instance unique de la fenêtre 
 	public static EcranClients getInstance() throws BLLException{
@@ -98,6 +99,7 @@ public class EcranClients extends JPanel implements Update{
 	}
 		
 	private JPanel initBarreRecherche(){			
+		getPanelRecherche().setPreferredSize(new Dimension(this.getPreferredSize().width -15,getbRechercher().getPreferredSize().height+12));
 		getGbcRecherche().gridx=0;
 		getGbcRecherche().gridy=0;
 		getPanelRecherche().add(getbRechercher());
@@ -127,6 +129,7 @@ public class EcranClients extends JPanel implements Update{
 	}
 	
 	private JPanel initFormulaireClients(){
+		getPanelFormulaire().setPreferredSize(new Dimension(this.getPreferredSize().width/2 -100,this.getPreferredSize().height-(getPanelRecherche().getPreferredSize().height+80)));
 		getGbcFormulaire().gridx=0;
 		getGbcFormulaire().gridy=0;
 		getPanelFormulaire().add(new JLabel("Code"),getGbcFormulaire());
@@ -277,6 +280,7 @@ public class EcranClients extends JPanel implements Update{
 		if(panelFormulaire == null){
 			panelFormulaire = new JPanel();
 			panelFormulaire.setLayout(new GridBagLayout());
+			panelFormulaire.setBorder(BorderFactory.createLineBorder(Color.black));
 		}
 		return panelFormulaire;
 	}
@@ -340,7 +344,7 @@ public class EcranClients extends JPanel implements Update{
 
 	public JButton getbAjouterClient() {
 		if (bAjouterClient == null) {
-			bAjouterClient = new JButton("+");
+			bAjouterClient = new JButton("Ajouter",new ImageIcon("ressources/icons8-ajouter-un-utilisateur-homme-16.png"));
 			bAjouterClient.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -353,7 +357,8 @@ public class EcranClients extends JPanel implements Update{
 
 	public JButton getbSupprimerClient() {
 		if (bSupprimerClient == null) {
-			bSupprimerClient = new JButton("Supprimer");
+			bSupprimerClient = new JButton("Supprimer",new ImageIcon("ressources/icons8-supprimer-l'utilisateur-homme-16.png"));
+			bSupprimerClient.setPreferredSize(new Dimension(100,50));
 			bSupprimerClient.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -372,7 +377,7 @@ public class EcranClients extends JPanel implements Update{
 
 	public JButton getbValider() {
 		if (bValider == null) {
-			bValider = new JButton("Valider");
+			bValider = new JButton("Valider",new ImageIcon("ressources/icons8-coche-filled-16.png"));
 			bValider.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -385,7 +390,8 @@ public class EcranClients extends JPanel implements Update{
 
 	public JButton getbAnnuler() {
 		if (bAnnuler == null) {
-			bAnnuler = new JButton("Annuler");
+			bAnnuler = new JButton("Annuler",new ImageIcon("ressources/icons8-rejouer-16.png"));
+			bAnnuler.setPreferredSize(new Dimension(bAnnuler.getPreferredSize().width+50,bAnnuler.getPreferredSize().height));
 			bAnnuler.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -402,7 +408,7 @@ public class EcranClients extends JPanel implements Update{
 
 	public JButton getbRechercher() {
 		if (bRechercher == null) {
-			bRechercher = new JButton("Recherche");
+			bRechercher = new JButton("Recherche",new ImageIcon("ressources/icons8-trouver-l'utilisateur-homme-16.png"));
 			bRechercher.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -485,7 +491,7 @@ public class EcranClients extends JPanel implements Update{
 
 	public JButton getbAjouterAnimal() {
 		if(bAjouterAnimal == null){
-			bAjouterAnimal = new JButton("Ajouter");
+			bAjouterAnimal = new JButton("Ajouter",new ImageIcon("ressources/icons8-plus-16.png"));
 			bAjouterAnimal.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -498,7 +504,7 @@ public class EcranClients extends JPanel implements Update{
 
 	public JButton getbSupprimerAnimal() {
 		if(bSupprimerAnimal == null){
-			bSupprimerAnimal = new JButton("Supprimer");
+			bSupprimerAnimal = new JButton("Supprimer",new ImageIcon("ressources/icons8-moins-16.png"));
 			bSupprimerAnimal.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -520,7 +526,7 @@ public class EcranClients extends JPanel implements Update{
 
 	public JButton getbEditerAnimal() {
 		if(bEditerAnimal == null){
-			bEditerAnimal = new JButton("Editer");
+			bEditerAnimal = new JButton("Editer",new ImageIcon("ressources/icons8-modifier-16.png"));
 			bEditerAnimal.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -565,7 +571,7 @@ public class EcranClients extends JPanel implements Update{
 	
 	public JButton getbClientSuivant() {
 		if(bClientSuivant == null){
-			bClientSuivant = new JButton(">");
+			bClientSuivant = new JButton("",new ImageIcon("ressources/icons8-droite-16.png"));
 			bClientSuivant.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -582,7 +588,7 @@ public class EcranClients extends JPanel implements Update{
 
 	public JButton getbClientPrecedent() {
 		if(bClientPrecedent == null){
-			bClientPrecedent = new JButton("<");
+			bClientPrecedent = new JButton("",new ImageIcon("ressources/icons8-gauche-16.png"));
 			bClientPrecedent.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {

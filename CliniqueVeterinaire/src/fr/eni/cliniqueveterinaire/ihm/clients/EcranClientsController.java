@@ -112,7 +112,12 @@ public class EcranClientsController implements Update{
 	}
 	
 	public int clickClientsSuivant(int codeClient) throws BLLException, DALException{
-		int id = ClientsManager.getInstance().clientSuivant(codeClient).getCodeClient();
+		int id =0 ;
+		try{
+			id = ClientsManager.getInstance().clientSuivant(codeClient).getCodeClient();
+		}catch(NullPointerException e){
+			throw new BLLException("Il n'y a qu'un seul client");
+		}
 		actualiseChamps(id);
 		actualiseTab(id);
 		return id;

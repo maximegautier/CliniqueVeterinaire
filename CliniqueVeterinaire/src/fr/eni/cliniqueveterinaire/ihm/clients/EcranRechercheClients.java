@@ -73,11 +73,11 @@ public class EcranRechercheClients extends JFrame{
 				panelPrincipal.add(getPanelRecherche(),gbcPrincipal);
 				panelPrincipal.setBorder(new EmptyBorder(1, 1, 1, 1));
 				getPanelRecherche().setBorder(BorderFactory.createLineBorder(Color.black));
-				getPanelRecherche().add(new JLabel("                       "));
+				getPanelRecherche().add(new JLabel("         "));
 				getPanelRecherche().add(getTxtRecherche());
 				getPanelRecherche().add(new JLabel("          "));
 				getPanelRecherche().add(getbRechercher());
-				getPanelRecherche().add(new JLabel("                       "));
+				getPanelRecherche().add(new JLabel("                  "));
 				gbcPrincipal.gridx=0;
 				gbcPrincipal.gridy=1;
 				gbcPrincipal.gridwidth=2;
