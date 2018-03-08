@@ -325,7 +325,7 @@ public class PanPriseRdv extends JPanel implements Update
 	@Override
 	public void updatePanPriseRdv() 
 	{
-		getCbAnimal().setModel(new DefaultComboBoxModel(getAnimaux().toArray()));
+		getCbAnimal().setModel(new DefaultComboBoxModel(getAnimaux().toArray()));			
 	}
     
     //endregion METHODS

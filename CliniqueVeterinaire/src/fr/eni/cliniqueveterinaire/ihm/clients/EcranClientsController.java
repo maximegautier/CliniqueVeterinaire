@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JList;
 
 import fr.eni.cliniqueveterinaire.bll.AgendasManager;
@@ -19,16 +20,16 @@ import fr.eni.cliniqueveterinaire.bo.Clients;
 import fr.eni.cliniqueveterinaire.dal.DALException;
 import fr.eni.cliniqueveterinaire.ihm.Update;
 import fr.eni.cliniqueveterinaire.ihm.agenda.PanAgenda;
+import fr.eni.cliniqueveterinaire.ihm.agenda.PanPriseRdv;
 import fr.eni.cliniqueveterinaire.ihm.animal.EcranAnimal;
 import fr.eni.cliniqueveterinaire.log.LogFactory;
 
-public class EcranClientsController implements Update{
+public class EcranClientsController{
 	private static EcranClientsController instance;
 	private EcranClients fenClient;
 	public Update update;
 	
 	private EcranClientsController(){
-		update = this;
 	}
 	
 	public void startApp(EcranClients fenCli) throws BLLException
@@ -199,12 +200,17 @@ public class EcranClientsController implements Update{
 	}
 	
 	public int validerNouveauClient(Clients newClient) throws BLLException{
+		int nvClient = 0;
 		try {
-			return ClientsManager.getInstance().ajouterClient(newClient);
+			nvClient = ClientsManager.getInstance().ajouterClient(newClient);
+			List<Clients> nvListeClients = ClientsManager.getInstance().selectAll();
+			PanPriseRdv.getInstance().getCbClient().setModel(new DefaultComboBoxModel(nvListeClients.toArray()));
 		} catch (DALException e) {
 			// TODO Auto-generated catch block
 			throw new BLLException(e.getMessage());
 		}
+		
+		return nvClient;
 	}
 		
 	public void clickClientsModifier(Clients leClient) throws BLLException{
@@ -227,10 +233,6 @@ public class EcranClientsController implements Update{
 			EcranClientsController.instance = new EcranClientsController();
 		}
 		return EcranClientsController.instance;
-	}
-
-	@Override
-	public void updatePanPriseRdv() {
 	}
 	
 }
