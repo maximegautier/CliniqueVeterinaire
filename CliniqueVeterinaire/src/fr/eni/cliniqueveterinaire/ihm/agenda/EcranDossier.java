@@ -1,6 +1,7 @@
 package fr.eni.cliniqueveterinaire.ihm.agenda;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
@@ -18,6 +19,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import fr.eni.cliniqueveterinaire.bll.BLLException;
@@ -134,8 +136,14 @@ public class EcranDossier extends JFrame{
 		if (panelAntecedent == null) {
 			panelAntecedent = new JPanel();
 			panelAntecedent.setLayout(new BoxLayout(panelAntecedent, BoxLayout.Y_AXIS));
-			panelAntecedent.add(new JLabel("Antécédents / Consultations"));
+			JLabel antecedent = new JLabel("Antécédents / Consultations");
+			antecedent.setAlignmentX(Component.LEFT_ALIGNMENT);
+			panelAntecedent.add(antecedent);
 			panelAntecedent.add(getJtaAntecedent());
+			
+			JScrollPane js=new JScrollPane(getJtaAntecedent());
+	        js.setVisible(true);
+	        panelAntecedent.add(js);
 		}
 		return panelAntecedent;
 	}
@@ -188,6 +196,7 @@ public class EcranDossier extends JFrame{
 			jtaAntecedent = new JTextArea(12, 33);
 			jtaAntecedent.setText(animal.getAntecedents());
 			jtaAntecedent.setEditable(true);
+			jtaAntecedent.setLineWrap(true);
 		}
 		return jtaAntecedent;
 	}
