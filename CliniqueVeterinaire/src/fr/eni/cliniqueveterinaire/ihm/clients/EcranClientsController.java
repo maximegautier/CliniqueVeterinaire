@@ -107,13 +107,13 @@ public class EcranClientsController implements Update{
 		actualiseTab(codeClient);
 	}
 	
-	public int clickClientsSuivant(int codeClient) throws BLLException {
-		int id =0 ;
-		try{
-			id = ClientsManager.getInstance().clientSuivant(codeClient).getCodeClient();
-		}catch(DALException e){
-			throw new BLLException("Il n'y a qu'un seul client");
-		}
+	public int clickClientsSuivant(int codeClient) throws BLLException, DALException {
+		int id  = ClientsManager.getInstance().clientSuivant(codeClient).getCodeClient();
+		
+			
+			//}catch(DALException e){
+			//throw new BLLException("Il n'y a qu'un seul client");
+		//}
 		actualiseChamps(id);
 		actualiseTab(id);
 		return id;

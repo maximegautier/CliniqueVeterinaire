@@ -577,8 +577,13 @@ public class EcranClients extends JPanel implements Update{
 			bClientSuivant.addActionListener(new ActionListener(){
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					try {
-						codeClient = EcranClientsController.getInstance().clickClientsSuivant(getCodeClient());
+				try {
+						try {
+							codeClient = EcranClientsController.getInstance().clickClientsSuivant(getCodeClient());
+						} catch (DALException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 					} catch (BLLException e1) {
 						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
 					}
