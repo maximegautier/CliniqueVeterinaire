@@ -649,6 +649,22 @@ public class PanPriseRdv extends JPanel implements Update
 			p.put("text.year", "Year");
 			JDatePanelImpl datePanel = new JDatePanelImpl(model, p);
 			dpDate = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+			dpDate.addActionListener(new ActionListener()
+			{
+				@Override
+				public void actionPerformed(ActionEvent e)
+				{
+					Date date = (Date) getDpDate().getModel().getValue();
+					Personnels personnel;
+					try {
+						personnel = (Personnels) getCbVeterinaire().getSelectedItem();
+						List<Agendas> data = PanAgendaController.remplirTableau(date, personnel.getCodePers());
+						getTableRdv().setData(data);
+					} catch (BLLException e1) {
+						LogFactory.getLog().createLog(Level.SEVERE, e1.getMessage());
+					}	
+				}
+			});
 		}
 		return dpDate;
 	}
